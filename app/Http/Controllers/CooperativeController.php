@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Cooperative;
+use Illuminate\Support\Facades\DB;
 
 class CooperativeController extends Controller
 {
@@ -41,4 +42,43 @@ class CooperativeController extends Controller
         $cooperative->users()->attach($manager_id);
         return redirect('viewcooperatives');
     }
+
+    public function CooperativeViewPage($id){
+        $userId =auth()->user()->id;
+        $profileImg=User::find($userId);
+        $cooperativeinfo=Cooperative::find($id);
+        return view('Cooperative-details',['cooperativeinfo'=>$cooperativeinfo,'profileImg'=>$profileImg]);
+    }
+
+    public function Cooperativeupdatepage($id){
+        $userId =auth()->user()->id;
+        $profileImg=User::find($userId);
+        $cooperativeinfo=Cooperative::find($id);
+        $manager_names=User::all()->where('role','Manager');
+        return view('Cooperative-update',['cooperativeinfo'=> $cooperativeinfo,'manager_names'=>$manager_names,'profileImg'=>$profileImg]);
+      }
+
+      public function UpdateSystemCooperative(Request $req,$id){
+        $user_id = DB::table('cooperative_user')
+                ->where('cooperative_id', $id)
+                ->value('user_id');
+        $manager_id=$req->manager_name;
+        $manager_details = User::find($manager_id);
+        $manager_name= $manager_details->name;
+        $input=Cooperative::find($id);
+        $input->name=$req->input('name');
+        $input->manager_name=$manager_name;
+        $input->category=$req->input('category');
+        $input->email=$req->input('email');
+        $input->status=$req->input('status');
+        $input->starting_date=$req->input('starting_date');
+        $input->province=$req->input('province');
+        $input->district=$req->input('district');
+        $input->sector=$req->input('sector');
+        $input->cell=$req->input('cell');
+        $input->update();
+        $input->users()->detach($user_id);
+        $input->users()->attach($manager_id);
+        return redirect('viewcooperatives');
+      }  
 }

@@ -108,6 +108,12 @@ Route::get('registerNewCooperative',[CooperativeController::class,'CooperativeRe
 
 Route::post('registerNewCooperative',[CooperativeController::class, 'CooperativeRegistration']);
 
+Route::get("updateCooperative/{id}",[CooperativeController::class,'CooperativeViewPage']);
+
+Route::get("updateCooperative/CooperativeUpdate/{id}",[CooperativeController::class,'Cooperativeupdatepage']);
+
+Route::put("CooperativeUpdate/{id}",[CooperativeController::class,'UpdateSystemCooperative']);
+
 });
 
 
