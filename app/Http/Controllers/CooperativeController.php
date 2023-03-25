@@ -16,6 +16,7 @@ class CooperativeController extends Controller
     public function CooperativeRegistrationPage(){
         $userId =auth()->user()->id;
         $profileImg=User::find($userId);
-        return view('Register-cooperative',['profileImg'=>$profileImg]);
+        $manager_names=User::all()->where('role', 'Manager');
+        return view('Register-cooperative',['profileImg'=>$profileImg,'manager_names'=>$manager_names]);
     }
 }

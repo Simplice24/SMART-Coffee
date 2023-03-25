@@ -182,9 +182,9 @@
                             <div class="col-sm-9">
                             <select class="form-control" style="height:46px;" name="manager_name" required>
                             <option disable selected>--select cooperative manager--</option>
-                            
-                            <option></option>
-                           
+                            @foreach($manager_names as $names)
+                            <option value="{{ $names->name }}">{{ $names->name}}</option>
+                            @endforeach
                             </select> 
                             </div>
                           </div>
