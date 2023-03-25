@@ -21,7 +21,12 @@ class Cooperative extends Model
         'cell'
     ];
     use HasFactory;
-    public function members(){
-        return $this->hasMany(Member::class);
+    public function users()
+    {
+        return $this->belongsToMany(User::class);
+    }
+    public function farmers()
+    {
+        return $this->hasMany(Farmer::class);
     }
 }

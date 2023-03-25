@@ -31,4 +31,5 @@ class Farmer extends Model
         return $this->belongsToMany(Disease::class,'farmer_diseases');
     }
     
+    
 }
