@@ -1,0 +1,191 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Models\User;
+use App\Models\Farmer;
+use App\Models\Disease;
+use App\Models\Cooperative;
+use Illuminate\Http\RedirectResponse;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
+use PDF;
+use session;
+
+
+class UserController extends Controller
+{
+    public function Dashboard(){
+      $userId =auth()->user()->id;
+      $profileImg=User::find($userId);
+      $rows=User::count();
+      $farmer=Farmer::count();
+      $cooperative=Cooperative::count();
+      $disease=Disease::count();
+      return view('Dashboard',['profileImg'=>$profileImg,'rows'=>$rows,'farmer'=>$farmer,'cooperative'=>$cooperative,'disease'=>$disease]);
+    }
+
+    public function UserRegistrationPage(){
+      $userId =auth()->user()->id;
+      $profileImg=User::find($userId);
+      $roles=Role::all();
+      return view('Register-new-user',['roles'=>$roles,'profileImg'=>$profileImg]);
+    }
+
+    public function SystemUsers(){
+      $data=User::paginate(5);
+      $userId =auth()->user()->id;
+      $profileImg=User::find($userId);
+      return view('All-system-users',['data'=>$data,'profileImg'=>$profileImg]);
+    }
+
+    public function Login(Request $request){
+      $credentials = $request->validate([
+      'email' => ['required', 'email'],
+      'password' => ['required'],
+    ]);
+  
+    if (Auth::attempt($credentials)) {
+      $request->session()->put('user',$credentials['email']);
+  
+      return redirect()->intended('Home');
+    }
+  
+    return back()->withErrors([
+      'email' => 'The provided credentials do not match our records.',
+    ])->onlyInput('email');
+  
+    }
+
+    public function logout(Request $request): RedirectResponse
+{
+    Auth::logout();
+ 
+    $request->session()->invalidate();
+ 
+    $request->session()->regenerateToken();
+ 
+    return redirect('/');
+}
+
+
+    public function UserRegistration(Request $req){
+        $user=new User;
+        $destination_path ='public/images/users';
+        $user->name=$req->name;
+        $user->gender=$req->gender;
+        $user->role=$req->role;
+        $user->username=$req->username;
+        $user->password=Hash::make($req->password);
+        $user->email=$req->email;
+        $user->phone=$req->phone;
+        $user->province=$req->province;
+        $user->district=$req->district;
+        $user->sector=$req->sector;
+        $user->cell=$req->cell;
+        if($req->hasFile('image')){
+          $image=$req->file('image');
+        $image_name=$image->getClientOriginalName();
+        $path = $req->file('image')->storeAs($destination_path,$image_name);
+        $user->image=$image_name;
+        }else{
+          $user->image='userImage.jpg';
+        }
+
+        if($user->save()){
+           $user->assignRole($req->input('role'));
+        }
+        
+          return redirect('viewsystemuser');
+        }
+
+        public function UserProfilePage(){
+          $userId = auth()->user()->id;
+          $userinfo=User::find($userId);
+          return view('User-profile',['userinfo'=>$userinfo,'userId'=>$userId]);
+        }
+
+        public function userProfileUpdate(Request $req,$id){
+          $input=User::find($id);
+          $input->username=$req->input('username');
+          $input->email=$req->input('email');
+          $input->phone=$req->input('phone');
+          $current_password=$req->input('current_password');
+          if(Hash::check($current_password, $input->password)){
+              $input->update();
+              }else{
+                return redirect('userProfile');
+                   }
+                  
+          return redirect('Home');
+        }
+
+        public function profilePicUpdate(Request $req,$id){
+          $input=User::find($id);
+          $destination_path ='public/images/users';
+          $image=$req->file('image');
+          $image_name=$image->getClientOriginalName();
+          $path = $req->file('image')->storeAs($destination_path,$image_name);
+          $input->image=$image_name;
+          $input->save();
+          return redirect('userProfile');
+        }
+
+        public function userPasswordUpdate(Request $req,$id){
+          $input=User::find($id);
+          $user_password=$req->input('current_password');
+          $new_password=$req->input('new_password');
+          $confirm_password=$req->input('confirm_new_password');
+          if($new_password===$confirm_password && (Hash::check($user_password, $input->password)) ){
+          $input->password=Hash::make($new_password);
+          $input->save();
+          return redirect('Home');
+          }
+          return redirect('userProfile');
+        }
+
+        public function deleteuser($id){
+          User::find($id)->delete();
+          return redirect('viewsystemuser');
+        }
+
+        public function userdetails($id){
+          $details=User::find($id);
+          $userId =auth()->user()->id;
+          $profileImg=User::find($userId);
+          return view('User-details',['details'=>$details,'profileImg'=>$profileImg]);
+        }
+
+        public function updateSystemUser(Request $req,$id){
+          $input=User::find($id);
+          $input->name=$req->input('name');
+          $input->gender=$req->input('gender');
+          $input->role=$req->input('role');
+          $input->username=$req->input('username');
+          $input->email=$req->input('email');
+          $input->phone=$req->input('phone');
+          $input->province=$req->input('province');
+          $input->district=$req->input('district');
+          $input->sector=$req->input('sector');
+          $input->cell=$req->input('cell');
+          if($input->update()){
+            DB::table('model_has_roles')->where('model_id',$id)->delete();
+            $input->assignRole($input->role);
+          };
+          return redirect('viewsystemuser');
+        }
+
+        public function profileupdatepage($id){
+          $fulldetails=User::find($id);
+          $roles=Role::all();
+          $userId =auth()->user()->id;
+          $profileImg=User::find($userId);
+          return view('Update-details',['fulldetails'=>$fulldetails,'roles'=>$roles,'profileImg'=>$profileImg]);
+        }
+
+}
