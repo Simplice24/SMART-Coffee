@@ -227,9 +227,9 @@
                               <div class="col-sm-9">
                               <select class="form-control" style="height:46px;" name="cooperative_id" required>
                               <option disable selected>{{ __('msg.--Select cooperative to get cooperative id--')}}--</option>
-                              
-                                <option></option>
-                                
+                              @foreach($cooperatives as $coopid)
+                                <option value={{ $coopid->id}}>{{ $coopid->name}}</option>
+                              @endforeach  
                               </select>
                               </div>
                             </div>

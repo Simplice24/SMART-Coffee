@@ -192,33 +192,33 @@
                       </thead>
                       <tbody>
                         <tr>
-                        
+                        @foreach($data as $i)
                           <td>
-                          
+                          {{  $i->name }}
                           </td>
                           <td>
-                          
+                          {{  $i->manager_name }}
                           </td>
                           <td>
-                          
+                          {{  $i->category }}
                           </td>
                           <td>
-                          
+                          {{  $i->email }}
                           </td>
                           <td>
                           <div class="input-group-prepend">
                         <button class="btn btn-sm btn-outline-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Actions</button>
                         <div class="dropdown-menu">
-                          <a class="dropdown-item" href={{"updateCooperative/"}}><i class="fa fa-eye" aria-hidden="true"></i>&nbsp; {{ __('msg.view')}}</a>
-                          <a class="dropdown-item" href={{"deletecooperative/"}}><i class="fa fa-trash" aria-hidden="true"></i>&nbsp; {{ __('msg.delete')}}</a>
+                          <a class="dropdown-item" href={{"updateCooperative/".$i->id}}><i class="fa fa-eye" aria-hidden="true"></i>&nbsp; {{ __('msg.view')}}</a>
+                          <a class="dropdown-item" href={{"deletecooperative/".$i->id}}><i class="fa fa-trash" aria-hidden="true"></i>&nbsp; {{ __('msg.delete')}}</a>
                       </div>
                           </td>
                         </tr>
-                       
+                        @endforeach
                       </tbody>
                     </table>
                     <div class="pagination-block">
-                    
+                    {{ $data->links()}}
                     </div>
                   </div>
                 </div>

@@ -106,6 +106,8 @@ Route::get('viewcooperatives',[CooperativeController::class, 'SystemCooperatives
 
 Route::get('registerNewCooperative',[CooperativeController::class,'CooperativeRegistrationPage']);
 
+Route::post('registerNewCooperative',[CooperativeController::class, 'CooperativeRegistration']);
+
 });
 
 
