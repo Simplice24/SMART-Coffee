@@ -129,7 +129,7 @@
             </a>
           </li>
           @endcan
-          @can('view-farmer')
+          @can('create-farmer')
           <li class="nav-item">
             <a class="nav-link" href="<?=url('viewfarmers');?>">
               <i class="icon-pie-graph menu-icon"></i>
@@ -137,14 +137,14 @@
             </a>
           </li>
           @endcan
-          @can('create-farmer')
+          @role('Manager')
           <li class="nav-item">
             <a class="nav-link" href="<?=url('CooperativeFarmers');?>">
               <i class="icon-pie-graph menu-icon"></i>
               <span class="menu-title">Members</span>
             </a>
           </li>
-          @endcan
+          @endrole
           @can('create-disease')
           <li class="nav-item">
             <a class="nav-link" href="<?=url('viewdiseases');?>">

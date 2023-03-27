@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Cooperative;
 use App\Models\Farmer;
+use Illuminate\Support\Facades\DB;
 
 class FarmerController extends Controller
 {
@@ -22,12 +23,11 @@ class FarmerController extends Controller
         $userId =auth()->user()->id;
         $profileImg=User::find($userId);
         if($profileImg->role==="Manager"){
-          $cooperative = App\Cooperative::whereHas('users', function ($query) use ($userId) {
-            $query->where('user_id', $userId);
-        })->first();
-        if ($cooperative) {
-        $cooperative_id = $cooperative->id;
-        $farmers = Farmer::where('cooperative_id', $cooperative_id)->get();
+          $cooperative_id = DB::table('cooperative_user')
+                   ->where('user_id', $userId)
+                   ->value('cooperative_id');
+        if ($cooperative_id) {
+        $farmers = Farmer::where('cooperative_id', $cooperative_id)->paginate(7);
         return view('Cooperative-farmers',['farmers'=>$farmers,'no'=>$no,'profileImg'=>$profileImg]);
         }
         }

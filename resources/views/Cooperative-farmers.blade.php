@@ -222,7 +222,7 @@
                       </tbody>
                     </table>
                     <div class="pagination-block">
-                     {{ $farmers->links()}}
+                    {{ $farmers->links()}}
                     </div>
                   </div>
                 </div>

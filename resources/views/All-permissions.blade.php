@@ -159,9 +159,11 @@
         <div class="content-wrapper">
         <div class="row">
             <div class="col-sm-12 mb-4 mb-xl-0">
+              @can('create-permission')
             <li class="nav-item dropdown d-lg-flex d-none">
                 <a href="<?=url('Addnewpermission');?>"><button type="button" class="btn btn-info font-weight-bold">+ new permission</button></a>
             </li>
+            @endcan
             </div>
           </div>
            <div class="row"> 
