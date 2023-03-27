@@ -17,6 +17,22 @@ class FarmerController extends Controller
         return view('All-farmers',['profileImg'=>$profileImg,'info'=>$info,'no'=>$no]);
     }
 
+    public function CooperativeFarmers(){
+        $no=0;
+        $userId =auth()->user()->id;
+        $profileImg=User::find($userId);
+        if($profileImg->role==="Manager"){
+          $cooperative = App\Cooperative::whereHas('users', function ($query) use ($userId) {
+            $query->where('user_id', $userId);
+        })->first();
+        if ($cooperative) {
+        $cooperative_id = $cooperative->id;
+        $farmers = Farmer::where('cooperative_id', $cooperative_id)->get();
+        return view('Cooperative-farmers',['farmers'=>$farmers,'no'=>$no,'profileImg'=>$profileImg]);
+        }
+        }
+    }
+
     public function FarmerRegistrationPage(){
         $userId =auth()->user()->id;
         $profileImg=User::find($userId);

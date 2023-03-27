@@ -84,6 +84,8 @@ Route::post('registerNewFarmer',[FarmerController::class,'FarmerRegistration']);
 
 Route::get("Farmerprofile/{id}",[FarmerController::class,'FarmerProfilePage']);
 
+Route::get('CooperativeFarmers',[FarmerController::class,'CooperativeFarmers']);
+
 });
 
 

@@ -1,20 +1,19 @@
-
 <!DOCTYPE html>
-<html lang="{{ app()->getLocale() }}">
+<html lang="en">
+
 <head>
   <!-- Required meta tags --> 
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>CCMS</title>
+  <!-- base:css -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
 
-  <!-- base:css -->
   <link rel="stylesheet" href="Customized/vendors/mdi/css/materialdesignicons.min.css">
   <link rel="stylesheet" href="Customized/vendors/feather/feather.css">
   <link rel="stylesheet" href="Customized/vendors/base/vendor.bundle.base.css">
   <!-- endinject -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
   <!-- plugin css for this page -->
   <link rel="stylesheet" href="Customized/vendors/flag-icon-css/css/flag-icon.min.css"/>
   <link rel="stylesheet" href="Customized/vendors/font-awesome/css/font-awesome.min.css">
@@ -65,18 +64,11 @@
             <a class="nav-link count-indicator dropdown-toggle d-flex align-items-center justify-content-center" id="notificationDropdown" href="#" data-toggle="dropdown">
               <i class="icon-cog"></i>
             </a>
-            
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
               <p class="mb-0 font-weight-normal float-left dropdown-header">{{ __('msg.settings') }}</p>
               <a class="dropdown-item preview-item" href="<?=url('userProfile');?>">               
                   <i class="icon-head"></i> {{ __('msg.profile') }}
               </a>
-              <!-- <a class="dropdown-item preview-item" href="">               
-                  <i class="icon-head"></i> French
-              </a>
-              <a class="dropdown-item preview-item" href="">               
-                  <i class="icon-head"></i> English
-              </a> -->
               <a class="dropdown-item preview-item" href="<?=url('logout');?>">
                   <i class="icon-inbox"></i> {{ __('msg.logout') }}
               </a>
@@ -98,10 +90,10 @@
           <img src="{{asset('/storage/images/users/'.$profileImg->image)}}">
           </div>
           <div class="user-name">
-          {{session('user')}}
+           {{session('user')}}
           </div>
           <div class="user-designation">
-          {{$profileImg->role}}
+           {{$profileImg->role}}
           </div>
         </div>
         <ul class="nav">
@@ -129,19 +121,11 @@
             </a>
           </li>
           @endcan
-          @can('view-farmer')
+          @can('create-farmer')
           <li class="nav-item">
             <a class="nav-link" href="<?=url('viewfarmers');?>">
               <i class="icon-pie-graph menu-icon"></i>
               <span class="menu-title">{{ __('msg.farmers') }}</span>
-            </a>
-          </li>
-          @endcan
-          @can('create-farmer')
-          <li class="nav-item">
-            <a class="nav-link" href="<?=url('CooperativeFarmers');?>">
-              <i class="icon-pie-graph menu-icon"></i>
-              <span class="menu-title">Members</span>
             </a>
           </li>
           @endcan
@@ -175,62 +159,76 @@
         <div class="content-wrapper">
           <div class="row">
             <div class="col-sm-12 mb-4 mb-xl-0">
-              <h4 class="font-weight-bold text-dark">{{ __('msg.hi, welcome back!')}}</h4>
-              <!-- <p class="font-weight-normal mb-2 text-muted">APRIL 1, 2019</p> -->
+            <li class="nav-item dropdown d-lg-flex d-none">
+                <a href="<?=url('registerNewFarmer');?>"><button type="button" class="btn btn-info font-weight-bold">+{{__('msg.new farmer')}}</button></a>
+            </li>
             </div>
           </div>
-
-          <div class="row">
-              <div class="col-md-3 stretch-card grid-margin">
-                <div class="card bg-gradient-info card-img-holder text-white">
-                  <a href="<?=url('viewsystemuser');?>" style="text-decoration:none; color:white;">
-                  <div class="card-body">
-                  <img src="Customized/assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
-                    <h4 class="font-weight-normal mb-3">{{ __('msg.system users')}}<i class="icon-head menu-icon float-right"></i>
-                    </h4>
-                    <h1 class="mb-5">{{$rows}}</h1>
-                  </div>
-                  </a>
-                </div>
-              </div>
-              <div class="col-md-3 stretch-card grid-margin">
-                <div class="card bg-gradient-success card-img-holder text-white">
-                <a href="<?=url('viewfarmers');?>" style="text-decoration:none; color:white;">
-                  <div class="card-body">
-                    <img src="Customized/assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
-                    <h4 class="font-weight-normal mb-3">{{ __('msg.farmers')}}<i class="icon-head menu-icon float-right"></i>
-                    </h4>
-                    <h1 class="mb-5">{{$farmer}}</h1>
-                  </div>
-                </a>
-                </div>
-              </div>
-              <div class="col-md-3 stretch-card grid-margin">
-                <div class="card bg-gradient-primary card-img-holder text-white">
-                <a href="<?=url('viewcooperatives');?>" style="text-decoration:none; color:white;">
-                  <div class="card-body">
-                    <img src="Customized/assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
-                    <h4 class="font-weight-normal mb-3"> {{ __('msg.cooperatives')}}<i class="icon-disc menu-icon float-right"></i>
-                    </h4>
-                    <h1 class="mb-5">{{$cooperative}}</h1>
-                  </div>
-                  </a>
-                </div>
-              </div>
-               <div class="col-md-3 stretch-card grid-margin">
-                <div class="card bg-gradient-danger card-img-holder text-white">
-                <a href="<?=url('viewdiseases');?>" style="text-decoration:none; color:white;">
-                  <div class="card-body">
-                    <img src="Customized/assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
-                    <h4 class="font-weight-normal mb-3"> {{ __('msg.diseases')}}<i class="icon-command menu-icon float-right"></i>
-                    <h1 class="mb-5">{{$disease}}</h1>
-                  </div>
-                 </a> 
-                </div>
-              </div>
-           </div>
           
-
+           <div class="row">
+             
+           <div class="col-lg-12 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">{{ __('msg.coffee farmers') }}</h4>
+                  <div class="table-responsive">
+                    <table class="table table-striped">
+                      <thead>
+                        <tr>
+                        <th>
+                            #
+                          </th>
+                          <th>
+                            {{__('msg.full name')}}
+                          </th>
+                          <th>
+                          {{__('msg.cooperative')}}
+                          </th>
+                          <th>
+                          {{__('msg.number of trees')}}
+                          </th>
+                          <th>
+                          {{__('msg.fertilizer')}}
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                        @foreach($farmers as $i)
+                        <td>
+                            {{++$no}}
+                          </td>
+                          <td>
+                            {{$i->name}}
+                          </td>
+                          <td>
+                            {{$i->cooperative_name}}
+                          </td>
+                          <td>
+                          {{$i->number_of_trees}}
+                          </td>
+                          <td>
+                          {{$i->fertilizer}}
+                          </td>
+                          <td>
+                          <div class="input-group-prepend">
+                        <button class="btn btn-sm btn-outline-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Actions</button>
+                        <div class="dropdown-menu">
+                          <a class="dropdown-item" href={{"Farmerprofile/".$i->id}}><i class="fa fa-eye" aria-hidden="true"></i>&nbsp; {{__('msg.view')}}</a>
+                      </div>
+                          </td>
+                         </tr>
+                         @endforeach
+                      </tbody>
+                    </table>
+                    <div class="pagination-block">
+                     {{ $farmers->links()}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+           </div>
         </div>
         <!-- content-wrapper ends -->
         <!-- partial:partials/_footer.html -->
@@ -247,10 +245,6 @@
   </div>
   <!-- container-scroller -->
 
-  <script>
-  
-  </script>
-  
   <!-- base:js -->
   <script src="Customized/vendors/base/vendor.bundle.base.js"></script>
   <!-- endinject -->
@@ -268,7 +262,6 @@
   <!-- Custom js for this page-->
   <script src="Customized/js/dashboard.js"></script>
   <!-- End custom js for this page-->
-
 </body>
 
 </html>
