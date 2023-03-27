@@ -7,31 +7,31 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>CCMS</title>
   <!-- base:css -->
-  <link rel="stylesheet" href="Customized/vendors/mdi/css/materialdesignicons.min.css">
-  <link rel="stylesheet" href="Customized/vendors/feather/feather.css">
-  <link rel="stylesheet" href="Customized/vendors/base/vendor.bundle.base.css">
+  <link rel="stylesheet" href="/Customized/vendors/mdi/css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="/Customized/vendors/feather/feather.css">
+  <link rel="stylesheet" href="/Customized/vendors/base/vendor.bundle.base.css">
   <!-- endinject -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
 
   <!-- plugin css for this page -->
-  <link rel="stylesheet" href="Customized/vendors/flag-icon-css/css/flag-icon.min.css"/>
-  <link rel="stylesheet" href="Customized/vendors/font-awesome/css/font-awesome.min.css">
-  <link rel="stylesheet" href="Customized/vendors/jquery-bar-rating/fontawesome-stars-o.css">
-  <link rel="stylesheet" href="Customized/vendors/jquery-bar-rating/fontawesome-stars.css">
+  <link rel="stylesheet" href="/Customized/vendors/flag-icon-css/css/flag-icon.min.css"/>
+  <link rel="stylesheet" href="/Customized/vendors/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/Customized/vendors/jquery-bar-rating/fontawesome-stars-o.css">
+  <link rel="stylesheet" href="/Customized/vendors/jquery-bar-rating/fontawesome-stars.css">
   <!-- End plugin css for this page -->
   <!-- inject:css -->
-  <link rel="stylesheet" href="Customized/css/style.css">
+  <link rel="stylesheet" href="/Customized/css/style.css">
   <!-- endinject -->
-  <link rel="shortcut icon" href="Customized/images/favicon.png" />
+  <link rel="shortcut icon" href="/Customized/images/favicon.png" />
 </head>
 <body>
   <div class="container-scroller">
     <!-- partial:partials/_navbar.html -->
     <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
       <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-        <a class="navbar-brand brand-logo" href={{"Home"}}><i class="icon-air-play menu-icon"></i>CCMS</a>
-        <a class="navbar-brand brand-logo-mini" href={{"Home"}}>CCMS</a>
+        <a class="navbar-brand brand-logo" href={{"Manager/Home"}}>CCMS</a>
+        <a class="navbar-brand brand-logo-mini" href={{"Manager/Home"}}>CCMS</a>
       </div>
       <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
         <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
@@ -87,71 +87,34 @@
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <div class="user-profile">
           <div class="user-image">
-          <img src="{{asset('/storage/images/users/'.$profileImg->image)}}">
+            <img src="{{asset('/storage/images/users/'.$profileImg->image)}}">
           </div>
           <div class="user-name">
-         {{session('user')}}
+          {{session('user')}}
           </div>
           <div class="user-designation">
-          {{$profileImg->role}}
+          {{$profileImg->role}} 
           </div>
         </div>
         <ul class="nav">
-          @role('Super-Admin')
           <li class="nav-item">
-            <a class="nav-link" href="<?=url('Home');?>">
+            <a class="nav-link" href={{"Manager/Home"}}>
               <i class="icon-air-play menu-icon"></i>
               <span class="menu-title">{{ __('msg.dashboard') }}</span>
             </a>
           </li>
-          @endrole
-          @if(Auth::user()->can('create-user'))
           <li class="nav-item">
-            <a class="nav-link" href="<?=url('viewsystemuser');?>">
-              <i class="icon-head menu-icon"></i>
-              <span class="menu-title">{{ __('msg.system users') }}</span>
-            </a>
-          </li>
-          @endif
-          @can('create-cooperative')
-           <li class="nav-item">
-            <a class="nav-link" href="<?=url('viewcooperatives');?>">
-              <i class="icon-disc menu-icon"></i>
-              <span class="menu-title">{{ __('msg.cooperatives') }}</span>
-            </a>
-          </li>
-          @endcan
-          @can('create-farmer')
-          <li class="nav-item">
-            <a class="nav-link" href="<?=url('viewfarmers');?>">
+            <a class="nav-link" href="<?=url('CooperativeFarmers');?>">
               <i class="icon-pie-graph menu-icon"></i>
               <span class="menu-title">{{ __('msg.farmers') }}</span>
             </a>
           </li>
-          @endcan
-          @can('create-disease')
           <li class="nav-item">
-            <a class="nav-link" href="<?=url('viewdiseases');?>">
+            <a class="nav-link" href="<?=url('CooperativeDiseases');?>">
               <i class="icon-command menu-icon"></i>
               <span class="menu-title">{{ __('msg.diseases') }}</span>
             </a>
           </li>
-          @endcan
-          @can('create-role')
-          <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
-              <i class="icon-share menu-icon"></i>
-              <span class="menu-title">Roles | Permissions</span>
-              <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="auth">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="<?=url('Allroles');?>"> Roles </a></li>
-                <li class="nav-item"> <a class="nav-link" href="<?=url('Allpermissions');?>"> Permissions </a></li>
-              </ul>
-            </div>
-          </li>
-          @endcan
         </ul>
       </nav>
       <!-- partial -->
@@ -159,11 +122,9 @@
         <div class="content-wrapper">
           <div class="row">
             <div class="col-sm-12 mb-4 mb-xl-0">
-            @can('create-disease')
             <li class="nav-item dropdown d-lg-flex d-none">
             <a href="<?=url('registerNewDisease');?>"><button type="button" class="btn btn-info font-weight-bold">+ {{__('msg.new disease')}}</button></a>
             </li>
-            @endcan
             </div>
           </div>
           
@@ -214,6 +175,8 @@
               </div>
             </div>
               
+              
+
            </div>
         </div>
         <!-- content-wrapper ends -->
@@ -232,21 +195,21 @@
   <!-- container-scroller -->
 
   <!-- base:js -->
-  <script src="Customized/vendors/base/vendor.bundle.base.js"></script>
+  <script src="/Customized/vendors/base/vendor.bundle.base.js"></script>
   <!-- endinject -->
   <!-- Plugin js for this page-->
   <!-- End plugin js for this page-->
   <!-- inject:js -->
-  <script src="Customized/js/off-canvas.js"></script>
-  <script src="Customized/js/hoverable-collapse.js"></script>
-  <script src="Customized/js/template.js"></script>
+  <script src="/Customized/js/off-canvas.js"></script>
+  <script src="/Customized/js/hoverable-collapse.js"></script>
+  <script src="/Customized/js/template.js"></script>
   <!-- endinject -->
   <!-- plugin js for this page -->
-  <script src="Customized/vendors/chart.js/Chart.min.js"></script>
-  <script src="Customized/vendors/jquery-bar-rating/jquery.barrating.min.js"></script>
+  <script src="/Customized/vendors/chart.js/Chart.min.js"></script>
+  <script src="/Customized/vendors/jquery-bar-rating/jquery.barrating.min.js"></script>
   <!-- End plugin js for this page -->
   <!-- Custom js for this page-->
-  <script src="Customized/js/dashboard.js"></script>
+  <script src="//Customized/js/dashboard.js"></script>
   <!-- End custom js for this page-->
 </body>
 

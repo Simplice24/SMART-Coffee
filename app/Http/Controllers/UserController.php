@@ -20,18 +20,30 @@ use session;
 
 class UserController extends Controller
 {
+
     public function Dashboard(){
-      if(Auth::User()->can('view-Super-Dashboard')){
-        $userId =auth()->user()->id;
+      $userId =auth()->user()->id;
       $profileImg=User::find($userId);
       $rows=User::count();
       $farmer=Farmer::count();
       $cooperative=Cooperative::count();
       $disease=Disease::count();
-      return view('Dashboard',['profileImg'=>$profileImg,'rows'=>$rows,'farmer'=>$farmer,'cooperative'=>$cooperative,'disease'=>$disease]);
-      }
-      
+      return view('Dashboard',['profileImg'=>$profileImg,'rows'=>$rows,'farmer'=>$farmer,'cooperative'=>$cooperative,'disease'=>$disease]);  
     }
+
+    public function ManagerDashboard(){
+      $userId=auth()->user()->id;
+      $profileImg=User::find($userId);
+      $cooperative_id = DB::table('cooperative_user')
+                   ->where('user_id', $userId)
+                   ->value('cooperative_id');
+        if ($cooperative_id) {
+        $farmers = Farmer::where('cooperative_id', $cooperative_id)->get();
+        $totalFarmers=$farmers->count();
+        $diseases=Disease::count();
+        return view('Manager/Dashboard',['totalFarmers'=>$totalFarmers,'diseases'=>$diseases,'profileImg'=>$profileImg]);
+    }
+  }
 
     public function UserRegistrationPage(){
       if(Auth::User()->can('create-user')){
@@ -44,14 +56,11 @@ class UserController extends Controller
     }
 
     public function SystemUsers(){
-      if(Auth::User()->can('view-user')){
       $no=0;
       $data=User::paginate(5);
       $userId =auth()->user()->id;
       $profileImg=User::find($userId);
       return view('All-system-users',['data'=>$data,'profileImg'=>$profileImg,'no'=>$no]);
-      }
-      
     }
 
     public function Login(Request $request){
@@ -62,7 +71,12 @@ class UserController extends Controller
   
     if (Auth::attempt($credentials)) {
       $request->session()->put('user',$credentials['email']);
-  
+      $user_id=auth()->user()->id;
+      $user_details=User::find($user_id);
+      $user_role=$user_details->role;
+      if($user_role==="Manager"){
+      return redirect()->intended('Manager/Home');
+      }
       return redirect()->intended('Home');
     }
   

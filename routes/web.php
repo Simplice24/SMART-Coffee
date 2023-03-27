@@ -43,6 +43,8 @@ Route::group(['middleware'=>["auth"]],function(){
 
     Route::get('Home',[UserController::class,'Dashboard']);
 
+    Route::get('Manager/Home',[UserController::class,'ManagerDashboard']);
+
     Route::get('logout',[UserController::class,'logout']);
     
     Route::get('registerNewUser',[UserController::class,'UserRegistrationPage']);
@@ -96,6 +98,10 @@ Route::group(['middleware'=>["auth"]],function(){
 Route::get('viewdiseases',[DiseaseController::class,'SystemDiseases']);
 
 Route::get('registerNewDisease',[DiseaseController::class,'DiseaseRegistrationPage']); 
+
+Route::get('CooperativeDiseases',[DiseaseController::class,'CooperativeDiseases']);
+
+Route::post('registerNewDisease',[DiseaseController::class, 'DiseaseRegistration']);
 
 });
 
