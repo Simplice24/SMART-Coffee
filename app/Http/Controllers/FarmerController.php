@@ -64,4 +64,29 @@ class FarmerController extends Controller
         $farmerinfo=Farmer::find($id);
         return view('Farmer-details',['farmerinfo'=>$farmerinfo,'profileImg'=>$profileImg]);
       }
+
+      public function FarmerUpdatePage($id){
+        $userId =auth()->user()->id;
+        $profileImg=User::find($userId);
+        $farmerinfo=Farmer::find($id);
+        return view('Farmer-update',['farmerinfo'=>$farmerinfo,'profileImg'=>$profileImg]);
+      }
+
+      public function UpdateFarmer(Request $req,$id){
+        $farmerupdate=Farmer::find($id);
+        $farmerupdate->name=$req->input('name');
+        $farmerupdate->idn=$req->input('idn');
+        $farmerupdate->cooperative_name=$req->input('cooperative_name');
+        $farmerupdate->cooperative_id=$req->input('cooperative_id');
+        $farmerupdate->gender=$req->input('gender');
+        $farmerupdate->number_of_trees=$req->input('number_of_trees');
+        $farmerupdate->fertilizer=$req->input('fertilizer');
+        $farmerupdate->phone=$req->input('phone');
+        $farmerupdate->province=$req->input('province');
+        $farmerupdate->district=$req->input('district');
+        $farmerupdate->sector=$req->input('sector');
+        $farmerupdate->cell=$req->input('cell');
+        $farmerupdate->update();
+        return redirect('viewfarmers');
+      }
 }

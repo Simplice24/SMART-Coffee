@@ -20,6 +20,7 @@ class DiseaseController extends Controller
         $profileImg=User::find($userId);
         return view('Register-disease',['profileImg'=>$profileImg]);
     }
+    
 
     public function CooperativeDiseases(){
         $userId =auth()->user()->id;
@@ -41,4 +42,40 @@ class DiseaseController extends Controller
         $Disease->save();            
         return redirect('viewdiseases');
     }
+
+    public function DiseaseDetailsPage($id){
+        $userId =auth()->user()->id;
+        $profileImg=User::find($userId);
+        $diseaseinfo=Disease::find($id);
+        return view('Disease-details',['diseaseinfo'=>$diseaseinfo,'profileImg'=>$profileImg]);
+    }
+
+    public function DiseaseUpdatePage($id){
+        $userId =auth()->user()->id;
+        $profileImg=User::find($userId);    
+        $diseaseinfo=Disease::find($id);
+        return view('Disease-update',['diseaseinfo'=> $diseaseinfo,'profileImg'=>$profileImg]);
+    }
+    
+    public function DiseaseUpdate(Request $req,$id){
+        $destination_path = 'public/images/diseases';
+        $input = Disease::find($id);
+        $default_name = $input->image;
+        $input->disease_name = $req->input('disease_name');
+        $input->category = $req->input('category');
+        $input->description = $req->input('description');
+        $image = $req->file('image');
+        if ($image) {
+            $image_name = $image->getClientOriginalName();
+            $path = $req->file('image')->storeAs($destination_path, $image_name);
+        } else {
+            $image_name = $default_name;
+            $path = null; // Set path to null since no file was uploaded
+        }
+        $input->image = $image_name;
+        $input->update();
+
+        return redirect('viewdiseases');
+      }
+
 }
