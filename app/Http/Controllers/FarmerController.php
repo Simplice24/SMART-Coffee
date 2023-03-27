@@ -89,4 +89,9 @@ class FarmerController extends Controller
         $farmerupdate->update();
         return redirect('viewfarmers');
       }
+
+      public function DeleteFarmer($id){
+        Farmer::find($id)->delete();
+        return redirect('viewfarmers');
+      }
 }

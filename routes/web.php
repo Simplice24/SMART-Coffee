@@ -92,6 +92,8 @@ Route::get("Farmerprofile/farmerUpdate/{id}",[FarmerController::class,'FarmerUpd
 
 Route::put("updateFarmer/{id}",[FarmerController::class,'UpdateFarmer']);
 
+Route::get('deletefarmer/{id}',[FarmerController::class,'DeleteFarmer']);
+
 });
 
 
@@ -113,6 +115,8 @@ Route::get("diseaseDetails/updateDisease/{id}",[DiseaseController::class,'Diseas
 
 Route::put("updateDis/{id}",[DiseaseController::class,'DiseaseUpdate']);
 
+Route::get('deletedisease/{id}',[UserController::class,'DeleteDisease']); 
+
 });
 
 
@@ -132,6 +136,8 @@ Route::get("updateCooperative/{id}",[CooperativeController::class,'CooperativeVi
 Route::get("updateCooperative/CooperativeUpdate/{id}",[CooperativeController::class,'Cooperativeupdatepage']);
 
 Route::put("CooperativeUpdate/{id}",[CooperativeController::class,'UpdateSystemCooperative']);
+
+Route::get('deletecooperative/{id}',[UserController::class,'DeleteCooperative']);
 
 });
 

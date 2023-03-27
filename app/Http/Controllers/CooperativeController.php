@@ -82,4 +82,9 @@ class CooperativeController extends Controller
         $input->users()->attach($manager_id);
         return redirect('viewcooperatives');
       }  
+
+      public function DeleteCooperative($id){
+        Cooperative::destroy($id);
+        return redirect('viewcooperatives');
+      }
 }

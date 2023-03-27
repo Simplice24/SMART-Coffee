@@ -130,8 +130,9 @@ class UserController extends Controller
 
         public function UserProfilePage(){
           $userId = auth()->user()->id;
+          $profileImg=User::find($userId);
           $userinfo=User::find($userId);
-          return view('User-profile',['userinfo'=>$userinfo,'userId'=>$userId]);
+          return view('User-profile',['userinfo'=>$userinfo,'userId'=>$userId,'profileImg'=>$profileImg]);
         }
 
         public function userProfileUpdate(Request $req,$id){

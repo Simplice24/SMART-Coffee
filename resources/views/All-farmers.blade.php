@@ -217,7 +217,8 @@
                         <button class="btn btn-sm btn-outline-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Actions</button>
                         <div class="dropdown-menu">
                           <a class="dropdown-item" href={{"Farmerprofile/".$i->id}}><i class="fa fa-eye" aria-hidden="true"></i>&nbsp; {{__('msg.view')}}</a>
-                      </div>
+                          <a class="dropdown-item" href={{"deletefarmer/".$i->id}}><i class="fa fa-trash" aria-hidden="true"></i>&nbsp; {{ __('msg.delete')}}</a>
+                        </div>
                           </td>
                          </tr>
                          @endforeach

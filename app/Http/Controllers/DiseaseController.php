@@ -78,4 +78,10 @@ class DiseaseController extends Controller
         return redirect('viewdiseases');
       }
 
+      public function DeleteDisease($id){
+        Disease::find($id)->delete();
+        return redirect('viewdiseases');
+      }
+
+
 }
