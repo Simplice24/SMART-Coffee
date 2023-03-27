@@ -38,10 +38,11 @@ class UserController extends Controller
     }
 
     public function SystemUsers(){
+      $no=0;
       $data=User::paginate(5);
       $userId =auth()->user()->id;
       $profileImg=User::find($userId);
-      return view('All-system-users',['data'=>$data,'profileImg'=>$profileImg]);
+      return view('All-system-users',['data'=>$data,'profileImg'=>$profileImg,'no'=>$no]);
     }
 
     public function Login(Request $request){

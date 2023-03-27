@@ -173,6 +173,9 @@
                     <table class="table table-striped">
                       <thead>
                         <tr>
+                        <th>
+                            #
+                          </th>
                           <th>
                             Permission name
                           </th>
@@ -181,6 +184,9 @@
                       <tbody>
                         <tr>
                         @foreach($permissions as $i)
+                          <td>
+                          {{++$no}}
+                          </td>
                           <td>
                           {{$i->name}}
                           </td>

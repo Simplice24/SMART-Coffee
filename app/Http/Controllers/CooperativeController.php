@@ -10,10 +10,11 @@ use Illuminate\Support\Facades\DB;
 class CooperativeController extends Controller
 {
     public function SystemCooperatives(){
+        $no=0;
         $userId =auth()->user()->id;
         $profileImg=User::find($userId);
         $data=Cooperative::paginate(7);
-        return view('All-cooperatives',['profileImg'=>$profileImg,'data'=>$data]);
+        return view('All-cooperatives',['profileImg'=>$profileImg,'data'=>$data,'no'=>$no]);
     }
 
     public function CooperativeRegistrationPage(){

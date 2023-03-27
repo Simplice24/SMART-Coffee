@@ -174,6 +174,9 @@
                       <thead>
                         <tr>
                           <th>
+                            #
+                          </th>
+                          <th>
                             {{ __('msg.full name')}}
                           </th>
                           <th>
@@ -193,6 +196,9 @@
                       <tbody>
                         <tr>
                         @foreach($data as $i)
+                          <td>
+                          {{++$no}}
+                          </td>
                           <td>
                           {{$i->name}}
                           </td>

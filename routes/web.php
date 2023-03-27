@@ -80,8 +80,9 @@ Route::get('viewfarmers',[FarmerController::class,'SystemFarmers']);
 
 Route::get('registerNewFarmer', [FarmerController::class, 'FarmerRegistrationPage']);
 
-Route::post('registerNewFarmer',[UserController::class,'FarmerRegistration']);
+Route::post('registerNewFarmer',[FarmerController::class,'FarmerRegistration']);
 
+Route::get("Farmerprofile/{id}",[FarmerController::class,'FarmerProfilePage']);
 
 });
 

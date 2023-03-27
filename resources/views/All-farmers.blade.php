@@ -175,6 +175,9 @@
                     <table class="table table-striped">
                       <thead>
                         <tr>
+                        <th>
+                            #
+                          </th>
                           <th>
                             {{__('msg.full name')}}
                           </th>
@@ -191,32 +194,35 @@
                       </thead>
                       <tbody>
                         <tr>
-                        
-                          <td>
-                            
+                        @foreach($info as $i)
+                        <td>
+                            {{++$no}}
                           </td>
                           <td>
-                           
+                            {{$i->name}}
                           </td>
                           <td>
-                          
+                            {{$i->cooperative_name}}
                           </td>
                           <td>
-                          
+                          {{$i->number_of_trees}}
+                          </td>
+                          <td>
+                          {{$i->fertilizer}}
                           </td>
                           <td>
                           <div class="input-group-prepend">
                         <button class="btn btn-sm btn-outline-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Actions</button>
                         <div class="dropdown-menu">
-                          <a class="dropdown-item" href={{"Farmerprofile/"}}><i class="fa fa-eye" aria-hidden="true"></i>&nbsp; {{__('msg.view')}}</a>
+                          <a class="dropdown-item" href={{"Farmerprofile/".$i->id}}><i class="fa fa-eye" aria-hidden="true"></i>&nbsp; {{__('msg.view')}}</a>
                       </div>
                           </td>
                          </tr>
-                         
+                         @endforeach
                       </tbody>
                     </table>
                     <div class="pagination-block">
-                     
+                     {{ $info->links()}}
                     </div>
                   </div>
                 </div>

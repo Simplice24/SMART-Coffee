@@ -201,16 +201,6 @@
                         </div>
                         <div class="col-md-6">
                           <div class="form-group row">
-                            <label class="col-sm-3 col-form-label">{{ __('msg.category') }}</label>
-                            <div class="col-sm-9">
-                              <input type="text" class="form-control" name="category" required/>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-md-6">
-                          <div class="form-group row">
                             <label class="col-sm-3 col-form-label">{{ __('msg.gender') }}</label>
                             <div class="col-sm-9">
                               <select class="form-control" style="height:46px;" name="gender" required>
@@ -221,6 +211,8 @@
                             </div>
                           </div>
                         </div>
+                      </div>
+                      <div class="row">
                         <div class="col-md-6">
                             <div class="form-group row">
                               <label class="col-sm-3 col-form-label">{{ __('msg.cooperative ID') }}</label>
@@ -234,9 +226,6 @@
                               </div>
                             </div>
                           </div>
-                        
-                    </div>
-                      <div class="row">
                         <div class="col-md-6">
                           <div class="form-group row">
                             <label class="col-sm-3 col-form-label">{{ __('msg.number of trees')}}</label>
@@ -245,6 +234,8 @@
                             </div>
                           </div>
                         </div>
+                        </div>
+                        <div class="row">
                         <div class="col-md-6">
                           <div class="form-group row">
                             <label class="col-sm-3 col-form-label">{{ __('msg.fertilizer') }}</label>
@@ -253,8 +244,6 @@
                             </div>
                           </div>
                         </div>
-                      </div>
-                      <div class="row">
                         <div class="col-md-6">
                           <div class="form-group row">
                             <label class="col-sm-3 col-form-label">{{ __('msg.phone')}}</label>
@@ -263,6 +252,8 @@
                             </div>
                           </div>
                         </div>
+                        </div>
+                        <div class="row">
                         <div class="col-md-6">
                           <div class="form-group row">
                             <label class="col-sm-3 col-form-label">{{ __('msg.Province') }}</label>
@@ -271,8 +262,6 @@
                             </div>
                           </div>
                         </div>
-                      </div>
-                      <div class="row">
                         <div class="col-md-6">
                           <div class="form-group row">
                             <label class="col-sm-3 col-form-label">{{ __('msg.district') }}</label>
@@ -281,6 +270,8 @@
                             </div>
                           </div>
                         </div>
+                        </div>
+                        <div class="row">
                         <div class="col-md-6">
                           <div class="form-group row">
                             <label class="col-sm-3 col-form-label">{{ __('msg.sector') }}</label>
@@ -289,8 +280,6 @@
                             </div>
                           </div>
                         </div>
-                      </div>
-                      <div class="row">
                       <div class="col-md-6">
                           <div class="form-group row">
                             <label class="col-sm-3 col-form-label">{{ __('msg.cell') }}</label>

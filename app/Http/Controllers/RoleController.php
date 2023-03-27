@@ -11,10 +11,11 @@ use Illuminate\Http\Request;
 class RoleController extends Controller
 {
     public function SystemRoles(){
+        $no=0;
         $roles=Role::paginate(7);
         $userId =auth()->user()->id;
         $profileImg=User::find($userId);
-        return view('All-roles',['roles'=>$roles,'profileImg'=>$profileImg]);
+        return view('All-roles',['roles'=>$roles,'profileImg'=>$profileImg,'no'=>$no]);
     }
 
     public function RegisterRolePage(){
@@ -25,10 +26,11 @@ class RoleController extends Controller
     }
 
     public function SystemPermissions(){
+        $no=0;
         $userId =auth()->user()->id;
         $profileImg=User::find($userId);
         $permissions=Permission::paginate(7);
-        return view('All-permissions',['permissions'=>$permissions,'profileImg'=>$profileImg]);
+        return view('All-permissions',['permissions'=>$permissions,'profileImg'=>$profileImg,'no'=>$no]);
     }
 
     public function RegisterPermissionPage(){

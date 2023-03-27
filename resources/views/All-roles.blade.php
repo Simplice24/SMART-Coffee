@@ -174,6 +174,9 @@
                       <thead>
                         <tr>
                           <th>
+                           #
+                          </th>
+                          <th>
                             Role name
                           </th>
                         </tr>
@@ -181,6 +184,9 @@
                       <tbody>
                         <tr>
                         @foreach($roles as $i)
+                          <td>
+                          {{++$no}}
+                          </td>
                           <td>
                           {{$i->name}}
                           </td>
