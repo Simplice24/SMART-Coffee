@@ -24,7 +24,7 @@ class Farmer extends Model
         'cell',
         'cooperative_id'
     ];
-    public function cooperatives(){
+    public function cooperative(){
         return $this->belongsTo(Cooperative::class);
     }
     public function diseases(){

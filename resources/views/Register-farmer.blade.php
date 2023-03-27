@@ -192,9 +192,9 @@
                             <div class="col-sm-9">
                             <select class="form-control" style="height:46px;" name="cooperative_name" required>
                               <option disable selected>{{ __('msg.--Select cooperative--')}}</option>
-                                
-                                <option></option>
-                               
+                                @foreach($cooperatives as $coopname)
+                                <option value={{$coopname->name}}>{{$coopname->name}}</option>
+                                @endforeach
                               </select>
                             </div>
                           </div>
