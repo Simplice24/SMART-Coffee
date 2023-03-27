@@ -21,28 +21,37 @@ use session;
 class UserController extends Controller
 {
     public function Dashboard(){
-      $userId =auth()->user()->id;
+      if(Auth::User()->can('view-Super-Dashboard')){
+        $userId =auth()->user()->id;
       $profileImg=User::find($userId);
       $rows=User::count();
       $farmer=Farmer::count();
       $cooperative=Cooperative::count();
       $disease=Disease::count();
       return view('Dashboard',['profileImg'=>$profileImg,'rows'=>$rows,'farmer'=>$farmer,'cooperative'=>$cooperative,'disease'=>$disease]);
+      }
+      
     }
 
     public function UserRegistrationPage(){
+      if(Auth::User()->can('create-user')){
       $userId =auth()->user()->id;
       $profileImg=User::find($userId);
       $roles=Role::all();
       return view('Register-new-user',['roles'=>$roles,'profileImg'=>$profileImg]);
+      }
+      
     }
 
     public function SystemUsers(){
+      if(Auth::User()->can('view-user')){
       $no=0;
       $data=User::paginate(5);
       $userId =auth()->user()->id;
       $profileImg=User::find($userId);
       return view('All-system-users',['data'=>$data,'profileImg'=>$profileImg,'no'=>$no]);
+      }
+      
     }
 
     public function Login(Request $request){
