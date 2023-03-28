@@ -225,7 +225,13 @@
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">{{ __('msg.Province')}}</label>
                             <div class="col-sm-9">
-                              <input type="text" class="form-control" name="province" placeholder="Province" required />
+                              <!-- <input type="text" class="form-control" name="province" placeholder="Province" required /> -->
+                              <select class="form-control" id="province-dropdown" style="height:46px;" name="province" required>
+                                        <option disable selected>--select province--</option>
+                                        @foreach($provinces as $province)
+                                        <option value="{{ $province->name }}">{{ $province->name}}</option>
+                                        @endforeach
+                              </select>
                             </div>
                           </div>
                           </div>
@@ -244,6 +250,9 @@
                             <label class="col-sm-3 col-form-label">{{ __('msg.district')}}</label>
                             <div class="col-sm-9">
                               <input type="text" class="form-control" name="district" placeholder="District" required />
+                              <!-- <select class="form-control" id="district-dropdown" style="height:46px;" name="district" required>
+                                <option disabled selected>-- select district --</option>
+                              </select> -->
                             </div>
                           </div>
                         </div>
@@ -289,9 +298,6 @@
                   </div>
                 </div>
               </div>
-              
-              
-
            </div>
         </div>
         <!-- content-wrapper ends -->
@@ -327,6 +333,5 @@
   <script src="Customized/js/dashboard.js"></script>
   <!-- End custom js for this page-->
 </body>
-
 </html>
 

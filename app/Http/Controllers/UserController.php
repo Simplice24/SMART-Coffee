@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Farmer;
 use App\Models\Disease;
 use App\Models\Cooperative;
+use App\Models\Province;
 use Illuminate\Http\RedirectResponse;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
@@ -50,7 +51,8 @@ class UserController extends Controller
       $userId =auth()->user()->id;
       $profileImg=User::find($userId);
       $roles=Role::all();
-      return view('Register-new-user',['roles'=>$roles,'profileImg'=>$profileImg]);
+      $provinces=Province::all();
+      return view('Register-new-user',['roles'=>$roles,'profileImg'=>$profileImg,'provinces'=>$provinces]);
       }
       
     }

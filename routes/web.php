@@ -177,4 +177,12 @@ Route::group(['middleware'=>["auth"]],function(){
 
 });
 
+//Locations routes
 
+Route::group(['middleware'=>["auth"]],function(){
+
+Route::get('/dropdown/provinces', [DropdownController::class, 'getProvinces']);
+
+Route::get('/dropdown/districts/{province_id}', [DropdownController::class, 'getDistricts']);
+
+});

@@ -21,6 +21,7 @@
   <link rel="stylesheet" href="Customized/css/style.css">
   <!-- endinject -->
   <link rel="shortcut icon" href="Customized/images/favicon.png" />
+  </style>
 </head>
 <body>
   <div class="container-scroller">
