@@ -153,6 +153,12 @@
             </a>
           </li>
           @endcan
+          <li class="nav-item">
+            <a class="nav-link" href="<?=url('analytics');?>">
+              <i class="icon-bar-graph-2 menu-icon"></i>
+              <span class="menu-title">Analytics</span>
+            </a>
+          </li>
           @can('create-role')
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
@@ -229,7 +235,109 @@
                 </div>
               </div>
            </div>
-          
+
+           <!-- starting point -->
+
+           <div class="row ">
+              <div class="col-md-3  grid-margin">
+                <div class="card">
+                      <div class="card-body">
+                          <h4 class="card-title">Male users</h4>
+                          <p>23% increase in conversion</p>
+                          <h4 class="text-dark font-weight-bold mb-2">43,981</h4>
+                          <canvas id="MaleUsers"></canvas>
+                      </div>
+                      <div class="card-body">
+                          <h4 class="card-title">Female users</h4>
+                          <p>23% increase in conversion</p>
+                          <h4 class="text-dark font-weight-bold mb-2">43,981</h4>
+                          <canvas id="FemaleUsers"></canvas>
+                      </div>
+                </div>
+              </div>
+              <div class="col-md-3 grid-margin">
+                <div class="card">
+                      <div class="card-body">
+                          <h4 class="card-title">Male farmers</h4>
+                          <p>23% increase in conversion</p>
+                          <h4 class="text-dark font-weight-bold mb-2">43,981</h4>
+                          <canvas id="MaleFarmers"></canvas>
+                      </div>
+                      <div class="card-body">
+                          <h4 class="card-title">Female farmers</h4>
+                          <p>23% increase in conversion</p>
+                          <h4 class="text-dark font-weight-bold mb-2">43,981</h4>
+                          <canvas id="FemaleFarmers"></canvas>
+                      </div>
+                </div>
+              </div>
+              <div class="col-md-3 grid-margin">
+              <div class="card">
+                      <div class="card-body">
+                          <h4 class="card-title">Active cooperatives</h4>
+                          <p>23% increase in conversion</p>
+                          <h4 class="text-dark font-weight-bold mb-2">43,981</h4>
+                          <canvas id="customers"></canvas>
+                      </div>
+                      <div class="card-body">
+                          <h4 class="card-title">Inactive cooperatives</h4>
+                          <p>23% increase in conversion</p>
+                          <h4 class="text-dark font-weight-bold mb-2">43,981</h4>
+                          <canvas id="customers"></canvas>
+                      </div>
+              </div>      
+               
+              </div>
+               <div class="col-md-3 grid-margin">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title mb-3">Diseases</h4>
+                    <div class="row">
+                      <div class="col-sm-20">
+                        <div class="text-dark">
+                          <div class="d-flex pb-3 border-bottom justify-content-between">
+                            <div class="mr-3"><i class="mdi mdi-signal-cellular-outline icon-md"></i></div>
+                            <div class="font-weight-bold mr-sm-4">
+                              <div>Deposit has updated to Paid</div>
+                              <div class="text-muted font-weight-normal mt-1">32 Minutes Ago</div>
+                            </div>
+                            <div><h6 class="font-weight-bold text-info ml-sm-2">$325</h6></div>
+                          </div>
+                          <div class="d-flex pb-3 pt-3 border-bottom justify-content-between">
+                            <div class="mr-3"><i class="mdi mdi-signal-cellular-outline icon-md"></i></div>
+                            <div class="font-weight-bold mr-sm-4">
+                              <div>Your Withdrawal Proceeded</div>
+                              <div class="text-muted font-weight-normal mt-1">45 Minutes Ago</div>
+                            </div>
+                            <div><h6 class="font-weight-bold text-info ml-sm-2">$4987</h6></div>
+                          </div>
+                          <div class="d-flex pb-3 pt-3 border-bottom justify-content-between">
+                            <div class="mr-3"><i class="mdi mdi-signal-cellular-outline icon-md"></i></div>
+                            <div class="font-weight-bold mr-sm-4">
+                              <div>Deposit has updated to Paid                              </div>
+                              <div class="text-muted font-weight-normal mt-1">1 Days Ago</div>
+                            </div>
+                            <div><h6 class="font-weight-bold text-info ml-sm-2">$5391</h6></div>
+                          </div>
+                          <div class="d-flex pt-3 justify-content-between">
+                            <div class="mr-3"><i class="mdi mdi-signal-cellular-outline icon-md"></i></div>
+                            <div class="font-weight-bold mr-sm-4">
+                              <div>Deposit has updated to Paid</div>
+                              <div class="text-muted font-weight-normal mt-1">3 weeks Ago</div>
+                            </div>
+                            <div><h6 class="font-weight-bold text-info ml-sm-2">$264</h6></div>
+                          </div> 
+                        </div>
+                      </div>
+                    </div>  
+                  </div>
+                </div>
+              </div>
+           </div>
+
+
+
+           <!-- ending point -->
 
         </div>
         <!-- content-wrapper ends -->
@@ -248,7 +356,299 @@
   <!-- container-scroller -->
 
   <script>
-  
+
+new Chart("MaleUsers", {
+  type: "bar",
+  data: {
+    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug"],
+    datasets: [{
+        label: 'Male Users',
+        data: [5, 5, 5, 5, 10, 5, 5, 5],
+        backgroundColor: [
+          '#dee5ef',
+          '#dee5ef',
+          '#dee5ef',
+          '#dee5ef',
+          '#51c81c',
+          '#dee5ef',
+          '#dee5ef',
+          '#dee5ef',
+        ],
+        borderColor: [
+          '#dee5ef',
+          '#dee5ef',
+          '#dee5ef',
+          '#dee5ef',
+          '#51c81c',
+          '#dee5ef',
+          '#dee5ef',
+          '#dee5ef',
+        ],
+        borderWidth: 1,
+        fill: false
+      }]
+  },
+  options: {
+    legend: {display: false},
+    title: {
+      display: true,
+    },
+    scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true,
+            display: false,
+            
+          },
+          gridLines: {
+            display: false,
+            drawBorder: false
+          }
+        }],
+        xAxes: [{
+          ticks: {
+            beginAtZero: true,
+            display: false,
+          },
+          gridLines: {
+            display: false,
+            drawBorder: false
+          }
+        }]
+      },
+      legend: {
+        display: false
+      },
+      elements: {
+        point: {
+          radius: 0
+        }
+      },
+      tooltips: {
+        enabled: false
+      }
+  }
+});
+
+new Chart("FemaleUsers", {
+  type: "bar",
+  data: {
+    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug"],
+    datasets: [{
+        label: 'Male Users',
+        data: [5, 5, 5, 5, 10, 5, 5, 5],
+        backgroundColor: [
+          '#dee5ef',
+          '#dee5ef',
+          '#dee5ef',
+          '#dee5ef',
+          '#51c81c',
+          '#dee5ef',
+          '#dee5ef',
+          '#dee5ef',
+        ],
+        borderColor: [
+          '#dee5ef',
+          '#dee5ef',
+          '#dee5ef',
+          '#dee5ef',
+          '#51c81c',
+          '#dee5ef',
+          '#dee5ef',
+          '#dee5ef',
+        ],
+        borderWidth: 1,
+        fill: false
+      }]
+  },
+  options: {
+    legend: {display: false},
+    title: {
+      display: true,
+    },
+    scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true,
+            display: false,
+            
+          },
+          gridLines: {
+            display: false,
+            drawBorder: false
+          }
+        }],
+        xAxes: [{
+          ticks: {
+            beginAtZero: true,
+            display: false,
+          },
+          gridLines: {
+            display: false,
+            drawBorder: false
+          }
+        }]
+      },
+      legend: {
+        display: false
+      },
+      elements: {
+        point: {
+          radius: 0
+        }
+      },
+      tooltips: {
+        enabled: false
+      }
+  }
+});
+
+new Chart("MaleFarmers", {
+  type: "bar",
+  data: {
+    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug"],
+    datasets: [{
+        label: 'Male Users',
+        data: [5, 5, 5, 5, 10, 5, 5, 5],
+        backgroundColor: [
+          '#dee5ef',
+          '#dee5ef',
+          '#dee5ef',
+          '#dee5ef',
+          '#51c81c',
+          '#dee5ef',
+          '#dee5ef',
+          '#dee5ef',
+        ],
+        borderColor: [
+          '#dee5ef',
+          '#dee5ef',
+          '#dee5ef',
+          '#dee5ef',
+          '#51c81c',
+          '#dee5ef',
+          '#dee5ef',
+          '#dee5ef',
+        ],
+        borderWidth: 1,
+        fill: false
+      }]
+  },
+  options: {
+    legend: {display: false},
+    title: {
+      display: true,
+    },
+    scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true,
+            display: false,
+            
+          },
+          gridLines: {
+            display: false,
+            drawBorder: false
+          }
+        }],
+        xAxes: [{
+          ticks: {
+            beginAtZero: true,
+            display: false,
+          },
+          gridLines: {
+            display: false,
+            drawBorder: false
+          }
+        }]
+      },
+      legend: {
+        display: false
+      },
+      elements: {
+        point: {
+          radius: 0
+        }
+      },
+      tooltips: {
+        enabled: false
+      }
+  }
+});
+
+new Chart("FemaleFarmers", {
+  type: "bar",
+  data: {
+    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug"],
+    datasets: [{
+        label: 'Male Users',
+        data: [5, 5, 5, 5, 10, 5, 5, 5],
+        backgroundColor: [
+          '#dee5ef',
+          '#dee5ef',
+          '#dee5ef',
+          '#dee5ef',
+          '#51c81c',
+          '#dee5ef',
+          '#dee5ef',
+          '#dee5ef',
+        ],
+        borderColor: [
+          '#dee5ef',
+          '#dee5ef',
+          '#dee5ef',
+          '#dee5ef',
+          '#51c81c',
+          '#dee5ef',
+          '#dee5ef',
+          '#dee5ef',
+        ],
+        borderWidth: 1,
+        fill: false
+      }]
+  },
+  options: {
+    legend: {display: false},
+    title: {
+      display: true,
+    },
+    scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true,
+            display: false,
+            
+          },
+          gridLines: {
+            display: false,
+            drawBorder: false
+          }
+        }],
+        xAxes: [{
+          ticks: {
+            beginAtZero: true,
+            display: false,
+          },
+          gridLines: {
+            display: false,
+            drawBorder: false
+          }
+        }]
+      },
+      legend: {
+        display: false
+      },
+      elements: {
+        point: {
+          radius: 0
+        }
+      },
+      tooltips: {
+        enabled: false
+      }
+  }
+});
+
   </script>
   
   <!-- base:js -->

@@ -215,4 +215,48 @@ class UserController extends Controller
           return view('Update-details',['fulldetails'=>$fulldetails,'roles'=>$roles,'profileImg'=>$profileImg]);
         }
 
+        public function analytics(){
+          $user_id=Auth::user()->id;
+          $profileImg=User::find($user_id);
+          $Coopdata=Cooperative::select('id','created_at')->get()->groupBy(function($Coopdata){
+            return Carbon::parse($Coopdata->created_at)->format('Y-M');
+          });
+          $months=[];
+          $monthCount=[];
+          foreach($Coopdata as $coopmonth => $values){
+            $months[]=$coopmonth;
+            $monthCount[]=count($values);
+          }
+          $Memdata=Farmer::select('id','created_at')->get()->groupBy(function($Memdata){
+            return Carbon::parse($Memdata->created_at)->format('Y-M');
+          });
+          $Memmonths=[];
+          $MemMonthCount=[];
+          foreach($Memdata as $memmonth => $values){
+            $Memmonths[]=$memmonth;
+            $MemMonthCount[]=count($values);
+          }
+          $Userdata=User::select('id','created_at')->get()->groupBy(function($Userdata){
+            return Carbon::parse($Userdata->created_at)->format('Y-M');
+          });
+          $Usermonths=[];
+          $UserMonthCount=[];
+          foreach($Userdata as $usermonth => $values){
+            $Usermonths[]=$usermonth;
+            $UserMonthCount[]=count($values);
+          }
+          $Diseasedata=Disease::select('id','created_at')->get()->groupBy(function($Diseasedata){
+            return Carbon::parse($Diseasedata->created_at)->format('Y-M');
+          });
+          $Diseasemonths=[];
+          $DiseaseMonthCount=[];
+          foreach($Diseasedata as $dismonth => $values){
+            $Diseasemonths[]=$dismonth;
+            $DiseaseMonthCount[]=count($values);
+          }
+          return view('Analytics',['profileImg'=>$profileImg,'months'=>$months,'monthCount'=>$monthCount,
+        'Memmonths'=>$Memmonths,'MemMonthCount'=>$MemMonthCount,'Usermonths'=>$Usermonths,
+        'UserMonthCount'=>$UserMonthCount,'Diseasemonths'=>$Diseasemonths,'DiseaseMonthCount'=>$DiseaseMonthCount]);
+        }
+
 }

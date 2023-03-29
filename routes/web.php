@@ -43,6 +43,8 @@ Route::group(['middleware'=>["auth"]],function(){
 
     Route::get('Home',[UserController::class,'Dashboard']);
 
+    Route::get('analytics',[UserController::class,'analytics']);
+
     Route::get('Manager/Home',[UserController::class,'ManagerDashboard']);
 
     Route::get('logout',[UserController::class,'logout']);
