@@ -244,13 +244,13 @@
                       <div class="card-body">
                           <h4 class="card-title">Male users</h4>
                           <p>23% increase in conversion</p>
-                          <h4 class="text-dark font-weight-bold mb-2">43,981</h4>
+                          <h4 class="text-dark font-weight-bold mb-2">{{$CountingMale}}</h4>
                           <canvas id="MaleUsers"></canvas>
                       </div>
                       <div class="card-body">
                           <h4 class="card-title">Female users</h4>
                           <p>23% increase in conversion</p>
-                          <h4 class="text-dark font-weight-bold mb-2">43,981</h4>
+                          <h4 class="text-dark font-weight-bold mb-2">{{$CountingFemale}}</h4>
                           <canvas id="FemaleUsers"></canvas>
                       </div>
                 </div>
@@ -260,13 +260,13 @@
                       <div class="card-body">
                           <h4 class="card-title">Male farmers</h4>
                           <p>23% increase in conversion</p>
-                          <h4 class="text-dark font-weight-bold mb-2">43,981</h4>
+                          <h4 class="text-dark font-weight-bold mb-2">{{$CountingMaleFarmers}}</h4>
                           <canvas id="MaleFarmers"></canvas>
                       </div>
                       <div class="card-body">
                           <h4 class="card-title">Female farmers</h4>
                           <p>23% increase in conversion</p>
-                          <h4 class="text-dark font-weight-bold mb-2">43,981</h4>
+                          <h4 class="text-dark font-weight-bold mb-2">{{$CountingFemaleFarmers}}</h4>
                           <canvas id="FemaleFarmers"></canvas>
                       </div>
                 </div>
@@ -356,34 +356,23 @@
   <!-- container-scroller -->
 
   <script>
+var MalexValues=@json($MaleMonth);
+var MaleyValues=@json($Malecount);
+var FemalexValues=@json($FemaleMonth);
+var FemaleyValues=@json($Femalecount);
+var MalefarmerxValues=@json($MalefarmerMonth);
+var MalefarmeryValues=@json($Malefarmercount);
+var FemalefarmerxValues=@json($FemalefarmerMonth);
+var FemalefarmeryValues=@json($Femalefarmercount);
 
 new Chart("MaleUsers", {
   type: "bar",
   data: {
-    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug"],
+    labels: MalexValues,
     datasets: [{
         label: 'Male Users',
-        data: [5, 5, 5, 5, 10, 5, 5, 5],
-        backgroundColor: [
-          '#dee5ef',
-          '#dee5ef',
-          '#dee5ef',
-          '#dee5ef',
-          '#51c81c',
-          '#dee5ef',
-          '#dee5ef',
-          '#dee5ef',
-        ],
-        borderColor: [
-          '#dee5ef',
-          '#dee5ef',
-          '#dee5ef',
-          '#dee5ef',
-          '#51c81c',
-          '#dee5ef',
-          '#dee5ef',
-          '#dee5ef',
-        ],
+        data: MaleyValues,
+        backgroundColor: "rgb(111,168,220)",
         borderWidth: 1,
         fill: false
       }]
@@ -397,7 +386,7 @@ new Chart("MaleUsers", {
         yAxes: [{
           ticks: {
             beginAtZero: true,
-            display: false,
+            display: true,
             
           },
           gridLines: {
@@ -408,7 +397,7 @@ new Chart("MaleUsers", {
         xAxes: [{
           ticks: {
             beginAtZero: true,
-            display: false,
+            display: true,
           },
           gridLines: {
             display: false,
@@ -433,30 +422,11 @@ new Chart("MaleUsers", {
 new Chart("FemaleUsers", {
   type: "bar",
   data: {
-    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug"],
+    labels: FemalexValues,
     datasets: [{
         label: 'Male Users',
-        data: [5, 5, 5, 5, 10, 5, 5, 5],
-        backgroundColor: [
-          '#dee5ef',
-          '#dee5ef',
-          '#dee5ef',
-          '#dee5ef',
-          '#51c81c',
-          '#dee5ef',
-          '#dee5ef',
-          '#dee5ef',
-        ],
-        borderColor: [
-          '#dee5ef',
-          '#dee5ef',
-          '#dee5ef',
-          '#dee5ef',
-          '#51c81c',
-          '#dee5ef',
-          '#dee5ef',
-          '#dee5ef',
-        ],
+        data: FemalexValues,
+        backgroundColor: "rgb(213,166,189)",
         borderWidth: 1,
         fill: false
       }]
@@ -470,7 +440,7 @@ new Chart("FemaleUsers", {
         yAxes: [{
           ticks: {
             beginAtZero: true,
-            display: false,
+            display: true,
             
           },
           gridLines: {
@@ -481,7 +451,7 @@ new Chart("FemaleUsers", {
         xAxes: [{
           ticks: {
             beginAtZero: true,
-            display: false,
+            display: true,
           },
           gridLines: {
             display: false,
@@ -506,30 +476,11 @@ new Chart("FemaleUsers", {
 new Chart("MaleFarmers", {
   type: "bar",
   data: {
-    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug"],
+    labels: MalefarmerxValues,
     datasets: [{
         label: 'Male Users',
-        data: [5, 5, 5, 5, 10, 5, 5, 5],
-        backgroundColor: [
-          '#dee5ef',
-          '#dee5ef',
-          '#dee5ef',
-          '#dee5ef',
-          '#51c81c',
-          '#dee5ef',
-          '#dee5ef',
-          '#dee5ef',
-        ],
-        borderColor: [
-          '#dee5ef',
-          '#dee5ef',
-          '#dee5ef',
-          '#dee5ef',
-          '#51c81c',
-          '#dee5ef',
-          '#dee5ef',
-          '#dee5ef',
-        ],
+        data: MalefarmeryValues,
+        backgroundColor: "rgb(111,168,220)",
         borderWidth: 1,
         fill: false
       }]
@@ -543,7 +494,7 @@ new Chart("MaleFarmers", {
         yAxes: [{
           ticks: {
             beginAtZero: true,
-            display: false,
+            display: true,
             
           },
           gridLines: {
@@ -554,7 +505,7 @@ new Chart("MaleFarmers", {
         xAxes: [{
           ticks: {
             beginAtZero: true,
-            display: false,
+            display: true,
           },
           gridLines: {
             display: false,
@@ -579,30 +530,11 @@ new Chart("MaleFarmers", {
 new Chart("FemaleFarmers", {
   type: "bar",
   data: {
-    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug"],
+    labels: FemalefarmerxValues,
     datasets: [{
         label: 'Male Users',
-        data: [5, 5, 5, 5, 10, 5, 5, 5],
-        backgroundColor: [
-          '#dee5ef',
-          '#dee5ef',
-          '#dee5ef',
-          '#dee5ef',
-          '#51c81c',
-          '#dee5ef',
-          '#dee5ef',
-          '#dee5ef',
-        ],
-        borderColor: [
-          '#dee5ef',
-          '#dee5ef',
-          '#dee5ef',
-          '#dee5ef',
-          '#51c81c',
-          '#dee5ef',
-          '#dee5ef',
-          '#dee5ef',
-        ],
+        data: FemalefarmeryValues,
+        backgroundColor: "rgb(213,166,189)",
         borderWidth: 1,
         fill: false
       }]
@@ -616,7 +548,7 @@ new Chart("FemaleFarmers", {
         yAxes: [{
           ticks: {
             beginAtZero: true,
-            display: false,
+            display: true,
             
           },
           gridLines: {
@@ -627,7 +559,7 @@ new Chart("FemaleFarmers", {
         xAxes: [{
           ticks: {
             beginAtZero: true,
-            display: false,
+            display: true,
           },
           gridLines: {
             display: false,

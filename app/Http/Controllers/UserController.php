@@ -29,7 +29,54 @@ class UserController extends Controller
       $farmer=Farmer::count();
       $cooperative=Cooperative::count();
       $disease=Disease::count();
-      return view('Dashboard',['profileImg'=>$profileImg,'rows'=>$rows,'farmer'=>$farmer,'cooperative'=>$cooperative,'disease'=>$disease]);  
+      $maleUsers = User::where('gender', 'male')->get();
+      $CountingMale=count($maleUsers);
+      $femaleUsers = User::where('gender', 'female')->get();
+      $CountingFemale=count($femaleUsers);
+      $malefarmers = Farmer::where('gender', 'male')->get();
+      $CountingMaleFarmers=count($malefarmers);
+      $femalefarmers = Farmer::where('gender', 'female')->get();
+      $CountingFemaleFarmers=count($femalefarmers);
+      $MaleMonth=[];
+      $Malecount=[];
+      $FemaleMonth=[];
+      $Femalecount=[];
+      $MalefarmerMonth=[];
+      $MalefarmerCount=[];
+      $FemalefarmerMonth=[];
+      $Femalefarmercount=[];
+      $maleUsersByYearMonth = $maleUsers->groupBy(function ($user) {
+        return $user->created_at->format('Y-m');
+    });
+    $femaleUsersByYearMonth = $femaleUsers->groupBy(function ($user) {
+      return $user->created_at->format('Y-m');
+  });
+  $maleFarmersByYearMonth = $malefarmers->groupBy(function ($user) {
+    return $user->created_at->format('Y-m');
+});
+$femaleFarmersByYearMonth = $femalefarmers->groupBy(function ($user) {
+  return $user->created_at->format('Y-m');
+});
+    foreach ($maleUsersByYearMonth as $yearMonth => $maleUsers) {
+      $MaleMonth[]=$yearMonth;
+      $Malecount[]= count($maleUsers);
+  }
+  foreach ($femaleUsersByYearMonth as $yearMonth => $femaleUsers) {
+    $FemaleMonth[]=$yearMonth;
+    $Femalecount[]= count($femaleUsers);
+}
+foreach ($maleFarmersByYearMonth as $yearMonth => $maleFarmers) {
+  $MalefarmerMonth[]=$yearMonth;
+  $Malefarmercount[]= count($maleFarmers);
+}
+foreach ($femaleFarmersByYearMonth as $yearMonth => $femaleFarmers) {
+$FemalefarmerMonth[]=$yearMonth;
+$Femalefarmercount[]= count($femaleFarmers);
+}
+      return view('Dashboard',['profileImg'=>$profileImg,'rows'=>$rows,'farmer'=>$farmer,'cooperative'=>$cooperative,'disease'=>$disease,
+    'MaleMonth'=>$MaleMonth,'Malecount'=>$Malecount,'CountingMale'=>$CountingMale,'CountingFemale'=>$CountingFemale,'FemaleMonth'=>$FemaleMonth,
+    'Femalecount'=>$Femalecount,'MalefarmerMonth'=>$MalefarmerMonth,'Malefarmercount'=>$Malefarmercount,'FemalefarmerMonth'=>$FemalefarmerMonth,
+  'Femalefarmercount'=>$Femalefarmercount,'CountingMaleFarmers'=>$CountingMaleFarmers,'CountingFemaleFarmers'=>$CountingFemaleFarmers]);  
     }
 
     public function ManagerDashboard(){
