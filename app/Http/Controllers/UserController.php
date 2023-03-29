@@ -37,6 +37,10 @@ class UserController extends Controller
       $CountingMaleFarmers=count($malefarmers);
       $femalefarmers = Farmer::where('gender', 'female')->get();
       $CountingFemaleFarmers=count($femalefarmers);
+      $activeCoop= Cooperative::where('status','Operating')->get();
+      $activeCount=count($activeCoop);
+      $inactiveCoop= Cooperative::where('status','Not operating')->get();
+      $inactiveCount=count($inactiveCoop);
       $MaleMonth=[];
       $Malecount=[];
       $FemaleMonth=[];
@@ -45,6 +49,10 @@ class UserController extends Controller
       $MalefarmerCount=[];
       $FemalefarmerMonth=[];
       $Femalefarmercount=[];
+      $ActiveCoopMonth=[];
+      $ActiveCoopCount=[];
+      $InactiveCoopMonth=[];
+      $InactiveCoopCount=[];
       $maleUsersByYearMonth = $maleUsers->groupBy(function ($user) {
         return $user->created_at->format('Y-m');
     });
@@ -56,6 +64,13 @@ class UserController extends Controller
 });
 $femaleFarmersByYearMonth = $femalefarmers->groupBy(function ($user) {
   return $user->created_at->format('Y-m');
+});
+
+$activeCoopByYearMonth = $activeCoop->groupBy(function ($user) {
+  return $user->created_at->format('Y-m');
+});
+$inactiveCoopByYearMonth = $inactiveCoop->groupBy(function ($user) {
+return $user->created_at->format('Y-m');
 });
     foreach ($maleUsersByYearMonth as $yearMonth => $maleUsers) {
       $MaleMonth[]=$yearMonth;
@@ -73,10 +88,21 @@ foreach ($femaleFarmersByYearMonth as $yearMonth => $femaleFarmers) {
 $FemalefarmerMonth[]=$yearMonth;
 $Femalefarmercount[]= count($femaleFarmers);
 }
+
+foreach ($activeCoopByYearMonth as $yearMonth => $active) {
+  $ActiveCoopMonth[]=$yearMonth;
+  $ActiveCoopCount[]= count($active);
+}
+foreach ($inactiveCoopByYearMonth as $yearMonth => $inactive) {
+$InactiveCoopMonth[]=$yearMonth;
+$InactiveCoopCount[]= count($inactive);
+}
       return view('Dashboard',['profileImg'=>$profileImg,'rows'=>$rows,'farmer'=>$farmer,'cooperative'=>$cooperative,'disease'=>$disease,
     'MaleMonth'=>$MaleMonth,'Malecount'=>$Malecount,'CountingMale'=>$CountingMale,'CountingFemale'=>$CountingFemale,'FemaleMonth'=>$FemaleMonth,
     'Femalecount'=>$Femalecount,'MalefarmerMonth'=>$MalefarmerMonth,'Malefarmercount'=>$Malefarmercount,'FemalefarmerMonth'=>$FemalefarmerMonth,
-  'Femalefarmercount'=>$Femalefarmercount,'CountingMaleFarmers'=>$CountingMaleFarmers,'CountingFemaleFarmers'=>$CountingFemaleFarmers]);  
+    'Femalefarmercount'=>$Femalefarmercount,'CountingMaleFarmers'=>$CountingMaleFarmers,'CountingFemaleFarmers'=>$CountingFemaleFarmers,
+    'activeCount'=>$activeCount,'inactiveCount'=>$inactiveCount,'ActiveCoopMonth'=>$ActiveCoopMonth,'ActiveCoopCount'=>$ActiveCoopCount,
+    'InactiveCoopMonth'=>$InactiveCoopMonth,'InactiveCoopCount'=>$InactiveCoopCount]);  
     }
 
     public function ManagerDashboard(){

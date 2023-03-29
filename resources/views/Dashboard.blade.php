@@ -276,14 +276,14 @@
                       <div class="card-body">
                           <h4 class="card-title">Active cooperatives</h4>
                           <p>23% increase in conversion</p>
-                          <h4 class="text-dark font-weight-bold mb-2">43,981</h4>
-                          <canvas id="customers"></canvas>
+                          <h4 class="text-dark font-weight-bold mb-2">{{$activeCount}}</h4>
+                          <canvas id="ActiveCooperatives"></canvas>
                       </div>
                       <div class="card-body">
                           <h4 class="card-title">Inactive cooperatives</h4>
                           <p>23% increase in conversion</p>
-                          <h4 class="text-dark font-weight-bold mb-2">43,981</h4>
-                          <canvas id="customers"></canvas>
+                          <h4 class="text-dark font-weight-bold mb-2">{{$inactiveCount}}</h4>
+                          <canvas id="InactiveCooperatives"></canvas>
                       </div>
               </div>      
                
@@ -301,7 +301,7 @@
                               <div>Deposit has updated to Paid</div>
                               <div class="text-muted font-weight-normal mt-1">32 Minutes Ago</div>
                             </div>
-                            <div><h6 class="font-weight-bold text-info ml-sm-2">$325</h6></div>
+                            <div><h6 class="font-weight-bold text-danger ml-sm-2">$325</h6></div>
                           </div>
                           <div class="d-flex pb-3 pt-3 border-bottom justify-content-between">
                             <div class="mr-3"><i class="mdi mdi-signal-cellular-outline icon-md"></i></div>
@@ -309,7 +309,7 @@
                               <div>Your Withdrawal Proceeded</div>
                               <div class="text-muted font-weight-normal mt-1">45 Minutes Ago</div>
                             </div>
-                            <div><h6 class="font-weight-bold text-info ml-sm-2">$4987</h6></div>
+                            <div><h6 class="font-weight-bold text-danger ml-sm-2">$4987</h6></div>
                           </div>
                           <div class="d-flex pb-3 pt-3 border-bottom justify-content-between">
                             <div class="mr-3"><i class="mdi mdi-signal-cellular-outline icon-md"></i></div>
@@ -317,7 +317,7 @@
                               <div>Deposit has updated to Paid                              </div>
                               <div class="text-muted font-weight-normal mt-1">1 Days Ago</div>
                             </div>
-                            <div><h6 class="font-weight-bold text-info ml-sm-2">$5391</h6></div>
+                            <div><h6 class="font-weight-bold text-danger ml-sm-2">$5391</h6></div>
                           </div>
                           <div class="d-flex pt-3 justify-content-between">
                             <div class="mr-3"><i class="mdi mdi-signal-cellular-outline icon-md"></i></div>
@@ -364,6 +364,11 @@ var MalefarmerxValues=@json($MalefarmerMonth);
 var MalefarmeryValues=@json($Malefarmercount);
 var FemalefarmerxValues=@json($FemalefarmerMonth);
 var FemalefarmeryValues=@json($Femalefarmercount);
+var ActivecoopxValues=@json($ActiveCoopMonth);
+var ActivecoopyValues=@json($ActiveCoopCount);
+var InactivecoopxValues=@json($InactiveCoopMonth);
+var InactivecoopyValues=@json($InactiveCoopCount);
+
 
 new Chart("MaleUsers", {
   type: "bar",
@@ -535,6 +540,114 @@ new Chart("FemaleFarmers", {
         label: 'Male Users',
         data: FemalefarmeryValues,
         backgroundColor: "rgb(213,166,189)",
+        borderWidth: 1,
+        fill: false
+      }]
+  },
+  options: {
+    legend: {display: false},
+    title: {
+      display: true,
+    },
+    scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true,
+            display: true,
+            
+          },
+          gridLines: {
+            display: false,
+            drawBorder: false
+          }
+        }],
+        xAxes: [{
+          ticks: {
+            beginAtZero: true,
+            display: true,
+          },
+          gridLines: {
+            display: false,
+            drawBorder: false
+          }
+        }]
+      },
+      legend: {
+        display: false
+      },
+      elements: {
+        point: {
+          radius: 0
+        }
+      },
+      tooltips: {
+        enabled: false
+      }
+  }
+});
+
+new Chart("ActiveCooperatives", {
+  type: "bar",
+  data: {
+    labels: ActivecoopxValues,
+    datasets: [{
+        label: 'Male Users',
+        data: ActivecoopyValues,
+        backgroundColor: "rgb(84, 214, 139)",
+        borderWidth: 1,
+        fill: false
+      }]
+  },
+  options: {
+    legend: {display: false},
+    title: {
+      display: true,
+    },
+    scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true,
+            display: true,
+            
+          },
+          gridLines: {
+            display: false,
+            drawBorder: false
+          }
+        }],
+        xAxes: [{
+          ticks: {
+            beginAtZero: true,
+            display: true,
+          },
+          gridLines: {
+            display: false,
+            drawBorder: false
+          }
+        }]
+      },
+      legend: {
+        display: false
+      },
+      elements: {
+        point: {
+          radius: 0
+        }
+      },
+      tooltips: {
+        enabled: false
+      }
+  }
+});
+
+new Chart("InactiveCooperatives", {
+  type: "bar",
+  data: {
+    labels: InactivecoopxValues,
+    datasets: [{
+        label: 'Male Users',
+        data: InactivecoopyValues,
+        backgroundColor: "rgb(234, 199, 44)",
         borderWidth: 1,
         fill: false
       }]
