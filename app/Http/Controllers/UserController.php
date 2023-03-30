@@ -183,38 +183,50 @@ $CooperativespreviousMonthCount = DB::table('cooperatives')
                     ->count();
 
 
-if($CooperativespreviousMonthCount==0){
-$CooperativespercentIncrease=100;
+if($CooperativescurrentMonthCount==0){
+$CooperativespercentIncrease=0;
+}else if($CooperativespreviousMonthCount==0){
+  $CooperativespercentIncrease=100;
 }else{
 $CooperativespercentIncrease = ($CooperativescurrentMonthCount - $CooperativespreviousMonthCount) / $CooperativespreviousMonthCount * 100;
 }  
 
-if($FemaleUserspreviousMonthCount==0){
-$FemaleUserspercentIncrease=100;
+if($FemaleUserscurrentMonthCount==0){
+$FemaleUserspercentIncrease=0;
+}else if($FemaleUserspreviousMonthCount==0){
+  $FemaleUserspercentIncrease=100;
 }else{
 $FemaleUserspercentIncrease = ($FemaleUserscurrentMonthCount - $FemaleUserspreviousMonthCount) / $FemaleUserspreviousMonthCount * 100;
 } 
 
-if($MaleUserspreviousMonthCount==0){
-$MaleUserspercentIncrease=100;
+if($MaleUserscurrentMonthCount==0){
+$MaleUserspercentIncrease=0;
+}else if($MaleUserspreviousMonthCount==0){
+  $MaleUserspercentIncrease=100;
 }else{
 $MaleUserspercentIncrease = ($MaleUserscurrentMonthCount - $MaleUserspreviousMonthCount) / $MaleUserspreviousMonthCount * 100;
 } 
 
-if($FemaleFarmerspreviousMonthCount==0){
-  $FemaleFarmerspercentIncrease=100;
+if($FemaleFarmerscurrentMonthCount==0){
+  $FemaleFarmerspercentIncrease=0;
+  }else if($FemaleFarmerspreviousMonthCount==0){
+    $FemaleFarmerspercentIncrease=100;
   }else{
   $FemaleFarmerspercentIncrease = ($FemaleFarmerscurrentMonthCount - $FemaleFarmerspreviousMonthCount) / $FemaleFarmerspreviousMonthCount * 100;
   } 
   
-  if($MaleFarmerspreviousMonthCount==0){
-  $MaleFarmerspercentIncrease=100;
+  if($MaleFarmerscurrentMonthCount==0){
+  $MaleFarmerspercentIncrease=0;
+  }else if($MaleFarmerspreviousMonthCount==0){
+    $MaleFarmerspercentIncrease=100;
   }else{
   $MaleFarmerspercentIncrease = ($MaleFarmerscurrentMonthCount - $MaleFarmerspreviousMonthCount) / $MaleFarmerspreviousMonthCount * 100;
   } 
 
-  if($ActiveCooppreviousMonthCount==0){
-    $ActiveCooperativespercentIncrease=100;
+  if($ActiveCoopcurrentMonthCount==0){
+    $ActiveCooperativespercentIncrease=0;
+    }else if($ActiveCooppreviousMonthCount==0){
+      $ActiveCooperativespercentIncrease=100;
     }else{
     $ActiveCooperativespercentIncrease = ($ActiveCoopcurrentMonthCount - $ActiveCooppreviousMonthCount) / $ActiveCooppreviousMonthCount * 100;
     } 
