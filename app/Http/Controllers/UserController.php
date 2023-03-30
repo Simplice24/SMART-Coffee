@@ -42,6 +42,10 @@ class UserController extends Controller
       $inactiveCoop= Cooperative::where('status','Not operating')->get();
       $inactiveCount=count($inactiveCoop);
       $diseases=Disease::all();
+      $diseases = DB::table('diseases')
+      ->select('category', DB::raw('COUNT(*) as total'))
+      ->groupBy('category')
+      ->get();
       $MaleMonth=[];
       $Malecount=[];
       $FemaleMonth=[];
@@ -105,7 +109,7 @@ $InactiveCoopCount[]= count($inactive);
     'Femalecount'=>$Femalecount,'MalefarmerMonth'=>$MalefarmerMonth,'Malefarmercount'=>$Malefarmercount,'FemalefarmerMonth'=>$FemalefarmerMonth,
     'Femalefarmercount'=>$Femalefarmercount,'CountingMaleFarmers'=>$CountingMaleFarmers,'CountingFemaleFarmers'=>$CountingFemaleFarmers,
     'activeCount'=>$activeCount,'inactiveCount'=>$inactiveCount,'ActiveCoopMonth'=>$ActiveCoopMonth,'ActiveCoopCount'=>$ActiveCoopCount,
-    'InactiveCoopMonth'=>$InactiveCoopMonth,'InactiveCoopCount'=>$InactiveCoopCount]);  
+    'InactiveCoopMonth'=>$InactiveCoopMonth,'InactiveCoopCount'=>$InactiveCoopCount,'diseases'=>$diseases]);  
     }
 
     public function ManagerDashboard(){

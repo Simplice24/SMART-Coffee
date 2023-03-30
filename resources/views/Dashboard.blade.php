@@ -295,14 +295,16 @@
                     <div class="row">
                       <div class="col-sm-20">
                         <div class="text-dark">
+                          @foreach ($diseases as $disease)
                           <div class="d-flex pb-3 border-bottom justify-content-between">
-                            <div class="mr-3"><i class="mdi mdi-signal-cellular-outline icon-md"></i></div>
-                            <div class="font-weight-bold mr-sm-4">
-                              <div>Deposit has updated to Paid</div>
+                            <div class="mr-3 mt-2"><i class="mdi mdi-signal-cellular-outline icon-md"></i></div>
+                            <div class="font-weight-bold mr-sm-4 mt-2">
+                              <div>{{$disease->category}}</div>
                               <div class="text-muted font-weight-normal mt-1">32 Minutes Ago</div>
                             </div>
-                            <div><h6 class="font-weight-bold text-danger ml-sm-2">$325</h6></div>
+                            <div><h6 class="font-weight-bold text-danger ml-sm-2 mt-2">{{$disease->total}}</h6></div>
                           </div>
+                          @endforeach
                         </div>
                       </div>
                     </div>  
