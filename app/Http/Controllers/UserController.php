@@ -171,7 +171,7 @@ $CooperativespreviousMonthCount = DB::table('cooperatives')
                     ->count();
 
                     $InactiveCoopcurrentMonthCount = DB::table('cooperatives')
-                    ->where('status', 'Operating')
+                    ->where('status', 'Not operating')
                     ->whereMonth('created_at', $currentMonth)
                     ->whereYear('created_at', $currentYear)
                     ->count(); 
@@ -231,8 +231,10 @@ if($FemaleFarmerscurrentMonthCount==0){
     $ActiveCooperativespercentIncrease = ($ActiveCoopcurrentMonthCount - $ActiveCooppreviousMonthCount) / $ActiveCooppreviousMonthCount * 100;
     } 
     
-    if($InactiveCooppreviousMonthCount==0){
-    $InactiveCooppercentIncrease=100;
+    if($InactiveCoopcurrentMonthCount==0){
+    $InactiveCooppercentIncrease=0;
+    }else if($InactiveCooppreviousMonthCount==0){
+      $InactiveCooppercentIncrease=100;
     }else{
     $InactiveCooppercentIncrease = ($InactiveCoopcurrentMonthCount - $InactiveCooppreviousMonthCount) / $InactiveCooppreviousMonthCount * 100;
     } 
