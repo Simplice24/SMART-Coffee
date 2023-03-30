@@ -195,6 +195,7 @@
                     <h4 class="font-weight-normal mb-3">{{ __('msg.system users')}}<i class="icon-head menu-icon float-right"></i>
                     </h4>
                     <h1 class="mb-5">{{$rows}}</h1>
+                    <h6 class="card-text"><b>Increased by {{$UserspercentIncrease}}% this month</b></h6>
                   </div>
                   </a>
                 </div>
@@ -207,6 +208,7 @@
                     <h4 class="font-weight-normal mb-3">{{ __('msg.farmers')}}<i class="icon-head menu-icon float-right"></i>
                     </h4>
                     <h1 class="mb-5">{{$farmer}}</h1>
+                    <h6 class="card-text"><b>Increased by {{$FarmerspercentIncrease}}% this month</b></h6>
                   </div>
                 </a>
                 </div>
@@ -219,6 +221,7 @@
                     <h4 class="font-weight-normal mb-3"> {{ __('msg.cooperatives')}}<i class="icon-disc menu-icon float-right"></i>
                     </h4>
                     <h1 class="mb-5">{{$cooperative}}</h1>
+                    <h6 class="card-text"><b>Increased by {{$CooperativespercentIncrease}}% this month</b></h6>
                   </div>
                   </a>
                 </div>
@@ -230,7 +233,8 @@
                     <img src="Customized/assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
                     <h4 class="font-weight-normal mb-3"> {{ __('msg.diseases')}}<i class="icon-command menu-icon float-right"></i>
                     <h1 class="mb-5">{{$disease}}</h1>
-                  </div>
+                    <h6 class="card-text"><b>Increased by {{$percentIncrease}}% this month</b></h6>
+                  </div> 
                  </a> 
                 </div>
               </div>
@@ -300,7 +304,7 @@
                             <div class="mr-3 mt-2"><i class="mdi mdi-signal-cellular-outline icon-md"></i></div>
                             <div class="font-weight-bold mr-sm-4 mt-2">
                               <div>{{$disease->category}}</div>
-                              <div class="text-muted font-weight-normal mt-1">32 Minutes Ago</div>
+                              <div class="text-muted font-weight-normal mt-1"></div>
                             </div>
                             <div><h6 class="font-weight-bold text-danger ml-sm-2 mt-2">{{$disease->total}}</h6></div>
                           </div>

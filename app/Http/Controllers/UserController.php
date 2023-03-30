@@ -46,6 +46,83 @@ class UserController extends Controller
       ->select('category', DB::raw('COUNT(*) as total'))
       ->groupBy('category')
       ->get();
+      $currentMonth = date('m');
+
+$currentYear = date('Y');
+
+$previousMonth = $currentMonth - 1;
+$previousYear = $currentYear;
+
+if ($previousMonth == 0) {
+    $previousMonth = 12;
+    $previousYear -= 1;
+}
+
+$currentMonthCount = DB::table('diseases')
+                    ->whereMonth('created_at', $currentMonth)
+                    ->whereYear('created_at', $currentYear)
+                    ->count();
+
+$UserscurrentMonthCount = DB::table('users')
+                    ->whereMonth('created_at', $currentMonth)
+                    ->whereYear('created_at', $currentYear)
+                    ->count();
+
+$FarmerscurrentMonthCount = DB::table('farmers')
+                    ->whereMonth('created_at', $currentMonth)
+                    ->whereYear('created_at', $currentYear)
+                    ->count();
+            
+$CooperativescurrentMonthCount = DB::table('cooperatives')
+                    ->whereMonth('created_at', $currentMonth)
+                    ->whereYear('created_at', $currentYear)
+                    ->count();
+
+$previousMonthCount = DB::table('diseases')
+                    ->whereMonth('created_at', $previousMonth)
+                    ->whereYear('created_at', $previousYear)
+                    ->count();
+
+$UserspreviousMonthCount = DB::table('users')
+                    ->whereMonth('created_at', $previousMonth)
+                    ->whereYear('created_at', $previousYear)
+                    ->count();
+
+$FarmerspreviousMonthCount = DB::table('farmers')
+                    ->whereMonth('created_at', $previousMonth)
+                    ->whereYear('created_at', $previousYear)
+                    ->count();
+
+$CooperativespreviousMonthCount = DB::table('cooperatives')
+                    ->whereMonth('created_at', $previousMonth)
+                    ->whereYear('created_at', $previousYear)
+                    ->count();
+
+if($CooperativespreviousMonthCount==0){
+$CooperativespercentIncrease=100;
+}else{
+$CooperativespercentIncrease = ($CooperativescurrentMonthCount - $CooperativespreviousMonthCount) / $CooperativespreviousMonthCount * 100;
+}                    
+
+if($FarmerspreviousMonthCount==0){
+$FarmerspercentIncrease=100;
+}else{
+$FarmerspercentIncrease = ($FarmerscurrentMonthCount - $FarmerspreviousMonthCount) / $FarmerspreviousMonthCount * 100;
+}
+
+if($UserspreviousMonthCount==0){
+  $UserspercentIncrease=100;
+}else{
+  $UserspercentIncrease = ($UserscurrentMonthCount - $UserspreviousMonthCount) / $UserspreviousMonthCount * 100;
+}
+
+if($previousMonthCount==0){
+  $percentIncrease=100;
+}else{
+  $percentIncrease = ($currentMonthCount - $previousMonthCount) / $previousMonthCount * 100;
+}
+
+
       $MaleMonth=[];
       $Malecount=[];
       $FemaleMonth=[];
@@ -60,14 +137,15 @@ class UserController extends Controller
       $InactiveCoopCount=[];
       $DiseaseCategory=[];
       $CategoryCount=[];
-      $maleUsersByYearMonth = $maleUsers->groupBy(function ($user) {
-        return $user->created_at->format('Y-m');
-    });
-    $femaleUsersByYearMonth = $femaleUsers->groupBy(function ($user) {
-      return $user->created_at->format('Y-m');
-  });
-  $maleFarmersByYearMonth = $malefarmers->groupBy(function ($user) {
-    return $user->created_at->format('Y-m');
+
+$maleUsersByYearMonth = $maleUsers->groupBy(function ($user) {
+return $user->created_at->format('Y-m');
+});
+$femaleUsersByYearMonth = $femaleUsers->groupBy(function ($user) {
+return $user->created_at->format('Y-m');
+});
+$maleFarmersByYearMonth = $malefarmers->groupBy(function ($user) {
+return $user->created_at->format('Y-m');
 });
 $femaleFarmersByYearMonth = $femalefarmers->groupBy(function ($user) {
   return $user->created_at->format('Y-m');
@@ -104,12 +182,14 @@ foreach ($inactiveCoopByYearMonth as $yearMonth => $inactive) {
 $InactiveCoopMonth[]=$yearMonth;
 $InactiveCoopCount[]= count($inactive);
 }
+
       return view('Dashboard',['profileImg'=>$profileImg,'rows'=>$rows,'farmer'=>$farmer,'cooperative'=>$cooperative,'disease'=>$disease,
     'MaleMonth'=>$MaleMonth,'Malecount'=>$Malecount,'CountingMale'=>$CountingMale,'CountingFemale'=>$CountingFemale,'FemaleMonth'=>$FemaleMonth,
     'Femalecount'=>$Femalecount,'MalefarmerMonth'=>$MalefarmerMonth,'Malefarmercount'=>$Malefarmercount,'FemalefarmerMonth'=>$FemalefarmerMonth,
     'Femalefarmercount'=>$Femalefarmercount,'CountingMaleFarmers'=>$CountingMaleFarmers,'CountingFemaleFarmers'=>$CountingFemaleFarmers,
     'activeCount'=>$activeCount,'inactiveCount'=>$inactiveCount,'ActiveCoopMonth'=>$ActiveCoopMonth,'ActiveCoopCount'=>$ActiveCoopCount,
-    'InactiveCoopMonth'=>$InactiveCoopMonth,'InactiveCoopCount'=>$InactiveCoopCount,'diseases'=>$diseases]);  
+    'InactiveCoopMonth'=>$InactiveCoopMonth,'InactiveCoopCount'=>$InactiveCoopCount,'diseases'=>$diseases,'percentIncrease'=>$percentIncrease,
+  'UserspercentIncrease'=>$UserspercentIncrease,'FarmerspercentIncrease'=>$FarmerspercentIncrease,'CooperativespercentIncrease'=>$CooperativespercentIncrease]);  
     }
 
     public function ManagerDashboard(){
