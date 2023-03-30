@@ -41,6 +41,7 @@ class UserController extends Controller
       $activeCount=count($activeCoop);
       $inactiveCoop= Cooperative::where('status','Not operating')->get();
       $inactiveCount=count($inactiveCoop);
+      $diseases=Disease::all();
       $MaleMonth=[];
       $Malecount=[];
       $FemaleMonth=[];
@@ -53,6 +54,8 @@ class UserController extends Controller
       $ActiveCoopCount=[];
       $InactiveCoopMonth=[];
       $InactiveCoopCount=[];
+      $DiseaseCategory=[];
+      $CategoryCount=[];
       $maleUsersByYearMonth = $maleUsers->groupBy(function ($user) {
         return $user->created_at->format('Y-m');
     });
@@ -65,18 +68,18 @@ class UserController extends Controller
 $femaleFarmersByYearMonth = $femalefarmers->groupBy(function ($user) {
   return $user->created_at->format('Y-m');
 });
-
 $activeCoopByYearMonth = $activeCoop->groupBy(function ($user) {
   return $user->created_at->format('Y-m');
 });
 $inactiveCoopByYearMonth = $inactiveCoop->groupBy(function ($user) {
 return $user->created_at->format('Y-m');
 });
-    foreach ($maleUsersByYearMonth as $yearMonth => $maleUsers) {
+
+foreach ($maleUsersByYearMonth as $yearMonth => $maleUsers) {
       $MaleMonth[]=$yearMonth;
       $Malecount[]= count($maleUsers);
-  }
-  foreach ($femaleUsersByYearMonth as $yearMonth => $femaleUsers) {
+}
+foreach ($femaleUsersByYearMonth as $yearMonth => $femaleUsers) {
     $FemaleMonth[]=$yearMonth;
     $Femalecount[]= count($femaleUsers);
 }
