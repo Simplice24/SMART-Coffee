@@ -260,7 +260,6 @@
     <!-- page-body-wrapper ends -->
   </div>
   <!-- container-scroller -->
-
   <!-- base:js -->
   <script src="Customized/vendors/base/vendor.bundle.base.js"></script>
   <!-- endinject -->
