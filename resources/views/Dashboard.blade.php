@@ -247,13 +247,13 @@
                 <div class="card">
                       <div class="card-body">
                           <h4 class="card-title">Male users</h4>
-                          <p>23% increase in conversion</p>
+                          <p>{{$MaleUserspercentIncrease}}% increase this month</p>
                           <h4 class="text-dark font-weight-bold mb-2">{{$CountingMale}}</h4>
                           <canvas id="MaleUsers"></canvas>
                       </div>
                       <div class="card-body">
                           <h4 class="card-title">Female users</h4>
-                          <p>23% increase in conversion</p>
+                          <p>{{$FemaleUserspercentIncrease}}% increase this month</p>
                           <h4 class="text-dark font-weight-bold mb-2">{{$CountingFemale}}</h4>
                           <canvas id="FemaleUsers"></canvas>
                       </div>
@@ -263,13 +263,13 @@
                 <div class="card">
                       <div class="card-body">
                           <h4 class="card-title">Male farmers</h4>
-                          <p>23% increase in conversion</p>
+                          <p>{{$MaleFarmerspercentIncrease}}% increase this month</p>
                           <h4 class="text-dark font-weight-bold mb-2">{{$CountingMaleFarmers}}</h4>
                           <canvas id="MaleFarmers"></canvas>
                       </div>
                       <div class="card-body">
                           <h4 class="card-title">Female farmers</h4>
-                          <p>23% increase in conversion</p>
+                          <p>{{$FemaleFarmerspercentIncrease}}% increase in month</p>
                           <h4 class="text-dark font-weight-bold mb-2">{{$CountingFemaleFarmers}}</h4>
                           <canvas id="FemaleFarmers"></canvas>
                       </div>
@@ -279,13 +279,13 @@
               <div class="card">
                       <div class="card-body">
                           <h4 class="card-title">Active cooperatives</h4>
-                          <p>23% increase in conversion</p>
+                          <p>{{$ActiveCooperativespercentIncrease}}% increase in this month</p>
                           <h4 class="text-dark font-weight-bold mb-2">{{$activeCount}}</h4>
                           <canvas id="ActiveCooperatives"></canvas>
                       </div>
                       <div class="card-body">
                           <h4 class="card-title">Inactive cooperatives</h4>
-                          <p>23% increase in conversion</p>
+                          <p>{{$InactiveCooppercentIncrease}}% increase this month</p>
                           <h4 class="text-dark font-weight-bold mb-2">{{$inactiveCount}}</h4>
                           <canvas id="InactiveCooperatives"></canvas>
                       </div>

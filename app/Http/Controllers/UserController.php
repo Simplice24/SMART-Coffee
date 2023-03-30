@@ -98,11 +98,132 @@ $CooperativespreviousMonthCount = DB::table('cooperatives')
                     ->whereYear('created_at', $previousYear)
                     ->count();
 
+                    $MaleUserscurrentMonthCount = DB::table('users')
+                    ->where('gender', 'Male')
+                    ->whereMonth('created_at', $currentMonth)
+                    ->whereYear('created_at', $currentYear)
+                    ->count(); 
+                    
+                    $MaleUserspreviousMonthCount = DB::table('users')
+                    ->where('gender', 'Male')
+                    ->whereMonth('created_at', $previousMonth)
+                    ->whereYear('created_at', $previousYear)
+                    ->count();
+
+                    $FemaleUserscurrentMonthCount = DB::table('users')
+                    ->where('gender', 'Female')
+                    ->whereMonth('created_at', $currentMonth)
+                    ->whereYear('created_at', $currentYear)
+                    ->count(); 
+                    
+                    $FemaleUserspreviousMonthCount = DB::table('users')
+                    ->where('gender', 'Female')
+                    ->whereMonth('created_at', $previousMonth)
+                    ->whereYear('created_at', $previousYear)
+                    ->count();
+
+                    $MaleFarmerscurrentMonthCount = DB::table('farmers')
+                    ->where('gender', 'Male')
+                    ->whereMonth('created_at', $currentMonth)
+                    ->whereYear('created_at', $currentYear)
+                    ->count(); 
+                    
+                    $MaleFarmerspreviousMonthCount = DB::table('farmers')
+                    ->where('gender', 'Male')
+                    ->whereMonth('created_at', $previousMonth)
+                    ->whereYear('created_at', $previousYear)
+                    ->count();
+
+                    $FemaleFarmerscurrentMonthCount = DB::table('farmers')
+                    ->where('gender', 'Female')
+                    ->whereMonth('created_at', $currentMonth)
+                    ->whereYear('created_at', $currentYear)
+                    ->count(); 
+                    
+                    $FemaleFarmerspreviousMonthCount = DB::table('farmers')
+                    ->where('gender', 'Female')
+                    ->whereMonth('created_at', $previousMonth)
+                    ->whereYear('created_at', $previousYear)
+                    ->count();
+
+                    $FemaleFarmerscurrentMonthCount = DB::table('farmers')
+                    ->where('gender', 'Female')
+                    ->whereMonth('created_at', $currentMonth)
+                    ->whereYear('created_at', $currentYear)
+                    ->count(); 
+                    
+                    $FemaleFarmerspreviousMonthCount = DB::table('farmers')
+                    ->where('gender', 'Female')
+                    ->whereMonth('created_at', $previousMonth)
+                    ->whereYear('created_at', $previousYear)
+                    ->count();
+
+                    $ActiveCoopcurrentMonthCount = DB::table('cooperatives')
+                    ->where('status', 'Operating')
+                    ->whereMonth('created_at', $currentMonth)
+                    ->whereYear('created_at', $currentYear)
+                    ->count(); 
+                    
+                    $ActiveCooppreviousMonthCount = DB::table('cooperatives')
+                    ->where('status', 'Not operating')
+                    ->whereMonth('created_at', $previousMonth)
+                    ->whereYear('created_at', $previousYear)
+                    ->count();
+
+                    $InactiveCoopcurrentMonthCount = DB::table('cooperatives')
+                    ->where('status', 'Operating')
+                    ->whereMonth('created_at', $currentMonth)
+                    ->whereYear('created_at', $currentYear)
+                    ->count(); 
+                    
+                    $InactiveCooppreviousMonthCount = DB::table('cooperatives')
+                    ->where('status', 'Not operating')
+                    ->whereMonth('created_at', $previousMonth)
+                    ->whereYear('created_at', $previousYear)
+                    ->count();
+
+
 if($CooperativespreviousMonthCount==0){
 $CooperativespercentIncrease=100;
 }else{
 $CooperativespercentIncrease = ($CooperativescurrentMonthCount - $CooperativespreviousMonthCount) / $CooperativespreviousMonthCount * 100;
-}                    
+}  
+
+if($FemaleUserspreviousMonthCount==0){
+$FemaleUserspercentIncrease=100;
+}else{
+$FemaleUserspercentIncrease = ($FemaleUserscurrentMonthCount - $FemaleUserspreviousMonthCount) / $FemaleUserspreviousMonthCount * 100;
+} 
+
+if($MaleUserspreviousMonthCount==0){
+$MaleUserspercentIncrease=100;
+}else{
+$MaleUserspercentIncrease = ($MaleUserscurrentMonthCount - $MaleUserspreviousMonthCount) / $MaleUserspreviousMonthCount * 100;
+} 
+
+if($FemaleFarmerspreviousMonthCount==0){
+  $FemaleFarmerspercentIncrease=100;
+  }else{
+  $FemaleFarmerspercentIncrease = ($FemaleFarmerscurrentMonthCount - $FemaleFarmerspreviousMonthCount) / $FemaleFarmerspreviousMonthCount * 100;
+  } 
+  
+  if($MaleFarmerspreviousMonthCount==0){
+  $MaleFarmerspercentIncrease=100;
+  }else{
+  $MaleFarmerspercentIncrease = ($MaleFarmerscurrentMonthCount - $MaleFarmerspreviousMonthCount) / $MaleFarmerspreviousMonthCount * 100;
+  } 
+
+  if($ActiveCooppreviousMonthCount==0){
+    $ActiveCooperativespercentIncrease=100;
+    }else{
+    $ActiveCooperativespercentIncrease = ($ActiveCoopcurrentMonthCount - $ActiveCooppreviousMonthCount) / $ActiveCooppreviousMonthCount * 100;
+    } 
+    
+    if($InactiveCooppreviousMonthCount==0){
+    $InactiveCooppercentIncrease=100;
+    }else{
+    $InactiveCooppercentIncrease = ($InactiveCoopcurrentMonthCount - $InactiveCooppreviousMonthCount) / $InactiveCooppreviousMonthCount * 100;
+    } 
 
 if($FarmerspreviousMonthCount==0){
 $FarmerspercentIncrease=100;
@@ -189,7 +310,9 @@ $InactiveCoopCount[]= count($inactive);
     'Femalefarmercount'=>$Femalefarmercount,'CountingMaleFarmers'=>$CountingMaleFarmers,'CountingFemaleFarmers'=>$CountingFemaleFarmers,
     'activeCount'=>$activeCount,'inactiveCount'=>$inactiveCount,'ActiveCoopMonth'=>$ActiveCoopMonth,'ActiveCoopCount'=>$ActiveCoopCount,
     'InactiveCoopMonth'=>$InactiveCoopMonth,'InactiveCoopCount'=>$InactiveCoopCount,'diseases'=>$diseases,'percentIncrease'=>$percentIncrease,
-  'UserspercentIncrease'=>$UserspercentIncrease,'FarmerspercentIncrease'=>$FarmerspercentIncrease,'CooperativespercentIncrease'=>$CooperativespercentIncrease]);  
+  'UserspercentIncrease'=>$UserspercentIncrease,'FarmerspercentIncrease'=>$FarmerspercentIncrease,'CooperativespercentIncrease'=>$CooperativespercentIncrease,
+'MaleUserspercentIncrease'=>$MaleUserspercentIncrease,'FemaleUserspercentIncrease'=>$FemaleUserspercentIncrease,'FemaleFarmerspercentIncrease'=>$FemaleFarmerspercentIncrease,
+'MaleFarmerspercentIncrease'=>$MaleFarmerspercentIncrease,'ActiveCooperativespercentIncrease'=>$ActiveCooperativespercentIncrease,'InactiveCooppercentIncrease'=>$InactiveCooppercentIncrease]);  
     }
 
     public function ManagerDashboard(){
