@@ -66,7 +66,7 @@
             </a>
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
               <p class="mb-0 font-weight-normal float-left dropdown-header">{{ __('msg.settings') }}</p>
-              <a class="dropdown-item preview-item" href="<?=url('profile');?>">               
+              <a class="dropdown-item preview-item" href="<?=url('userProfile');?>">               
                   <i class="icon-head"></i> {{ __('msg.profile') }}
               </a>
               <a class="dropdown-item preview-item" href="<?=url('logout');?>">

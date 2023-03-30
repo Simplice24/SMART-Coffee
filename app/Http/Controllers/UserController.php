@@ -41,7 +41,6 @@ class UserController extends Controller
       $activeCount=count($activeCoop);
       $inactiveCoop= Cooperative::where('status','Not operating')->get();
       $inactiveCount=count($inactiveCoop);
-      // $diseases=Disease::all();
 
       $currentMonth = date('m');
       $currentYear = date('Y');
