@@ -41,17 +41,27 @@ class UserController extends Controller
       $activeCount=count($activeCoop);
       $inactiveCoop= Cooperative::where('status','Not operating')->get();
       $inactiveCount=count($inactiveCoop);
-      $diseases=Disease::all();
+      // $diseases=Disease::all();
+
+      $currentMonth = date('m');
+      $currentYear = date('Y');
+
       $diseases = DB::table('diseases')
-      ->select('category', DB::raw('COUNT(*) as total'))
+      ->select('category', DB::raw('COUNT(*) as current_month_total'))
+      ->whereMonth('created_at', $currentMonth)
+      ->whereYear('created_at', $currentYear)
       ->groupBy('category')
       ->get();
-      $currentMonth = date('m');
 
-$currentYear = date('Y');
+      $previousMonth = $currentMonth - 1;
+      $previousYear = $currentYear;
 
-$previousMonth = $currentMonth - 1;
-$previousYear = $currentYear;
+      $previousMonthDiseases = DB::table('diseases')
+      ->select('category', DB::raw('COUNT(*) as previous_month_total'))
+      ->whereMonth('created_at', $previousMonth)
+      ->whereYear('created_at', $currentYear)
+      ->groupBy('category')
+      ->get();
 
 if ($previousMonth == 0) {
     $previousMonth = 12;
@@ -239,24 +249,29 @@ if($FemaleFarmerscurrentMonthCount==0){
     $InactiveCooppercentIncrease = ($InactiveCoopcurrentMonthCount - $InactiveCooppreviousMonthCount) / $InactiveCooppreviousMonthCount * 100;
     } 
 
-if($FarmerspreviousMonthCount==0){
+if($FarmerscurrentMonthCount==0){
+$FarmerspercentIncrease=0;
+}else if($FarmerspreviousMonthCount==0){
 $FarmerspercentIncrease=100;
 }else{
 $FarmerspercentIncrease = ($FarmerscurrentMonthCount - $FarmerspreviousMonthCount) / $FarmerspreviousMonthCount * 100;
 }
 
-if($UserspreviousMonthCount==0){
+if($UserscurrentMonthCount==0){
+  $UserspercentIncrease=0;
+}else if($UserspreviousMonthCount==0){
   $UserspercentIncrease=100;
 }else{
   $UserspercentIncrease = ($UserscurrentMonthCount - $UserspreviousMonthCount) / $UserspreviousMonthCount * 100;
 }
 
-if($previousMonthCount==0){
+if($currentMonthCount==0){
+  $percentIncrease=0;
+}else if($previousMonthCount==0){
   $percentIncrease=100;
 }else{
   $percentIncrease = ($currentMonthCount - $previousMonthCount) / $previousMonthCount * 100;
 }
-
 
       $MaleMonth=[];
       $Malecount=[];

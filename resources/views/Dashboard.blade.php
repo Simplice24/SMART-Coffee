@@ -303,10 +303,10 @@
                           <div class="d-flex pb-3 border-bottom justify-content-between">
                             <div class="mr-3 mt-2"><i class="mdi mdi-signal-cellular-outline icon-md"></i></div>
                             <div class="font-weight-bold mr-sm-4 mt-2">
-                              <div>{{$disease->category}}</div>
+                              <div>{{ $disease->category}}</div>
                               <div class="text-muted font-weight-normal mt-1"></div>
                             </div>
-                            <div><h6 class="font-weight-bold text-danger ml-sm-2 mt-2">{{$disease->total}}</h6></div>
+                            <div><h6 class="font-weight-bold text-danger ml-sm-2 mt-2">{{$disease->current_month_total}}</h6></div>
                           </div>
                           @endforeach
                         </div>
