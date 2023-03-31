@@ -150,27 +150,38 @@
                 </div>
               </div>
               <div class="col-md-3 stretch-card grid-margin">
-                <div class="card bg-gradient-info card-img-holder text-white">
-                <a href="<?=url('');?>" style="text-decoration:none; color:white;">
+                <div class="card bg-gradient-warning card-img-holder text-white">
+                <a href="" style="text-decoration:none; color:white;">
                   <div class="card-body">
                     <img src="/Customized/assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
                     <h4 class="font-weight-normal mb-3">Coffee trees<i class="mdi mdi-barley menu-icon float-right"></i>
                     <h1 class="mb-5">{{$total_trees}}</h1>
+                    <h6 class="card-text"><b>Increased by {{$treespercentIncrease}}% this month</b></h6>
                   </div>
                  </a> 
                 </div>
               </div>
                <div class="col-md-3 stretch-card grid-margin">
-                <div class="card bg-gradient-danger card-img-holder text-white">
-                <a href="<?=url('CooperativeDiseases');?>" style="text-decoration:none; color:white;">
+                <div class="card bg-gradient-primary bg-dark card-img-holder text-white">
+                <a href="" style="text-decoration:none; color:white;">
                   <div class="card-body">
                     <img src="/Customized/assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
-                    <h4 class="font-weight-normal mb-3"> {{ __('msg.diseases')}}<i class="icon-command menu-icon float-right"></i>
-                    <h1 class="mb-5">{{$diseases}}</h1>
+                    <h4 class="font-weight-normal mb-3">Weekly Sales <i class="mdi mdi-chart-line mdi-24px float-right"></i>
+                    <h1 class="mb-5"></h1>
                   </div>
                  </a> 
                 </div>
               </div>
+              <div class="col-md-3 stretch-card grid-margin">
+                <div class="card bg-gradient-secondary card-img-holder text-white">
+                <a href="" style="text-decoration:none; color:white;">
+                  <div class="card-body">
+                    <img src="/Customized/assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
+                    <h4 class="font-weight-normal mb-3">Stock<i class="mdi mdi-stocking menu-icon float-right"></i>
+                    <h1 class="mb-5"></h1>
+                  </div>
+                 </a> 
+                </div>
               
               <!-- <div class="col-md-3 stretch-card grid-margin">
                 <div class="card bg-gradient-danger card-img-holder text-white">
@@ -203,7 +214,7 @@
               </div>
                
            </div>
-          
+</div>
 
         </div>
         <!-- content-wrapper ends -->

@@ -373,6 +373,16 @@ $InactiveCoopCount[]= count($inactive);
                     ->whereMonth('created_at', $previousMonth)
                     ->whereYear('created_at', $previousYear)
                     ->count();
+        $treesCurrentMonthCount = DB::table('farmers')
+                    ->where('cooperative_id',$cooperative_id)
+                    ->whereMonth('created_at', $currentMonth)
+                    ->whereYear('created_at', $currentYear)
+                    ->sum('number_of_trees');
+        $treesPreviousMonthCount = DB::table('farmers')
+                    ->where('cooperative_id',$cooperative_id)
+                    ->whereMonth('created_at', $previousMonth)
+                    ->whereYear('created_at', $previousYear)
+                    ->sum('number_of_trees');
         $maleFarmersCurrentMonthCount = DB::table('farmers')
                     ->where('gender','Male')
                     ->whereMonth('created_at', $currentMonth)
@@ -414,10 +424,17 @@ $InactiveCoopCount[]= count($inactive);
                       }else{
                       $CoopFarmerspercentIncrease = ($farmersCurrentMonthCount - $farmersPreviousMonthCount) / $farmersPreviousMonthCount * 100;
                       }
+                      if($treesCurrentMonthCount==0){
+                        $treespercentIncrease=0;
+                        }else if($treesPreviousMonthCount==0){
+                        $treespercentIncrease=100;
+                        }else{
+                        $treespercentIncrease = ($treesCurrentMonthCount - $treesPreviousMonthCount) / $treesPreviousMonthCount * 100;
+                        }
         return view('Manager/Dashboard',['totalFarmers'=>$totalFarmers,'total_trees'=>$total_trees,
         'diseases'=>$diseases,'profileImg'=>$profileImg,'male_farmers'=>$male_farmers,'female_farmers'=>$female_farmers,
       'CoopFarmerspercentIncrease'=>$CoopFarmerspercentIncrease,'CoopMaleFarmerspercentIncrease'=>$CoopMaleFarmerspercentIncrease,
-    'CoopFemaleFarmerspercentIncrease'=>$CoopFemaleFarmerspercentIncrease]);
+    'CoopFemaleFarmerspercentIncrease'=>$CoopFemaleFarmerspercentIncrease,'treespercentIncrease'=>$treespercentIncrease]);
     }
   }
 
