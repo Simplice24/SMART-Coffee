@@ -346,14 +346,78 @@ $InactiveCoopCount[]= count($inactive);
     public function ManagerDashboard(){
       $userId=auth()->user()->id;
       $profileImg=User::find($userId);
+      $currentMonth=date('m');
+      $currentYear=date('Y');
+      $previousMonth = $currentMonth - 1;
+      $previousYear = $currentYear;
+      if ($previousMonth == 0) {
+        $previousMonth = 12;
+        $previousYear -= 1;
+    }
       $cooperative_id = DB::table('cooperative_user')
                    ->where('user_id', $userId)
                    ->value('cooperative_id');
         if ($cooperative_id) {
         $farmers = Farmer::where('cooperative_id', $cooperative_id)->get();
         $totalFarmers=$farmers->count();
+        $total_trees = Farmer::where('cooperative_id', $cooperative_id)
+                      ->sum('number_of_trees');
+        $male_farmers=Farmer::where([['cooperative_id', '=', $cooperative_id],['gender', '=','Male'],])->count(); 
+        $female_farmers=Farmer::where([['cooperative_id', '=', $cooperative_id],['gender', '=','Female'],])->count();             
         $diseases=Disease::count();
-        return view('Manager/Dashboard',['totalFarmers'=>$totalFarmers,'diseases'=>$diseases,'profileImg'=>$profileImg]);
+        $farmersCurrentMonthCount = DB::table('farmers')
+                    ->whereMonth('created_at', $currentMonth)
+                    ->whereYear('created_at', $currentYear)
+                    ->count();
+        $farmersPreviousMonthCount = DB::table('farmers')
+                    ->whereMonth('created_at', $previousMonth)
+                    ->whereYear('created_at', $previousYear)
+                    ->count();
+        $maleFarmersCurrentMonthCount = DB::table('farmers')
+                    ->where('gender','Male')
+                    ->whereMonth('created_at', $currentMonth)
+                    ->whereYear('created_at', $currentYear)
+                    ->count();
+        $maleFarmersPreviousMonthCount = DB::table('farmers')
+                    ->where('gender','Male')
+                    ->whereMonth('created_at', $previousMonth)
+                    ->whereYear('created_at', $previousYear)
+                    ->count();
+        $femaleFarmersCurrentMonthCount = DB::table('farmers')
+                    ->where('gender','Female')
+                    ->whereMonth('created_at', $currentMonth)
+                    ->whereYear('created_at', $currentYear)
+                    ->count();
+        $femaleFarmersPreviousMonthCount = DB::table('farmers')
+                    ->where('gender','Female')
+                    ->whereMonth('created_at', $previousMonth)
+                    ->whereYear('created_at', $previousYear)
+                    ->count();
+                    if($femaleFarmersCurrentMonthCount==0){
+                      $CoopFemaleFarmerspercentIncrease=0;
+                      }else if($femaleFarmersPreviousMonthCount==0){
+                      $CoopFemaleFarmerspercentIncrease=100;
+                      }else{
+                      $CoopFemaleFarmerspercentIncrease = ($femaleFarmersCurrentMonthCount - $femaleFarmersPreviousMonthCount) / $femaleFarmersPreviousMonthCount * 100;
+                      }
+                    if($maleFarmersCurrentMonthCount==0){
+                      $CoopMaleFarmerspercentIncrease=0;
+                      }else if($maleFarmersPreviousMonthCount==0){
+                      $CoopMaleFarmerspercentIncrease=100;
+                      }else{
+                      $CoopMaleFarmerspercentIncrease = ($maleFarmersCurrentMonthCount - $maleFarmersPreviousMonthCount) / $maleFarmersPreviousMonthCount * 100;
+                      }
+                    if($farmersCurrentMonthCount==0){
+                      $CoopFarmerspercentIncrease=0;
+                      }else if($farmersPreviousMonthCount==0){
+                      $CoopFarmerspercentIncrease=100;
+                      }else{
+                      $CoopFarmerspercentIncrease = ($farmersCurrentMonthCount - $farmersPreviousMonthCount) / $farmersPreviousMonthCount * 100;
+                      }
+        return view('Manager/Dashboard',['totalFarmers'=>$totalFarmers,'total_trees'=>$total_trees,
+        'diseases'=>$diseases,'profileImg'=>$profileImg,'male_farmers'=>$male_farmers,'female_farmers'=>$female_farmers,
+      'CoopFarmerspercentIncrease'=>$CoopFarmerspercentIncrease,'CoopMaleFarmerspercentIncrease'=>$CoopMaleFarmerspercentIncrease,
+    'CoopFemaleFarmerspercentIncrease'=>$CoopFemaleFarmerspercentIncrease]);
     }
   }
 
@@ -445,7 +509,11 @@ $InactiveCoopCount[]= count($inactive);
           $userId = auth()->user()->id;
           $profileImg=User::find($userId);
           $userinfo=User::find($userId);
-          return view('User-profile',['userinfo'=>$userinfo,'userId'=>$userId,'profileImg'=>$profileImg]);
+          if($userinfo->role==="Manager"){
+            return view('Manager/Manager-profile',['userinfo'=>$userinfo,'userId'=>$userId,'profileImg'=>$profileImg]);
+          }else{
+            return view('User-profile',['userinfo'=>$userinfo,'userId'=>$userId,'profileImg'=>$profileImg]);
+          }
         }
 
         public function userProfileUpdate(Request $req,$id){

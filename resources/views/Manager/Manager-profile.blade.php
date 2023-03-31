@@ -1,20 +1,19 @@
-
 <!DOCTYPE html>
-<html lang="{{ app()->getLocale() }}">
+<html lang="en">
+
 <head>
   <!-- Required meta tags --> 
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>CCMS</title>
+  <!-- base:css -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
 
-  <!-- base:css -->
   <link rel="stylesheet" href="/Customized/vendors/mdi/css/materialdesignicons.min.css">
   <link rel="stylesheet" href="/Customized/vendors/feather/feather.css">
   <link rel="stylesheet" href="/Customized/vendors/base/vendor.bundle.base.css">
   <!-- endinject -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
   <!-- plugin css for this page -->
   <link rel="stylesheet" href="/Customized/vendors/flag-icon-css/css/flag-icon.min.css"/>
   <link rel="stylesheet" href="/Customized/vendors/font-awesome/css/font-awesome.min.css">
@@ -31,8 +30,8 @@
     <!-- partial:partials/_navbar.html -->
     <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
       <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-        <a class="navbar-brand brand-logo" href={{"Manager/Home"}}><i class="icon-air-play menu-icon"></i>CCMS</a>
-        <a class="navbar-brand brand-logo-mini" href={{"Manager/Home"}}>CCMS</a>
+        <a class="navbar-brand brand-logo" href={{"Home"}}><i class="icon-air-play menu-icon"></i>CCMS</a>
+        <a class="navbar-brand brand-logo-mini" href={{"Home"}}>CCMS</a>
       </div>
       <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
         <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
@@ -65,18 +64,11 @@
             <a class="nav-link count-indicator dropdown-toggle d-flex align-items-center justify-content-center" id="notificationDropdown" href="#" data-toggle="dropdown">
               <i class="icon-cog"></i>
             </a>
-            
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
               <p class="mb-0 font-weight-normal float-left dropdown-header">{{ __('msg.settings') }}</p>
               <a class="dropdown-item preview-item" href="<?=url('userProfile');?>">               
                   <i class="icon-head"></i> {{ __('msg.profile') }}
               </a>
-              <!-- <a class="dropdown-item preview-item" href="">               
-                  <i class="icon-head"></i> French
-              </a>
-              <a class="dropdown-item preview-item" href="">               
-                  <i class="icon-head"></i> English
-              </a> -->
               <a class="dropdown-item preview-item" href="<?=url('logout');?>">
                   <i class="icon-inbox"></i> {{ __('msg.logout') }}
               </a>
@@ -126,88 +118,117 @@
         </ul>
       </nav>
       <!-- partial -->
-      <div class="main-panel">
-        <div class="content-wrapper">
-          <div class="row">
-            <div class="col-sm-12 mb-4 mb-xl-0">
-              <h4 class="font-weight-bold text-dark">{{ __('msg.hi, welcome back!')}}</h4>
-              <!-- <p class="font-weight-normal mb-2 text-muted">APRIL 1, 2019</p> -->
-            </div>
+      <div class="main-panel">      
+        <div class="container rounded bg-white mt-5 mb-5">
+            <div class="row">
+            <div class="col-md-3 border-right">
+            <div class="d-flex flex-column align-items-center text-center p-3 py-5">
+            <img class="rounded-circle mt-5" width="150px" src="{{asset('/storage/images/users/'.$userinfo->image)}}">
+              <span class="font-weight-bold">{{$userinfo->name}}</span>
+              <span class="font-weight-bold">{{$userinfo->email}}</span><br>
+              <span></span>
+              <form class="forms-sample" method="POST" action="{{url('profilePicUpdate/'.$userId)}}" enctype='multipart/form-data'>
+                @csrf
+                @method('PUT')
+              <input type="file" class="form-control" value="{{$userinfo->image}}" name="image" id="exampleInputEmail1" placeholder="Upload image" required>
+              <br>
+              <button class="btn btn-primary profile-button" type="submit">Change profile picture</button>
+              </form>
           </div>
-
-          <div class="row">
-              <div class="col-md-3 stretch-card grid-margin">
-                <div class="card bg-gradient-success card-img-holder text-white">
-                <a href="<?=url('CooperativeFarmers');?>" style="text-decoration:none; color:white;">
-                  <div class="card-body">
-                    <img src="/Customized/assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
-                    <h4 class="font-weight-normal mb-3">{{ __('msg.farmers')}}<i class="icon-head menu-icon float-right"></i>
-                    </h4>
-                    <h1 class="mb-5">{{$totalFarmers}}</h1>
-                    <h6 class="card-text"><b>Increased by {{$CoopFarmerspercentIncrease}}% this month</b></h6>
-                  </div>
-                </a>
-                </div>
-              </div>
-              <div class="col-md-3 stretch-card grid-margin">
-                <div class="card bg-gradient-info card-img-holder text-white">
-                <a href="<?=url('');?>" style="text-decoration:none; color:white;">
-                  <div class="card-body">
-                    <img src="/Customized/assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
-                    <h4 class="font-weight-normal mb-3">Coffee trees<i class="mdi mdi-barley menu-icon float-right"></i>
-                    <h1 class="mb-5">{{$total_trees}}</h1>
-                  </div>
-                 </a> 
-                </div>
-              </div>
-               <div class="col-md-3 stretch-card grid-margin">
-                <div class="card bg-gradient-danger card-img-holder text-white">
-                <a href="<?=url('CooperativeDiseases');?>" style="text-decoration:none; color:white;">
-                  <div class="card-body">
-                    <img src="/Customized/assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
-                    <h4 class="font-weight-normal mb-3"> {{ __('msg.diseases')}}<i class="icon-command menu-icon float-right"></i>
-                    <h1 class="mb-5">{{$diseases}}</h1>
-                  </div>
-                 </a> 
-                </div>
-              </div>
-              
-              <!-- <div class="col-md-3 stretch-card grid-margin">
-                <div class="card bg-gradient-danger card-img-holder text-white">
-                <a href="<?=url('');?>" style="text-decoration:none; color:white;">
-                  <div class="card-body">
-                    <img src="/Customized/assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
-                    <h4 class="font-weight-normal mb-3">Customer<i class="icon-command menu-icon float-right"></i>
-                    <h1 class="mb-5"></h1>
-                  </div>
-                 </a> 
-                </div>
-              </div> -->
-           </div>
-           <div class="row ">
-              <div class="col-md-3 grid-margin">
-                <div class="card">
-                      <div class="card-body">
-                          <h4 class="card-title">Male farmers<i class="mdi mdi-gender-male menu-icon float-right"></i></h4>
-                          <p>{{$CoopMaleFarmerspercentIncrease}}% increase this month</p>
-                          <h4 class="text-dark font-weight-bold mb-2">{{$male_farmers}}</h4>
-                      </div>
-                      </div>
-                      <div class="card mt-2">
-                      <div class="card-body">
-                          <h4 class="card-title">Female farmers<i class="mdi mdi-gender-male-female menu-icon float-right"></i></h4>
-                          <p>{{$CoopFemaleFarmerspercentIncrease}}% increase in month</p>
-                          <h4 class="text-dark font-weight-bold mb-2">{{$female_farmers}}</h4>
-                      </div>
-                </div>
-              </div>
-               
-           </div>
-          
-
         </div>
-        <!-- content-wrapper ends -->
-        <!-- partial:partials/_footer.html -->
+        <div class="col-md-5 border-right">
+            <div class="p-3 py-5">
+            <div class="p-3 py-5">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h4 class="text-right">Profile Settings</h4>
+                </div>
+                <!-- <div class="row mt-3"> -->
+                <form class="forms-sample" method="POST" action="{{url('userProfileUpdate/'.$userId)}}" enctype='multipart/form-data'>
+                @csrf
+                @method('PUT')
+                <div class="form-group">
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                      <span class="input-group-text">@</span>
+                      </div>
+                      <input type="text" class="form-control" value="{{$userinfo->username}}" name="username" placeholder="Username"  required>
+                    </div>
+                    </div>
+                    <div class="form-group">
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="icon-mail"></i></span>
+                      </div>
+                      <input type="email" class="form-control" value="{{$userinfo->email}}" name="email" id="exampleInputEmail1" placeholder="Email" required>
+                    </div>
+                    </div>
+                    <div class="form-group">
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="mdi mdi-phone-in-talk"></i></span>
+                      </div>
+                      <input type="text" class="form-control" value="{{$userinfo->phone}}" name="phone" id="exampleInputEmail1" placeholder="Phone" required>
+                    </div>
+                    </div>
+                    <div class="form-group">
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="icon-lock"></i></span>
+                      </div>
+                      <input type="password" class="form-control" name="current_password" id="exampleInputPassword1" placeholder="Your password" required>
+                    </div>
+                    </div>
+                </div>
+                <div class="mt-5 text-center">
+                  <button class="btn btn-primary profile-button" type="submit">Save Profile</button>
+                </div>
+                </form>
+            </div>
+        </div>
+        <div class="col-md-4 ">
+            <div class="p-3 py-5">
+            <div class="p-3 py-5">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                <h4 class="text-right">Change password</h4>
+                </div>
+                <!-- <div class="row mt-3"> -->
+                <form class="forms-sample" method="POST" action="{{url('userPasswordUpdate/'.$userId)}}" enctype='multipart/form-data'>
+                @csrf
+                @method('PUT')
+                <div class="form-group">
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="icon-lock"></i></span>
+                      </div>
+                      <input type="password" class="form-control" name="current_password" id="exampleInputPassword1" placeholder="Current password" required>
+                    </div>
+                    </div>
+                    <div class="form-group">
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="icon-lock"></i></span>
+                      </div>
+                      <input type="password" class="form-control" name="new_password" id="exampleInputPassword1" placeholder="New password">
+                    </div>
+                    </div>
+                    <div class="form-group">
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="icon-lock"></i></span>
+                      </div>
+                      <input type="password" class="form-control" name="confirm_new_password" id="exampleInputConfirmPassword1" placeholder="Confirm new password">
+                    </div>
+                    </div>
+                </div>
+                <div class="mt-5 text-center">
+                <button class="btn btn-primary profile-button" type="submit">Change password</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+      </div>
+
         <footer class="footer">
           <div class="d-sm-flex justify-content-center justify-content-sm-between">
             <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © CCMS 2023</span>
@@ -221,10 +242,6 @@
   </div>
   <!-- container-scroller -->
 
-  <script>
-  
-  </script>
-  
   <!-- base:js -->
   <script src="/Customized/vendors/base/vendor.bundle.base.js"></script>
   <!-- endinject -->
@@ -242,7 +259,6 @@
   <!-- Custom js for this page-->
   <script src="/Customized/js/dashboard.js"></script>
   <!-- End custom js for this page-->
-
 </body>
 
 </html>
