@@ -29,4 +29,12 @@ class Cooperative extends Model
     {
         return $this->hasMany(Farmer::class);
     }
+    public function production()
+    {
+        return $this->hasMany(Production::class);
+    }
+    public function sales()
+    {
+        return $this->hasMany(Sales::class);
+    }
 }
