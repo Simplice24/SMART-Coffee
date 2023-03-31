@@ -185,6 +185,9 @@
                             #
                           </th>
                           <th>
+                           Profile
+                          </th>
+                          <th>
                             {{ __('msg.full name')}}
                           </th>
                           <th>
@@ -206,6 +209,9 @@
                         @foreach($data as $i)
                           <td>
                           {{++$no}}
+                          </td>
+                          <td>
+                          <img src="{{asset('/storage/images/users/'.$i->image)}}">
                           </td>
                           <td>
                           {{$i->name}}
@@ -242,8 +248,6 @@
               </div>
             </div>
               
-              
-
            </div>
         </div>
         <!-- content-wrapper ends -->

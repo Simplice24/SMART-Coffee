@@ -182,7 +182,7 @@
                             <label class="col-sm-3 col-form-label">{{__('msg.manager')}}</label>
                             <div class="col-sm-9">
                             <select class="form-control" style="height:46px;" name="manager_name" required>
-                                        <option selected >{{$cooperativeinfo->manager_name}}</option>
+                                        <option selected>{{$cooperativeinfo->manager_name}}</option>
                                         @foreach($manager_names as $names)
                                         <option value="{{ $names->id }}">{{ $names->name}}</option>
                                         @endforeach
@@ -194,22 +194,12 @@
                       <div class="row">
                         <div class="col-md-6">
                           <div class="form-group row">
-                            <label class="col-sm-3 col-form-label">{{__('msg.category')}}</label>
-                            <div class="col-sm-9">
-                                <input type="text" class="form-control" name="category" value={{$cooperativeinfo->category}} required/>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-md-6">
-                          <div class="form-group row">
                             <label class="col-sm-3 col-form-label">{{__('msg.email')}}</label>
                             <div class="col-sm-9">
                               <input type="email" class="form-control" name="email" value={{$cooperativeinfo->email}} required/>
                             </div>
                           </div>
                         </div>
-                      </div>
-                      <div class="row">
                         <div class="col-md-6">
                           <div class="form-group row">
                             <label class="col-sm-3 col-form-label">{{__('msg.status')}}</label>
@@ -222,6 +212,8 @@
                             </div>
                           </div>
                         </div>
+                        </div>
+                      <div class="row">
                         <div class="col-md-6">
                           <div class="form-group row">
                             <label class="col-sm-3 col-form-label">{{__('msg.starting date')}}</label>
@@ -230,8 +222,7 @@
                             </div>
                           </div>
                         </div>
-                      </div>
-                      <div class="row">
+                      
                         <div class="col-md-6">
                             <div class="form-group row">
                               <label class="col-sm-3 col-form-label">{{__('msg.Province')}}</label>
@@ -240,6 +231,8 @@
                               </div>
                             </div>
                           </div>
+                          </div>
+                      <div class="row">
                         <div class="col-md-6">
                             <div class="form-group row">
                               <label class="col-sm-3 col-form-label">{{__('msg.district')}}</label>
@@ -248,10 +241,6 @@
                               </div>
                             </div>
                           </div>
-                        
-                    </div>
-                     
-                      <div class="row">
                         <div class="col-md-6">
                           <div class="form-group row">
                             <label class="col-sm-3 col-form-label">{{__('msg.sector')}}</label>
@@ -260,6 +249,8 @@
                             </div>
                           </div>
                         </div>
+                        </div>
+                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group row">
                               <label class="col-sm-3 col-form-label">{{__('msg.cell')}}</label>

@@ -164,7 +164,6 @@
                     <!-- <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150"> -->
                     <div class="mt-3">
                       <h4>{{$cooperativeinfo->name}}</h4>
-                      <h5>{{$cooperativeinfo->category}}</h5>
                       <h5>{{$cooperativeinfo->email}}</h5>
                     </div>
                   </div>
@@ -189,15 +188,6 @@
                     </div>
                     <div class="col-sm-9 text-dark">
                     {{$cooperativeinfo->manager_name}}
-                    </div>
-                  </div>
-                  <hr>
-                  <div class="row">
-                    <div class="col-sm-3">
-                      <h6 class="mb-0">{{__('msg.category')}}</h6>
-                    </div>
-                    <div class="col-sm-9 text-dark">
-                    {{$cooperativeinfo->category}}
                     </div>
                   </div>
                   <hr>

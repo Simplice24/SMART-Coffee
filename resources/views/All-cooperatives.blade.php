@@ -193,10 +193,10 @@
                             {{ __('msg.manager')}}
                           </th>
                           <th>
-                          {{ __('msg.category')}}
+                          {{ __('msg.email')}}
                           </th>
                           <th>
-                          {{ __('msg.email')}}
+                            Status
                           </th>
                         </tr>
                       </thead>
@@ -213,10 +213,14 @@
                           {{  $i->manager_name }}
                           </td>
                           <td>
-                          {{  $i->category }}
+                          {{  $i->email }}
                           </td>
                           <td>
-                          {{  $i->email }}
+                            @if($i->status=="Operating")
+                            <label class="bg-success text-white rounded p-1 d-flex align-items-stretch justify-content-stretch mt-1">{{ $i->status }}</label>
+                            @else
+                            <label class="bg-warning text-white rounded p-1 d-flex align-items-stretch justify-content-stretch mt-1">{{ $i->status }}</label>
+                            @endif
                           </td>
                           <td>
                           <div class="input-group-prepend">

@@ -69,7 +69,6 @@ class CooperativeController extends Controller
         $input=Cooperative::find($id);
         $input->name=$req->input('name');
         $input->manager_name=$manager_name;
-        $input->category=$req->input('category');
         $input->email=$req->input('email');
         $input->status=$req->input('status');
         $input->starting_date=$req->input('starting_date');
