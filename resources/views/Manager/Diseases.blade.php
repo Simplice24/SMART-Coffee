@@ -87,18 +87,18 @@
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <div class="user-profile">
           <div class="user-image">
-            <img src="{{asset('/storage/images/users/'.$profileImg->image)}}">
+          <img src="{{asset('/storage/images/users/'.$profileImg->image)}}">
           </div>
           <div class="user-name">
           {{session('user')}}
           </div>
           <div class="user-designation">
-          {{$profileImg->role}} 
+          {{$profileImg->role}}
           </div>
         </div>
         <ul class="nav">
           <li class="nav-item">
-            <a class="nav-link" href={{"Manager/Home"}}>
+            <a class="nav-link" href="<?=url('Manager/Home');?>">
               <i class="icon-air-play menu-icon"></i>
               <span class="menu-title">{{ __('msg.dashboard') }}</span>
             </a>
@@ -107,6 +107,18 @@
             <a class="nav-link" href="<?=url('CooperativeFarmers');?>">
               <i class="icon-pie-graph menu-icon"></i>
               <span class="menu-title">{{ __('msg.farmers') }}</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="<?=url('CooperativeFarmers');?>">
+              <i class="mdi mdi-stocking menu-icon"></i>
+              <span class="menu-title">Inventory </span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="<?=url('CooperativeSales');?>">
+              <i class="mdi mdi-chart-line menu-icon"></i>
+              <span class="menu-title">Sales tracking</span>
             </a>
           </li>
           <li class="nav-item">

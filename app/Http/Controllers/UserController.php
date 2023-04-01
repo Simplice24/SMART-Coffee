@@ -438,6 +438,12 @@ $InactiveCoopCount[]= count($inactive);
     }
   }
 
+  public function CooperativeSales(){
+    $user_id=Auth::User()->id;
+    $profileImg=User::find($user_id);
+    return view('Manager/Sales',['profileImg'=>$profileImg]);
+  }
+
     public function UserRegistrationPage(){
       if(Auth::User()->can('create-user')){
       $userId =auth()->user()->id;

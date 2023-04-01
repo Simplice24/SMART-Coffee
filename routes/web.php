@@ -70,6 +70,8 @@ Route::group(['middleware'=>["auth"]],function(){
     Route::put('updateUser/{id}',[UserController::class,'updateSystemUser']);
 
     Route::get("profile/profileUpdate/{id}",[UserController::class,'profileupdatepage']);
+
+    Route::get("CooperativeSales",[UserController::class,'CooperativeSales']);
     
 });
 

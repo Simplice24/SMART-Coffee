@@ -110,6 +110,18 @@
             </a>
           </li>
           <li class="nav-item">
+            <a class="nav-link" href="<?=url('CooperativeFarmers');?>">
+              <i class="mdi mdi-stocking menu-icon"></i>
+              <span class="menu-title">Inventory </span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="<?=url('CooperativeSales');?>">
+              <i class="mdi mdi-chart-line menu-icon"></i>
+              <span class="menu-title">Sales tracking</span>
+            </a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" href="<?=url('CooperativeDiseases');?>">
               <i class="icon-command menu-icon"></i>
               <span class="menu-title">{{ __('msg.diseases') }}</span>
