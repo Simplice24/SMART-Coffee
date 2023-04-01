@@ -8,6 +8,7 @@ use App\Models\Farmer;
 use App\Models\Disease;
 use App\Models\Cooperative;
 use App\Models\Province;
+use App\Models\Sales;
 use Illuminate\Http\RedirectResponse;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
@@ -441,7 +442,11 @@ $InactiveCoopCount[]= count($inactive);
   public function CooperativeSales(){
     $user_id=Auth::User()->id;
     $profileImg=User::find($user_id);
-    return view('Manager/Sales',['profileImg'=>$profileImg]);
+    $cooperative_id = DB::table('cooperative_user')
+                   ->where('user_id', $user_id)
+                   ->value('cooperative_id');
+    $CooperativeSales=Sales::where('cooperative_id',$cooperative_id)->get();
+    return view('Manager/Sales',['profileImg'=>$profileImg,'CooperativeSales'=>$CooperativeSales]);
   }
 
     public function UserRegistrationPage(){

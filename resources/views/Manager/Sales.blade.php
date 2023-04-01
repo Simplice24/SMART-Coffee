@@ -151,21 +151,25 @@
 
         <!-- Starting sales tracking  -->
 
-        <div class="col-md-6 grid-margin stretch-card">
+        <div class="col-md-8 grid-margin">
               <div class="card">
                 <div class="card-body">
                   <h4 class="card-title">Sales recording</h4>
                   <form class="forms-sample" action="SalesRecording" method="POST">
                     @csrf
+                  <div class="row">
+                  <div class="col-md-6">
                   <div class="form-group row">
-                      <label  class="col-sm-3 col-form-label">Customer</label>
-                      <div class="col-sm-9">
+                      <label  class="col-sm-4 col-form-label">Customer</label>
+                      <div class="col-sm-8">
                         <input type="text" class="form-control" id="exampleInputUsername2" name="customer" placeholder="Customer name" required>
                       </div>
                     </div>
+                    </div>
+                    <div class="col-md-6">
                     <div class="form-group row">
-                      <label  class="col-sm-3 col-form-label">Product</label>
-                      <div class="col-sm-9">
+                      <label  class="col-sm-4 col-form-label">Product</label>
+                      <div class="col-sm-8">
                         <select class="form-control" style="height:46px;" name="product" required>
                               <option disable selected>Select type of Coffee beans</option>
                                 <option>Arabica beans</option>
@@ -173,23 +177,35 @@
                               </select>
                       </div>
                     </div>
+                    </div>
+                    </div>
+                    <div class="row">
+                    <div class="col-md-6">
                     <div class="form-group row">
-                      <label  class="col-sm-3 col-form-label">Quantity</label>
-                      <div class="col-sm-9">
+                      <label  class="col-sm-4 col-form-label">Quantity</label>
+                      <div class="col-sm-8">
                         <input type="number" class="form-control" id="exampleInputEmail2" name="quantity" placeholder="Quantity" required>
                       </div>
                     </div>
+                    </div>
+                    <div class="col-md-6">
                     <div class="form-group row">
-                      <label  class="col-sm-3 col-form-label">Price</label>
-                      <div class="col-sm-9">
+                      <label  class="col-sm-4 col-form-label">Price</label>
+                      <div class="col-sm-8">
                         <input type="number" class="form-control" id="exampleInputUsername2" name="price" placeholder="Price" required>
                       </div>
                     </div>
+                    </div>
+                    </div>
+                    <div class="row">
+                    <div class="col-md-6">
                     <div class="form-group row">
-                      <label  class="col-sm-3 col-form-label">Payment method</label>
-                      <div class="col-sm-9">
+                      <label  class="col-sm-4 col-form-label">Payment method</label>
+                      <div class="col-sm-8">
                         <input type="text" class="form-control" id="exampleInputUsername2" name="payment" placeholder="Payment method" required>
                       </div>
+                    </div>
+                    </div>
                     </div>
                      
                     @if($errors->any())
@@ -210,6 +226,110 @@
             </div>
 
         <!-- ending sales tracking  -->
+
+        <!-- start of Selling table -->
+
+        
+
+            <div class="col-xl-4 grid-margin ">
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="d-flex justify-content-between mb-3">
+                          <h4 class="card-title">Market Trends</h4>
+                          <div class="dropdown">
+                              <button class="btn btn-sm dropdown-toggle text-dark pt-0 pr-0" type="button" id="dropdownMenuSizeButton3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                  This week
+                              </button>
+                              <div class="dropdown-menu" aria-labelledby="dropdownMenuSizeButton3">
+                                <h6 class="dropdown-header">This week</h6>
+                                <h6 class="dropdown-header">This month</h6>
+                              </div>
+                            </div>
+                      </div>
+                      <div id="chart-legends-market-trend" class="chart-legends mt-1">
+                      </div>
+                      <div class="row mt-2 mb-2">
+                        <div class="col-6">
+                          <div class="text-small"><span class="text-success">18.2%</span> higher </div>
+                        </div>
+                        <div class="col-6">
+                          <div class="text-small"><span class="text-danger">0.7%</span> higher </div>
+                        </div>
+                      </div>
+                      <div class="marketTrends mt-4">
+                        <canvas id="marketTrendssatacked"></canvas>
+                      </div>
+                        
+                    </div>
+                  </div>
+              </div>
+
+
+        </div>
+
+        <div class="row">
+
+        <!-- starting selling table -->
+
+        <div class="col-lg-8 grid-margin">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Sales</h4>
+                  <div class="table-responsive">
+                    <table class="table table-striped">
+                      <thead>
+                        <tr>
+                          <th>
+                            Customer
+                          </th>
+                          <th>
+                            Product
+                          </th>
+                          <th>
+                            Qty
+                          </th>
+                          <th>
+                            Price
+                          </th>
+                          <th>
+                            Payment way
+                          </th>
+                          <th>
+                            Date
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        @foreach($CooperativeSales as $Cooperativesale)
+                        <tr>
+                          <td>
+                            {{$Cooperativesale->customer}}
+                          </td>
+                          <td>
+                          {{$Cooperativesale->product}}
+                          </td>
+                          <td>
+                          {{$Cooperativesale->quantity}}
+                          </td>
+                          <td>
+                          {{$Cooperativesale->price}}
+                          </td>
+                          <td>
+                          {{$Cooperativesale->payment}}
+                          </td>
+                          <td>
+                          {{$Cooperativesale->created_at}}
+                          </td>
+                        </tr>
+                        @endforeach
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+        <!-- ending selling table -->
 
         </div>
 
