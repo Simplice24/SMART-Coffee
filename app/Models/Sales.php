@@ -7,10 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Sales extends Model
 {
-    protected $table='production';
+    protected $table='sales';
     protected $fillable=[
+        'customer',
+        'product',
         'price',
         'quantity',
+        'payment',
         'cooperative_id'
     ];
     use HasFactory;

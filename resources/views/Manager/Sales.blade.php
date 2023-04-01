@@ -155,37 +155,53 @@
               <div class="card">
                 <div class="card-body">
                   <h4 class="card-title">Sales recording</h4>
-                  <form class="forms-sample">
+                  <form class="forms-sample" action="SalesRecording" method="POST">
+                    @csrf
                   <div class="form-group row">
                       <label  class="col-sm-3 col-form-label">Customer</label>
                       <div class="col-sm-9">
-                        <input type="text" class="form-control" id="exampleInputUsername2" name="customer" placeholder="Customer name">
+                        <input type="text" class="form-control" id="exampleInputUsername2" name="customer" placeholder="Customer name" required>
                       </div>
                     </div>
                     <div class="form-group row">
                       <label  class="col-sm-3 col-form-label">Product</label>
                       <div class="col-sm-9">
-                        <input type="text" class="form-control" id="exampleInputUsername2" name="product" placeholder="Type of coffee">
+                        <select class="form-control" style="height:46px;" name="product" required>
+                              <option disable selected>Select type of Coffee beans</option>
+                                <option>Arabica beans</option>
+                                <option>Robusta beans</option>
+                              </select>
                       </div>
                     </div>
                     <div class="form-group row">
                       <label  class="col-sm-3 col-form-label">Quantity</label>
                       <div class="col-sm-9">
-                        <input type="number" class="form-control" id="exampleInputEmail2" name="quantity" placeholder="Quantity">
+                        <input type="number" class="form-control" id="exampleInputEmail2" name="quantity" placeholder="Quantity" required>
                       </div>
                     </div>
                     <div class="form-group row">
                       <label  class="col-sm-3 col-form-label">Price</label>
                       <div class="col-sm-9">
-                        <input type="number" class="form-control" id="exampleInputUsername2" name="price" placeholder="Price">
+                        <input type="number" class="form-control" id="exampleInputUsername2" name="price" placeholder="Price" required>
                       </div>
                     </div>
                     <div class="form-group row">
                       <label  class="col-sm-3 col-form-label">Payment method</label>
                       <div class="col-sm-9">
-                        <input type="text" class="form-control" id="exampleInputUsername2" name="" placeholder="Payment method">
+                        <input type="text" class="form-control" id="exampleInputUsername2" name="payment" placeholder="Payment method" required>
                       </div>
                     </div>
+                     
+                    @if($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+
                     <button type="submit" class="btn btn-primary mr-2">Submit</button>
                     <!-- <button class="btn btn-light">Cancel</button> -->
                   </form>

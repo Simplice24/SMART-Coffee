@@ -6,6 +6,7 @@ use App\Http\Controllers\FarmerController;
 use App\Http\Controllers\DiseaseController;
 use App\Http\Controllers\CooperativeController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\SalesController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -181,12 +182,12 @@ Route::group(['middleware'=>["auth"]],function(){
 
 });
 
-//Locations routes
+//Sales routes
 
 Route::group(['middleware'=>["auth"]],function(){
 
-Route::get('/dropdown/provinces', [DropdownController::class, 'getProvinces']);
-
-Route::get('/dropdown/districts/{province_id}', [DropdownController::class, 'getDistricts']);
+Route::post('SalesRecording',[SalesController::class,'SalesRecording']);
 
 });
+
+

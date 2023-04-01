@@ -86,4 +86,6 @@ class CooperativeController extends Controller
         Cooperative::destroy($id);
         return redirect('viewcooperatives');
       }
+
+     
 }
