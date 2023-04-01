@@ -331,6 +331,44 @@
 
         <!-- ending selling table -->
 
+        <div class="col-xl-4 grid-margin-lg-0 grid-margin ">
+              <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Top Sellers</h4>
+                    <div class="table-responsive mt-3">
+                      <table class="table table-header-bg">
+                        <thead>
+                          <tr>
+                            <th>
+                                Coffee beans
+                            </th>
+                            <th>
+                                Revenue
+                            </th>
+                            <th>
+                                Vs Last Month
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>
+                              <i class="flag-icon flag-icon-us mr-2" title="us" id="us"></i> United States 
+                            </td>
+                            <td>
+                              $911,200
+                            </td>
+                            <td>
+                              <div class="text-success"><i class="icon-arrow-up mr-2"></i>+60%</div>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                </div>
+              </div>
+            </div>
+
         </div>
 
         </div>
