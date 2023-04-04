@@ -235,8 +235,8 @@
                   <div class="card">
                     <div class="card-body">
                       <div class="d-flex justify-content-between mb-3">
-                          <h4 class="card-title">Market Trends</h4>
-                          <div class="dropdown">
+                          <h4 class="card-title">Market Analysis</h4>
+                          <!-- <div class="dropdown">
                               <button class="btn btn-sm dropdown-toggle text-dark pt-0 pr-0" type="button" id="dropdownMenuSizeButton3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                   This week
                               </button>
@@ -244,22 +244,35 @@
                                 <h6 class="dropdown-header">This week</h6>
                                 <h6 class="dropdown-header">This month</h6>
                               </div>
-                            </div>
+                            </div> -->
                       </div>
                       <div id="chart-legends-market-trend" class="chart-legends mt-1">
                       </div>
-                      <div class="row mt-2 mb-2">
+                      <!-- <div class="row mt-2 mb-2">
                         <div class="col-6">
                           <div class="text-small"><span class="text-success">18.2%</span> higher </div>
                         </div>
                         <div class="col-6">
                           <div class="text-small"><span class="text-danger">0.7%</span> higher </div>
                         </div>
-                      </div>
-                      <div class="marketTrends mt-4">
+                      </div> -->
+                      <!-- <div class="marketTrends mt-4">
                         <canvas id="marketTrendssatacked"></canvas>
+                      </div> -->
+                      <div class="row mt-2 mb-2">
+                      <div class="col-6">
+                        <h5><b>Arabica beans</b></h5>
+                        <h5>Total revenue</h5>
+                        <h5><b>{{$ArabicatotalRevenue}} Frw</b></h5>
+                          <!-- <div class="text-small"><span class="text-success">18.2%</span> higher </div> -->
                       </div>
-                        
+                      <div class="col-6">
+                      <h5><b>Robusta beans</b></h5>
+                      <h5>Total revenue</h5>
+                      <h5><b>{{$RobustatotalRevenue}} Frw</b></h5>
+                          <!-- <div class="text-small"><span class="text-success">18.2%</span> higher </div> -->
+                      </div>
+                      </div>  
                     </div>
                   </div>
               </div>
@@ -343,7 +356,7 @@
         <div class="col-xl-4 grid-margin-lg-0 grid-margin ">
               <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Top Sellers</h4>
+                    <h4 class="card-title">Monthly top sellers</h4>
                     <div class="table-responsive mt-3">
                       <table class="table table-header-bg">
                         <thead>

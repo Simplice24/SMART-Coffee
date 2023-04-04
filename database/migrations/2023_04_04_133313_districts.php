@@ -13,10 +13,11 @@ return new class extends Migration
     {
         Schema::create('districts', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->unsignedBigInteger('province_id');
-            $table->foreign('province_id')->references('id')->on('provinces')->onDelete('cascade');
+            $table->integer('districtcode');
+            $table->string('namedistrict');
+            $table->unsignedBigInteger('provincecode');
             $table->timestamps();
+            // $table->foreign('provincecode')->references('id')->on('provinces')->onDelete('cascade');
         });
     }
 
@@ -25,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('districts');
+        //
     }
 };

@@ -437,6 +437,7 @@ $InactiveCoopCount[]= count($inactive);
 
         // Get sum of sales for the current month
         $currentMonthSalesTotal = DB::table('sales')
+                      ->where('cooperative_id',$cooperative_id)
                       ->whereMonth('created_at', Carbon::now()->month)
                       ->sum('price');
 
@@ -453,19 +454,33 @@ $InactiveCoopCount[]= count($inactive);
   public function CooperativeSales(){
     $user_id=Auth::User()->id;
     $profileImg=User::find($user_id);
-    $i=0;
-    $revenueByCategory = DB::table('sales')
-                      ->select('product', DB::raw('SUM(price) as revenue'))
-                      ->groupBy('product')
-                      ->get();
+    $i=0;                 
     
     $cooperative_id = DB::table('cooperative_user')
                    ->where('user_id', $user_id)
                    ->value('cooperative_id');
+
+    $ArabicatotalRevenue = DB::table('sales')
+                   ->where('cooperative_id', $cooperative_id)
+                   ->where('product', 'Arabica beans')
+                   ->sum('price');
+
+    $RobustatotalRevenue = DB::table('sales')
+                   ->where('cooperative_id', $cooperative_id)
+                   ->where('product', 'Robusta beans')
+                   ->sum('price');
+                              
+    $revenueByCategory = DB::table('sales')
+                      ->select('product', DB::raw('SUM(price) as revenue'))
+                      ->where('cooperative_id',$cooperative_id)
+                      ->whereMonth('created_at', Carbon::now()->month)
+                      ->groupBy('product')
+                      ->get();
     $CooperativeSales=Sales::where('cooperative_id',$cooperative_id)->paginate(10);
 
     return view('Manager/Sales',['profileImg'=>$profileImg,'CooperativeSales'=>$CooperativeSales,
-    'i'=>$i,'revenueByCategory'=>$revenueByCategory]);
+    'i'=>$i,'revenueByCategory'=>$revenueByCategory,'ArabicatotalRevenue'=>$ArabicatotalRevenue,
+  'RobustatotalRevenue'=>$RobustatotalRevenue]);
   }
 
     public function UserRegistrationPage(){
