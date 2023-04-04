@@ -330,6 +330,9 @@
                         @endforeach
                       </tbody>
                     </table>
+                    <div class="pagination-block">
+                     {{ $CooperativeSales->links()}}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -358,16 +361,49 @@
                         </thead>
                         <tbody>
                           <tr>
+                            @foreach($revenueByCategory as $category)
+                            <?php
+                            $currentMonth = now()->month;
+                            $previousMonth = $currentMonth - 1;
+                            
+                            if ($previousMonth == 0) {
+                                $previousMonth = 12;
+                            }
+        $currentMonthRevenue = DB::table('sales')
+                            ->whereMonth('created_at', $currentMonth)
+                            ->where('product', $category->product)
+                            ->sum('price');
+
+        $previousMonthRevenue = DB::table('sales')
+                            ->whereMonth('created_at', $previousMonth)
+                            ->where('product', $category->product)
+                            ->sum('price');
+
+        if ($previousMonthRevenue == 0) {
+            $percentageIncrease = 100;
+        } else {
+            $percentageIncrease = (($currentMonthRevenue - $previousMonthRevenue) / $previousMonthRevenue) * 100;
+        }
+
+        $category->percentageIncrease = $percentageIncrease;
+    ?>
                             <td>
-                              <i class="flag-icon flag-icon-us mr-2" title="us" id="us"></i> United States 
+                              {{$category->product}}
                             </td>
                             <td>
-                              $911,200
+                              {{$category->revenue}}
                             </td>
+                            @if($category->percentageIncrease>=0)
                             <td>
-                              <div class="text-success"><i class="icon-arrow-up mr-2"></i>+60%</div>
+                              <div class="text-success"><i class="icon-arrow-up mr-2"></i>+{{$category->percentageIncrease}}%</div>
                             </td>
+                            @else
+                            <td>
+                              <div class="text-danger"><i class="icon-arrow-down mr-2"></i>+{{$category->percentageIncrease}}%</div>
+                            </td>
+                            @endif
                           </tr>
+                          @endforeach
                         </tbody>
                       </table>
                     </div>

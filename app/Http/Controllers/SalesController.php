@@ -35,4 +35,6 @@ class SalesController extends Controller
          return redirect()->back();
 
     }
+
+    
 }

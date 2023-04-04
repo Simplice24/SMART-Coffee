@@ -402,38 +402,44 @@ $InactiveCoopCount[]= count($inactive);
                     ->whereMonth('created_at', $previousMonth)
                     ->whereYear('created_at', $previousYear)
                     ->count();
-                    if($femaleFarmersCurrentMonthCount==0){
+
+                      if($femaleFarmersCurrentMonthCount==0){
                       $CoopFemaleFarmerspercentIncrease=0;
                       }else if($femaleFarmersPreviousMonthCount==0){
                       $CoopFemaleFarmerspercentIncrease=100;
                       }else{
                       $CoopFemaleFarmerspercentIncrease = ($femaleFarmersCurrentMonthCount - $femaleFarmersPreviousMonthCount) / $femaleFarmersPreviousMonthCount * 100;
                       }
-                    if($maleFarmersCurrentMonthCount==0){
+
+                      if($maleFarmersCurrentMonthCount==0){
                       $CoopMaleFarmerspercentIncrease=0;
                       }else if($maleFarmersPreviousMonthCount==0){
                       $CoopMaleFarmerspercentIncrease=100;
                       }else{
                       $CoopMaleFarmerspercentIncrease = ($maleFarmersCurrentMonthCount - $maleFarmersPreviousMonthCount) / $maleFarmersPreviousMonthCount * 100;
                       }
-                    if($farmersCurrentMonthCount==0){
+
+                      if($farmersCurrentMonthCount==0){
                       $CoopFarmerspercentIncrease=0;
                       }else if($farmersPreviousMonthCount==0){
                       $CoopFarmerspercentIncrease=100;
                       }else{
                       $CoopFarmerspercentIncrease = ($farmersCurrentMonthCount - $farmersPreviousMonthCount) / $farmersPreviousMonthCount * 100;
                       }
+
                       if($treesCurrentMonthCount==0){
-                        $treespercentIncrease=0;
-                        }else if($treesPreviousMonthCount==0){
-                        $treespercentIncrease=100;
-                        }else{
-                        $treespercentIncrease = ($treesCurrentMonthCount - $treesPreviousMonthCount) / $treesPreviousMonthCount * 100;
-                        }
+                      $treespercentIncrease=0;
+                      }else if($treesPreviousMonthCount==0){
+                      $treespercentIncrease=100;
+                      }else{
+                      $treespercentIncrease = ($treesCurrentMonthCount - $treesPreviousMonthCount) / $treesPreviousMonthCount * 100;
+                      }
+                
+
         return view('Manager/Dashboard',['totalFarmers'=>$totalFarmers,'total_trees'=>$total_trees,
         'diseases'=>$diseases,'profileImg'=>$profileImg,'male_farmers'=>$male_farmers,'female_farmers'=>$female_farmers,
       'CoopFarmerspercentIncrease'=>$CoopFarmerspercentIncrease,'CoopMaleFarmerspercentIncrease'=>$CoopMaleFarmerspercentIncrease,
-    'CoopFemaleFarmerspercentIncrease'=>$CoopFemaleFarmerspercentIncrease,'treespercentIncrease'=>$treespercentIncrease]);
+    'CoopFemaleFarmerspercentIncrease'=>$CoopFemaleFarmerspercentIncrease,'treespercentIncrease'=>$treespercentIncrease,]);
     }
   }
 
@@ -441,13 +447,18 @@ $InactiveCoopCount[]= count($inactive);
     $user_id=Auth::User()->id;
     $profileImg=User::find($user_id);
     $i=0;
+    $revenueByCategory = DB::table('sales')
+                      ->select('product', DB::raw('SUM(price) as revenue'))
+                      ->groupBy('product')
+                      ->get();
     
     $cooperative_id = DB::table('cooperative_user')
                    ->where('user_id', $user_id)
                    ->value('cooperative_id');
-    $CooperativeSales=Sales::where('cooperative_id',$cooperative_id)->get();
+    $CooperativeSales=Sales::where('cooperative_id',$cooperative_id)->paginate(10);
+
     return view('Manager/Sales',['profileImg'=>$profileImg,'CooperativeSales'=>$CooperativeSales,
-    'i'=>$i,]);
+    'i'=>$i,'revenueByCategory'=>$revenueByCategory]);
   }
 
     public function UserRegistrationPage(){
