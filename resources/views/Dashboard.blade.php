@@ -195,7 +195,7 @@
                     <h4 class="font-weight-normal mb-3">{{ __('msg.system users')}}<i class="icon-head menu-icon float-right"></i>
                     </h4>
                     <h1 class="mb-5">{{$rows}}</h1>
-                    <h6 class="card-text"><b>Increased by {{$UserspercentIncrease}}% this month</b></h6>
+                    <!-- <h6 class="card-text"><b>Increased by {{$UserspercentIncrease}}% this month</b></h6> -->
                   </div>
                   </a>
                 </div>
@@ -208,7 +208,7 @@
                     <h4 class="font-weight-normal mb-3">{{ __('msg.farmers')}}<i class="icon-head menu-icon float-right"></i>
                     </h4>
                     <h1 class="mb-5">{{$farmer}}</h1>
-                    <h6 class="card-text"><b>Increased by {{$FarmerspercentIncrease}}% this month</b></h6>
+                    <!-- <h6 class="card-text"><b>Increased by {{$FarmerspercentIncrease}}% this month</b></h6> -->
                   </div>
                 </a>
                 </div>
@@ -221,7 +221,7 @@
                     <h4 class="font-weight-normal mb-3"> {{ __('msg.cooperatives')}}<i class="icon-disc menu-icon float-right"></i>
                     </h4>
                     <h1 class="mb-5">{{$cooperative}}</h1>
-                    <h6 class="card-text"><b>Increased by {{$CooperativespercentIncrease}}% this month</b></h6>
+                    <!-- <h6 class="card-text"><b>Increased by {{$CooperativespercentIncrease}}% this month</b></h6> -->
                   </div>
                   </a>
                 </div>
@@ -233,7 +233,7 @@
                     <img src="Customized/assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
                     <h4 class="font-weight-normal mb-3"> {{ __('msg.diseases')}}<i class="icon-command menu-icon float-right"></i>
                     <h1 class="mb-5">{{$disease}}</h1>
-                    <h6 class="card-text"><b>Increased by {{$percentIncrease}}% this month</b></h6>
+                    <!-- <h6 class="card-text"><b>Increased by {{$percentIncrease}}% this month</b></h6> -->
                   </div> 
                  </a> 
                 </div>
@@ -247,7 +247,7 @@
                 <div class="card">
                       <div class="card-body">
                           <h4 class="card-title">Male users<i class="mdi mdi-gender-male menu-icon float-right"></i></h4>
-                          <p>{{$MaleUserspercentIncrease}}% increase this month</p>
+                          <!-- <p>{{$MaleUserspercentIncrease}}% increase this month</p> -->
                           <h4 class="text-dark font-weight-bold mb-2">{{$CountingMale}}</h4>
                           <canvas id="MaleUsers"></canvas>
                       </div>
@@ -255,7 +255,7 @@
                       <div class="card mt-2">
                       <div class="card-body">
                           <h4 class="card-title">Female users<i class="mdi mdi-gender-male-female menu-icon float-right"></i></h4>
-                          <p>{{$FemaleUserspercentIncrease}}% increase this month</p>
+                          <!-- <p>{{$FemaleUserspercentIncrease}}% increase this month</p> -->
                           <h4 class="text-dark font-weight-bold mb-2">{{$CountingFemale}}</h4>
                           <canvas id="FemaleUsers"></canvas>
                       </div>
@@ -265,7 +265,7 @@
                 <div class="card">
                       <div class="card-body">
                           <h4 class="card-title">Male farmers</h4>
-                          <p>{{$MaleFarmerspercentIncrease}}% increase this month</p>
+                          <!-- <p>{{$MaleFarmerspercentIncrease}}% increase this month</p> -->
                           <h4 class="text-dark font-weight-bold mb-2">{{$CountingMaleFarmers}}</h4>
                           <canvas id="MaleFarmers"></canvas>
                       </div>
@@ -273,7 +273,7 @@
                       <div class="card mt-2">
                       <div class="card-body">
                           <h4 class="card-title">Female farmers</h4>
-                          <p>{{$FemaleFarmerspercentIncrease}}% increase in month</p>
+                          <!-- <p>{{$FemaleFarmerspercentIncrease}}% increase in month</p> -->
                           <h4 class="text-dark font-weight-bold mb-2">{{$CountingFemaleFarmers}}</h4>
                           <canvas id="FemaleFarmers"></canvas>
                       </div>
@@ -283,7 +283,7 @@
               <div class="card">
                       <div class="card-body">
                           <h4 class="card-title">Active cooperatives</h4>
-                          <p>{{$ActiveCooperativespercentIncrease}}% increase in this month</p>
+                          <!-- <p>{{$ActiveCooperativespercentIncrease}}% increase in this month</p> -->
                           <h4 class="text-dark font-weight-bold mb-2">{{$activeCount}}</h4>
                           <canvas id="ActiveCooperatives"></canvas>
                       </div>
@@ -291,7 +291,7 @@
                       <div class="card mt-2">
                       <div class="card-body">
                           <h4 class="card-title">Inactive cooperatives</h4>
-                          <p>{{$InactiveCooppercentIncrease}}% increase this month</p>
+                          <!-- <p>{{$InactiveCooppercentIncrease}}% increase this month</p> -->
                           <h4 class="text-dark font-weight-bold mb-2">{{$inactiveCount}}</h4>
                           <canvas id="InactiveCooperatives"></canvas>
                       </div>

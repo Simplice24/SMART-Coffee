@@ -280,6 +280,9 @@
                       <thead>
                         <tr>
                           <th>
+                            #
+                          </th>
+                          <th>
                             Customer
                           </th>
                           <th>
@@ -302,6 +305,9 @@
                       <tbody>
                         @foreach($CooperativeSales as $Cooperativesale)
                         <tr>
+                          <td>
+                            {{++$i}}
+                          </td>
                           <td>
                             {{$Cooperativesale->customer}}
                           </td>

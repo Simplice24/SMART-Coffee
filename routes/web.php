@@ -73,6 +73,7 @@ Route::group(['middleware'=>["auth"]],function(){
     Route::get("profile/profileUpdate/{id}",[UserController::class,'profileupdatepage']);
 
     Route::get("CooperativeSales",[UserController::class,'CooperativeSales']);
+
     
 });
 
@@ -98,6 +99,10 @@ Route::get("Farmerprofile/farmerUpdate/{id}",[FarmerController::class,'FarmerUpd
 Route::put("updateFarmer/{id}",[FarmerController::class,'UpdateFarmer']);
 
 Route::get('deletefarmer/{id}',[FarmerController::class,'DeleteFarmer']);
+
+Route::get('Register-Farmer',[FarmerController::class,'FarmerRegistrationPage_Manager']);
+
+Route::post('Register-Farmer',[FarmerController::class,'ManagerFarmerRegistration']);
 
 });
 

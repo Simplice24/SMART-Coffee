@@ -442,11 +442,14 @@ $InactiveCoopCount[]= count($inactive);
   public function CooperativeSales(){
     $user_id=Auth::User()->id;
     $profileImg=User::find($user_id);
+    $i=0;
+    
     $cooperative_id = DB::table('cooperative_user')
                    ->where('user_id', $user_id)
                    ->value('cooperative_id');
     $CooperativeSales=Sales::where('cooperative_id',$cooperative_id)->get();
-    return view('Manager/Sales',['profileImg'=>$profileImg,'CooperativeSales'=>$CooperativeSales]);
+    return view('Manager/Sales',['profileImg'=>$profileImg,'CooperativeSales'=>$CooperativeSales,
+    'i'=>$i,]);
   }
 
     public function UserRegistrationPage(){

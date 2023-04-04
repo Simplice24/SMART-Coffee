@@ -40,6 +40,12 @@ class FarmerController extends Controller
         return view('Register-farmer',['profileImg'=>$profileImg,'cooperatives'=>$cooperatives]);
     }
 
+    public function FarmerRegistrationPage_Manager(){
+      $userId =auth()->user()->id;
+      $profileImg=User::find($userId);
+      return view('Manager/Register-Farmer',['profileImg'=>$profileImg]);
+    }
+
     public function FarmerRegistration(Request $req){
         $input=new Farmer;
         $input->name=$req->input('name');
@@ -56,6 +62,31 @@ class FarmerController extends Controller
         $input->cell=$req->input('cell');
         $input->save();
         return redirect('viewfarmers');
+      }
+
+      public function ManagerFarmerRegistration(Request $req){
+        $User_id=auth()->user()->id;
+        $cooperative_id=DB::table('cooperative_user')
+                        ->where('user_id',$User_id)
+                        ->value('cooperative_id');
+        $cooperative_name=DB::table('cooperatives')
+                          ->where('id',$cooperative_id)
+                          ->value('name');                                 
+        $input=new Farmer;
+        $input->name=$req->input('name');
+        $input->idn=$req->input('idn');
+        $input->cooperative_name=$cooperative_name;
+        $input->cooperative_id=$cooperative_id;
+        $input->gender=$req->input('gender');
+        $input->number_of_trees=$req->input('number_of_trees');
+        $input->fertilizer=$req->input('fertilizer');
+        $input->phone=$req->input('phone');
+        $input->province=$req->input('province');
+        $input->district=$req->input('district');
+        $input->sector=$req->input('sector');
+        $input->cell=$req->input('cell');
+        $input->save();
+        return view('Manager/Cooperative-farmers');
       }
 
       public function FarmerProfilePage($id){

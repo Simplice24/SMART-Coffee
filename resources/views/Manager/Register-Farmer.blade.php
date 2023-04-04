@@ -30,8 +30,8 @@
     <!-- partial:partials/_navbar.html -->
     <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
       <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-        <a class="navbar-brand brand-logo" href={{"Manager/Home"}}><i class="icon-air-play menu-icon"></i>CCMS</a>
-        <a class="navbar-brand brand-logo-mini" href={{"Manager/Home"}}>CCMS</a>
+        <a class="navbar-brand brand-logo" href={{"Home"}}><i class="icon-air-play menu-icon"></i>CCMS</a>
+        <a class="navbar-brand brand-logo-mini" href={{"Home"}}>CCMS</a>
       </div>
       <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
         <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
@@ -110,7 +110,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="">
+            <a class="nav-link" href="<?=url('CooperativeFarmers');?>">
               <i class="mdi mdi-stocking menu-icon"></i>
               <span class="menu-title">Inventory </span>
             </a>
@@ -132,77 +132,116 @@
       <!-- partial -->
       <div class="main-panel">
         <div class="content-wrapper">
-          <div class="row">
-            <div class="col-sm-12 mb-4 mb-xl-0">
-            <li class="nav-item dropdown d-lg-flex d-none">
-                <a href="<?=url('Register-Farmer');?>"><button type="button" class="btn btn-info font-weight-bold">+{{__('msg.new farmer')}}</button></a>
-            </li>
-            </div>
-          </div>
-          
            <div class="row">
-             
-           <div class="col-lg-12 grid-margin stretch-card">
-              <div class="card">
-                <div class="card-body">
-                  <h4 class="card-title">{{ __('msg.coffee farmers') }}</h4>
-                  <div class="table-responsive">
-                    <table class="table table-striped">
-                      <thead>
-                        <tr>
-                        <th>
-                            #
-                          </th>
-                          <th>
-                            {{__('msg.full name')}}
-                          </th>
-                          <th>
-                          {{__('msg.cooperative')}}
-                          </th>
-                          <th>
-                          {{__('msg.number of trees')}}
-                          </th>
-                          <th>
-                          {{__('msg.fertilizer')}}
-                          </th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                        @foreach($farmers as $i)
-                        <td>
-                            {{++$no}}
-                          </td>
-                          <td>
-                            {{$i->name}}
-                          </td>
-                          <td>
-                            {{$i->cooperative_name}}
-                          </td>
-                          <td>
-                          {{$i->number_of_trees}}
-                          </td>
-                          <td>
-                          {{$i->fertilizer}}
-                          </td>
-                          <td>
-                          <div class="input-group-prepend">
-                        <button class="btn btn-sm btn-outline-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Actions</button>
-                        <div class="dropdown-menu">
-                          <a class="dropdown-item" href={{"Farmerprofile/".$i->id}}><i class="fa fa-eye" aria-hidden="true"></i>&nbsp; {{__('msg.view')}}</a>
+            <div class="col-12 grid-margin">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">{{ __('msg.Fill out all fields to register new farmer') }}</h4>
+                    <form class="form-sample" action="Register-Farmer" method="POST">
+                    @csrf
+                      <p class="card-description">
+                        {{ __('msg.farmer info') }}
+                      </p>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">{{ __('msg.full name') }}</label>
+                            <div class="col-sm-9">
+                              <input type="text" class="form-control" name="name" required />
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">{{ __('msg.ID No')}}</label>
+                            <div class="col-sm-9">
+                              <input type="text" class="form-control" name="idn" required/>
+                            </div>
+                          </div>
+                        </div>
                       </div>
-                          </td>
-                         </tr>
-                         @endforeach
-                      </tbody>
-                    </table>
-                    <div class="pagination-block">
-                    {{ $farmers->links()}}
-                    </div>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">{{ __('msg.gender') }}</label>
+                            <div class="col-sm-9">
+                              <select class="form-control" style="height:46px;" name="gender" required>
+                              <option disable selected>{{ __('msg.--Select gender--')}}</option>
+                                <option>{{ __('msg.Male')}}</option>
+                                <option>{{ __('msg.Female')}}</option>
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">{{ __('msg.number of trees')}}</label>
+                            <div class="col-sm-9">
+                              <input type="number" class="form-control" name="number_of_trees" required />
+                            </div>
+                          </div>
+                        </div>
+                        </div>
+                        <div class="row">
+                        <div class="col-md-6">
+                          <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">{{ __('msg.fertilizer') }}</label>
+                            <div class="col-sm-9">
+                              <input type="text" class="form-control" name="fertilizer" required />
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">{{ __('msg.phone')}}</label>
+                            <div class="col-sm-9">
+                              <input type="text" class="form-control" name="phone" required />
+                            </div>
+                          </div>
+                        </div>
+                        </div>
+                        <div class="row">
+                        <div class="col-md-6">
+                          <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">{{ __('msg.Province') }}</label>
+                            <div class="col-sm-9">
+                              <input type="text" class="form-control" name="province" required />
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">{{ __('msg.district') }}</label>
+                            <div class="col-sm-9">
+                              <input type="text" class="form-control" name="district" required />
+                            </div>
+                          </div>
+                        </div>
+                        </div>
+                        <div class="row">
+                        <div class="col-md-6">
+                          <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">{{ __('msg.sector') }}</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" name="sector" required />
+                            </div>
+                          </div>
+                        </div>
+                      <div class="col-md-6">
+                          <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">{{ __('msg.cell') }}</label>
+                            <div class="col-sm-9">
+                              <input type="text" class="form-control" name="cell" required />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <button type="submit" class="btn btn-primary mr-2">{{ __('msg.submit')}}</button>
+                    <!-- <button class="btn btn-light">Cancel</button> -->
+                    </form>
                   </div>
                 </div>
               </div>
-            </div>
            </div>
         </div>
         <!-- content-wrapper ends -->

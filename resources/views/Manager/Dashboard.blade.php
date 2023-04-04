@@ -156,7 +156,7 @@
                     <h4 class="font-weight-normal mb-3">{{ __('msg.farmers')}}<i class="icon-head menu-icon float-right"></i>
                     </h4>
                     <h1 class="mb-5">{{$totalFarmers}}</h1>
-                    <h6 class="card-text"><b>Increased by {{$CoopFarmerspercentIncrease}}% this month</b></h6>
+                    <!-- <h6 class="card-text"><b>Increased by {{$CoopFarmerspercentIncrease}}% this month</b></h6> -->
                   </div>
                 </a>
                 </div>
@@ -168,7 +168,7 @@
                     <img src="/Customized/assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
                     <h4 class="font-weight-normal mb-3">Coffee trees<i class="mdi mdi-barley menu-icon float-right"></i>
                     <h1 class="mb-5">{{$total_trees}}</h1>
-                    <h6 class="card-text"><b>Increased by {{$treespercentIncrease}}% this month</b></h6>
+                    <!-- <h6 class="card-text"><b>Increased by {{$treespercentIncrease}}% this month</b></h6> -->
                   </div>
                  </a> 
                 </div>
