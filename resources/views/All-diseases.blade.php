@@ -184,6 +184,9 @@
                       <thead>
                         <tr>
                           <th>
+                            #
+                          </th>
+                          <th>
                             {{__('msg.Disease name')}}
                           </th>
                           <th>
@@ -194,6 +197,9 @@
                       <tbody>
                         <tr>
                         @foreach($disease as $i)
+                          <td>
+                            {{++$no}}
+                          </td>
                           <td>
                             {{$i->disease_name}}
                           </td>

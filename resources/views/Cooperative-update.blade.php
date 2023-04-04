@@ -186,7 +186,7 @@
                                         @foreach($manager_names as $names)
                                         <option value="{{ $names->id }}">{{ $names->name}}</option>
                                         @endforeach
-                                    </select>
+                            </select>
                             </div>
                           </div>
                         </div>

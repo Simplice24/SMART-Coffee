@@ -9,10 +9,11 @@ use App\Models\Disease;
 class DiseaseController extends Controller
 {
     public function SystemDiseases(){
+        $no=0;
         $userId =auth()->user()->id;
         $profileImg=User::find($userId);
         $disease=Disease::paginate(7);
-        return view('All-diseases',['profileImg'=>$profileImg,'disease'=>$disease]);
+        return view('All-diseases',['profileImg'=>$profileImg,'disease'=>$disease,'no'=>$no]);
     }
 
     public function DiseaseRegistrationPage(){

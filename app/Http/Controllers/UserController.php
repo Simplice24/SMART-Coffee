@@ -48,8 +48,6 @@ class UserController extends Controller
 
       $diseases = DB::table('diseases')
       ->select('category', DB::raw('COUNT(*) as current_month_total'))
-      ->whereMonth('created_at', $currentMonth)
-      ->whereYear('created_at', $currentYear)
       ->groupBy('category')
       ->get();
 
