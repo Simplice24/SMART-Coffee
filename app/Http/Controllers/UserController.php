@@ -434,12 +434,19 @@ $InactiveCoopCount[]= count($inactive);
                       }else{
                       $treespercentIncrease = ($treesCurrentMonthCount - $treesPreviousMonthCount) / $treesPreviousMonthCount * 100;
                       }
+
+        // Get sum of sales for the current month
+        $currentMonthSalesTotal = DB::table('sales')
+                      ->whereMonth('created_at', Carbon::now()->month)
+                      ->sum('price');
+
                 
 
         return view('Manager/Dashboard',['totalFarmers'=>$totalFarmers,'total_trees'=>$total_trees,
         'diseases'=>$diseases,'profileImg'=>$profileImg,'male_farmers'=>$male_farmers,'female_farmers'=>$female_farmers,
       'CoopFarmerspercentIncrease'=>$CoopFarmerspercentIncrease,'CoopMaleFarmerspercentIncrease'=>$CoopMaleFarmerspercentIncrease,
-    'CoopFemaleFarmerspercentIncrease'=>$CoopFemaleFarmerspercentIncrease,'treespercentIncrease'=>$treespercentIncrease,]);
+    'CoopFemaleFarmerspercentIncrease'=>$CoopFemaleFarmerspercentIncrease,'treespercentIncrease'=>$treespercentIncrease,
+  'currentMonthSalesTotal'=>$currentMonthSalesTotal]);
     }
   }
 
