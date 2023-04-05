@@ -95,5 +95,6 @@ class CooperativeController extends Controller
         return view('Manager/Sales-update',['Salesdetails'=>$Salesdetails,'profileImg'=>$profileImg]);
       }
 
+
      
 }

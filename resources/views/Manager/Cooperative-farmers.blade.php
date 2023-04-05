@@ -189,7 +189,8 @@
                           <div class="input-group-prepend">
                         <button class="btn btn-sm btn-outline-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Actions</button>
                         <div class="dropdown-menu">
-                          <a class="dropdown-item" href={{"Farmerprofile/".$i->id}}><i class="fa fa-eye" aria-hidden="true"></i>&nbsp; {{__('msg.view')}}</a>
+                          <a class="dropdown-item" href={{"CooperativeFarmerprofile/".$i->id}}><i class="fa fa-eye" aria-hidden="true"></i>&nbsp; {{__('msg.view')}}</a>
+                          <a class="dropdown-item" href={{"DeleteCooperativeFarmer/".$i->id}}><i class="fa fa-trash" aria-hidden="true"></i>&nbsp; {{__('msg.delete')}}</a>
                       </div>
                           </td>
                          </tr>

@@ -1,20 +1,19 @@
-
 <!DOCTYPE html>
-<html lang="{{ app()->getLocale() }}">
+<html lang="en">
+
 <head>
   <!-- Required meta tags --> 
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>CCMS</title>
+  <!-- base:css -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
 
-  <!-- base:css -->
   <link rel="stylesheet" href="/Customized/vendors/mdi/css/materialdesignicons.min.css">
   <link rel="stylesheet" href="/Customized/vendors/feather/feather.css">
   <link rel="stylesheet" href="/Customized/vendors/base/vendor.bundle.base.css">
   <!-- endinject -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
   <!-- plugin css for this page -->
   <link rel="stylesheet" href="/Customized/vendors/flag-icon-css/css/flag-icon.min.css"/>
   <link rel="stylesheet" href="/Customized/vendors/font-awesome/css/font-awesome.min.css">
@@ -31,8 +30,8 @@
     <!-- partial:partials/_navbar.html -->
     <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
       <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-        <a class="navbar-brand brand-logo" href={{"Manager/Home"}}><i class="icon-air-play menu-icon"></i>CCMS</a>
-        <a class="navbar-brand brand-logo-mini" href={{"Manager/Home"}}>CCMS</a>
+        <a class="navbar-brand brand-logo" href={{"Dashboard"}}>CCMS</a>
+        <a class="navbar-brand brand-logo-mini" href={{"Dashboard"}}>CCMS</a>
       </div>
       <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
         <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
@@ -65,18 +64,11 @@
             <a class="nav-link count-indicator dropdown-toggle d-flex align-items-center justify-content-center" id="notificationDropdown" href="#" data-toggle="dropdown">
               <i class="icon-cog"></i>
             </a>
-            
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
               <p class="mb-0 font-weight-normal float-left dropdown-header">{{ __('msg.settings') }}</p>
               <a class="dropdown-item preview-item" href="<?=url('userProfile');?>">               
-                  <i class="icon-head"></i> {{ __('msg.profile') }}
+                  <i class="icon-head"></i>{{ __('msg.profile') }}
               </a>
-              <!-- <a class="dropdown-item preview-item" href="">               
-                  <i class="icon-head"></i> French
-              </a>
-              <a class="dropdown-item preview-item" href="">               
-                  <i class="icon-head"></i> English
-              </a> -->
               <a class="dropdown-item preview-item" href="<?=url('logout');?>">
                   <i class="icon-inbox"></i> {{ __('msg.logout') }}
               </a>
@@ -140,94 +132,120 @@
       <!-- partial -->
       <div class="main-panel">
         <div class="content-wrapper">
-          <div class="row">
-            <div class="col-sm-12 mb-4 mb-xl-0">
-              <h4 class="font-weight-bold text-dark">Sales tracking</h4>
-              <!-- <p class="font-weight-normal mb-2 text-muted">APRIL 1, 2019</p> -->
-            </div>
-          </div>
-
-          <div class="row">
-
-        <!-- Starting sales tracking  -->
-
-        <div class="col-md-12 grid-margin">
-              <div class="card">
-                <div class="card-body">
-                  <h4 class="card-title">Sales recording</h4>
-                  <form class="forms-sample" action="{{url('SalesUpdate/'.$Salesdetails->id)}}" method="POST">
-                  @csrf
-                  @method('PUT')
-                  <div class="row">
-                  <div class="col-md-6">
-                  <div class="form-group row">
-                      <label  class="col-sm-4 col-form-label">Customer</label>
-                      <div class="col-sm-8">
-                        <input type="text" class="form-control" id="exampleInputUsername2" name="customer" value="{{$Salesdetails->customer}}" required>
-                      </div>
-                    </div>
-                    </div>
-                    <div class="col-md-6">
-                    <div class="form-group row">
-                      <label  class="col-sm-4 col-form-label">Product</label>
-                      <div class="col-sm-8">
-                        <select class="form-control" style="height:46px;" name="product" required>
-                              <option selected>{{$Salesdetails->product}}</option>
-                                <option>Arabica beans</option>
-                                <option>Robusta beans</option>
-                              </select>
-                      </div>
-                    </div>
-                    </div>
-                    </div>
-                    <div class="row">
-                    <div class="col-md-6">
-                    <div class="form-group row">
-                      <label  class="col-sm-4 col-form-label">Quantity</label>
-                      <div class="col-sm-8">
-                        <input type="number" class="form-control" id="exampleInputEmail2" value="{{$Salesdetails->quantity}}" name="quantity" placeholder="Quantity" required>
-                      </div>
-                    </div>
-                    </div>
-                    <div class="col-md-6">
-                    <div class="form-group row">
-                      <label  class="col-sm-4 col-form-label">Price</label>
-                      <div class="col-sm-8">
-                        <input type="number" class="form-control" id="exampleInputUsername2" value="{{$Salesdetails->price}}" name="price" placeholder="Price" required>
-                      </div>
-                    </div>
-                    </div>
-                    </div>
-                    <div class="row">
-                    <div class="col-md-6">
-                    <div class="form-group row">
-                      <label  class="col-sm-4 col-form-label">Payment method</label>
-                      <div class="col-sm-8">
-                        <input type="text" class="form-control" id="exampleInputUsername2" value="{{$Salesdetails->payment}}" name="payment" placeholder="Payment method" required>
-                      </div>
-                    </div>
-                    </div>
-                    </div>
-                     
-                    <!-- @if($errors->any())
-                        <div class="alert alert-danger">
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
+           <div class="row">
+            <div class="col-12 grid-margin">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">Fill all required field to update famer's details</h4>
+                    <form class="form-sample" action="{{url('CooperativeFarmerUpdate/'.$farmerinfo->id)}}" method="POST">
+                    @csrf
+                    @method('PUT')
+                      <p class="card-description">
+                        {{__('msg.farmer info')}}
+                      </p>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">{{__('msg.full name')}}</label>
+                            <div class="col-sm-9">
+                              <input type="text" class="form-control" name="name" value={{$farmerinfo->name}} required />
+                            </div>
+                          </div>
                         </div>
-                    @endif -->
-
-                    <button type="submit" class="btn btn-primary mr-2">{{__('msg.save changes')}}</button>
+                        <div class="col-md-6">
+                          <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">{{__('msg.ID No')}}</label>
+                            <div class="col-sm-9">
+                              <input type="text" class="form-control" name="idn" value={{$farmerinfo->idn}} required/>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">{{__('msg.gender')}}</label>
+                            <div class="col-sm-9">
+                              <select class="form-control" style="height:46px;" name="gender" value={{$farmerinfo->gender}} required>
+                                <option>Male</option>
+                                <option>Female</option>
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">{{__('msg.number of trees')}}</label>
+                            <div class="col-sm-9">
+                              <input type="number" class="form-control" name="number_of_trees" value={{$farmerinfo->number_of_trees}} required />
+                            </div>
+                          </div>
+                        </div>
+                        </div>
+                        <div class="row">
+                        <div class="col-md-6">
+                          <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">{{__('msg.fertilizer')}}</label>
+                            <div class="col-sm-9">
+                              <input type="text" class="form-control" name="fertilizer" value={{$farmerinfo->fertilizer}} required />
+                            </div>
+                          </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                          <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">{{__('msg.phone')}}</label>
+                            <div class="col-sm-9">
+                              <input type="text" class="form-control" name="phone" value={{$farmerinfo->phone}} required />
+                            </div>
+                          </div>
+                        </div>
+                        </div>
+                        <div class="row">
+                        <div class="col-md-6">
+                          <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">{{__('msg.Province')}}</label>
+                            <div class="col-sm-9">
+                              <input type="text" class="form-control" name="province" value={{$farmerinfo->province}} required />
+                            </div>
+                          </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                          <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">{{__('msg.district')}}</label>
+                            <div class="col-sm-9">
+                              <input type="text" class="form-control" name="district" value={{$farmerinfo->district}} required />
+                            </div>
+                          </div>
+                        </div>
+                        </div>
+                        <div class="row">
+                        <div class="col-md-6">
+                          <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">{{__('msg.sector')}}</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" name="sector" value={{$farmerinfo->sector}} required />
+                            </div>
+                          </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                          <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">{{__('msg.cell')}}</label>
+                            <div class="col-sm-9">
+                              <input type="text" class="form-control" name="cell" value={{$farmerinfo->cell}} required />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <button type="submit" class="btn btn-info font-weight-bold">{{__('msg.save changes')}}</button>
                     <!-- <button class="btn btn-light">Cancel</button> -->
-                  </form>
+                    </form>
+                  </div>
                 </div>
               </div>
-            </div>
-
-        </div>
-
+           </div>
         </div>
         <!-- content-wrapper ends -->
         <!-- partial:partials/_footer.html -->
@@ -244,10 +262,6 @@
   </div>
   <!-- container-scroller -->
 
-  <script>
-  
-  </script>
-  
   <!-- base:js -->
   <script src="/Customized/vendors/base/vendor.bundle.base.js"></script>
   <!-- endinject -->
@@ -265,8 +279,6 @@
   <!-- Custom js for this page-->
   <script src="/Customized/js/dashboard.js"></script>
   <!-- End custom js for this page-->
-
 </body>
-
 </html>
 

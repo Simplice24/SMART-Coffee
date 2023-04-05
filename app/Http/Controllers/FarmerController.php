@@ -86,7 +86,7 @@ class FarmerController extends Controller
         $input->sector=$req->input('sector');
         $input->cell=$req->input('cell');
         $input->save();
-        return view('Manager/Cooperative-farmers');
+        return redirect('CooperativeFarmers');
       }
 
       public function FarmerProfilePage($id){
@@ -96,11 +96,25 @@ class FarmerController extends Controller
         return view('Farmer-details',['farmerinfo'=>$farmerinfo,'profileImg'=>$profileImg]);
       }
 
+      public function CooperativeFarmerprofile($id){
+        $userId =auth()->user()->id;
+        $profileImg=User::find($userId);
+        $farmerinfo=Farmer::find($id);
+        return view('Manager/Cooperative-farmer-details',['farmerinfo'=>$farmerinfo,'profileImg'=>$profileImg]);
+      }
+
       public function FarmerUpdatePage($id){
         $userId =auth()->user()->id;
         $profileImg=User::find($userId);
         $farmerinfo=Farmer::find($id);
         return view('Farmer-update',['farmerinfo'=>$farmerinfo,'profileImg'=>$profileImg]);
+      }
+
+      public function CooperativeFarmerUpdatePage($id){
+        $userId =auth()->user()->id;
+        $profileImg=User::find($userId);
+        $farmerinfo=Farmer::find($id);
+        return view('Manager/Cooperative-farmer-update',['farmerinfo'=>$farmerinfo,'profileImg'=>$profileImg]);
       }
 
       public function UpdateFarmer(Request $req,$id){
@@ -121,8 +135,39 @@ class FarmerController extends Controller
         return redirect('viewfarmers');
       }
 
+      public function CooperativeFarmerUpdate(Request $req,$id){
+        $User_id=auth()->user()->id;
+        $cooperative_id=DB::table('cooperative_user')
+                        ->where('user_id',$User_id)
+                        ->value('cooperative_id');
+        $cooperative_name=DB::table('cooperatives')
+                          ->where('id',$cooperative_id)
+                          ->value('name');                                 
+        $farmerupdate=Farmer::find($id);
+        $farmerupdate->name=$req->input('name');
+        $farmerupdate->idn=$req->input('idn');
+        $farmerupdate->cooperative_name=$cooperative_name;
+        $farmerupdate->cooperative_id=$cooperative_id;
+        $farmerupdate->gender=$req->input('gender');
+        $farmerupdate->number_of_trees=$req->input('number_of_trees');
+        $farmerupdate->fertilizer=$req->input('fertilizer');
+        $farmerupdate->phone=$req->input('phone');
+        $farmerupdate->province=$req->input('province');
+        $farmerupdate->district=$req->input('district');
+        $farmerupdate->sector=$req->input('sector');
+        $farmerupdate->cell=$req->input('cell');
+        $farmerupdate->update();
+
+        return redirect('CooperativeFarmers');
+      }
+
       public function DeleteFarmer($id){
         Farmer::find($id)->delete();
         return redirect('viewfarmers');
+      }
+
+      public function DeleteCooperativeFarmer($id){
+        Farmer::find($id)->delete();
+        return redirect('CooperativeFarmers');
       }
 }

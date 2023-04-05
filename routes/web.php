@@ -104,6 +104,14 @@ Route::get('Register-Farmer',[FarmerController::class,'FarmerRegistrationPage_Ma
 
 Route::post('Register-Farmer',[FarmerController::class,'ManagerFarmerRegistration']);
 
+Route::get('CooperativeFarmerprofile/{id}',[FarmerController::class,'CooperativeFarmerprofile']);
+
+Route::get('CooperativeFarmerprofile/CooperativeFarmerUpdatePage/{id}',[FarmerController::class,'CooperativeFarmerUpdatePage']);
+
+Route::put('CooperativeFarmerUpdate/{id}',[FarmerController::class,'CooperativeFarmerUpdate']);
+
+Route::get('DeleteCooperativeFarmer/{id}',[FarmerController::class,'DeleteCooperativeFarmer']);
+
 });
 
 
@@ -150,6 +158,7 @@ Route::put("CooperativeUpdate/{id}",[CooperativeController::class,'UpdateSystemC
 Route::get('deletecooperative/{id}',[CooperativeController::class,'DeleteCooperative']);
 
 Route::get('updateCooperativeSales/{id}',[CooperativeController::class,'updateCooperativeSales']);
+
 
 });
 
