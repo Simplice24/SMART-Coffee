@@ -151,18 +151,19 @@
 
         <!-- Starting sales tracking  -->
 
-        <div class="col-md-8 grid-margin">
+        <div class="col-md-12 grid-margin">
               <div class="card">
                 <div class="card-body">
                   <h4 class="card-title">Sales recording</h4>
-                  <form class="forms-sample" action="SalesRecording" method="POST">
-                    @csrf
+                  <form class="forms-sample" action="{{url('SalesUpdate/'.$Salesdetails->id)}}" method="POST">
+                  @csrf
+                  @method('PUT')
                   <div class="row">
                   <div class="col-md-6">
                   <div class="form-group row">
                       <label  class="col-sm-4 col-form-label">Customer</label>
                       <div class="col-sm-8">
-                        <input type="text" class="form-control" id="exampleInputUsername2" name="customer" placeholder="Customer name" required>
+                        <input type="text" class="form-control" id="exampleInputUsername2" name="customer" value="{{$Salesdetails->customer}}" required>
                       </div>
                     </div>
                     </div>
@@ -171,7 +172,7 @@
                       <label  class="col-sm-4 col-form-label">Product</label>
                       <div class="col-sm-8">
                         <select class="form-control" style="height:46px;" name="product" required>
-                              <option disable selected>Select type of Coffee beans</option>
+                              <option selected>{{$Salesdetails->product}}</option>
                                 <option>Arabica beans</option>
                                 <option>Robusta beans</option>
                               </select>
@@ -184,7 +185,7 @@
                     <div class="form-group row">
                       <label  class="col-sm-4 col-form-label">Quantity</label>
                       <div class="col-sm-8">
-                        <input type="number" class="form-control" id="exampleInputEmail2" name="quantity" placeholder="Quantity" required>
+                        <input type="number" class="form-control" id="exampleInputEmail2" value="{{$Salesdetails->quantity}}" name="quantity" placeholder="Quantity" required>
                       </div>
                     </div>
                     </div>
@@ -192,7 +193,7 @@
                     <div class="form-group row">
                       <label  class="col-sm-4 col-form-label">Price</label>
                       <div class="col-sm-8">
-                        <input type="number" class="form-control" id="exampleInputUsername2" name="price" placeholder="Price" required>
+                        <input type="number" class="form-control" id="exampleInputUsername2" value="{{$Salesdetails->price}}" name="price" placeholder="Price" required>
                       </div>
                     </div>
                     </div>
@@ -202,13 +203,13 @@
                     <div class="form-group row">
                       <label  class="col-sm-4 col-form-label">Payment method</label>
                       <div class="col-sm-8">
-                        <input type="text" class="form-control" id="exampleInputUsername2" name="payment" placeholder="Payment method" required>
+                        <input type="text" class="form-control" id="exampleInputUsername2" value="{{$Salesdetails->payment}}" name="payment" placeholder="Payment method" required>
                       </div>
                     </div>
                     </div>
                     </div>
                      
-                    @if($errors->any())
+                    <!-- @if($errors->any())
                         <div class="alert alert-danger">
                             <ul>
                                 @foreach ($errors->all() as $error)
@@ -216,217 +217,11 @@
                                 @endforeach
                             </ul>
                         </div>
-                    @endif
+                    @endif -->
 
-                    <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                    <button type="submit" class="btn btn-primary mr-2">Save</button>
                     <!-- <button class="btn btn-light">Cancel</button> -->
                   </form>
-                </div>
-              </div>
-            </div>
-
-        <!-- ending sales tracking  -->
-
-        <!-- start of Selling table -->
-
-        
-
-            <div class="col-xl-4 grid-margin ">
-                  <div class="card">
-                    <div class="card-body">
-                      <div class="d-flex justify-content-between mb-3">
-                          <h4 class="card-title">Market Analysis</h4>
-                          <!-- <div class="dropdown">
-                              <button class="btn btn-sm dropdown-toggle text-dark pt-0 pr-0" type="button" id="dropdownMenuSizeButton3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                  This week
-                              </button>
-                              <div class="dropdown-menu" aria-labelledby="dropdownMenuSizeButton3">
-                                <h6 class="dropdown-header">This week</h6>
-                                <h6 class="dropdown-header">This month</h6>
-                              </div>
-                            </div> -->
-                      </div>
-                      <div id="chart-legends-market-trend" class="chart-legends mt-1">
-                      </div>
-                      <!-- <div class="row mt-2 mb-2">
-                        <div class="col-6">
-                          <div class="text-small"><span class="text-success">18.2%</span> higher </div>
-                        </div>
-                        <div class="col-6">
-                          <div class="text-small"><span class="text-danger">0.7%</span> higher </div>
-                        </div>
-                      </div> -->
-                      <!-- <div class="marketTrends mt-4">
-                        <canvas id="marketTrendssatacked"></canvas>
-                      </div> -->
-                      <div class="row mt-2 mb-2">
-                      <div class="col-6">
-                        <h5><b>Arabica beans</b></h5>
-                        <h5>Total revenue</h5>
-                        <h5><b>{{$ArabicatotalRevenue}} Frw</b></h5>
-                          <!-- <div class="text-small"><span class="text-success">18.2%</span> higher </div> -->
-                      </div>
-                      <div class="col-6">
-                      <h5><b>Robusta beans</b></h5>
-                      <h5>Total revenue</h5>
-                      <h5><b>{{$RobustatotalRevenue}} Frw</b></h5>
-                          <!-- <div class="text-small"><span class="text-success">18.2%</span> higher </div> -->
-                      </div>
-                      </div>  
-                    </div>
-                  </div>
-              </div>
-
-
-        </div>
-
-        <div class="row">
-
-        <!-- starting selling table -->
-
-        <div class="col-lg-8 grid-margin">
-              <div class="card">
-                <div class="card-body">
-                  <h4 class="card-title">Sales</h4>
-                  <div class="table-responsive">
-                    <table class="table table-striped">
-                      <thead>
-                        <tr>
-                          <th>
-                            #
-                          </th>
-                          <th>
-                            Customer
-                          </th>
-                          <th>
-                            Product
-                          </th>
-                          <th>
-                            Qty
-                          </th>
-                          <th>
-                            Price
-                          </th>
-                          <th>
-                            Payment way
-                          </th>
-                          <th>
-                            Date
-                          </th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        @foreach($CooperativeSales as $Cooperativesale)
-                        <tr>
-                          <td>
-                            {{++$i}}
-                          </td>
-                          <td>
-                            {{$Cooperativesale->customer}}
-                          </td>
-                          <td>
-                          {{$Cooperativesale->product}}
-                          </td>
-                          <td>
-                          {{$Cooperativesale->quantity}}
-                          </td>
-                          <td>
-                          {{$Cooperativesale->price}}
-                          </td>
-                          <td>
-                          {{$Cooperativesale->payment}}
-                          </td>
-                          <td>
-                          {{$Cooperativesale->created_at}}
-                          </td>
-                          <td>
-                          <div class="input-group-prepend">
-                        <button class="btn btn-sm btn-outline-primary " type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">...</button>
-                        <div class="dropdown-menu">
-                          <a class="dropdown-item" href={{"updateCooperativeSales/".$Cooperativesale->id}}><i class="fa fa-edit" aria-hidden="true"></i>&nbsp;Edit</a>
-                      </div>
-                          </td>
-                        </tr>
-                        @endforeach
-                      </tbody>
-                    </table>
-                    <div class="pagination-block">
-                     {{ $CooperativeSales->links()}}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-        <!-- ending selling table -->
-
-        <div class="col-xl-4 grid-margin-lg-0 grid-margin ">
-              <div class="card">
-                <div class="card-body">
-                    <h4 class="card-title">Monthly top sellers</h4>
-                    <div class="table-responsive mt-3">
-                      <table class="table table-header-bg">
-                        <thead>
-                          <tr>
-                            <th>
-                                Coffee beans
-                            </th>
-                            <th>
-                                Revenue
-                            </th>
-                            <th>
-                                Vs Last Month
-                            </th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            @foreach($revenueByCategory as $category)
-                            <?php
-                            $currentMonth = now()->month;
-                            $previousMonth = $currentMonth - 1;
-                            
-                            if ($previousMonth == 0) {
-                                $previousMonth = 12;
-                            }
-        $currentMonthRevenue = DB::table('sales')
-                            ->whereMonth('created_at', $currentMonth)
-                            ->where('product', $category->product)
-                            ->sum('price');
-
-        $previousMonthRevenue = DB::table('sales')
-                            ->whereMonth('created_at', $previousMonth)
-                            ->where('product', $category->product)
-                            ->sum('price');
-
-        if ($previousMonthRevenue == 0) {
-            $percentageIncrease = 100;
-        } else {
-            $percentageIncrease = (($currentMonthRevenue - $previousMonthRevenue) / $previousMonthRevenue) * 100;
-        }
-
-        $category->percentageIncrease = $percentageIncrease;
-    ?>
-                            <td>
-                              {{$category->product}}
-                            </td>
-                            <td>
-                              {{$category->revenue}}
-                            </td>
-                            @if($category->percentageIncrease>=0)
-                            <td>
-                              <div class="text-success"><i class="icon-arrow-up mr-2"></i>+{{$category->percentageIncrease}}%</div>
-                            </td>
-                            @else
-                            <td>
-                              <div class="text-danger"><i class="icon-arrow-down mr-2"></i>+{{$category->percentageIncrease}}%</div>
-                            </td>
-                            @endif
-                          </tr>
-                          @endforeach
-                        </tbody>
-                      </table>
-                    </div>
                 </div>
               </div>
             </div>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Sales;
 use App\Models\Cooperative;
 use Illuminate\Support\Facades\DB;
 
@@ -85,6 +86,13 @@ class CooperativeController extends Controller
       public function DeleteCooperative($id){
         Cooperative::destroy($id);
         return redirect('viewcooperatives');
+      }
+
+      public function updateCooperativeSales($id){
+        $user_id =auth()->user()->id;
+        $profileImg=User::find($user_id);
+        $Salesdetails=Sales::find($id);
+        return view('Manager/Sales-update',['Salesdetails'=>$Salesdetails,'profileImg'=>$profileImg]);
       }
 
      
