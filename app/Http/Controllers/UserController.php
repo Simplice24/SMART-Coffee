@@ -478,9 +478,15 @@ $InactiveCoopCount[]= count($inactive);
                       ->get();
     $CooperativeSales=Sales::where('cooperative_id',$cooperative_id)->paginate(10);
 
+    $SalesByPayment = DB::table('sales')
+            ->select('payment', DB::raw('SUM(price) as total_amount'))
+            ->where('cooperative_id',$cooperative_id)
+            ->groupBy('payment')
+            ->get();
+
     return view('Manager/Sales',['profileImg'=>$profileImg,'CooperativeSales'=>$CooperativeSales,
     'i'=>$i,'revenueByCategory'=>$revenueByCategory,'ArabicatotalRevenue'=>$ArabicatotalRevenue,
-  'RobustatotalRevenue'=>$RobustatotalRevenue]);
+  'RobustatotalRevenue'=>$RobustatotalRevenue,'SalesByPayment'=>$SalesByPayment]);
   }
 
     public function UserRegistrationPage(){

@@ -84,5 +84,16 @@ class DiseaseController extends Controller
         return redirect('viewdiseases');
       }
 
+      public function CooperativeDiseaseDetails($id){
+        $userId =auth()->user()->id;
+        $profileImg=User::find($userId);
+        $diseaseinfo=Disease::find($id);
+        return view('Manager/Disease-details',['diseaseinfo'=>$diseaseinfo,'profileImg'=>$profileImg]);
+      }
+
+      public function ReportingDisease($id){
+        
+      }
+
 
 }

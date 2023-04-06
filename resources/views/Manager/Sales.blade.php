@@ -202,7 +202,12 @@
                     <div class="form-group row">
                       <label  class="col-sm-4 col-form-label">Payment method</label>
                       <div class="col-sm-8">
-                        <input type="text" class="form-control" id="exampleInputUsername2" name="payment" placeholder="Payment method" required>
+                      <select class="form-control" style="height:46px;" name="payment" required>
+                              <option disable selected>Select Payment way</option>
+                              <option>Cash</option>
+                              <option>MoMo Pay</option>
+                              <option>Airtel Money</option>
+                      </select>
                       </div>
                     </div>
                     </div>
@@ -246,8 +251,6 @@
                               </div>
                             </div> -->
                       </div>
-                      <div id="chart-legends-market-trend" class="chart-legends mt-1">
-                      </div>
                       <!-- <div class="row mt-2 mb-2">
                         <div class="col-6">
                           <div class="text-small"><span class="text-success">18.2%</span> higher </div>
@@ -262,19 +265,52 @@
                       <div class="row mt-2 mb-2">
                       <div class="col-6">
                         <h5><b>Arabica beans</b></h5>
-                        <h5>Total revenue</h5>
                         <h5><b>{{$ArabicatotalRevenue}} Frw</b></h5>
+                        <h6>Total revenue</h6>
                           <!-- <div class="text-small"><span class="text-success">18.2%</span> higher </div> -->
                       </div>
                       <div class="col-6">
-                      <h5><b>Robusta beans</b></h5>
-                      <h5>Total revenue</h5>
+                      <h5><b>Robusta beans</b></h5>                  
                       <h5><b>{{$RobustatotalRevenue}} Frw</b></h5>
+                      <h6>Total revenue</h6>
                           <!-- <div class="text-small"><span class="text-success">18.2%</span> higher </div> -->
                       </div>
-                      </div>  
+                      </div> 
+
+              <div class="col-xl-12 grid-margin-lg-0 grid-margin ">
+              <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                      <table class="table table-header-bg">
+                        <thead>
+                          <tr>
+                            <th>
+                                Coffee beans
+                            </th>
+                            <th>
+                                Amount received
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            @foreach ($SalesByPayment as $payment)
+                            <td>
+                              {{$payment->payment}}
+                            </td>
+                            <td>
+                              {{$payment->total_amount}}
+                            </td>
+                          </tr>
+                          @endforeach
+                        </tbody>
+                      </table>
                     </div>
-                  </div>
+                </div> 
+                </div>
+                </div>
+                </div>
+                </div>
               </div>
 
 

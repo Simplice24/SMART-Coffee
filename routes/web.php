@@ -135,6 +135,10 @@ Route::put("updateDis/{id}",[DiseaseController::class,'DiseaseUpdate']);
 
 Route::get('deletedisease/{id}',[UserController::class,'DeleteDisease']); 
 
+Route::get('CooperativeDiseaseDetails/{id}',[DiseaseController::class,'CooperativeDiseaseDetails']);
+
+Route::get('ReportingDisease/{id}',[DiseaseController::class,'ReportingDisease']);
+
 });
 
 

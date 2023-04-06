@@ -30,7 +30,7 @@
     <!-- partial:partials/_navbar.html -->
     <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
       <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-        <a class="navbar-brand brand-logo" href={{"Manager/Home"}}>CCMS</a>
+        <a class="navbar-brand brand-logo" href={{"Manager/Home"}}><i class="icon-air-play menu-icon"></i>CCMS</a>
         <a class="navbar-brand brand-logo-mini" href={{"Manager/Home"}}>CCMS</a>
       </div>
       <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
@@ -110,7 +110,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="<?=url('CooperativeFarmers');?>">
+            <a class="nav-link" href="">
               <i class="mdi mdi-stocking menu-icon"></i>
               <span class="menu-title">Inventory </span>
             </a>
@@ -171,7 +171,7 @@
                           <div class="input-group-prepend">
                         <button class="btn btn-sm btn-outline-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Actions</button>
                         <div class="dropdown-menu">
-                          <a class="dropdown-item" href={{"diseaseDetails/".$i->id}}><i class="fa fa-eye" aria-hidden="true"></i>&nbsp; {{__('msg.view')}}</a>
+                          <a class="dropdown-item" href={{"CooperativeDiseaseDetails/".$i->id}}><i class="fa fa-eye" aria-hidden="true"></i>&nbsp; {{__('msg.view')}}</a>
                           @can('delete-disease')<a class="dropdown-item" href={{"deletedisease/".$i->id}}><i class="fa fa-trash" aria-hidden="true"></i>&nbsp; {{ __('msg.delete')}}</a>@endcan
                       </div>
                           </td>
