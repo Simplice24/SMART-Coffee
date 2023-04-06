@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ app()->getLocale() }}">
 
 <head>
     <meta charset="utf-8">
@@ -24,6 +24,9 @@
 
     <!-- Customized Bootstrap Stylesheet -->
     <link href="Customized/FrontEnd/css/style.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="Customized/vendors/mdi/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="Customized/vendors/feather/feather.css">
+    <link rel="stylesheet" href="Customized/vendors/base/vendor.bundle.base.css">
 
     <style>
       html {
@@ -37,7 +40,7 @@
     <div class="container-fluid p-0 nav-bar">
         <nav class="navbar navbar-expand-lg bg-none navbar-dark py-3">
             <a href="index.html" class="navbar-brand px-lg-4 m-0">
-                <h1 class="m-0 display-4 text-uppercase text-white">CCMS</h1>
+                <h1 class="m-0 display-4 text-uppercase text-white"><i class="icon-air-play menu-icon"></i>CCMS</h1>
             </a>
             <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
                 <span class="navbar-toggler-icon"></span>
@@ -62,7 +65,7 @@
                     <img class="w-100" src="Customized/FrontEnd/img/carousel-1.jpg" alt="Image">
                     <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
                         <h2 class="text-primary font-weight-medium m-0">We Have Been Managing</h2>
-                        <h1 class="display-1 text-white m-0">COFFEE COOPERATIVES</h1>
+                        <h1 class="display-2 text-white m-0">COFFEE COOPERATIVES</h1>
                         <h2 class="text-white m-0">* SINCE 2022 *</h2>
                     </div>
                 </div>
@@ -70,7 +73,7 @@
                     <img class="w-100" src="Customized/FrontEnd/img/carousel-2.jpg" alt="Image">
                     <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
                         <h2 class="text-primary font-weight-medium m-0">We Have Been Managing</h2>
-                        <h1 class="display-1 text-white m-0">COFFEE COOPERATIVES</h1>
+                        <h1 class="display-2 text-white m-0">COFFEE COOPERATIVES</h1>
                         <h2 class="text-white m-0">* SINCE 2022 *</h2>
                     </div>
                 </div>
