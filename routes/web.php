@@ -7,6 +7,7 @@ use App\Http\Controllers\DiseaseController;
 use App\Http\Controllers\CooperativeController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SalesController;
+use App\Http\Controllers\StockController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -212,4 +213,11 @@ Route::put('SalesUpdate/{id}',[SalesController::class,'SalesUpdate']);
 
 });
 
+//Stock routes
+
+Route::group(['middleware'=>["auth"]],function(){
+
+Route::get('StockDetails',[StockController::class,'StockDetails']);    
+    
+});
 

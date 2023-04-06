@@ -146,94 +146,64 @@
       <!-- partial -->
       <div class="main-panel">
         <div class="content-wrapper">
-          <div class="row">
-            <div class="col-sm-12 mb-4 mb-xl-0">
-              <h4 class="font-weight-bold text-dark">Sales tracking</h4>
-              <!-- <p class="font-weight-normal mb-2 text-muted">APRIL 1, 2019</p> -->
-            </div>
-          </div>
-
-          <div class="row">
-
-        <!-- Starting sales tracking  -->
-
-        <div class="col-md-12 grid-margin">
+        <div class="row">
+        <div class="col-lg-8 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
-                  <h4 class="card-title">Sales recording</h4>
-                  <form class="forms-sample" action="{{url('SalesUpdate/'.$Salesdetails->id)}}" method="POST">
-                  @csrf
-                  @method('PUT')
-                  <div class="row">
-                  <div class="col-md-6">
-                  <div class="form-group row">
-                      <label  class="col-sm-4 col-form-label">Customer</label>
-                      <div class="col-sm-8">
-                        <input type="text" class="form-control" id="exampleInputUsername2" name="customer" value="{{$Salesdetails->customer}}" required>
+                  <h4 class="card-title">Stock records</h4>
+                  <div class="table-responsive">
+                    <table class="table table-striped">
+                      <thead>
+                        <tr>
+                          <th>
+                            #
+                          </th>
+                          <th>
+                            Product
+                          </th>
+                          <th>
+                            Quantity
+                          </th>
+                          <th>
+                            Season
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                     @foreach($CooperativeStock as $Stock)
+                          <td>
+                           {{++$i}}
+                          </td>
+                          <td>
+                           {{$stock->product}}
+                          </td>
+                          <td>
+                           {{$stock->quantity}} 
+                          </td>
+                          <td>
+                           {{$stock->season}}
+                          </td>
+                          <td>
+                          <div class="input-group-prepend">
+                        <button class="btn btn-sm btn-outline-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Actions</button>
+                        <div class="dropdown-menu">
+                          <a class="dropdown-item" href=""><i class="fa fa-eye" aria-hidden="true"></i>&nbsp; {{__('msg.view')}}</a>
+                          <a class="dropdown-item" href=""><i class="fa fa-trash" aria-hidden="true"></i>&nbsp; {{ __('msg.delete')}}</a>
                       </div>
+                          </td>
+                         </tr>
+                        @endforeach 
+                      </tbody>
+                    </table>
+                    <div class="pagination-block">
+                     {{$CooperativeStock->links()}}
                     </div>
-                    </div>
-                    <div class="col-md-6">
-                    <div class="form-group row">
-                      <label  class="col-sm-4 col-form-label">Product</label>
-                      <div class="col-sm-8">
-                        <select class="form-control" style="height:46px;" name="product" required>
-                              <option selected>{{$Salesdetails->product}}</option>
-                                <option>Arabica beans</option>
-                                <option>Robusta beans</option>
-                              </select>
-                      </div>
-                    </div>
-                    </div>
-                    </div>
-                    <div class="row">
-                    <div class="col-md-6">
-                    <div class="form-group row">
-                      <label  class="col-sm-4 col-form-label">Quantity</label>
-                      <div class="col-sm-8">
-                        <input type="number" class="form-control" id="exampleInputEmail2" value="{{$Salesdetails->quantity}}" name="quantity" placeholder="Quantity" required>
-                      </div>
-                    </div>
-                    </div>
-                    <div class="col-md-6">
-                    <div class="form-group row">
-                      <label  class="col-sm-4 col-form-label">Price</label>
-                      <div class="col-sm-8">
-                        <input type="number" class="form-control" id="exampleInputUsername2" value="{{$Salesdetails->price}}" name="price" placeholder="Price" required>
-                      </div>
-                    </div>
-                    </div>
-                    </div>
-                    <div class="row">
-                    <div class="col-md-6">
-                    <div class="form-group row">
-                      <label  class="col-sm-4 col-form-label">Payment method</label>
-                      <div class="col-sm-8">
-                        <input type="text" class="form-control" id="exampleInputUsername2" value="{{$Salesdetails->payment}}" name="payment" placeholder="Payment method" required>
-                      </div>
-                    </div>
-                    </div>
-                    </div>
-                     
-                    <!-- @if($errors->any())
-                        <div class="alert alert-danger">
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif -->
-
-                    <button type="submit" class="btn btn-primary mr-2">{{__('msg.save changes')}}</button>
-                    <!-- <button class="btn btn-light">Cancel</button> -->
-                  </form>
+                  </div>
                 </div>
               </div>
             </div>
-
         </div>
-
         </div>
         <!-- content-wrapper ends -->
         <!-- partial:partials/_footer.html -->
