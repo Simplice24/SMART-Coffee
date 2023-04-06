@@ -18,7 +18,8 @@ class StockController extends Controller
                    ->value('cooperative_id');
       if($cooperative_id){
         $CooperativeStock=Stock::where('cooperative_id',$cooperative_id)->paginate(10);
-        return view('Manager/Cooperative-stock',['i'=>$i,'profileImg'=>$profileImg,'CooperativeStock'=>$CooperativeStock]);
+        return view('Manager/Cooperative-stock',['i'=>$i,'profileImg'=>$profileImg,
+        'CooperativeStock'=>$CooperativeStock]);
       }             
     }
 }
