@@ -33,20 +33,22 @@
                           <div class="form-group row">
                             <label class="col-sm-3 col-form-label">{{ __('msg.Province') }}</label>
                             <div class="col-sm-9">
-                            <select class="form-control" style="height:46px;" name="gender" required>
+                            <select class="form-control" style="height:46px;" name="province" wire:model="selectedProvince" required>
                               <option disable selected>Select province</option>
                                 @foreach($provinces as $province)
-                                <option value="{{$province->provincename}}">{{$province->provincename}}</option>
+                                <option value="{{$province->provincecode}}">{{$province->provincename}}</option>
                                 @endforeach
                             </select>
+                            {{$selectedProvince}}
                             </div>
                           </div>
                         </div>
+                        
                         <div class="col-md-6">
                           <div class="form-group row">
                             <label class="col-sm-3 col-form-label">{{ __('msg.district') }}</label>
                             <div class="col-sm-9">
-                              <input type="text" class="form-control" name="district" required />
+                            <input type="text" class="form-control" name="district" required />
                             </div>
                           </div>
                         </div>

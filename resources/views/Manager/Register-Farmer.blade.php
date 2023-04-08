@@ -24,6 +24,7 @@
   <link rel="stylesheet" href="Customized/css/style.css">
   <!-- endinject -->
   <link rel="shortcut icon" href="Customized/images/favicon.png" />
+@livewireStyles
 </head>
 <body>
   <div class="container-scroller">
@@ -242,7 +243,7 @@
                           </div>
                         </div>
                       </div> -->
-                      <livewire:dropdown />
+                      @livewire('dropdown')
                       <button type="submit" class="btn btn-primary mr-2">{{ __('msg.submit')}}</button>
                     <!-- <button class="btn btn-light">Cancel</button> -->
                     </form>
@@ -283,6 +284,7 @@
   <!-- Custom js for this page-->
   <script src="Customized/js/dashboard.js"></script>
   <!-- End custom js for this page-->
+@livewireScripts
 </body>
 
 </html>
