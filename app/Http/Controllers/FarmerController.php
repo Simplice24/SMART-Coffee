@@ -1,12 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Cooperative;
 use App\Models\Farmer;
 use Illuminate\Support\Facades\DB;
+
 
 class FarmerController extends Controller
 {

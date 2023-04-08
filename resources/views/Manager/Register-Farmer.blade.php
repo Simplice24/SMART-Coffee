@@ -206,7 +206,7 @@
                           </div>
                         </div>
                         </div>
-                        <div class="row">
+                        <!-- <div class="row">
                         <div class="col-md-6">
                           <div class="form-group row">
                             <label class="col-sm-3 col-form-label">{{ __('msg.Province') }}</label>
@@ -241,7 +241,8 @@
                             </div>
                           </div>
                         </div>
-                      </div>
+                      </div> -->
+                      <livewire:dropdown />
                       <button type="submit" class="btn btn-primary mr-2">{{ __('msg.submit')}}</button>
                     <!-- <button class="btn btn-light">Cancel</button> -->
                     </form>
