@@ -148,91 +148,82 @@
         <div class="content-wrapper">
           <div class="row">
             <div class="col-sm-12 mb-4 mb-xl-0">
-              <h4 class="font-weight-bold text-dark">{{ __('msg.hi, welcome back!')}}</h4>
+              <h4 class="font-weight-bold text-dark">Sales tracking</h4>
               <!-- <p class="font-weight-normal mb-2 text-muted">APRIL 1, 2019</p> -->
             </div>
           </div>
 
           <div class="row">
-              <div class="col-md-3 stretch-card grid-margin">
-                <div class="card bg-gradient-success card-img-holder text-white">
-                <a href="<?=url('CooperativeFarmers');?>" style="text-decoration:none; color:white;">
-                  <div class="card-body">
-                    <img src="/Customized/assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
-                    <h4 class="font-weight-normal mb-3">{{ __('msg.farmers')}}<i class="icon-head menu-icon float-right"></i>
-                    </h4>
-                    <h1 class="mb-5">{{$totalFarmers}}</h1>
-                    <!-- <h6 class="card-text"><b>Increased by {{$CoopFarmerspercentIncrease}}% this month</b></h6> -->
-                  </div>
-                </a>
+
+        <!-- Starting sales tracking  -->
+
+        <div class="col-md-12 grid-margin">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Stock update</h4>
+                  <form class="forms-sample" action="{{url('StockUpdate/'.$Stockdetails->id)}}" method="POST">
+                  @csrf
+                  @method('PUT')
+                  <div class="row">
+                  <div class="col-md-6">
+                  <div class="form-group row">
+                      <label  class="col-sm-4 col-form-label">Product</label>
+                      <div class="col-sm-8">
+                        <input type="text" class="form-control" id="exampleInputUsername2" name="product" value="{{$Stockdetails->product}}" required>
+                      </div>
+                    </div>
+                    </div>
+                    <div class="col-md-6">
+                    <div class="form-group row">
+                      <label  class="col-sm-4 col-form-label">Season</label>
+                      <div class="col-sm-8">
+                        <select class="form-control" style="height:46px;" name="season" required>
+                              <option selected>{{$Stockdetails->season}}</option>
+                                <option>Season A</option>
+                                <option>Season B</option>
+                                <option>Season C</option>
+                              </select>
+                      </div>
+                    </div>
+                    </div>
+                    </div>
+                    <div class="row">
+                    <div class="col-md-6">
+                    <div class="form-group row">
+                      <label  class="col-sm-4 col-form-label">Farmer</label>
+                      <div class="col-sm-8">
+                        <input type="number" class="form-control" id="exampleInputEmail2" value="{{$Stockdetails->farmer_id}}" name="farmer_id" placeholder="farmer" required>
+                      </div>
+                    </div>
+                    </div>
+                    <div class="col-md-6">
+                    <div class="form-group row">
+                      <label  class="col-sm-4 col-form-label">Quantity</label>
+                      <div class="col-sm-8">
+                        <input type="number" class="form-control" id="exampleInputUsername2" value="{{$Stockdetails->quantity}}" name="quantity" placeholder="quantity" required>
+                      </div>
+                    </div>
+                    </div>
+                    </div>
+                     
+                    @if($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+
+                    <button type="submit" class="btn btn-info mr-2">{{__('msg.save changes')}}</button>
+                    <!-- <button class="btn btn-light">Cancel</button> -->
+                  </form>
                 </div>
               </div>
-              <div class="col-md-3 stretch-card grid-margin">
-                <div class="card bg-gradient-warning card-img-holder text-white">
-                <a href="" style="text-decoration:none; color:white;">
-                  <div class="card-body">
-                    <img src="/Customized/assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
-                    <h4 class="font-weight-normal mb-3">Coffee trees<i class="mdi mdi-barley menu-icon float-right"></i>
-                    <h1 class="mb-5">{{$total_trees}}</h1>
-                    <!-- <h6 class="card-text"><b>Increased by {{$treespercentIncrease}}% this month</b></h6> -->
-                  </div>
-                 </a> 
-                </div>
-              </div>
-               <div class="col-md-3 stretch-card grid-margin">
-                <div class="card bg-gradient-primary bg-dark card-img-holder text-white">
-                <a href="" style="text-decoration:none; color:white;">
-                  <div class="card-body">
-                    <img src="/Customized/assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
-                    <h4 class="font-weight-normal mb-3">Monthly Sales <i class="mdi mdi-chart-line mdi-24px float-right"></i>
-                    <h1 class="mb-5">{{$currentMonthSalesTotal}}</h1>
-                    <h1 class="mb-5"></h1>
-                  </div>
-                 </a> 
-                </div>
-              </div>
-              <div class="col-md-3 stretch-card grid-margin">
-                <div class="card bg-gradient-secondary card-img-holder text-white">
-                <a href="" style="text-decoration:none; color:white;">
-                  <div class="card-body">
-                    <img src="/Customized/assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
-                    <h4 class="font-weight-normal mb-3">Stock<i class="mdi mdi-stocking menu-icon float-right"></i>
-                    <h1 class="mb-5"></h1>
-                  </div>
-                 </a> 
-                </div>
-              
-              <!-- <div class="col-md-3 stretch-card grid-margin">
-                <div class="card bg-gradient-danger card-img-holder text-white">
-                <a href="<?=url('');?>" style="text-decoration:none; color:white;">
-                  <div class="card-body">
-                    <img src="/Customized/assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
-                    <h4 class="font-weight-normal mb-3">Customer<i class="icon-command menu-icon float-right"></i>
-                    <h1 class="mb-5"></h1>
-                  </div>
-                 </a> 
-                </div>
-              </div> -->
-           </div>
-           <div class="row ">
-              <div class="col-md-3 grid-margin">
-                <div class="card">
-                      <div class="card-body">
-                          <h4 class="card-title">Male farmers<i class="mdi mdi-gender-male menu-icon float-right"></i></h4>
-                          <!-- <p>{{$CoopMaleFarmerspercentIncrease}}% increase this month</p> -->
-                          <h4 class="text-dark font-weight-bold mb-2">{{$male_farmers}}</h4>
-                      </div>
-                      </div>
-                      <div class="card mt-2">
-                      <div class="card-body">
-                          <h4 class="card-title">Female farmers<i class="mdi mdi-gender-male-female menu-icon float-right"></i></h4>
-                          <!-- <p>{{$CoopFemaleFarmerspercentIncrease}}% increase in month</p> -->
-                          <h4 class="text-dark font-weight-bold mb-2">{{$female_farmers}}</h4>
-                      </div>
-                      </div>
-                </div>
-              </div>
-           </div>
+            </div>
+
+        </div>
 
         </div>
         <!-- content-wrapper ends -->

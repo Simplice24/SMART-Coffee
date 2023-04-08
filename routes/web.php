@@ -164,6 +164,7 @@ Route::get('deletecooperative/{id}',[CooperativeController::class,'DeleteCoopera
 
 Route::get('updateCooperativeSales/{id}',[CooperativeController::class,'updateCooperativeSales']);
 
+Route::get('updateCooperativeStock/{id}',[CooperativeController::class,'updateCooperativeStock']);
 
 });
 
@@ -217,7 +218,11 @@ Route::put('SalesUpdate/{id}',[SalesController::class,'SalesUpdate']);
 
 Route::group(['middleware'=>["auth"]],function(){
 
-Route::get('StockDetails',[StockController::class,'StockDetails']);    
+Route::get('StockDetails',[StockController::class,'StockDetails']); 
+
+Route::post('StockRecording',[StockController::class,'StockRecording']);
+
+Route::put('StockUpdate/{id}',[StockController::class,'StockUpdate']);
     
 });
 

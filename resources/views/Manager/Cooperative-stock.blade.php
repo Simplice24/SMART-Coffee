@@ -177,6 +177,19 @@
                     </div>
                     <div class="col-md-6">
                     <div class="form-group row">
+                      <label  class="col-sm-4 col-form-label">Farmer</label>
+                      <div class="col-sm-8">
+                      <select class="form-control" style="height:46px;" name="farmer_id" required>
+                              <option disable selected>Select farmer</option>
+                              @foreach($Cooperativefarmers as $farmer)
+                              <option value={{$farmer->id}}>{{$farmer->name}}</option>
+                              @endforeach
+                      </select>
+                      </div>
+                    </div>
+                    </div>
+                    <div class="col-md-6">
+                    <div class="form-group row">
                       <label  class="col-sm-4 col-form-label">Season</label>
                       <div class="col-sm-8">
                       <select class="form-control" style="height:46px;" name="season" required>
@@ -210,62 +223,26 @@
         <div class="col-xl-4 grid-margin ">
                   <div class="card">
                     <div class="card-body">
-                      <!-- <div class="d-flex justify-content-between mb-3"> -->
                           <h4 class="card-title">Stock Analysis</h4>
-                          <!-- <div class="dropdown">
-                              <button class="btn btn-sm dropdown-toggle text-dark pt-0 pr-0" type="button" id="dropdownMenuSizeButton3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                  This week
-                              </button>
-                              <div class="dropdown-menu" aria-labelledby="dropdownMenuSizeButton3">
-                                <h6 class="dropdown-header">This week</h6>
-                                <h6 class="dropdown-header">This month</h6>
-                              </div>
-                            </div> -->
-                      </div>
-                      <!-- <div class="row mt-2 mb-2">
-                        <div class="col-6">
-                          <div class="text-small"><span class="text-success">18.2%</span> higher </div>
-                        </div>
-                        <div class="col-6">
-                          <div class="text-small"><span class="text-danger">0.7%</span> higher </div>
-                        </div>
-                      </div> -->
-                      <!-- <div class="marketTrends mt-4">
-                        <canvas id="marketTrendssatacked"></canvas>
-                      </div> -->
-                      <!-- <div class="row mt-2 mb-2">
-                      <div class="col-6">
-                        <h5><b>Arabica beans</b></h5>
-                        <h5><b> Frw</b></h5>
-                        <h6>Total revenue</h6> -->
-                          <!-- <div class="text-small"><span class="text-success">18.2%</span> higher </div> -->
-                      <!-- </div>
-                      <div class="col-6">
-                      <h5><b>Robusta beans</b></h5>                  
-                      <h5><b> Frw</b></h5>
-                      <h6>Total revenue</h6> -->
-                          <!-- <div class="text-small"><span class="text-success">18.2%</span> higher </div> -->
-                      <!-- </div>
-                      </div>  -->
-
-              <div class="col-xl-12 grid-margin-lg-0 grid-margin ">
-              <div class="card">
-                <div class="card-body">
-                    <div class="table-responsive">
-                      <table class="table table-header-bg">
-                        <thead>
-                          <tr>
-                            <th>
-                                Coffee beans
-                            </th>
-                            <th>
-                                Quantity
-                            </th>
-                            <th>
-                                VS Last Season
-                            </th>
-                          </tr>
-                        </thead>
+                    </div>
+                    <div class="col-xl-12 grid-margin-lg-0 grid-margin ">
+                    <div class="card">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                          <table class="table table-header-bg">
+                            <thead>
+                              <tr>
+                                <th>
+                                    Coffee beans
+                                </th>
+                                <th>
+                                    Quantity
+                                </th>
+                                <th>
+                                    VS Last Season
+                                </th>
+                              </tr>
+                            </thead>
                         <tbody>
                           <tr>
                             
@@ -308,6 +285,9 @@
                             Quantity
                           </th>
                           <th>
+                            Farmer
+                          </th>
+                          <th>
                             Season
                           </th>
                         </tr>
@@ -319,21 +299,23 @@
                            {{++$i}}
                           </td>
                           <td>
-                           {{$stock->product}}
+                           {{$Stock->product}}
                           </td>
                           <td>
-                           {{$stock->quantity}} 
+                           {{$Stock->quantity}} 
                           </td>
                           <td>
-                           {{$stock->season}}
+                           {{$Stock->farmer_id}}
+                          </td>
+                          <td>
+                           {{$Stock->season}}
                           </td>
                           <td>
                           <div class="input-group-prepend">
-                        <button class="btn btn-sm btn-outline-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Actions</button>
+                        <button class="btn btn-sm btn-outline-primary " type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">...</button>
                         <div class="dropdown-menu">
-                          <a class="dropdown-item" href=""><i class="fa fa-eye" aria-hidden="true"></i>&nbsp; {{__('msg.view')}}</a>
-                          <a class="dropdown-item" href=""><i class="fa fa-trash" aria-hidden="true"></i>&nbsp; {{ __('msg.delete')}}</a>
-                      </div>
+                          <a class="dropdown-item" href={{"updateCooperativeStock/".$Stock->id}}><i class="fa fa-edit" aria-hidden="true"></i>&nbsp;Edit</a>
+                        </div>
                           </td>
                          </tr>
                         @endforeach 

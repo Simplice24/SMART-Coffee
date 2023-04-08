@@ -225,7 +225,7 @@
                         </div>
                     @endif -->
 
-                    <button type="submit" class="btn btn-primary mr-2">{{__('msg.save changes')}}</button>
+                    <button type="submit" class="btn btn-info mr-2">{{__('msg.save changes')}}</button>
                     <!-- <button class="btn btn-light">Cancel</button> -->
                   </form>
                 </div>

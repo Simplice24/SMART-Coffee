@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Sales;
+use App\Models\Stock;
 use App\Models\Cooperative;
 use Illuminate\Support\Facades\DB;
 
@@ -95,6 +96,11 @@ class CooperativeController extends Controller
         return view('Manager/Sales-update',['Salesdetails'=>$Salesdetails,'profileImg'=>$profileImg]);
       }
 
-
-     
+      public function updateCooperativeStock($id){
+        $user_id =auth()->user()->id;
+        $profileImg=User::find($user_id);
+        $Stockdetails=Stock::find($id);
+        return view('Manager/Stock-update',['Stockdetails'=>$Stockdetails,'profileImg'=>$profileImg]);
+      }
+        
 }
