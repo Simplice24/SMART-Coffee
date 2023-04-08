@@ -21,7 +21,7 @@ class Dropdown extends Component
         return view('livewire.dropdown',['provinces'=> Province::class::all(),]);
     }
 
-    public function updatedSelectedProvince($provincecode)
+    public function updateSelectedProvince($provincecode)
     {
         $this->districts= District::where('provincecode',$provincecode)->get();
     }

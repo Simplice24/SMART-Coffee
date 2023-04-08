@@ -27,19 +27,18 @@
 </head>
 <body>
  
-        
+<form class="form-sample" action="" method="POST">
                         <div class="row">
                         <div class="col-md-6">
                           <div class="form-group row">
                             <label class="col-sm-3 col-form-label">{{ __('msg.Province') }}</label>
                             <div class="col-sm-9">
-                            <select class="form-control" style="height:46px;" name="province" wire:model="selectedProvince" required>
+                            <select class="form-control" style="height:46px;" name="province" wire:model="updatedSelectedProvince" required>
                               <option disable selected>Select province</option>
-                                @foreach($provinces as $province)
-                                <option value="{{$province->provincecode}}">{{$province->provincename}}</option>
-                                @endforeach
+                              @foreach($provinces as $province)
+                              <option value="{{$province->provincecode}}">{{$province->provincename}}</option>
+                              @endforeach
                             </select>
-                            {{$selectedProvince}}
                             </div>
                           </div>
                         </div>
@@ -71,7 +70,8 @@
                           </div>
                         </div>
                       </div>
-       
+
+                      <form>
   <script src="Customized/vendors/base/vendor.bundle.base.js"></script>
   <!-- endinject -->
   <!-- Plugin js for this page-->
