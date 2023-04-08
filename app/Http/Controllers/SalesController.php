@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use App\Models\Production;
 use App\Models\Sales;
 use App\Models\User;
+use App\Models\Stock;
 use Illuminate\Support\Facades\DB;
 
 class SalesController extends Controller
@@ -31,7 +32,18 @@ class SalesController extends Controller
          $sales->price=$input['price'];
          $sales->payment=$input['payment'];
          $sales->cooperative_id=$cooperative_id;
-         $sales->save();
+
+         $availableQuantity=DB::table('stocks')
+         ->where('cooperative_id',$cooperative_id)
+         ->where('product',$input['product'])
+         ->sum('quantity');
+         $difference=$availableQuantity-$sales->quantity;
+         if($difference>=0){
+            $sales->save();
+         }
+         else{
+            return redirect()->back()->with('error', 'Not enough quantity in stock');
+         }
 
          return redirect()->back();
 

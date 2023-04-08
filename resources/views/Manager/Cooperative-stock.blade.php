@@ -279,7 +279,7 @@
                             #
                           </th>
                           <th>
-                            Product
+                            Coffee beans
                           </th>
                           <th>
                             Quantity

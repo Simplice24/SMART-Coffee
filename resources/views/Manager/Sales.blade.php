@@ -229,6 +229,10 @@
                         </div>
                     @endif
 
+                    @if (session('error'))
+                        <div class="alert alert-danger">{{ session('error') }}</div>
+                    @endif
+
                     <button type="submit" class="btn btn-primary mr-2">Submit</button>
                     <!-- <button class="btn btn-light">Cancel</button> -->
                   </form>
@@ -341,7 +345,7 @@
                             Customer
                           </th>
                           <th>
-                            Product
+                            Coffee beans
                           </th>
                           <th>
                             Qty
