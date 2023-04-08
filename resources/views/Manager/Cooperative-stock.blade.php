@@ -223,7 +223,7 @@
         <div class="col-xl-4 grid-margin ">
                   <div class="card">
                     <div class="card-body">
-                          <h4 class="card-title">Stock Analysis</h4>
+                          <h4 class="card-title">Stock</h4>
                     </div>
                     <div class="col-xl-12 grid-margin-lg-0 grid-margin ">
                     <div class="card">
@@ -238,22 +238,22 @@
                                 <th>
                                     Quantity
                                 </th>
-                                <th>
+                                <!-- <th>
                                     VS Last Season
-                                </th>
+                                </th> -->
                               </tr>
                             </thead>
                         <tbody>
                           <tr>
-                            
+                            @foreach($CooperativeStockByCategory as $product)
                             <td>
-                              
+                              {{$product->product}}
                             </td>
                             <td>
-                              
+                              {{$product->total_quantity}}
                             </td>
                           </tr>
-                          
+                            @endforeach
                         </tbody>
                       </table>
                     </div>
@@ -305,7 +305,15 @@
                            {{$Stock->quantity}} 
                           </td>
                           <td>
-                           {{$Stock->farmer_id}}
+                          <?php
+        $farmer = \App\Models\Farmer::find($Stock->farmer_id);
+
+        if ($farmer) {
+            echo $farmer->name;
+        } else {
+            echo 'Unknown';
+        }
+    ?>
                           </td>
                           <td>
                            {{$Stock->season}}

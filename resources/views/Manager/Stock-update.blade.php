@@ -192,7 +192,8 @@
                     <div class="form-group row">
                       <label  class="col-sm-4 col-form-label">Farmer</label>
                       <div class="col-sm-8">
-                        <input type="number" class="form-control" id="exampleInputEmail2" value="{{$Stockdetails->farmer_id}}" name="farmer_id" placeholder="farmer" required>
+                      <input type="text" class="form-control" id="farmer_name" value="{{ optional(App\Models\Farmer::find($Stockdetails->farmer_id))->name }}" placeholder="Farmer Name" readonly required>
+                      <input type="hidden" name="farmer_id" value="{{ $Stockdetails->farmer_id }}" readonly style="display: none;">
                       </div>
                     </div>
                     </div>

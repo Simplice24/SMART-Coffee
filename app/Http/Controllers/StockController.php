@@ -21,8 +21,14 @@ class StockController extends Controller
                             ->where('cooperative_id',$cooperative_id)
                             ->get();
         $CooperativeStock=Stock::where('cooperative_id',$cooperative_id)->paginate(10);
+        $CooperativeStockByCategory=DB::table('stocks')
+        ->select('product', DB::raw('SUM(quantity) as total_quantity'))
+        ->where('cooperative_id', $cooperative_id)
+        ->groupBy('product')
+        ->get();
         return view('Manager/Cooperative-stock',['i'=>$i,'profileImg'=>$profileImg,
-        'CooperativeStock'=>$CooperativeStock,'Cooperativefarmers'=>$Cooperativefarmers]);
+        'CooperativeStock'=>$CooperativeStock,'Cooperativefarmers'=>$Cooperativefarmers,
+        'CooperativeStockByCategory'=>$CooperativeStockByCategory]);
       }             
     }
 
