@@ -337,6 +337,11 @@ $percentByDiseaseCategory = DB::table('reported_diseases')
     ->select('disease_id', DB::raw('ROUND(COUNT(*) * 100.0 / SUM(COUNT(*)) OVER ()) AS percentage'))
     ->groupBy('disease_id')
     ->get();
+
+$DiseaseCategoryPercentage = DB::table('reported_diseases')
+    ->select('disease_category', DB::raw('ROUND(COUNT(*) * 100.0 / SUM(COUNT(*)) OVER ()) AS percentage'))
+    ->groupBy('disease_category')
+    ->get();    
    
 
      return view('Dashboard',['profileImg'=>$profileImg,'rows'=>$rows,'farmer'=>$farmer,'cooperative'=>$cooperative,'disease'=>$disease,
@@ -348,7 +353,8 @@ $percentByDiseaseCategory = DB::table('reported_diseases')
     'UserspercentIncrease'=>$UserspercentIncrease,'FarmerspercentIncrease'=>$FarmerspercentIncrease,'CooperativespercentIncrease'=>$CooperativespercentIncrease,
     'MaleUserspercentIncrease'=>$MaleUserspercentIncrease,'FemaleUserspercentIncrease'=>$FemaleUserspercentIncrease,'FemaleFarmerspercentIncrease'=>$FemaleFarmerspercentIncrease,
     'MaleFarmerspercentIncrease'=>$MaleFarmerspercentIncrease,'ActiveCooperativespercentIncrease'=>$ActiveCooperativespercentIncrease,'InactiveCooppercentIncrease'=>$InactiveCooppercentIncrease,
-    'TotalReportedDiseases'=>$TotalReportedDiseases,'percentByDiseaseCategory'=>$percentByDiseaseCategory]);  
+    'TotalReportedDiseases'=>$TotalReportedDiseases,'percentByDiseaseCategory'=>$percentByDiseaseCategory,
+    'DiseaseCategoryPercentage'=>$DiseaseCategoryPercentage]);  
     }
 
     public function ManagerDashboard(){

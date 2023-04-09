@@ -104,6 +104,7 @@ class DiseaseController extends Controller
         $reported_disease=new ReportedDisease();
         $reported_disease->cooperative_id=$cooperative_id;
         $reported_disease->disease_id=$id;
+        $reported_disease->disease_category=Disease::where('id',$id)->value('category');
         if($reported_disease->save()){
             return redirect()->back()->with('success', 'Disease reported successfully');
         }else{

@@ -10,6 +10,7 @@ class ReportedDisease extends Model
     use HasFactory;
     protected $fillable=[
         'cooperative_id',
-        'disease_id'
+        'disease_id',
+        'disease_category'
     ];
 }
