@@ -353,23 +353,7 @@
                             <div>{{$diseasepercentage->percentage}}%</div>
                           </div>
                           @endforeach
-                          <div class="d-flex justify-content-between mb-1 mt-2">
-                            <div class="font-weight-bold">CATEGORY</div>
-                            <div class="font-weight-bold">TOTAL</div>
-                          </div>
-                          @foreach($percentByDiseaseCategory as $categorypercentage)
-                         <div class="d-flex justify-content-between legend-label">
-                          <div><span class="bg-danger"></span>
-                          <?php
-                          $categoryname=\App\Models\Disease::find($categorypercentage->disease_id);
-                          echo $categoryname->category;
-                          ?>
-                          </div>
-                            <div>20%</div>
-                          </div>
-                          @endforeach
                         </div>
-                        
                       </div>
                     </div>  
                   </div>
