@@ -224,7 +224,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-lg-6 grid-margin stretch-card">
+            <div class="col-lg-6 grid-margin">
               <div class="card">
                 <div class="card-body">
                   <h4 class="card-title">Reported diseases</h4>
