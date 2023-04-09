@@ -333,8 +333,11 @@ foreach ($inactiveCoopByYearMonth as $yearMonth => $inactive) {
 }
 
 $TotalReportedDiseases=ReportedDisease::count();
-  
-
+$percentByDiseaseCategory = DB::table('reported_diseases')
+    ->select('disease_id', DB::raw('ROUND(COUNT(*) * 100.0 / SUM(COUNT(*)) OVER ()) AS percentage'))
+    ->groupBy('disease_id')
+    ->get();
+   
 
      return view('Dashboard',['profileImg'=>$profileImg,'rows'=>$rows,'farmer'=>$farmer,'cooperative'=>$cooperative,'disease'=>$disease,
     'MaleMonth'=>$MaleMonth,'Malecount'=>$Malecount,'CountingMale'=>$CountingMale,'CountingFemale'=>$CountingFemale,'FemaleMonth'=>$FemaleMonth,
@@ -345,7 +348,7 @@ $TotalReportedDiseases=ReportedDisease::count();
     'UserspercentIncrease'=>$UserspercentIncrease,'FarmerspercentIncrease'=>$FarmerspercentIncrease,'CooperativespercentIncrease'=>$CooperativespercentIncrease,
     'MaleUserspercentIncrease'=>$MaleUserspercentIncrease,'FemaleUserspercentIncrease'=>$FemaleUserspercentIncrease,'FemaleFarmerspercentIncrease'=>$FemaleFarmerspercentIncrease,
     'MaleFarmerspercentIncrease'=>$MaleFarmerspercentIncrease,'ActiveCooperativespercentIncrease'=>$ActiveCooperativespercentIncrease,'InactiveCooppercentIncrease'=>$InactiveCooppercentIncrease,
-    'TotalReportedDiseases'=>$TotalReportedDiseases]);  
+    'TotalReportedDiseases'=>$TotalReportedDiseases,'percentByDiseaseCategory'=>$percentByDiseaseCategory]);  
     }
 
     public function ManagerDashboard(){

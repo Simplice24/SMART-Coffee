@@ -329,12 +329,12 @@
                               <div><span class="font-weight-bold">{{$TotalReportedDiseases}}</span> Reported diseases</div>
                               <!-- <div>Goal: 2000</div> -->
                             </div>
-                        <div class="progress progress-md grouped mb-2">
+                        <!-- <div class="progress progress-md grouped mb-2">
                           <div class="progress-bar  bg-danger" role="progressbar" style="width: 30%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                           <div class="progress-bar bg-info" role="progressbar" style="width: 20%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
                           <div class="progress-bar  bg-primary" role="progressbar" style="width: 10%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                           
-                        </div>
+                        </div> -->
                       </div>
                       <div class="col-sm-12">
                         <div class="traffic-source-legend">
@@ -342,19 +342,32 @@
                             <div class="font-weight-bold">DISEASES</div>
                             <div class="font-weight-bold">TOTAL</div>
                           </div>
+                          @foreach($percentByDiseaseCategory as $diseasepercentage)
                           <div class="d-flex justify-content-between legend-label">
-                            <div><span class="bg-danger"></span>Google Search</div>
-                            <div>30%</div>
+                            <div><span class="bg-danger"></span>
+                            <?php
+                            $diseasename=\App\Models\Disease::find($diseasepercentage->disease_id);
+                            echo $diseasename->disease_name;
+                            ?>
+                            </div>
+                            <div>{{$diseasepercentage->percentage}}%</div>
                           </div>
-                          <div class="d-flex justify-content-between legend-label">
-                            <div><span class="bg-info"></span>Social Media</div>
+                          @endforeach
+                          <div class="d-flex justify-content-between mb-1 mt-2">
+                            <div class="font-weight-bold">CATEGORY</div>
+                            <div class="font-weight-bold">TOTAL</div>
+                          </div>
+                          @foreach($percentByDiseaseCategory as $categorypercentage)
+                         <div class="d-flex justify-content-between legend-label">
+                          <div><span class="bg-danger"></span>
+                          <?php
+                          $categoryname=\App\Models\Disease::find($categorypercentage->disease_id);
+                          echo $categoryname->category;
+                          ?>
+                          </div>
                             <div>20%</div>
                           </div>
-                          <div class="d-flex justify-content-between legend-label">
-                            <div><span class="bg-primary"></span>Referrals</div>
-                            <div>10%</div>
-                          </div>
-                          
+                          @endforeach
                         </div>
                         
                       </div>
@@ -720,6 +733,7 @@ new Chart("InactiveCooperatives", {
       }
   }
 });
+
 
   </script>
   

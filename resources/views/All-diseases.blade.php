@@ -245,13 +245,13 @@
                       </thead>
                       <tbody>
                         <tr>
-                          @foreach($reported_diseases as $i)
+                          @foreach($reported_diseases as $dis)
                           <td>
                             {{++$noo}}
                           </td>
                           <td>
                             <?php
-                            $diseaseReported=\App\Models\Disease::find($i->disease_id);
+                            $diseaseReported=\App\Models\Disease::find($dis->disease_id);
                             if ($diseaseReported) {
                               echo $diseaseReported->disease_name;
                             } else {
@@ -261,7 +261,7 @@
                           </td>
                           <td>
                             <?php
-                            $cooperativeReported=\App\Models\Cooperative::find($i->cooperative_id);
+                            $cooperativeReported=\App\Models\Cooperative::find($dis->cooperative_id);
                             if ($cooperativeReported) {
                               echo $cooperativeReported->name;
                             } else {
