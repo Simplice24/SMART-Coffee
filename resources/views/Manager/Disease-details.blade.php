@@ -183,21 +183,26 @@
                     </div>
                   </div>
                   <hr>
-                  
+                  @if (session('error'))
+                        <div class="alert alert-danger">{{ session('error') }}</div>
+                    @endif
+                    
                   <div class="row">
                     <div class="col-sm-12">
                       <a class="btn btn-danger" href={{"ReportingDisease/".$diseaseinfo->id}}>Report disease</a>
                     </div>
                   </div>
+                  <hr>
+                  @if (session('success'))
+                        <div class="alert alert-success">{{ session('success') }}</div>
+                  @endif
                 </div>
               </div>
               </div>
             </div>
           </div>
         </div>
-              
-
-           </div>
+        </div>
         </div>
         <!-- content-wrapper ends -->
         <!-- partial:partials/_footer.html -->

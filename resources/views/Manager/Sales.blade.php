@@ -228,12 +228,14 @@
                             </ul>
                         </div>
                     @endif
-
+                    <button type="submit" class="btn btn-primary mr-2">Submit</button><hr>
                     @if (session('error'))
                         <div class="alert alert-danger">{{ session('error') }}</div>
                     @endif
-
-                    <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                    
+                    @if (session('success'))
+                        <div class="alert alert-success">{{ session('success') }}</div>
+                    @endif
                     <!-- <button class="btn btn-light">Cancel</button> -->
                   </form>
                 </div>

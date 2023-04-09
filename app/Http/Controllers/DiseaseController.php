@@ -5,15 +5,20 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Disease;
+use App\Models\ReportedDisease;
+use Illuminate\Support\Facades\DB;
 
 class DiseaseController extends Controller
 {
     public function SystemDiseases(){
         $no=0;
+        $noo=0;
         $userId =auth()->user()->id;
         $profileImg=User::find($userId);
-        $disease=Disease::paginate(7);
-        return view('All-diseases',['profileImg'=>$profileImg,'disease'=>$disease,'no'=>$no]);
+        $disease=Disease::paginate(10);
+        $reported_diseases=ReportedDisease::paginate(10);
+        return view('All-diseases',['profileImg'=>$profileImg,'disease'=>$disease,'no'=>$no,
+    'reported_diseases'=>$reported_diseases,'noo'=>$noo]);
     }
 
     public function DiseaseRegistrationPage(){
@@ -92,7 +97,23 @@ class DiseaseController extends Controller
       }
 
       public function ReportingDisease($id){
-        
+        $Manager_id=auth()->user()->id;
+        $cooperative_id=DB::table('cooperative_user')
+                        ->where('user_id',$Manager_id)
+                        ->value('cooperative_id');
+        $reported_disease=new ReportedDisease();
+        $reported_disease->cooperative_id=$cooperative_id;
+        $reported_disease->disease_id=$id;
+        if($reported_disease->save()){
+            return redirect()->back()->with('success', 'Disease reported successfully');
+        }else{
+            return redirect()->back()->with('error','Something went wrong, disease not reported');
+        }
+      }
+
+      public function deleteReportedDisease($id){
+        Disease::find($id)->delete();
+        return redirect('viewdiseases');
       }
 
 

@@ -39,7 +39,7 @@
     <!-- Navbar Start -->
     <div class="container-fluid p-0 nav-bar">
         <nav class="navbar navbar-expand-lg bg-none navbar-dark py-3">
-            <a href="index.html" class="navbar-brand px-lg-4 m-0">
+            <a href="{{url('/')}}" class="navbar-brand px-lg-4 m-0">
                 <h1 class="m-0 display-4 text-uppercase text-white"><i class="icon-air-play menu-icon"></i>CCMS</h1>
             </a>
             <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
@@ -94,7 +94,7 @@
         <div class="container">
             <div class="section-title">
                 <h4 class="text-primary text-uppercase" style="letter-spacing: 5px;">About Us</h4>
-                <h1 class="display-4">Serving Management services Since 1950</h1>
+                <h1 class="display-4">Serving Management services Since 2022</h1>
             </div>
             <div class="row">
                 <div class="col-lg-4 py-0 py-lg-5">

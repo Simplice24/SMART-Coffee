@@ -138,9 +138,7 @@
       <!-- partial -->
       <div class="main-panel">
         <div class="content-wrapper">
-          
            <div class="row">
-             
            <div class="container">
            <div class="main-body">
           <div class="row gutters-sm">
@@ -148,7 +146,6 @@
               <div class="card">
                 <div class="card-body">
                   <div class="d-flex flex-column align-items-center text-center">
-                    <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150">
                     <div class="mt-3">
                       <h4>{{$farmerinfo->name}}</h4>
                       <h5>{{$farmerinfo->cooperative_name}}</h5>

@@ -52,7 +52,11 @@ class StockController extends Controller
          $stock->farmer_id=$input['farmer_id'];
          $stock->season=$input['season'];
          $stock->cooperative_id=$cooperative_id;
-         $stock->save();
+         if($stock->save()){
+           return redirect()->back()->with('success','Recorded successfully');
+         }else{
+          return redirect()->back()->with('error','New stock record is not recorded');
+         }
 
          return redirect()->back();
 

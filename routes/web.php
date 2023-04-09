@@ -139,7 +139,9 @@ Route::get('deletedisease/{id}',[UserController::class,'DeleteDisease']);
 
 Route::get('CooperativeDiseaseDetails/{id}',[DiseaseController::class,'CooperativeDiseaseDetails']);
 
-Route::get('ReportingDisease/{id}',[DiseaseController::class,'ReportingDisease']);
+Route::get('CooperativeDiseaseDetails/ReportingDisease/{id}',[DiseaseController::class,'ReportingDisease']);
+
+Route::get('deleteReportedDisease/{id}',[DiseaseController::class,'deleteReportedDisease']);
 
 });
 

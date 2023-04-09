@@ -45,7 +45,7 @@ class SalesController extends Controller
             return redirect()->back()->with('error', 'Not enough quantity in stock');
          }
 
-         return redirect()->back();
+         return redirect()->back()->with('success','Recorded successfully');
 
     }
 

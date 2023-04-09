@@ -175,7 +175,7 @@
           </div>
 
            <div class="row">     
-           <div class="col-lg-12 grid-margin stretch-card">
+           <div class="col-lg-12 grid-margin ">
               <div class="card">
                 <div class="card-body">
                   <h4 class="card-title">{{ __('msg.all cooperatives')}}</h4>
@@ -187,10 +187,10 @@
                             #
                           </th>
                           <th>
-                            {{ __('msg.cooperative name')}}
+                          {{ __('msg.cooperative name')}}
                           </th>
                           <th>
-                            {{ __('msg.manager')}}
+                          {{ __('msg.manager')}}
                           </th>
                           <th>
                           {{ __('msg.email')}}
@@ -241,9 +241,6 @@
                 </div>
               </div>
             </div>
-              
-              
-
            </div>
         </div>
         <!-- content-wrapper ends -->

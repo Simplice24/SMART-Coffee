@@ -9,6 +9,7 @@ use App\Models\Disease;
 use App\Models\Cooperative;
 use App\Models\Province;
 use App\Models\Sales;
+use App\Models\ReportedDisease;
 use Illuminate\Http\RedirectResponse;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
@@ -306,20 +307,20 @@ return $user->created_at->format('Y-m');
 });
 
 foreach ($maleUsersByYearMonth as $yearMonth => $maleUsers) {
-      $MaleMonth[]=$yearMonth;
-      $Malecount[]= count($maleUsers);
+  $MaleMonth[]=$yearMonth;
+  $Malecount[]= count($maleUsers);
 }
 foreach ($femaleUsersByYearMonth as $yearMonth => $femaleUsers) {
-    $FemaleMonth[]=$yearMonth;
-    $Femalecount[]= count($femaleUsers);
+  $FemaleMonth[]=$yearMonth;
+  $Femalecount[]= count($femaleUsers);
 }
 foreach ($maleFarmersByYearMonth as $yearMonth => $maleFarmers) {
   $MalefarmerMonth[]=$yearMonth;
   $Malefarmercount[]= count($maleFarmers);
 }
 foreach ($femaleFarmersByYearMonth as $yearMonth => $femaleFarmers) {
-$FemalefarmerMonth[]=$yearMonth;
-$Femalefarmercount[]= count($femaleFarmers);
+  $FemalefarmerMonth[]=$yearMonth;
+  $Femalefarmercount[]= count($femaleFarmers);
 }
 
 foreach ($activeCoopByYearMonth as $yearMonth => $active) {
@@ -327,19 +328,24 @@ foreach ($activeCoopByYearMonth as $yearMonth => $active) {
   $ActiveCoopCount[]= count($active);
 }
 foreach ($inactiveCoopByYearMonth as $yearMonth => $inactive) {
-$InactiveCoopMonth[]=$yearMonth;
-$InactiveCoopCount[]= count($inactive);
+  $InactiveCoopMonth[]=$yearMonth;
+  $InactiveCoopCount[]= count($inactive);
 }
 
-      return view('Dashboard',['profileImg'=>$profileImg,'rows'=>$rows,'farmer'=>$farmer,'cooperative'=>$cooperative,'disease'=>$disease,
+$TotalReportedDiseases=ReportedDisease::count();
+  
+
+
+     return view('Dashboard',['profileImg'=>$profileImg,'rows'=>$rows,'farmer'=>$farmer,'cooperative'=>$cooperative,'disease'=>$disease,
     'MaleMonth'=>$MaleMonth,'Malecount'=>$Malecount,'CountingMale'=>$CountingMale,'CountingFemale'=>$CountingFemale,'FemaleMonth'=>$FemaleMonth,
     'Femalecount'=>$Femalecount,'MalefarmerMonth'=>$MalefarmerMonth,'Malefarmercount'=>$Malefarmercount,'FemalefarmerMonth'=>$FemalefarmerMonth,
     'Femalefarmercount'=>$Femalefarmercount,'CountingMaleFarmers'=>$CountingMaleFarmers,'CountingFemaleFarmers'=>$CountingFemaleFarmers,
     'activeCount'=>$activeCount,'inactiveCount'=>$inactiveCount,'ActiveCoopMonth'=>$ActiveCoopMonth,'ActiveCoopCount'=>$ActiveCoopCount,
     'InactiveCoopMonth'=>$InactiveCoopMonth,'InactiveCoopCount'=>$InactiveCoopCount,'diseases'=>$diseases,'percentIncrease'=>$percentIncrease,
-  'UserspercentIncrease'=>$UserspercentIncrease,'FarmerspercentIncrease'=>$FarmerspercentIncrease,'CooperativespercentIncrease'=>$CooperativespercentIncrease,
-'MaleUserspercentIncrease'=>$MaleUserspercentIncrease,'FemaleUserspercentIncrease'=>$FemaleUserspercentIncrease,'FemaleFarmerspercentIncrease'=>$FemaleFarmerspercentIncrease,
-'MaleFarmerspercentIncrease'=>$MaleFarmerspercentIncrease,'ActiveCooperativespercentIncrease'=>$ActiveCooperativespercentIncrease,'InactiveCooppercentIncrease'=>$InactiveCooppercentIncrease]);  
+    'UserspercentIncrease'=>$UserspercentIncrease,'FarmerspercentIncrease'=>$FarmerspercentIncrease,'CooperativespercentIncrease'=>$CooperativespercentIncrease,
+    'MaleUserspercentIncrease'=>$MaleUserspercentIncrease,'FemaleUserspercentIncrease'=>$FemaleUserspercentIncrease,'FemaleFarmerspercentIncrease'=>$FemaleFarmerspercentIncrease,
+    'MaleFarmerspercentIncrease'=>$MaleFarmerspercentIncrease,'ActiveCooperativespercentIncrease'=>$ActiveCooperativespercentIncrease,'InactiveCooppercentIncrease'=>$InactiveCooppercentIncrease,
+    'TotalReportedDiseases'=>$TotalReportedDiseases]);  
     }
 
     public function ManagerDashboard(){

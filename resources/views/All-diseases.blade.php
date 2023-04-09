@@ -174,8 +174,7 @@
           </div>
           
            <div class="row">
-             
-           <div class="col-lg-12 grid-margin stretch-card">
+           <div class="col-lg-6 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
                   <h4 class="card-title">{{__('msg.coffee diseases')}}</h4>
@@ -196,7 +195,7 @@
                       </thead>
                       <tbody>
                         <tr>
-                        @foreach($disease as $i)
+                          @foreach($disease as $i)
                           <td>
                             {{++$no}}
                           </td>
@@ -208,14 +207,14 @@
                           </td>
                           <td>
                           <div class="input-group-prepend">
-                        <button class="btn btn-sm btn-outline-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Actions</button>
+                        <button class="btn btn-sm btn-outline-primary" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">...</button>
                         <div class="dropdown-menu">
                           <a class="dropdown-item" href={{"diseaseDetails/".$i->id}}><i class="fa fa-eye" aria-hidden="true"></i>&nbsp; {{__('msg.view')}}</a>
                           @can('delete-disease')<a class="dropdown-item" href={{"deletedisease/".$i->id}}><i class="fa fa-trash" aria-hidden="true"></i>&nbsp; {{ __('msg.delete')}}</a>@endcan
                       </div>
                           </td>
                          </tr>
-                         @endforeach
+                          @endforeach
                       </tbody>
                     </table>
                     <div class="pagination-block">
@@ -225,6 +224,71 @@
                 </div>
               </div>
             </div>
+            <div class="col-lg-6 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Reported diseases</h4>
+                  <div class="table-responsive">
+                    <table class="table table-striped">
+                      <thead>
+                        <tr>
+                          <th>
+                            #
+                          </th>
+                          <th>
+                            Disease
+                          </th>
+                          <th>
+                            Cooperative
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          @foreach($reported_diseases as $i)
+                          <td>
+                            {{++$noo}}
+                          </td>
+                          <td>
+                            <?php
+                            $diseaseReported=\App\Models\Disease::find($i->disease_id);
+                            if ($diseaseReported) {
+                              echo $diseaseReported->disease_name;
+                            } else {
+                                echo 'Unknown';
+                            }
+                            ?>
+                          </td>
+                          <td>
+                            <?php
+                            $cooperativeReported=\App\Models\Cooperative::find($i->cooperative_id);
+                            if ($cooperativeReported) {
+                              echo $cooperativeReported->name;
+                            } else {
+                                echo 'Unknown';
+                            }
+                            ?>
+                          </td>
+                          <td>
+                          <div class="input-group-prepend">
+                        <button class="btn btn-sm btn-outline-primary" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">...</button>
+                        <div class="dropdown-menu">
+                          <a class="dropdown-item" href={{"diseaseDetails/".$i->id}}><i class="fa fa-eye" aria-hidden="true"></i>&nbsp; {{__('msg.view')}}</a>
+                          @can('delete-disease')<a class="dropdown-item" href={{"deleteReportedDisease/".$i->id}}><i class="fa fa-trash" aria-hidden="true"></i>&nbsp; {{ __('msg.delete')}}</a>@endcan
+                      </div>
+                          </td>
+                         </tr>
+                          @endforeach
+                      </tbody>
+                    </table>
+                    <div class="pagination-block">
+                     {{ $reported_diseases->links()}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
               
            </div>
         </div>
