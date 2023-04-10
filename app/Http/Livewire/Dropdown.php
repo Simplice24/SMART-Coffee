@@ -20,7 +20,6 @@ class Dropdown extends Component
 
     public function updatedSelectedProvince($provincecode)
     {
-        dd($provincecode);
         $this->districts= District::where('provincecode',$provincecode)->get();
     }
 }

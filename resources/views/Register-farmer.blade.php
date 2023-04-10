@@ -24,6 +24,7 @@
   <link rel="stylesheet" href="Customized/css/style.css">
   <!-- endinject -->
   <link rel="shortcut icon" href="Customized/images/favicon.png" />
+  <meta name="csrf-token" content="{{ csrf_token() }}">
   @livewireStyles
 </head>
 <body>

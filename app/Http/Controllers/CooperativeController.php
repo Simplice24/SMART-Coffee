@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Sales;
 use App\Models\Stock;
 use App\Models\Cooperative;
+use App\Models\Farmer;
 use Illuminate\Support\Facades\DB;
 
 class CooperativeController extends Controller
@@ -50,7 +51,27 @@ class CooperativeController extends Controller
         $userId =auth()->user()->id;
         $profileImg=User::find($userId);
         $cooperativeinfo=Cooperative::find($id);
-        return view('Cooperative-details',['cooperativeinfo'=>$cooperativeinfo,'profileImg'=>$profileImg]);
+        $cooperative_farmers=Farmer::where('cooperative_id',$id)->count();
+        $females=Farmer::where(['cooperative_id'=>$id,'gender'=>'Female'])->count();
+        $males=Farmer::where(['cooperative_id'=>$id,'gender'=>'Male'])->count();
+        $femalePercentage=($females/$cooperative_farmers)*100;
+        $malepercentage=($males/$cooperative_farmers)*100;
+    
+    $stocks = DB::table('stocks')
+    ->select('product', DB::raw('COUNT(*) as total'))
+    ->where('cooperative_id', $id)
+    ->groupBy('product')
+    ->get();
+
+    $total_count = $stocks->sum('total');
+
+    foreach ($stocks as $stock) {
+        $percentage = ($stock->total / $total_count) * 100;
+        $stock->percentage = $percentage;
+    }
+        return view('Cooperative-details',['cooperativeinfo'=>$cooperativeinfo,'profileImg'=>$profileImg,
+        'cooperative_farmers'=>$cooperative_farmers,'femalePercentage'=>$femalePercentage,
+        'malePercentage'=>$malepercentage,'stocks'=>$stocks]);
     }
 
     public function Cooperativeupdatepage($id){

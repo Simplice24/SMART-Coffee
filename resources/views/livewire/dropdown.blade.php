@@ -24,6 +24,8 @@
   <link rel="stylesheet" href="Customized/css/style.css">
   <!-- endinject -->
   <link rel="shortcut icon" href="Customized/images/favicon.png" />
+  <meta name="csrf-token" content="{{ csrf_token() }}">
+  @livewireStyles
 </head>
 <body>
  
@@ -33,7 +35,7 @@
                           <div class="form-group row">
                             <label class="col-sm-3 col-form-label">{{ __('msg.Province') }}</label>
                             <div class="col-sm-9">
-                            <select class="form-control" style="height:46px;" name="province" wire:model="updatedSelectedProvince" required>
+                            <select class="form-control" style="height:46px;" name="province" wire:model="selectedProvince" required>
                               <option disable selected>Select province</option>
                               @foreach($provinces as $province)
                               <option value="{{$province->provincecode}}">{{$province->provincename}}</option>
@@ -42,7 +44,6 @@
                             </div>
                           </div>
                         </div>
-                        
                         <div class="col-md-6">
                           <div class="form-group row">
                             <label class="col-sm-3 col-form-label">{{ __('msg.district') }}</label>
@@ -88,6 +89,7 @@
   <!-- Custom js for this page-->
   <script src="Customized/js/dashboard.js"></script>
   <!-- End custom js for this page-->
+  @livewireScripts
 </body>
 
 </html>
