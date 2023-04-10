@@ -210,12 +210,12 @@
                       </div>
                     </div>
                     <p class="mb-2 mt-3 mb-3 text-dark font-weight-bold">Coffee beans in stock</p>
-                    @foreach($stocks as $stock)
+                    @foreach ($percentages_by_category as $category => $percentage)
                     <div class="row mt-2">
                       <div class="col-sm-2 pr-0">
                           <div class="d-flex">
                             <div>
-                                <div class="text-dark font-weight-bold mb-2 mr-2">{{$stock->product}}</div>
+                                <div class="text-dark font-weight-bold mb-2 mr-2">{{$category}}</div>
                             </div>
                           </div>
                       </div>
@@ -227,32 +227,11 @@
                               </div>
                             </div>
                             <div class="col-sm-2 p-lg-0">
-                              {{ $stock->percentage }}%
+                              {{$percentage}}%
                             </div>
                           </div>
                       </div>
                     </div>
-                    <!-- <div class="row mt-2">
-                      <div class="col-sm-2 pr-0">
-                          <div class="d-flex">
-                            <div>
-                                <div class="text-dark font-weight-bold mb-2 mr-2">Robusta</div>
-                            </div>
-                          </div>
-                      </div>
-                      <div class="col-sm-9 pl-2">
-                          <div class="row">
-                            <div class="col-sm-10">
-                              <div class="progress progress-lg mt-1">
-                                <div class="progress-bar bg-warning" role="progressbar" style="width: 8%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                              </div>
-                            </div>
-                            <div class="col-sm-2 p-lg-0">
-                              8%
-                            </div>
-                          </div>
-                      </div>
-                    </div> -->
                     @endforeach
                 </div>
               </div>

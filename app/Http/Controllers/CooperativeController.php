@@ -54,24 +54,41 @@ class CooperativeController extends Controller
         $cooperative_farmers=Farmer::where('cooperative_id',$id)->count();
         $females=Farmer::where(['cooperative_id'=>$id,'gender'=>'Female'])->count();
         $males=Farmer::where(['cooperative_id'=>$id,'gender'=>'Male'])->count();
-        $femalePercentage=($females/$cooperative_farmers)*100;
-        $malepercentage=($males/$cooperative_farmers)*100;
+        $femalePercentage=Round(($females/$cooperative_farmers)*100,2);
+        $malepercentage=Round(($males/$cooperative_farmers)*100,2);
     
-    $stocks = DB::table('stocks')
-    ->select('product', DB::raw('COUNT(*) as total'))
+    // $stocks = DB::table('stocks')
+    // ->select('product', DB::raw('COUNT(*) as total'))
+    // ->where('cooperative_id', $id)
+    // ->groupBy('product')
+    // ->get();
+
+    // $total_count = $stocks->sum('total');
+
+    // foreach ($stocks as $stock) {
+    //     $percentage = ($stock->total / $total_count) * 100;
+    //     $stock->percentage = $percentage;
+    // }
+
+    $total_quantity = DB::table('stocks')
+    ->where('cooperative_id', $id)
+    ->sum('quantity');
+
+$quantities_by_category = DB::table('stocks')
+    ->select('product', DB::raw('SUM(quantity) as total_quantity'))
     ->where('cooperative_id', $id)
     ->groupBy('product')
     ->get();
 
-    $total_count = $stocks->sum('total');
+$percentages_by_category = [];
+foreach ($quantities_by_category as $category) {
+    $percentage = ($category->total_quantity / $total_quantity) * 100;
+    $percentages_by_category[$category->product] = $percentage;
+}
 
-    foreach ($stocks as $stock) {
-        $percentage = ($stock->total / $total_count) * 100;
-        $stock->percentage = $percentage;
-    }
         return view('Cooperative-details',['cooperativeinfo'=>$cooperativeinfo,'profileImg'=>$profileImg,
         'cooperative_farmers'=>$cooperative_farmers,'femalePercentage'=>$femalePercentage,
-        'malePercentage'=>$malepercentage,'stocks'=>$stocks]);
+        'malePercentage'=>$malepercentage,'percentages_by_category'=>$percentages_by_category]);
     }
 
     public function Cooperativeupdatepage($id){
