@@ -57,18 +57,6 @@ class CooperativeController extends Controller
         $femalePercentage=Round(($females/$cooperative_farmers)*100,2);
         $malepercentage=Round(($males/$cooperative_farmers)*100,2);
     
-    // $stocks = DB::table('stocks')
-    // ->select('product', DB::raw('COUNT(*) as total'))
-    // ->where('cooperative_id', $id)
-    // ->groupBy('product')
-    // ->get();
-
-    // $total_count = $stocks->sum('total');
-
-    // foreach ($stocks as $stock) {
-    //     $percentage = ($stock->total / $total_count) * 100;
-    //     $stock->percentage = $percentage;
-    // }
 
     $total_quantity = DB::table('stocks')
     ->where('cooperative_id', $id)

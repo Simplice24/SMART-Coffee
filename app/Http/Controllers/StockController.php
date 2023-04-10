@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Stock;
 use App\Models\User;
 use App\Models\Farmer;
+use App\Models\CooperativeStock;
 use Illuminate\Support\Facades\DB;
 class StockController extends Controller
 {
@@ -53,6 +54,10 @@ class StockController extends Controller
          $stock->season=$input['season'];
          $stock->cooperative_id=$cooperative_id;
          if($stock->save()){
+          CooperativeStock::updateOrCreate(
+            ['product_category' => $stock->product, 'cooperative_id' => $cooperative_id],
+            ['quantity' => DB::raw("quantity + $stock->quantity")]
+        );
            return redirect()->back()->with('success','Recorded successfully');
          }else{
           return redirect()->back()->with('error','New stock record is not recorded');
