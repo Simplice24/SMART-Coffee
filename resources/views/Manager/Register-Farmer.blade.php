@@ -207,7 +207,7 @@
                           </div>
                         </div>
                         </div>
-                      @livewire('dropdown')
+                        <livewire:location-dropdown />
                       <button type="submit" class="btn btn-primary mr-2">{{ __('msg.submit')}}</button>
                     </form>
                   </div>
