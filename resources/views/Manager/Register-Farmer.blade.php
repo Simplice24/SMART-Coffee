@@ -209,7 +209,6 @@
                         </div>
                       @livewire('dropdown')
                       <button type="submit" class="btn btn-primary mr-2">{{ __('msg.submit')}}</button>
-                    <!-- <button class="btn btn-light">Cancel</button> -->
                     </form>
                   </div>
                 </div>

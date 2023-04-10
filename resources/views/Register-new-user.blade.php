@@ -23,6 +23,7 @@
   <link rel="stylesheet" href="Customized/css/style.css">
   <!-- endinject -->
   <link rel="shortcut icon" href="Customized/images/favicon.png" />
+  @livewireStyles
 </head>
 <body>
   <div class="container-scroller">
@@ -228,22 +229,6 @@
                           </div>
                         </div>
                         <div class="col-md-6">
-                        <div class="form-group row">
-                            <label class="col-sm-3 col-form-label">{{ __('msg.Province')}}</label>
-                            <div class="col-sm-9">
-                              <!-- <input type="text" class="form-control" name="province" placeholder="Province" required /> -->
-                              <select class="form-control" id="province-dropdown" style="height:46px;" name="province" required>
-                                        <option disable selected>--select province--</option>
-                                        @foreach($provinces as $province)
-                                        <option value="{{ $province->name }}">{{ $province->name}}</option>
-                                        @endforeach
-                              </select>
-                            </div>
-                          </div>
-                          </div>
-                    </div>
-                      <div class="row">
-                        <div class="col-md-6">
                           <div class="form-group row">
                             <label class="col-sm-3 col-form-label">{{ __('msg.user name')}}</label>
                             <div class="col-sm-9">
@@ -251,20 +236,10 @@
                             </div>
                           </div>
                         </div>
-                        <div class="col-md-6">
-                        <div class="form-group row">
-                            <label class="col-sm-3 col-form-label">{{ __('msg.district')}}</label>
-                            <div class="col-sm-9">
-                              <input type="text" class="form-control" name="district" placeholder="District" required />
-                              <!-- <select class="form-control" id="district-dropdown" style="height:46px;" name="district" required>
-                                <option disabled selected>-- select district --</option>
-                              </select> -->
-                            </div>
-                          </div>
-                        </div>
-                      </div>
+                        
+                    </div>
                       <div class="row">
-                        <div class="col-md-6">
+                      <div class="col-md-6">
                           <div class="form-group row">
                             <label class="col-sm-3 col-form-label">{{ __('msg.password')}}</label>
                             <div class="col-sm-9">
@@ -274,19 +249,43 @@
                         </div>
                         <div class="col-md-6">
                           <div class="form-group row">
-                            <label class="col-sm-3 col-form-label">{{ __('msg.sector')}}</label>
-                            <div class="col-sm-9">
-                              <input type="text" class="form-control" name="sector" placeholder="Sector" required />
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="row">
-                      <div class="col-md-6">
-                          <div class="form-group row">
                             <label class="col-sm-3 col-form-label">{{ __('msg.Image') }}</label>
                             <div class="col-sm-9">
                                   <input type="file" name="image" value="userImage.jpg" class="form-control">
+                            </div>
+                          </div>
+                        </div>
+                        
+                      </div>
+                      <div class="row">
+                      <!-- <div class="col-md-6">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">{{ __('msg.Province')}}</label>
+                            <div class="col-sm-9">
+                              <select class="form-control" id="province-dropdown" style="height:46px;" name="province" required>
+                                        <option disable selected>--select province--</option>
+                                        @foreach($provinces as $province)
+                                        <option value="{{ $province->name }}">{{ $province->name}}</option>
+                                        @endforeach
+                              </select>
+                            </div>
+                          </div>
+                          </div> -->
+                          <!-- <div class="col-md-6">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">{{ __('msg.district')}}</label>
+                            <div class="col-sm-9">
+                              <input type="text" class="form-control" name="district" placeholder="District" required />
+                            </div>
+                          </div>
+                        </div>
+                      </div> -->
+                      <!-- <div class="row">
+                      <div class="col-md-6">
+                          <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">{{ __('msg.sector')}}</label>
+                            <div class="col-sm-9">
+                              <input type="text" class="form-control" name="sector" placeholder="Sector" required />
                             </div>
                           </div>
                         </div>
@@ -297,8 +296,9 @@
                                 <input type="text" class="form-control" name="cell" placeholder="Cell" required />
                             </div>
                           </div>
-                        </div>
-                      </div>
+                        </div>-->
+                      </div> 
+                      @livewire('dropdown')
                       <button type="submit" class="btn btn-primary mr-2">{{ __('msg.submit')}}</button>
                     </form>
                   </div>
@@ -338,6 +338,7 @@
   <!-- Custom js for this page-->
   <script src="Customized/js/dashboard.js"></script>
   <!-- End custom js for this page-->
+  @livewireScripts
 </body>
 </html>
 
