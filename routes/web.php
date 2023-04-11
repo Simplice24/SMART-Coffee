@@ -229,7 +229,4 @@ Route::put('StockUpdate/{id}',[StockController::class,'StockUpdate']);
     
 });
 
-Route::get('/dropdown', function () {
-    return view('livewire.location-dropdown');
-});
 

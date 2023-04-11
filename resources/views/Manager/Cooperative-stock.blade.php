@@ -230,7 +230,7 @@
         <div class="col-xl-4 grid-margin ">
                   <div class="card">
                     <div class="card-body">
-                          <h4 class="card-title">Stock</h4>
+                          <h4 class="card-title">Stock recorded</h4>
                     </div>
                     <div class="col-xl-12 grid-margin-lg-0 grid-margin ">
                     <div class="card">
@@ -342,7 +342,48 @@
                   </div>
                 </div>
               </div>
-            </div>
+            </div><div class="col-xl-4 grid-margin ">
+                  <div class="card">
+                    <div class="card-body">
+                          <h4 class="card-title">Inventory</h4>
+                    </div>
+                    <div class="col-xl-12 grid-margin-lg-0 grid-margin ">
+                    <div class="card">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                          <table class="table table-header-bg">
+                            <thead>
+                              <tr>
+                                <th>
+                                    Coffee beans
+                                </th>
+                                <th>
+                                    Quantity
+                                </th>
+                                <!-- <th>
+                                    VS Last Season
+                                </th> -->
+                              </tr>
+                            </thead>
+                        <tbody>
+                          <tr>
+                            @foreach($CooperativeStockInventoryByCategory as $product)
+                            <td>
+                              {{$product->product_category}}
+                            </td>
+                            <td>
+                              {{$product->total_quantity}}
+                            </td>
+                          </tr>
+                            @endforeach
+                        </tbody>
+                      </table>
+                    </div>
+                </div> 
+                </div>
+                </div>
+                </div>
+                </div>
         </div>
         </div>
         <!-- content-wrapper ends -->
