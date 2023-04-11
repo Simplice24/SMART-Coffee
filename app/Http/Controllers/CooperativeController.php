@@ -70,7 +70,7 @@ $quantities_by_category = DB::table('stocks')
 
 $percentages_by_category = [];
 foreach ($quantities_by_category as $category) {
-    $percentage = ($category->total_quantity / $total_quantity) * 100;
+    $percentage = Round(($category->total_quantity / $total_quantity) * 100,2);
     $percentages_by_category[$category->product] = $percentage;
 }
 

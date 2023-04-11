@@ -223,7 +223,7 @@
                           <div class="row">
                             <div class="col-sm-10">
                               <div class="progress progress-lg mt-1">
-                                <div class="progress-bar bg-warning" role="progressbar" style="width: 30%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                <div class="progress-bar bg-warning" role="progressbar" style="width:{{$percentage}}%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                               </div>
                             </div>
                             <div class="col-sm-2 p-lg-0">
