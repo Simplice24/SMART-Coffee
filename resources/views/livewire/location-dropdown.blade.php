@@ -1,7 +1,6 @@
 <div>
 <div>
 <div class="row">
-     <form action="" method="POST" enctype="multipart/form-data">
        {{ csrf_field() }}
                         <div class="col-md-6">
                           <div class="form-group row">
@@ -49,6 +48,5 @@
                           </div>
                         </div>
                       </div>
-</form>
 </div>
 </div>
