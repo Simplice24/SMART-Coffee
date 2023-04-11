@@ -5,6 +5,10 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Cooperative;
 use App\Models\Farmer;
+use App\Models\Province;
+use App\Models\District;
+use App\Models\Sector;
+use App\Models\Cell;
 use Illuminate\Support\Facades\DB;
 
 
@@ -56,10 +60,10 @@ class FarmerController extends Controller
         $input->number_of_trees=$req->input('number_of_trees');
         $input->fertilizer=$req->input('fertilizer');
         $input->phone=$req->input('phone');
-        $input->province=$req->input('province');
-        $input->district=$req->input('district');
-        $input->sector=$req->input('sector');
-        $input->cell=$req->input('cell');
+        $input->province=Province::where('provincecode',$req->input('province'))->value('provincename');
+        $input->district=District::where('districtcode',$req->input('district'))->value('namedistrict');
+        $input->sector=Sector::where('sectorcode',$req->input('sector'))->value('namesector');
+        $input->cell=Cell::where('codecell',$req->input('cell'))->value('nameCell');
         $input->save();
         return redirect('viewfarmers');
       }

@@ -8,6 +8,10 @@ use App\Models\Sales;
 use App\Models\Stock;
 use App\Models\Cooperative;
 use App\Models\Farmer;
+use App\Models\Province;
+use App\Models\District;
+use App\Models\Sector;
+use App\Models\Cell;
 use Illuminate\Support\Facades\DB;
 
 class CooperativeController extends Controller
@@ -38,10 +42,10 @@ class CooperativeController extends Controller
         $cooperative->email=$req->email;
         $cooperative->status=$req->status;
         $cooperative->starting_date=$req->starting_date;
-        $cooperative->province=$req->province;
-        $cooperative->district=$req->district;
-        $cooperative->sector=$req->sector;
-        $cooperative->cell=$req->cell;
+        $cooperative->province=Province::where('provincecode',$req->province)->value('provincename');
+        $cooperative->district=District::where('districtcode',$req->district)->value('namedistrict');
+        $cooperative->sector=Sector::where('sectorcode',$req->sector)->value('namesector');
+        $cooperative->cell=Cell::where('codecell',$req->cell)->value('nameCell');
         $cooperative->save();
         $cooperative->users()->attach($manager_id);
         return redirect('viewcooperatives');

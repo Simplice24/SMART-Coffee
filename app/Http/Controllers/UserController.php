@@ -8,6 +8,9 @@ use App\Models\Farmer;
 use App\Models\Disease;
 use App\Models\Cooperative;
 use App\Models\Province;
+use App\Models\District;
+use App\Models\Sector;
+use App\Models\Cell;
 use App\Models\Sales;
 use App\Models\ReportedDisease;
 use Illuminate\Http\RedirectResponse;
@@ -568,10 +571,10 @@ $DiseaseCategoryPercentage = DB::table('reported_diseases')
         $user->password=Hash::make($req->password);
         $user->email=$req->email;
         $user->phone=$req->phone;
-        $user->province=$req->province;
-        $user->district=$req->district;
-        $user->sector=$req->sector;
-        $user->cell=$req->cell;
+        $user->province=Province::where('provincecode',$req->province)->value('provincename');
+        $user->district=District::where('districtcode',$req->district)->value('namedistrict');
+        $user->sector=Sector::where('sectorcode',$req->sector)->value('namesector');
+        $user->cell=Cell::where('codecell',$req->cell)->value('nameCell');
         if($req->hasFile('image')){
           $image=$req->file('image');
         $image_name=$image->getClientOriginalName();
