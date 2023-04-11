@@ -338,6 +338,72 @@
   <!-- Custom js for this page-->
   <script src="Customized/js/dashboard.js"></script>
   <!-- End custom js for this page-->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $(document).on('change','#provinces',function(){
+      
+      var procode=$(this).val();
+      $.ajax({
+        type:'get',
+        url:'{!!URL::to('getDistricts')!!}',
+        data:{'provincecode':procode},
+        success:function(data){
+        var op = '<option value="0" selected disabled>--Select district--</option>';
+        for (var i = 0; i < data.length; i++) {
+            op += '<option value="' + data[i].districtcode + '">' + data[i].namedistrict + '</option>';
+        }
+        $('#districts').html(op);
+        },
+        error:function(){
+
+        }
+      });
+    });
+  });
+  $(document).ready(function(){
+    $(document).on('change','#districts',function(){
+      
+      var districtcode=$(this).val();
+      $.ajax({
+        type:'get',
+        url:'{!!URL::to('getSectors')!!}',
+        data:{'districtcode':districtcode},
+        success:function(data){
+        var op = '<option value="0" selected disabled>--Select sector--</option>';
+        for (var i = 0; i < data.length; i++) {
+            op += '<option value="' + data[i].sectorcode + '">' + data[i].namesector + '</option>';
+        }
+        $('#sectors').html(op);
+        },
+        error:function(){
+
+        }
+      });
+    });
+  });
+  $(document).ready(function(){
+    $(document).on('change','#sectors',function(){
+      
+      var sectorcode=$(this).val();
+      $.ajax({
+        type:'get',
+        url:'{!!URL::to('getCells')!!}',
+        data:{'sectorcode':sectorcode},
+        success:function(data){
+        var op = '<option value="0" selected disabled>--Select cell--</option>';
+        for (var i = 0; i < data.length; i++) {
+            op += '<option value="' + data[i].codecell + '">' + data[i].nameCell + '</option>';
+        }
+        $('#cells').html(op);
+        },
+        error:function(){
+
+        }
+      });
+    });
+  });
+</script>
   @livewireScripts
 </body>
 </html>
