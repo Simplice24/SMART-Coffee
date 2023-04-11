@@ -8,6 +8,7 @@ use App\Http\Controllers\CooperativeController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SalesController;
 use App\Http\Controllers\StockController;
+use App\Http\Controllers\DropdownController;
 
 /*
 |--------------------------------------------------------------------------
@@ -227,6 +228,16 @@ Route::post('StockRecording',[StockController::class,'StockRecording']);
 
 Route::put('StockUpdate/{id}',[StockController::class,'StockUpdate']);
     
+});
+
+Route::group(['middleware'=>["auth"]],function(){
+
+Route::get('/getDistricts',[DropdownController::class,'getDistricts']);    
+
+Route::get('/getSectors',[DropdownController::class,'getSectors']);
+
+Route::get('/getCells',[DropdownController::class,'getCells']);
+
 });
 
 

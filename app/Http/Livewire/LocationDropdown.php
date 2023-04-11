@@ -11,56 +11,22 @@ use App\Models\Village;
 class LocationDropdown extends Component
 {
 
-
-    public $selectedProvince = null;
-    public $selectedDistrict = null;
-    public $selectedSector = null;
-    public $selectedCell = null;
-    public $selectedVillage = null;
-    public $districts = null;
-    public $sectors = null;
-    public $cells = null;
-    public $villages = null;
-
     public function render()
     {
-
-
-        // $provinces = Province::all();
         
         return view('livewire.location-dropdown', [
             'provinces' => Province::all(),
         ]);
     }
 
-    public function updatedSelectedProvince($provincecode)
+    public $districts = [];
+
+    protected $listeners = ['districts-updated' => 'updateDistricts'];
+
+    public function updateDistricts($districts)
     {
-        $this->districts = District::where('provincecode', $provincecode)->get();
+        $this->districts = $districts;
     }
-
-
-    public function updatedSelectedDistrict($districtcode)
-    {
-        $this->sectors = Sector::where('districtcode', $districtcode)->get();
-        // dd($sectors);
-        // $this->reset(['selectedSector', 'selectedCell', 'selectedVillage']);
-    }
-
-
-    public function updatedSelectedSector($sectorcode)
-    {
-       $this->cells = Cell::where('sectorcode', $sectorcode)->get();
-        // dd($sectors);
-        // $this->reset(['selectedSector', 'selectedCell', 'selectedVillage']);
-    }
-
-    public function updatedSelectedCell($codecell)
-    {
-       $this->villages = Village::where('codecell', $codecell)->get();
-        // dd($sectors);
-        // $this->reset(['selectedSector', 'selectedCell', 'selectedVillage']);
-    }
-
 
 
 }
