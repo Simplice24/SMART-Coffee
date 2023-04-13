@@ -177,14 +177,9 @@
                     </div>
                     <div class="col-md-6">
                     <div class="form-group row">
-                      <label  class="col-sm-4 col-form-label">Farmer</label>
+                      <label  class="col-sm-4 col-form-label">Harvest year</label>
                       <div class="col-sm-8">
-                      <select class="form-control" style="height:46px;" name="farmer_id" required>
-                              <option disable selected>Select farmer</option>
-                              @foreach($Cooperativefarmers as $farmer)
-                              <option value={{$farmer->id}}>{{$farmer->name}}</option>
-                              @endforeach
-                      </select>
+                      <input type="date" class="form-control" id="exampleInputEmail2" name="year" placeholder="Harvest year" required>
                       </div>
                     </div>
                     </div>
@@ -292,7 +287,7 @@
                             Quantity
                           </th>
                           <th>
-                            Farmer
+                            Harvest year
                           </th>
                           <th>
                             Season
@@ -312,15 +307,7 @@
                            {{$Stock->quantity}} 
                           </td>
                           <td>
-                          <?php
-        $farmer = \App\Models\Farmer::find($Stock->farmer_id);
-
-        if ($farmer) {
-            echo $farmer->name;
-        } else {
-            echo 'Unknown';
-        }
-    ?>
+                          {{$Stock->year}}
                           </td>
                           <td>
                            {{$Stock->season}}

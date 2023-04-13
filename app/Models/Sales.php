@@ -14,7 +14,8 @@ class Sales extends Model
         'price',
         'quantity',
         'payment',
-        'cooperative_id'
+        'cooperative_id',
+        'year'
     ];
     use HasFactory;
     public function cooperative()

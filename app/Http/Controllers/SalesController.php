@@ -18,6 +18,7 @@ class SalesController extends Controller
             'payment' => 'required|string',
             'quantity' => 'required|numeric|min:1',
             'price' => 'required|numeric|min:0',
+            'year' => 'required|date',
         ]);
 
         $Manager_id=auth()->user()->id;
@@ -32,6 +33,7 @@ class SalesController extends Controller
          $sales->quantity=$input['quantity'];
          $sales->price=$input['price'];
          $sales->payment=$input['payment'];
+         $sales->year=$input['year'];
          $sales->cooperative_id=$cooperative_id;
         $cooperativeStock = CooperativeStock::where('product_category', $sales->product)
                             ->where('cooperative_id', $cooperative_id)
@@ -54,6 +56,7 @@ class SalesController extends Controller
             'payment' => 'required|string',
             'quantity' => 'required|numeric|min:1',
             'price' => 'required|numeric|min:0',
+            'year' => 'required|date',
         ]);
 
         $input=Sales::find($id);
@@ -62,6 +65,7 @@ class SalesController extends Controller
         $input->payment=$request->input('payment');
         $input->price=$request->input('price');
         $input->quantity=$request->input('quantity');
+        $input->year=$request->input('year');
         $input->update();
 
         return redirect('CooperativeSales');

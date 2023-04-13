@@ -207,6 +207,14 @@
                       </div>
                     </div>
                     </div>
+                    <div class="col-md-6">
+                    <div class="form-group row">
+                      <label  class="col-sm-4 col-form-label">Year</label>
+                      <div class="col-sm-8">
+                        <input type="date" class="form-control" id="exampleInputUsername2" value="{{$Salesdetails->year}}" name="year" placeholder="Year" required>
+                      </div>
+                    </div>
+                    </div>
                     </div>
                      
                     <!-- @if($errors->any())

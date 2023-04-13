@@ -211,6 +211,14 @@
                       </div>
                     </div>
                     </div>
+                    <div class="col-md-6">
+                    <div class="form-group row">
+                      <label  class="col-sm-4 col-form-label">Year</label>
+                      <div class="col-sm-8">
+                      <input type="date" class="form-control" id="exampleInputEmail2" name="year" placeholder="Harvest year" required>
+                      </div>
+                    </div>
+                    </div>
                     </div>
                      
                     @if($errors->any())
@@ -353,7 +361,7 @@
                             Payment way
                           </th>
                           <th>
-                            Date
+                            Year
                           </th>
                         </tr>
                       </thead>
@@ -379,7 +387,7 @@
                           {{$Cooperativesale->payment}}
                           </td>
                           <td>
-                          {{$Cooperativesale->created_at}}
+                          {{$Cooperativesale->year}}
                           </td>
                           <td>
                           <div class="input-group-prepend">

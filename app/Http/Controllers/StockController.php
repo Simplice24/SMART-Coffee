@@ -18,9 +18,9 @@ class StockController extends Controller
                    ->where('user_id', $user_id)
                    ->value('cooperative_id');
       if($cooperative_id){
-        $Cooperativefarmers=DB::table('farmers')
-                            ->where('cooperative_id',$cooperative_id)
-                            ->get();
+        // $Cooperativefarmers=DB::table('farmers')
+        //                     ->where('cooperative_id',$cooperative_id)
+        //                     ->get();
         $CooperativeStock=Stock::where('cooperative_id',$cooperative_id)->paginate(10);
         $CooperativeStockByCategory=DB::table('stocks')
         ->select('product', DB::raw('SUM(quantity) as total_quantity'))
@@ -33,8 +33,8 @@ class StockController extends Controller
         ->groupBy('product_category')
         ->get();
         return view('Manager/Cooperative-stock',['i'=>$i,'profileImg'=>$profileImg,
-        'CooperativeStock'=>$CooperativeStock,'Cooperativefarmers'=>$Cooperativefarmers,
-        'CooperativeStockByCategory'=>$CooperativeStockByCategory,'CooperativeStockInventoryByCategory'=>$CooperativeStockInventoryByCategory]);
+        'CooperativeStock'=>$CooperativeStock,'CooperativeStockByCategory'=>$CooperativeStockByCategory,
+        'CooperativeStockInventoryByCategory'=>$CooperativeStockInventoryByCategory]);
       }             
     }
 
@@ -42,7 +42,7 @@ class StockController extends Controller
       $validatedData = $request->validate([
         'product' => 'required|string',
         'quantity' => 'required|numeric|min:1',
-        'farmer_id' => 'required|numeric',
+        'year' => 'required|date',
         'season' => 'required|string',
       ]);
 
@@ -55,7 +55,7 @@ class StockController extends Controller
          $stock=new Stock();
          $stock->product=$input['product'];
          $stock->quantity=$input['quantity'];
-         $stock->farmer_id=$input['farmer_id'];
+         $stock->year=$input['year'];
          $stock->season=$input['season'];
          $stock->cooperative_id=$cooperative_id;
          if($stock->save()){
@@ -80,7 +80,7 @@ class StockController extends Controller
         $input=Stock::find($id);
         $input->product=$request->input('product');
         $input->quantity=$request->input('quantity');
-        $input->farmer_id=$request->input('farmer_id');
+        $input->year=$request->input('year');
         $input->season=$request->input('season');
         $input->cooperative_id=$cooperative_id;
         $input->update();

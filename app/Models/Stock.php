@@ -12,7 +12,7 @@ class Stock extends Model
         'product',
         'season',
         'quantity',
-        'farmer_id',
+        'year',
         'cooperative_id'
     ];
     public function cooperative()
