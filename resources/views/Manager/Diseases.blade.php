@@ -135,7 +135,7 @@
           <div class="row">
             <div class="col-sm-12 mb-4 mb-xl-0">
             <li class="nav-item dropdown d-lg-flex d-none">
-            <a href="<?=url('registerNewDisease');?>"><button type="button" class="btn btn-info font-weight-bold">+ {{__('msg.new disease')}}</button></a>
+            @can('register-disease')<a href="<?=url('registerNewDisease');?>"><button type="button" class="btn btn-info font-weight-bold">+ {{__('msg.new disease')}}</button></a>@endcan
             </li>
             </div>
           </div>

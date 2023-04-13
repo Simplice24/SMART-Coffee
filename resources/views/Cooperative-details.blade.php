@@ -151,9 +151,7 @@
       <!-- partial -->
       <div class="main-panel">
         <div class="content-wrapper">
-          
            <div class="row">
-             
            <div class="container">
            <div class="main-body">
           <div class="row gutters-sm">
@@ -234,6 +232,15 @@
                     </div>
                     @endforeach
                 </div>
+                <!-- Chart of diseases reported by Single cooperative -->
+                <div class="card-body">
+                      <div class="d-flex justify-content-between mb-3">
+                          <h4 class="card-title">Disease reported</h4>
+                      </div>
+                      <div class="marketTrends mt-4">
+                        <canvas id="Diseasereported"></canvas>
+                      </div>
+                    </div>
               </div>
             </div>
             <div class="col-md-7">
@@ -377,7 +384,77 @@
   <!-- Custom js for this page-->
   <script src="/Customized/js/dashboard.js"></script>
   <!-- End custom js for this page-->
+  <script>
+  new Chart("Diseasereported", {
+  type: "bar",
+  data: {
+            labels: ['Jan','Feb','Mar','Apr','May'],
+            datasets: [
+                {
+                    label: 'Data Set 1',
+                    data: [1,2,3,4,5],
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    borderWidth: 1
+                },
+                {
+                    label: 'Data Set 2',
+                    data: [2,3,4,5,6],
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                },
+                {
+                    label: 'Data Set 3',
+                    data: [4,5,6,7,8],
+                    backgroundColor: 'rgba(255, 206, 86, 0.2)',
+                    borderColor: 'rgba(255, 206, 86, 1)',
+                    borderWidth: 1
+                }
+            ]
+        },
+  options: {
+    legend: {display: false},
+    title: {
+      display: true,
+    },
+    scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true,
+            display: true,
+            
+          },
+          gridLines: {
+            display: false,
+            drawBorder: false
+          }
+        }],
+        xAxes: [{
+          ticks: {
+            beginAtZero: true,
+            display: true,
+          },
+          gridLines: {
+            display: false,
+            drawBorder: false
+          }
+        }]
+      },
+      legend: {
+        display: false
+      },
+      elements: {
+        point: {
+          radius: 0
+        }
+      },
+      tooltips: {
+        enabled: false
+      }
+  }
+});
+</script>
 </body>
-
 </html>
 

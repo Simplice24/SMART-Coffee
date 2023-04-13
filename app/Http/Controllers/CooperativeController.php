@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Sales;
 use App\Models\Stock;
 use App\Models\Cooperative;
+USE aPP\Models\ReportedDisease;
 use App\Models\Farmer;
 use App\Models\Province;
 use App\Models\District;
@@ -60,7 +61,12 @@ class CooperativeController extends Controller
         $males=Farmer::where(['cooperative_id'=>$id,'gender'=>'Male'])->count();
         $femalePercentage=Round(($females/$cooperative_farmers)*100,2);
         $malepercentage=Round(($males/$cooperative_farmers)*100,2);
-    
+       
+        $diseasesReported = DB::table('reported_diseases')
+            ->select('disease_id', DB::raw('YEAR(created_at) as year'), DB::raw('COUNT(*) as count'))
+            ->where('cooperative_id', $id)
+            ->groupBy('disease_id', 'year')
+            ->get();     
 
     $total_quantity = DB::table('stocks')
     ->where('cooperative_id', $id)
