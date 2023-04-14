@@ -155,7 +155,7 @@
             <div class="col-12 grid-margin">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title">{{__('msg.Fill Out All Fields To Register New Farmer')}}</h4>
+                    <h4 class="card-title">Fill Out All Fields To Update Farmer's details</h4>
                     <form class="form-sample" action="{{url('updateFarmer/'.$farmerinfo->id)}}" method="POST">
                     @csrf
                     @method('PUT')
@@ -185,7 +185,7 @@
                           <div class="form-group row">
                             <label class="col-sm-3 col-form-label">{{__('msg.cooperative name')}}</label>
                             <div class="col-sm-9">
-                            <input type="text" class="form-control" name="cooperative_name" value={{$farmerinfo->cooperative_name}} required/>
+                            <input type="text" class="form-control" name="cooperative_name" value={{$farmerinfo->cooperative_name}} readonly required/>
                             </div>
                           </div>
                         </div>
@@ -206,7 +206,7 @@
                             <div class="form-group row">
                               <label class="col-sm-3 col-form-label">{{__('msg.cooperative ID')}}</label>
                               <div class="col-sm-9">
-                                <input type="number" class="form-control" name="cooperative_id" value={{$farmerinfo->cooperative_id}} required />
+                                <input type="number" class="form-control" name="cooperative_id" value={{$farmerinfo->cooperative_id}} readonly required />
                               </div>
                             </div>
                           </div>
@@ -242,7 +242,13 @@
                           <div class="form-group row">
                             <label class="col-sm-3 col-form-label">{{__('msg.Province')}}</label>
                             <div class="col-sm-9">
-                              <input type="text" class="form-control" name="province" value={{$farmerinfo->province}} required />
+                              <!-- <input type="text" class="form-control" name="province" value={{$farmerinfo->province}} required /> -->
+                              <select class="form-control" id="provinces" style="height:46px;" name="province" required>
+                                <option value="{{$farmerinfo->province}}">{{$farmerinfo->province}}</option>
+                                @foreach($provinces as $province)
+                                    <option value="{{ $province->provincecode }}">{{ $province->provincename }}</option>
+                                @endforeach
+                            </select>
                             </div>
                           </div>
                         </div>
@@ -250,7 +256,9 @@
                           <div class="form-group row">
                             <label class="col-sm-3 col-form-label">{{__('msg.district')}}</label>
                             <div class="col-sm-9">
-                              <input type="text" class="form-control" name="district" value={{$farmerinfo->district}} required />
+                              <select class="form-control" id="districts" style="height:46px;" name="district" required>
+
+                            </select>
                             </div>
                           </div>
                         </div>
@@ -260,7 +268,9 @@
                           <div class="form-group row">
                             <label class="col-sm-3 col-form-label">{{__('msg.sector')}}</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" name="sector" value={{$farmerinfo->sector}} required />
+                            <select class="form-control" id="sectors" style="height:46px;" name="sector" required>
+                                
+                            </select>
                             </div>
                           </div>
                         </div>
@@ -268,7 +278,9 @@
                           <div class="form-group row">
                             <label class="col-sm-3 col-form-label">{{__('msg.cell')}}</label>
                             <div class="col-sm-9">
-                              <input type="text" class="form-control" name="cell" value={{$farmerinfo->cell}} required />
+                            <select class="form-control" id="cells" style="height:46px;" name="cell" required>
+                                
+                            </select>
                             </div>
                           </div>
                         </div>
@@ -313,6 +325,71 @@
   <!-- Custom js for this page-->
   <script src="/Customized/js/dashboard.js"></script>
   <!-- End custom js for this page-->
+  <script type="text/javascript">
+  $(document).ready(function(){
+    $(document).on('change','#provinces',function(){
+      
+      var procode=$(this).val();
+      $.ajax({
+        type:'get',
+        url:'{!!URL::to('getDistricts')!!}',
+        data:{'provincecode':procode},
+        success:function(data){
+        var op = '<option value="{{$farmerinfo->district}}">{{$farmerinfo->district}}</option>';
+        for (var i = 0; i < data.length; i++) {
+            op += '<option value="' + data[i].districtcode + '">' + data[i].namedistrict + '</option>';
+        }
+        $('#districts').html(op);
+        },
+        error:function(){
+
+        }
+      });
+    });
+  });
+  $(document).ready(function(){
+    $(document).on('change','#districts',function(){
+      
+      var districtcode=$(this).val();
+      $.ajax({
+        type:'get',
+        url:'{!!URL::to('getSectors')!!}',
+        data:{'districtcode':districtcode},
+        success:function(data){
+        var op = '<option value="{{$farmerinfo->sector}}">{{$farmerinfo->sector}}</option>';
+        for (var i = 0; i < data.length; i++) {
+            op += '<option value="' + data[i].sectorcode + '">' + data[i].namesector + '</option>';
+        }
+        $('#sectors').html(op);
+        },
+        error:function(){
+
+        }
+      });
+    });
+  });
+  $(document).ready(function(){
+    $(document).on('change','#sectors',function(){
+      
+      var sectorcode=$(this).val();
+      $.ajax({
+        type:'get',
+        url:'{!!URL::to('getCells')!!}',
+        data:{'sectorcode':sectorcode},
+        success:function(data){
+        var op = '<option value="{{$farmerinfo->cell}}" >{{$farmerinfo->cell}}</option>';
+        for (var i = 0; i < data.length; i++) {
+            op += '<option value="' + data[i].codecell + '">' + data[i].nameCell + '</option>';
+        }
+        $('#cells').html(op);
+        },
+        error:function(){
+
+        }
+      });
+    });
+  });
+</script>
 </body>
 </html>
 

@@ -220,7 +220,13 @@
                             <div class="form-group row">
                               <label class="col-sm-3 col-form-label">{{__('msg.Province')}}</label>
                               <div class="col-sm-9">
-                                <input type="text" class="form-control" name="province" value={{$fulldetails->province}} required />
+                                <!-- <input type="text" class="form-control" name="province" value= required /> -->
+                                <select class="form-control" id="provinces" style="height:46px;" name="province" required>
+                                <option value="{{$fulldetails->province}}">{{$fulldetails->province}}</option>
+                                @foreach($provinces as $province)
+                                    <option value="{{ $province->provincecode }}">{{ $province->provincename }}</option>
+                                @endforeach
+                            </select>
                               </div>
                             </div>
                           </div>
@@ -239,7 +245,10 @@
                           <div class="form-group row">
                             <label class="col-sm-3 col-form-label">{{__('msg.district')}}</label>
                             <div class="col-sm-9">
-                              <input type="text" class="form-control" name="district" value={{$fulldetails->district}} required />
+                              <!-- <input type="text" class="form-control" name="district" value={{$fulldetails->district}} required /> -->
+                              <select class="form-control" id="districts" style="height:46px;" name="district" required>
+                                
+                            </select>
                             </div>
                           </div>
                         </div>
@@ -249,7 +258,10 @@
                           <div class="form-group row">
                             <label class="col-sm-3 col-form-label">{{__('msg.sector')}}</label>
                             <div class="col-sm-9">
-                              <input type="text" class="form-control" name="sector" value={{$fulldetails->sector}} required />
+                              <!-- <input type="text" class="form-control" name="sector" value={{$fulldetails->sector}} required /> -->
+                            <select class="form-control" id="sectors" style="height:46px;" name="sector" required>
+                                
+                            </select>
                             </div>
                           </div>
                         </div>
@@ -257,7 +269,10 @@
                           <div class="form-group row">
                             <label class="col-sm-3 col-form-label">{{__('msg.cell')}}</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" name="cell" value={{$fulldetails->cell}} required />
+                                <!-- <input type="text" class="form-control" name="cell" value={{$fulldetails->cell}} required /> -->
+                            <select class="form-control" id="cells" style="height:46px;" name="cell" required>
+                                
+                            </select>
                             </div>
                           </div>
                         </div>
@@ -268,7 +283,6 @@
                   </div>
                 </div>
               </div>
- 
            </div>
         </div>
         <!-- content-wrapper ends -->
@@ -303,6 +317,71 @@
   <!-- Custom js for this page-->
   <script src="/Customized/js/dashboard.js"></script>
   <!-- End custom js for this page-->
+  <script type="text/javascript">
+  $(document).ready(function(){
+    $(document).on('change','#provinces',function(){
+      
+      var procode=$(this).val();
+      $.ajax({
+        type:'get',
+        url:'{!!URL::to('getDistricts')!!}',
+        data:{'provincecode':procode},
+        success:function(data){
+        var op = '<option value="{{$fulldetails->district}}">{{$fulldetails->district}}</option>';
+        for (var i = 0; i < data.length; i++) {
+            op += '<option value="' + data[i].districtcode + '">' + data[i].namedistrict + '</option>';
+        }
+        $('#districts').html(op);
+        },
+        error:function(){
+
+        }
+      });
+    });
+  });
+  $(document).ready(function(){
+    $(document).on('change','#districts',function(){
+      
+      var districtcode=$(this).val();
+      $.ajax({
+        type:'get',
+        url:'{!!URL::to('getSectors')!!}',
+        data:{'districtcode':districtcode},
+        success:function(data){
+        var op = '<option value="{{$fulldetails->sector}}">{{$fulldetails->sector}}</option>';
+        for (var i = 0; i < data.length; i++) {
+            op += '<option value="' + data[i].sectorcode + '">' + data[i].namesector + '</option>';
+        }
+        $('#sectors').html(op);
+        },
+        error:function(){
+
+        }
+      });
+    });
+  });
+  $(document).ready(function(){
+    $(document).on('change','#sectors',function(){
+      
+      var sectorcode=$(this).val();
+      $.ajax({
+        type:'get',
+        url:'{!!URL::to('getCells')!!}',
+        data:{'sectorcode':sectorcode},
+        success:function(data){
+        var op = '<option value="{{$fulldetails->cell}}" >{{$fulldetails->cell}}</option>';
+        for (var i = 0; i < data.length; i++) {
+            op += '<option value="' + data[i].codecell + '">' + data[i].nameCell + '</option>';
+        }
+        $('#cells').html(op);
+        },
+        error:function(){
+
+        }
+      });
+    });
+  });
+</script>
 </body>
 
 </html>

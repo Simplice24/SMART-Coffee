@@ -111,14 +111,16 @@ class FarmerController extends Controller
         $userId =auth()->user()->id;
         $profileImg=User::find($userId);
         $farmerinfo=Farmer::find($id);
-        return view('Farmer-update',['farmerinfo'=>$farmerinfo,'profileImg'=>$profileImg]);
+        $provinces=Province::all();
+        return view('Farmer-update',['farmerinfo'=>$farmerinfo,'profileImg'=>$profileImg,'provinces'=>$provinces]);
       }
 
       public function CooperativeFarmerUpdatePage($id){
         $userId =auth()->user()->id;
         $profileImg=User::find($userId);
         $farmerinfo=Farmer::find($id);
-        return view('Manager/Cooperative-farmer-update',['farmerinfo'=>$farmerinfo,'profileImg'=>$profileImg]);
+        $provinces=Province::all();
+        return view('Manager/Cooperative-farmer-update',['farmerinfo'=>$farmerinfo,'profileImg'=>$profileImg,'province'=>$province]);
       }
 
       public function UpdateFarmer(Request $req,$id){
@@ -131,10 +133,10 @@ class FarmerController extends Controller
         $farmerupdate->number_of_trees=$req->input('number_of_trees');
         $farmerupdate->fertilizer=$req->input('fertilizer');
         $farmerupdate->phone=$req->input('phone');
-        $farmerupdate->province=$req->input('province');
-        $farmerupdate->district=$req->input('district');
-        $farmerupdate->sector=$req->input('sector');
-        $farmerupdate->cell=$req->input('cell');
+        $farmerupdate->province=Province::where('provincecode',$req->input('province'))->value('provincename');
+        $farmerupdate->district=District::where('districtcode',$req->input('district'))->value('namedistrict');
+        $farmerupdate->sector=Sector::where('sectorcode',$req->input('sector'))->value('namesector');
+        $farmerupdate->cell=Cell::where('codecell',$req->input('cell'))->value('nameCell');
         $farmerupdate->update();
         return redirect('viewfarmers');
       }

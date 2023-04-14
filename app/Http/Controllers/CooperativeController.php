@@ -105,7 +105,9 @@ $diseases = DB::table('reported_diseases')
         $profileImg=User::find($userId);
         $cooperativeinfo=Cooperative::find($id);
         $manager_names=User::all()->where('role','Manager');
-        return view('Cooperative-update',['cooperativeinfo'=> $cooperativeinfo,'manager_names'=>$manager_names,'profileImg'=>$profileImg]);
+        $provinces=Province::all();
+        return view('Cooperative-update',['cooperativeinfo'=> $cooperativeinfo,'manager_names'=>$manager_names,'profileImg'=>$profileImg,
+      'provinces'=>$provinces]);
       }
 
       public function UpdateSystemCooperative(Request $req,$id){
@@ -121,10 +123,10 @@ $diseases = DB::table('reported_diseases')
         $input->email=$req->input('email');
         $input->status=$req->input('status');
         $input->starting_date=$req->input('starting_date');
-        $input->province=$req->input('province');
-        $input->district=$req->input('district');
-        $input->sector=$req->input('sector');
-        $input->cell=$req->input('cell');
+        $input->province=Province::where('provincecode',$req->input('province'))->value('provincename');
+        $input->district=District::where('districtcode',$req->input('district'))->value('namedistrict');
+        $input->sector=Sector::where('sectorcode',$req->input('sector'))->value('namesector');
+        $input->cell=Cell::where('codecell',$req->input('cell'))->value('nameCell');
         $input->update();
         $input->users()->detach($user_id);
         $input->users()->attach($manager_id);

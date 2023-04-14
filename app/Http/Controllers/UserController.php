@@ -661,10 +661,10 @@ $DiseaseCategoryPercentage = DB::table('reported_diseases')
           $input->username=$req->input('username');
           $input->email=$req->input('email');
           $input->phone=$req->input('phone');
-          $input->province=$req->input('province');
-          $input->district=$req->input('district');
-          $input->sector=$req->input('sector');
-          $input->cell=$req->input('cell');
+          $input->province=Province::where('provincecode',$req->input('province'))->value('provincename');
+          $input->district=District::where('districtcode',$req->input('district'))->value('namedistrict');
+          $input->sector=Sector::where('sectorcode',$req->input('sector'))->value('namesector');
+          $input->cell=Cell::where('codecell',$req->input('cell'))->value('nameCell');
           if($input->update()){
             DB::table('model_has_roles')->where('model_id',$id)->delete();
             $input->assignRole($input->role);
@@ -677,7 +677,9 @@ $DiseaseCategoryPercentage = DB::table('reported_diseases')
           $roles=Role::all();
           $userId =auth()->user()->id;
           $profileImg=User::find($userId);
-          return view('Update-details',['fulldetails'=>$fulldetails,'roles'=>$roles,'profileImg'=>$profileImg]);
+          $provinces=Province::all();
+          return view('Update-details',['fulldetails'=>$fulldetails,'roles'=>$roles,'profileImg'=>$profileImg,
+        'provinces'=>$provinces]);
         }
 
         public function analytics(){
