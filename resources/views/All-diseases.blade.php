@@ -274,7 +274,7 @@
                         <button class="btn btn-sm btn-outline-primary" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">...</button>
                         <div class="dropdown-menu">
                           <a class="dropdown-item" href={{"diseaseDetails/".$i->id}}><i class="fa fa-eye" aria-hidden="true"></i>&nbsp; {{__('msg.view')}}</a>
-                          @can('delete-disease')<a class="dropdown-item" href={{"deleteReportedDisease/".$i->id}}><i class="fa fa-trash" aria-hidden="true"></i>&nbsp; {{ __('msg.delete')}}</a>@endcan
+                          @can('delete-disease')<a class="dropdown-item" href={{"deleteReportedDisease/".$dis->disease_id}}><i class="fa fa-trash" aria-hidden="true"></i>&nbsp; {{ __('msg.delete')}}</a>@endcan
                       </div>
                           </td>
                          </tr>

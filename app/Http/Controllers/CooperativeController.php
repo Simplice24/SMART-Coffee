@@ -7,12 +7,13 @@ use App\Models\User;
 use App\Models\Sales;
 use App\Models\Stock;
 use App\Models\Cooperative;
-USE aPP\Models\ReportedDisease;
+USE App\Models\ReportedDisease;
 use App\Models\Farmer;
 use App\Models\Province;
 use App\Models\District;
 use App\Models\Sector;
 use App\Models\Cell;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
 class CooperativeController extends Controller
@@ -84,9 +85,19 @@ foreach ($quantities_by_category as $category) {
     $percentages_by_category[$category->product] = $percentage;
 }
 
+$diseases = DB::table('reported_diseases')
+    ->join('diseases', 'reported_diseases.disease_id', '=', 'diseases.id')
+    ->select(DB::raw('YEAR(reported_diseases.created_at) as year'), 'reported_diseases.disease_id', 'diseases.disease_name', DB::raw('COUNT(*) as count'))
+    ->where('reported_diseases.cooperative_id',$id)
+    ->groupBy('year', 'reported_diseases.disease_id', 'diseases.disease_name')
+    ->orderBy('year')
+    ->get();
+
+
         return view('Cooperative-details',['cooperativeinfo'=>$cooperativeinfo,'profileImg'=>$profileImg,
         'cooperative_farmers'=>$cooperative_farmers,'femalePercentage'=>$femalePercentage,
-        'malePercentage'=>$malepercentage,'percentages_by_category'=>$percentages_by_category]);
+        'malePercentage'=>$malepercentage,'percentages_by_category'=>$percentages_by_category,
+        'diseases'=>$diseases]);
     }
 
     public function Cooperativeupdatepage($id){

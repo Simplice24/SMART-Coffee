@@ -385,75 +385,50 @@
   <script src="/Customized/js/dashboard.js"></script>
   <!-- End custom js for this page-->
   <script>
-  new Chart("Diseasereported", {
-  type: "bar",
-  data: {
-            labels: ['Jan','Feb','Mar','Apr','May'],
-            datasets: [
-                {
-                    label: 'Data Set 1',
-                    data: [1,2,3,4,5],
-                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                    borderColor: 'rgba(255, 99, 132, 1)',
-                    borderWidth: 1
-                },
-                {
-                    label: 'Data Set 2',
-                    data: [2,3,4,5,6],
-                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                    borderColor: 'rgba(54, 162, 235, 1)',
-                    borderWidth: 1
-                },
-                {
-                    label: 'Data Set 3',
-                    data: [4,5,6,7,8],
-                    backgroundColor: 'rgba(255, 206, 86, 0.2)',
-                    borderColor: 'rgba(255, 206, 86, 1)',
-                    borderWidth: 1
-                }
-            ]
+    var diseases = @json($diseases);
+    var years = [...new Set(diseases.map(d => d.year))];
+    var diseasesData = years.map(year => ({
+        label: year.toString(),
+        data: diseases.filter(d => d.year === year).map(d => d.count),
+        backgroundColor: 'rgba(255, 0, 0, 0.2)',
+        borderColor: 'rgba(255, 0, 0, 0.8)',
+        borderWidth: 1
+    }));
+
+    var diseaseLabels = [...new Set(diseases.map(d => d.disease_name))];
+    var ctx = document.getElementById('Diseasereported').getContext('2d');
+    var chart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: diseaseLabels,
+            datasets: diseasesData
         },
-  options: {
-    legend: {display: false},
-    title: {
-      display: true,
-    },
-    scales: {
-        yAxes: [{
-          ticks: {
-            beginAtZero: true,
-            display: true,
-            
-          },
-          gridLines: {
-            display: false,
-            drawBorder: false
-          }
-        }],
-        xAxes: [{
-          ticks: {
-            beginAtZero: true,
-            display: true,
-          },
-          gridLines: {
-            display: false,
-            drawBorder: false
-          }
-        }]
-      },
-      legend: {
-        display: false
-      },
-      elements: {
-        point: {
-          radius: 0
+        options: {
+            scales: {
+                xAxes: [{
+                    stacked: true,
+                    ticks: {
+                    display: false // set display to false to hide the labels
+                },
+                gridLines: {
+                  display: false,
+                  drawBorder: false
+                }
+                }],
+                yAxes: [{
+                    stacked: true,
+                    ticks: {
+                        beginAtZero: true,
+                        stepSize: 1
+                    },
+                    gridLines: {
+                      display: false,
+                      drawBorder: false
+                    }
+                }]
+            }
         }
-      },
-      tooltips: {
-        enabled: false
-      }
-  }
-});
+    });
 </script>
 </body>
 </html>

@@ -113,7 +113,7 @@ class DiseaseController extends Controller
       }
 
       public function deleteReportedDisease($id){
-        Disease::find($id)->delete();
+        ReportedDisease::where('disease_id',$id)->delete();
         return redirect('viewdiseases');
       }
 
