@@ -85,10 +85,10 @@ class FarmerController extends Controller
         $input->number_of_trees=$req->input('number_of_trees');
         $input->fertilizer=$req->input('fertilizer');
         $input->phone=$req->input('phone');
-        $input->province=$req->input('province');
-        $input->district=$req->input('district');
-        $input->sector=$req->input('sector');
-        $input->cell=$req->input('cell');
+        $input->province=Province::where('provincecode',$req->input('province'))->value('provincename');
+        $input->district=District::where('districtcode',$req->input('district'))->value('namedistrict');
+        $input->sector=Sector::where('sectorcode',$req->input('sector'))->value('namesector');
+        $input->cell=Cell::where('codecell',$req->input('cell'))->value('nameCell');
         $input->save();
         return redirect('CooperativeFarmers');
       }
@@ -120,7 +120,7 @@ class FarmerController extends Controller
         $profileImg=User::find($userId);
         $farmerinfo=Farmer::find($id);
         $provinces=Province::all();
-        return view('Manager/Cooperative-farmer-update',['farmerinfo'=>$farmerinfo,'profileImg'=>$profileImg,'province'=>$province]);
+        return view('Manager/Cooperative-farmer-update',['farmerinfo'=>$farmerinfo,'profileImg'=>$profileImg,'provinces'=>$provinces]);
       }
 
       public function UpdateFarmer(Request $req,$id){
@@ -158,10 +158,10 @@ class FarmerController extends Controller
         $farmerupdate->number_of_trees=$req->input('number_of_trees');
         $farmerupdate->fertilizer=$req->input('fertilizer');
         $farmerupdate->phone=$req->input('phone');
-        $farmerupdate->province=$req->input('province');
-        $farmerupdate->district=$req->input('district');
-        $farmerupdate->sector=$req->input('sector');
-        $farmerupdate->cell=$req->input('cell');
+        $farmerupdate->province=Province::where('provincecode',$req->input('province'))->value('provincename');
+        $farmerupdate->district=District::where('districtcode',$req->input('district'))->value('namedistrict');
+        $farmerupdate->sector=Sector::where('sectorcode',$req->input('sector'))->value('namesector');
+        $farmerupdate->cell=Cell::where('codecell',$req->input('cell'))->value('nameCell');
         $farmerupdate->update();
 
         return redirect('CooperativeFarmers');
