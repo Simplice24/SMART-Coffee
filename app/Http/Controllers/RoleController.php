@@ -12,7 +12,7 @@ class RoleController extends Controller
 {
     public function SystemRoles(){
         $no=0;
-        $roles=Role::paginate(7);
+        $roles=Role::all();
         $userId =auth()->user()->id;
         $profileImg=User::find($userId);
         $users=User::count();
@@ -39,7 +39,7 @@ class RoleController extends Controller
         $no=0;
         $userId =auth()->user()->id;
         $profileImg=User::find($userId);
-        $permissions=Permission::paginate(7);
+        $permissions=Permission::all();
         return view('All-permissions',['permissions'=>$permissions,'profileImg'=>$profileImg,'no'=>$no]);
     }
 

@@ -18,7 +18,7 @@ class FarmerController extends Controller
         $no=0;
         $userId =auth()->user()->id;
         $profileImg=User::find($userId);
-        $info=Farmer::paginate(7);
+        $info=Farmer::all();
         return view('All-farmers',['profileImg'=>$profileImg,'info'=>$info,'no'=>$no]);
     }
 

@@ -15,8 +15,8 @@ class DiseaseController extends Controller
         $noo=0;
         $userId =auth()->user()->id;
         $profileImg=User::find($userId);
-        $disease=Disease::paginate(10);
-        $reported_diseases=ReportedDisease::paginate(10);
+        $disease=Disease::all();
+        $reported_diseases=ReportedDisease::all();
         return view('All-diseases',['profileImg'=>$profileImg,'disease'=>$disease,'no'=>$no,
     'reported_diseases'=>$reported_diseases,'noo'=>$noo]);
     }
@@ -31,7 +31,7 @@ class DiseaseController extends Controller
     public function CooperativeDiseases(){
         $userId =auth()->user()->id;
         $profileImg=User::find($userId);
-        $disease=Disease::paginate(7);
+        $disease=Disease::all();
         return view('Manager/Diseases',['profileImg'=>$profileImg,'disease'=>$disease]);
     }
 

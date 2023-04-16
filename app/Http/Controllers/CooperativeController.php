@@ -22,7 +22,7 @@ class CooperativeController extends Controller
         $no=0;
         $userId =auth()->user()->id;
         $profileImg=User::find($userId);
-        $data=Cooperative::paginate(7);
+        $data=Cooperative::all();
         return view('All-cooperatives',['profileImg'=>$profileImg,'data'=>$data,'no'=>$no]);
     }
 

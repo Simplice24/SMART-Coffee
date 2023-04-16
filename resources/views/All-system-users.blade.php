@@ -217,10 +217,6 @@
                       @endforeach
                     </tbody>
                   </table>
-
-                    <div class="pagination-block">
-                    {{ $data->links()}}
-                    </div>
                   </div>
                 </div>
               </div>

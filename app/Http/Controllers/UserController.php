@@ -500,7 +500,7 @@ $DiseaseCategoryPercentage = DB::table('reported_diseases')
                       ->whereMonth('created_at', Carbon::now()->month)
                       ->groupBy('product')
                       ->get();
-    $CooperativeSales=Sales::where('cooperative_id',$cooperative_id)->paginate(10);
+    $CooperativeSales=Sales::where('cooperative_id',$cooperative_id)->get();
 
     $SalesByPayment = DB::table('sales')
             ->select('payment', DB::raw('SUM(price) as total_amount'))
@@ -526,7 +526,7 @@ $DiseaseCategoryPercentage = DB::table('reported_diseases')
 
     public function SystemUsers(){
       $no=0;
-      $data=User::paginate(5);
+      $data=User::all();
       $userId =auth()->user()->id;
       $profileImg=User::find($userId);
       return view('All-system-users',['data'=>$data,'profileImg'=>$profileImg,'no'=>$no]);

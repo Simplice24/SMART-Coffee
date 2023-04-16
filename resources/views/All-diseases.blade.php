@@ -212,9 +212,6 @@
                       @endforeach
                     </tbody>
                   </table>
-                    <div class="pagination-block">
-                     {{ $disease->links()}}
-                    </div>
                   </div>
                 </div>
               </div>
@@ -276,15 +273,10 @@
                           @endforeach
                       </tbody>
                     </table>
-                    <div class="pagination-block">
-                     {{ $reported_diseases->links()}}
-                    </div>
                   </div>
                 </div>
               </div>
             </div>
-
-              
            </div>
         </div>
         <!-- content-wrapper ends -->
