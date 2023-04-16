@@ -25,6 +25,9 @@
   <link rel="stylesheet" href="Customized/css/style.css">
   <!-- endinject -->
   <link rel="shortcut icon" href="Customized/images/favicon.png" />
+ <!-- Datatable -->
+ <link href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css" rel="stylesheet">
+  <!-- End of datatable -->
 </head>
 <body>
   <div class="container-scroller">
@@ -180,7 +183,7 @@
                 <div class="card-body">
                   <h4 class="card-title">{{ __('msg.all cooperatives')}}</h4>
                   <div class="table-responsive">
-                    <table class="table table-striped">
+                    <!-- <table class="table table-striped" id="CooperativesTable">
                       <thead>
                         <tr>
                           <th>
@@ -233,7 +236,49 @@
                         </tr>
                         @endforeach
                       </tbody>
+                    </table> -->
+                    <table class="table table-striped" id="FarmersTable">
+                      <thead>
+                        <tr>
+                          <th>#</th>
+                          <th>{{ __('msg.cooperative name')}}</th>
+                          <th>{{ __('msg.manager')}}</th>
+                          <th>{{__('msg.email')}}</th>
+                          <th>Status</th>
+                          <th>Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      @foreach($data as $i)
+                          <tr>
+                            <td>{{  ++$no }}</td>
+                            <td>{{  $i->name }}</td>
+                            <td>{{  $i->manager_name }}</td>
+                            <td>{{  $i->email }}</td>
+                            <td>
+                            @if($i->status=="Operating")
+                            <label class="bg-success text-white rounded p-1 d-flex align-items-stretch justify-content-stretch mt-1">{{ $i->status }}</label>
+                            @else
+                            <label class="bg-warning text-white rounded p-1 d-flex align-items-stretch justify-content-stretch mt-1">{{ $i->status }}</label>
+                            @endif
+                            </td>
+                            <td>
+                              <div class="input-group-prepend">
+                                <button class="btn btn-sm btn-outline-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">action</button>
+                                <div class="dropdown-menu">
+                                <a class="dropdown-item" href={{"updateCooperative/".$i->id}}><i class="fa fa-eye" aria-hidden="true"></i>&nbsp; {{ __('msg.view')}}</a>
+                          <a class="dropdown-item" href={{"deletecooperative/".$i->id}}><i class="fa fa-trash" aria-hidden="true"></i>&nbsp; {{ __('msg.delete')}}</a>
+                                </div>
+                              </div> <!-- add this closing tag -->
+                            </td>
+                          </tr>
+                          @endforeach
+                      </tbody>
                     </table>
+                    <div class="pagination-block">
+                     
+                    </div>
+                  
                     <div class="pagination-block">
                     {{ $data->links()}}
                     </div>
@@ -275,7 +320,16 @@
   <!-- Custom js for this page-->
   <script src="Customized/js/dashboard.js"></script>
   <!-- End custom js for this page-->
+  <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+  <script>
+  $(document).ready(function() {
+    $('#FarmersTable').DataTable({
+      "paging": true,
+      "ordering": false,
+      "searching": true
+    });
+  });
+</script>
 </body>
-
 </html>
 

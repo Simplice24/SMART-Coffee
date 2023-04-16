@@ -24,6 +24,9 @@
   <link rel="stylesheet" href="Customized/css/style.css">
   <!-- endinject -->
   <link rel="shortcut icon" href="Customized/images/favicon.png" />
+ <!-- Datatable -->
+ <link href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css" rel="stylesheet">
+  <!-- End of datatable -->
 </head>
 <body>
   <div class="container-scroller">
@@ -178,68 +181,43 @@
                 <div class="card-body">
                   <h4 class="card-title">{{ __('msg.system users')}}</h4>
                   <div class="table-responsive">
-                    <table class="table table-striped">
-                      <thead>
+                  <table class="table table-striped" id="UsersTable">
+                    <thead>
+                      <tr>
+                        <th>#</th>
+                        <th>Profile</th>
+                        <th>{{ __('msg.full name')}}</th>
+                        <th>{{ __('msg.user name')}}</th>
+                        <th>{{ __('msg.role')}}</th>
+                        <th>{{ __('msg.email')}}</th>
+                        <th>{{ __('msg.phone')}}</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      @foreach($data as $i)
                         <tr>
-                          <th>
-                            #
-                          </th>
-                          <th>
-                           Profile
-                          </th>
-                          <th>
-                            {{ __('msg.full name')}}
-                          </th>
-                          <th>
-                          {{ __('msg.user name')}}
-                          </th>
-                          <th>
-                            {{ __('msg.role')}}
-                          </th>
-                          <th>
-                          {{ __('msg.email')}}
-                          </th>
-                          <th>
-                            {{ __('msg.phone')}}
-                          </th>
+                          <td>{{++$no}}</td>
+                          <td><img src="{{asset('/storage/images/users/'.$i->image)}}"></td>
+                          <td>{{$i->name}}</td>
+                          <td>{{$i->username}}</td>
+                          <td>{{$i->role}}</td>
+                          <td>{{$i->email}}</td>
+                          <td>{{$i->phone}}</td>
+                          <td>
+                            <div class="input-group-prepend">
+                              <button class="btn btn-sm btn-outline-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">actions</button>
+                              <div class="dropdown-menu">
+                                <a class="dropdown-item" href={{"profile/".$i->id}}><i class="fa fa-eye" aria-hidden="true"></i>&nbsp; {{ __('msg.view')}}</a>
+                                <a class="dropdown-item" href={{"deleteuser/".$i->id}}><i class="fa fa-trash" aria-hidden="true"></i>&nbsp; {{ __('msg.delete')}}</a>
+                              </div>
+                            </div>
+                          </td>
                         </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                        @foreach($data as $i)
-                          <td>
-                          {{++$no}}
-                          </td>
-                          <td>
-                          <img src="{{asset('/storage/images/users/'.$i->image)}}">
-                          </td>
-                          <td>
-                          {{$i->name}}
-                          </td>
-                          <td>
-                          {{$i->username}}
-                          </td>
-                          <td>
-                          {{$i->role}}
-                          </td>
-                          <td>
-                          {{$i->email}}
-                          </td>
-                          <td>
-                          {{$i->phone}}
-                          </td>
-                          <td>
-                          <div class="input-group-prepend">
-                        <button class="btn btn-sm btn-outline-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Actions</button>
-                        <div class="dropdown-menu">
-                          <a class="dropdown-item" href={{"profile/".$i->id}}><i class="fa fa-eye" aria-hidden="true"></i>&nbsp; {{ __('msg.view')}}</a>
-                          <a class="dropdown-item" href={{"deleteuser/".$i->id}}><i class="fa fa-trash" aria-hidden="true"></i>&nbsp; {{ __('msg.delete')}}</a>
-                      </div>
-                          </td>
-                         </tr>
-                         @endforeach
-                      </tbody>
-                    </table>
+                      @endforeach
+                    </tbody>
+                  </table>
+
                     <div class="pagination-block">
                     {{ $data->links()}}
                     </div>
@@ -281,6 +259,16 @@
   <!-- Custom js for this page-->
   <script src="Customized/js/dashboard.js"></script>
   <!-- End custom js for this page-->
+  <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+  <script>
+  $(document).ready(function() {
+    $('#UsersTable').DataTable({
+      "paging": true,
+      "ordering": false,
+      "searching": true
+    });
+  });
+</script>
 </body>
 
 </html>

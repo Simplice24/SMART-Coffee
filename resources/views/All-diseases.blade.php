@@ -24,6 +24,9 @@
   <link rel="stylesheet" href="Customized/css/style.css">
   <!-- endinject -->
   <link rel="shortcut icon" href="Customized/images/favicon.png" />
+  <!-- Datatable -->
+  <link href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css" rel="stylesheet">
+  <!-- End of datatable -->
 </head>
 <body>
   <div class="container-scroller">
@@ -179,44 +182,36 @@
                 <div class="card-body">
                   <h4 class="card-title">{{__('msg.coffee diseases')}}</h4>
                   <div class="table-responsive">
-                    <table class="table table-striped">
-                      <thead>
-                        <tr>
-                          <th>
-                            #
-                          </th>
-                          <th>
-                            {{__('msg.Disease name')}}
-                          </th>
-                          <th>
-                            {{__('msg.Disease category')}}
-                          </th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          @foreach($disease as $i)
-                          <td>
-                            {{++$no}}
-                          </td>
-                          <td>
-                            {{$i->disease_name}}
-                          </td>
-                          <td>
-                            {{$i->category}}
-                          </td>
-                          <td>
+                  <table class="table table-striped" id="DiseasesTable">
+                    <thead>
+                      <tr>
+                        <th>#</th>
+                        <th>{{__('msg.Disease name')}}</th>
+                        <th>{{__('msg.Disease category')}}</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      @foreach($disease as $i)
+                      <tr>
+                        <td>{{++$no}}</td>
+                        <td>{{$i->disease_name}}</td>
+                        <td>{{$i->category}}</td>
+                        <td>
                           <div class="input-group-prepend">
-                        <button class="btn btn-sm btn-outline-primary" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">...</button>
-                        <div class="dropdown-menu">
-                          <a class="dropdown-item" href={{"diseaseDetails/".$i->id}}><i class="fa fa-eye" aria-hidden="true"></i>&nbsp; {{__('msg.view')}}</a>
-                          @can('delete-disease')<a class="dropdown-item" href={{"deletedisease/".$i->id}}><i class="fa fa-trash" aria-hidden="true"></i>&nbsp; {{ __('msg.delete')}}</a>@endcan
-                      </div>
-                          </td>
-                         </tr>
-                          @endforeach
-                      </tbody>
-                    </table>
+                            <button class="btn btn-sm btn-outline-primary" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">...</button>
+                            <div class="dropdown-menu">
+                              <a class="dropdown-item" href={{"diseaseDetails/".$i->id}}><i class="fa fa-eye" aria-hidden="true"></i>&nbsp; {{__('msg.view')}}</a>
+                              @can('delete-disease')
+                              <a class="dropdown-item" href={{"deletedisease/".$i->id}}><i class="fa fa-trash" aria-hidden="true"></i>&nbsp; {{__('msg.delete')}}</a>
+                              @endcan
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                      @endforeach
+                    </tbody>
+                  </table>
                     <div class="pagination-block">
                      {{ $disease->links()}}
                     </div>
@@ -324,6 +319,16 @@
   <!-- Custom js for this page-->
   <script src="Customized/js/dashboard.js"></script>
   <!-- End custom js for this page-->
+  <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+  <script>
+  $(document).ready(function() {
+    $('#DiseasesTable').DataTable({
+      "paging": true,
+      "ordering": false,
+      "searching": true
+    });
+  });
+</script>
 </body>
 
 </html>
