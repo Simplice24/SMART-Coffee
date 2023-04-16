@@ -24,6 +24,9 @@
   <link rel="stylesheet" href="Customized/css/style.css">
   <!-- endinject -->
   <link rel="shortcut icon" href="Customized/images/favicon.png" />
+  <!-- Datatable -->
+  <link href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css" rel="stylesheet">
+  <!-- End of datatable -->
 </head>
 <body>
   <div class="container-scroller">
@@ -139,64 +142,44 @@
             </li>
             </div>
           </div>
-          
            <div class="row">
-             
            <div class="col-lg-12 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
                   <h4 class="card-title">{{ __('msg.coffee farmers') }}</h4>
                   <div class="table-responsive">
-                    <table class="table table-striped">
-                      <thead>
-                        <tr>
-                        <th>
-                            #
-                          </th>
-                          <th>
-                            {{__('msg.full name')}}
-                          </th>
-                          <th>
-                          {{__('msg.cooperative')}}
-                          </th>
-                          <th>
-                          {{__('msg.number of trees')}}
-                          </th>
-                          <th>
-                          {{__('msg.fertilizer')}}
-                          </th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                        @foreach($farmers as $i)
-                        <td>
-                            {{++$no}}
-                          </td>
-                          <td>
-                            {{$i->name}}
-                          </td>
-                          <td>
-                            {{$i->cooperative_name}}
-                          </td>
-                          <td>
-                          {{$i->number_of_trees}}
-                          </td>
-                          <td>
-                          {{$i->fertilizer}}
-                          </td>
-                          <td>
-                          <div class="input-group-prepend">
-                        <button class="btn btn-sm btn-outline-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Actions</button>
-                        <div class="dropdown-menu">
-                          <a class="dropdown-item" href={{"CooperativeFarmerprofile/".$i->id}}><i class="fa fa-eye" aria-hidden="true"></i>&nbsp; {{__('msg.view')}}</a>
-                          <a class="dropdown-item" href={{"DeleteCooperativeFarmer/".$i->id}}><i class="fa fa-trash" aria-hidden="true"></i>&nbsp; {{__('msg.delete')}}</a>
-                      </div>
-                          </td>
-                         </tr>
-                         @endforeach
-                      </tbody>
-                    </table>
+                  <table class="table table-striped" id="FarmersTable">
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>{{__('msg.full name')}}</th>
+                      <th>{{__('msg.cooperative')}}</th>
+                      <th>{{__('msg.number of trees')}}</th>
+                      <th>{{__('msg.fertilizer')}}</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    @foreach($farmers as $i)
+                    <tr>
+                      <td>{{++$no}}</td>
+                      <td>{{$i->name}}</td>
+                      <td>{{$i->cooperative_name}}</td>
+                      <td>{{$i->number_of_trees}}</td>
+                      <td>{{$i->fertilizer}}</td>
+                      <td>
+                        <div class="input-group-prepend">
+                          <button class="btn btn-sm btn-outline-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">actions</button>
+                          <div class="dropdown-menu">
+                            <a class="dropdown-item" href="{{"CooperativeFarmerprofile/".$i->id}}"><i class="fa fa-eye" aria-hidden="true"></i>&nbsp;{{__('msg.view')}}</a>
+                            <a class="dropdown-item" href="{{"DeleteCooperativeFarmer/".$i->id}}"><i class="fa fa-trash" aria-hidden="true"></i>&nbsp;{{__('msg.delete')}}</a>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                    @endforeach
+                  </tbody>
+                </table>
                   </div>
                 </div>
               </div>
@@ -235,6 +218,16 @@
   <!-- Custom js for this page-->
   <script src="Customized/js/dashboard.js"></script>
   <!-- End custom js for this page-->
+  <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+  <script>
+  $(document).ready(function() {
+    $('#FarmersTable').DataTable({
+      "paging": true,
+      "ordering": false,
+      "searching": true
+    });
+  });
+</script>
 </body>
 
 </html>

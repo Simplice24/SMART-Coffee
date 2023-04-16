@@ -25,6 +25,9 @@
   <link rel="stylesheet" href="/Customized/css/style.css">
   <!-- endinject -->
   <link rel="shortcut icon" href="/Customized/images/favicon.png" />
+  <!-- Datatable -->
+  <link href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css" rel="stylesheet">
+  <!-- End of datatable -->
 </head>
 <body>
   <div class="container-scroller">
@@ -339,7 +342,7 @@
                 <div class="card-body">
                   <h4 class="card-title">Sales</h4>
                   <div class="table-responsive">
-                    <table class="table table-striped">
+                    <table class="table table-striped" id="SalesTable">
                       <thead>
                         <tr>
                           <th>
@@ -363,6 +366,7 @@
                           <th>
                             Year
                           </th>
+                          <th></th>
                         </tr>
                       </thead>
                       <tbody>
@@ -495,11 +499,6 @@
     <!-- page-body-wrapper ends -->
   </div>
   <!-- container-scroller -->
-
-  <script>
-  
-  </script>
-  
   <!-- base:js -->
   <script src="/Customized/vendors/base/vendor.bundle.base.js"></script>
   <!-- endinject -->
@@ -517,7 +516,16 @@
   <!-- Custom js for this page-->
   <script src="/Customized/js/dashboard.js"></script>
   <!-- End custom js for this page-->
-
+  <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+  <script>
+  $(document).ready(function() {
+    $('#SalesTable').DataTable({
+      "paging": true,
+      "ordering": false,
+      "searching": true
+    });
+  });
+</script>
 </body>
 
 </html>
