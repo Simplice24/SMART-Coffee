@@ -459,13 +459,19 @@ $DiseaseCategoryPercentage = DB::table('reported_diseases')
                       ->whereMonth('created_at', Carbon::now()->month)
                       ->sum('price');
 
+                      $CooperativeStockInventoryByCategory=DB::table('cooperative_stocks')
+                      ->select('product_category', DB::raw('SUM(quantity) as total_quantity'))
+                      ->where('cooperative_id', $cooperative_id)
+                      ->groupBy('product_category')
+                      ->get();
+
                 
 
         return view('Manager/Dashboard',['totalFarmers'=>$totalFarmers,'total_trees'=>$total_trees,
         'diseases'=>$diseases,'profileImg'=>$profileImg,'male_farmers'=>$male_farmers,'female_farmers'=>$female_farmers,
       'CoopFarmerspercentIncrease'=>$CoopFarmerspercentIncrease,'CoopMaleFarmerspercentIncrease'=>$CoopMaleFarmerspercentIncrease,
     'CoopFemaleFarmerspercentIncrease'=>$CoopFemaleFarmerspercentIncrease,'treespercentIncrease'=>$treespercentIncrease,
-  'currentMonthSalesTotal'=>$currentMonthSalesTotal]);
+  'currentMonthSalesTotal'=>$currentMonthSalesTotal,'CooperativeStockInventoryByCategory'=>$CooperativeStockInventoryByCategory]);
     }
   }
 

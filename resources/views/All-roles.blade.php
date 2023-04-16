@@ -173,7 +173,7 @@
             </div>
           </div>
            <div class="row"> 
-           <div class="col-lg-12 grid-margin stretch-card">
+           <div class="col-lg-6 grid-margin">
               <div class="card">
                 <div class="card-body">
                   <h4 class="card-title">System Roles</h4>
@@ -200,7 +200,7 @@
                           </td>
                           <td>
                           <div class="input-group-prepend">
-                        <button class="btn btn-sm btn-outline-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Actions</button>
+                        <button class="btn btn-sm btn-outline-primary" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">...</button>
                         <div class="dropdown-menu">
                           <a class="dropdown-item" href={{"Roledetails/".$i->id}}><i class="fa fa-eye" aria-hidden="true"></i>&nbsp; Edit</a>
                           <a class="dropdown-item" href={{"deleterole/".$i->id}}><i class="fa fa-trash" aria-hidden="true"></i>&nbsp; Delete</a>
@@ -217,9 +217,87 @@
                 </div>
               </div>
             </div>
-              
-              
-
+            <div class="col-md-3  grid-margin">
+                <div class="card">
+                      <div class="card-body">
+                          <h4 class="card-title">NAEB Employees</h4>          
+                          <h4 class="text-dark font-weight-bold mb-2">{{$naeb}}</h4>
+                          <div class="col-sm-10">
+                              <div class="progress progress-lg mt-1">
+                                <div class="progress-bar bg-info" role="progressbar" style="width: {{($naeb/$users *100)}}%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{($naeb/$users *100)}}%</div>
+                              </div>
+                          </div>
+                      </div>
+                      </div>
+                      <div class="card mt-2">
+                      <div class="card-body">
+                          <h4 class="card-title">District Agronomists</h4>
+                          <h4 class="text-dark font-weight-bold mb-2">{{$district_agro}}</h4>
+                          <div class="col-sm-10">
+                              <div class="progress progress-lg mt-1">
+                                <div class="progress-bar bg-info" role="progressbar" style="width: {{($district_agro/$users *100)}}%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{($district_agro/$users *100)}}%</div>
+                              </div>
+                          </div>
+                      </div>
+                      </div>
+                      <div class="card mt-2">
+                      <div class="card-body">
+                          <h4 class="card-title">SEDO</h4>
+                          <h4 class="text-dark font-weight-bold mb-2">{{$sedo}}</h4>
+                          <div class="col-sm-10">
+                              <div class="progress progress-lg mt-1">
+                                <div class="progress-bar bg-info" role="progressbar" style="width: {{($sedo/$users *100)}}%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{($sedo/$users *100)}}%</div>
+                              </div>
+                          </div>
+                      </div>
+                      </div>
+                      <div class="card mt-2">
+                      <div class="card-body">
+                          <h4 class="card-title">System Admins</h4>
+                          <h4 class="text-dark font-weight-bold mb-2">{{$admin}}</h4>
+                          <div class="col-sm-10">
+                              <div class="progress progress-lg mt-1">
+                                <div class="progress-bar bg-info" role="progressbar" style="width: {{($admin/$users *100)}}%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{($admin/$users *100)}}%</div>
+                              </div>
+                          </div>
+                      </div>
+                </div>
+              </div>
+              <div class="col-md-3 grid-margin">
+                <div class="card">
+                      <div class="card-body">
+                          <h4 class="card-title">RAB Employees</h4>
+                          <h4 class="text-dark font-weight-bold mb-2">{{$rab}}</h4>
+                          <div class="col-sm-10">
+                              <div class="progress progress-lg mt-1">
+                                <div class="progress-bar bg-info" role="progressbar" style="width: {{($rab/$users *100)}}%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{($rab/$users *100)}}%</div>
+                              </div>
+                          </div>
+                      </div>
+                      </div>
+                      <div class="card mt-2">
+                      <div class="card-body">
+                          <h4 class="card-title">Sector Agronomists</h4>
+                          <h4 class="text-dark font-weight-bold mb-2">{{$sector_agro}}</h4>
+                          <div class="col-sm-10">
+                              <div class="progress progress-lg mt-1">
+                                <div class="progress-bar bg-info" role="progressbar" style="width: {{($sector_agro/$users *100)}}%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{($sector_agro/$users *100)}}%</div>
+                              </div>
+                          </div>
+                      </div>
+                      </div>
+                      <div class="card mt-2">
+                      <div class="card-body">
+                          <h4 class="card-title">Cooperative Managers</h4>
+                          <h4 class="text-dark font-weight-bold mb-2">{{$manager}}</h4>
+                          <div class="col-sm-10">
+                              <div class="progress progress-lg mt-1">
+                                <div class="progress-bar bg-info" role="progressbar" style="width: {{($manager/$users *100)}}%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{($manager/$users *100)}}%</div>
+                              </div>
+                          </div>
+                      </div>
+                </div>
+              </div>
            </div>
         </div>
         <!-- content-wrapper ends -->

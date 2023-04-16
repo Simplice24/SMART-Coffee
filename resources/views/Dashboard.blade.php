@@ -254,7 +254,7 @@
                       </div>
                       <div class="card mt-2">
                       <div class="card-body">
-                          <h4 class="card-title">Female users<i class="mdi mdi-gender-male-female menu-icon float-right"></i></h4>
+                          <h4 class="card-title">Female users<i class="mdi mdi-gender-female menu-icon float-right"></i></h4>
                           <!-- <p>{{$FemaleUserspercentIncrease}}% increase this month</p> -->
                           <h4 class="text-dark font-weight-bold mb-2">{{$CountingFemale}}</h4>
                           <canvas id="FemaleUsers"></canvas>
@@ -264,7 +264,7 @@
               <div class="col-md-3 grid-margin">
                 <div class="card">
                       <div class="card-body">
-                          <h4 class="card-title">Male farmers</h4>
+                          <h4 class="card-title">Male farmers<i class="mdi mdi-gender-male menu-icon float-right"></i></h4>
                           <!-- <p>{{$MaleFarmerspercentIncrease}}% increase this month</p> -->
                           <h4 class="text-dark font-weight-bold mb-2">{{$CountingMaleFarmers}}</h4>
                           <canvas id="MaleFarmers"></canvas>
@@ -272,7 +272,7 @@
                       </div>
                       <div class="card mt-2">
                       <div class="card-body">
-                          <h4 class="card-title">Female farmers</h4>
+                          <h4 class="card-title">Female farmers<i class="mdi mdi-gender-female menu-icon float-right"></i></h4>
                           <!-- <p>{{$FemaleFarmerspercentIncrease}}% increase in month</p> -->
                           <h4 class="text-dark font-weight-bold mb-2">{{$CountingFemaleFarmers}}</h4>
                           <canvas id="FemaleFarmers"></canvas>

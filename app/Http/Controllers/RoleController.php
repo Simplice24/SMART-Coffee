@@ -15,7 +15,17 @@ class RoleController extends Controller
         $roles=Role::paginate(7);
         $userId =auth()->user()->id;
         $profileImg=User::find($userId);
-        return view('All-roles',['roles'=>$roles,'profileImg'=>$profileImg,'no'=>$no]);
+        $users=User::count();
+        $naeb=User::where('role','Naeb')->count();
+        $rab=User::where('role','Rab')->count();
+        $district_agro=User::where('role','District-agro')->count();
+        $Sector_agro=User::where('role','Sector-agro')->count();
+        $manager=User::where('role','Manager')->count();
+        $sedo=User::where('role','SEDO')->count();
+        $admin=User::where('role','Super-Admin')->count();
+        return view('All-roles',['roles'=>$roles,'profileImg'=>$profileImg,'no'=>$no,'naeb'=>$naeb,
+        'rab'=>$rab,'district_agro'=>$district_agro,'sector_agro'=>$Sector_agro,'manager'=>$manager,
+        'sedo'=>$sedo,'admin'=>$admin,'users'=>$users]);
     }
 
     public function RegisterRolePage(){

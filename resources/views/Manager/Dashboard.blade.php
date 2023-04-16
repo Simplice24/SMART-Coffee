@@ -191,7 +191,10 @@
                   <div class="card-body">
                     <img src="/Customized/assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
                     <h4 class="font-weight-normal mb-3">Stock<i class="mdi mdi-stocking menu-icon float-right"></i>
-                    <h1 class="mb-5"></h1>
+                    @foreach($CooperativeStockInventoryByCategory as $product)
+                    <h2>{{$product->total_quantity}} Kgs</h2>
+                    <h6>{{$product->product_category}}</h6>
+                    @endforeach
                   </div>
                  </a> 
                 </div>
