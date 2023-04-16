@@ -198,18 +198,6 @@
                   </div>
                  </a> 
                 </div>
-              
-              <!-- <div class="col-md-3 stretch-card grid-margin">
-                <div class="card bg-gradient-danger card-img-holder text-white">
-                <a href="<?=url('');?>" style="text-decoration:none; color:white;">
-                  <div class="card-body">
-                    <img src="/Customized/assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
-                    <h4 class="font-weight-normal mb-3">Customer<i class="icon-command menu-icon float-right"></i>
-                    <h1 class="mb-5"></h1>
-                  </div>
-                 </a> 
-                </div>
-              </div> -->
            </div>
            <div class="row ">
               <div class="col-md-3 grid-margin">
@@ -218,6 +206,11 @@
                           <h4 class="card-title">Male farmers<i class="mdi mdi-gender-male menu-icon float-right"></i></h4>
                           <!-- <p>{{$CoopMaleFarmerspercentIncrease}}% increase this month</p> -->
                           <h4 class="text-dark font-weight-bold mb-2">{{$male_farmers}}</h4>
+                          <div class="col-sm-10">
+                              <div class="progress progress-lg mt-1">
+                                <div class="progress-bar bg-success" role="progressbar" style="width: {{($male_farmers/$totalFarmers *100)}}%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{Round(($male_farmers/$totalFarmers *100),2)}}%</div>
+                              </div>
+                          </div>
                       </div>
                       </div>
                       <div class="card mt-2">
@@ -225,6 +218,11 @@
                           <h4 class="card-title">Female farmers<i class="mdi mdi-gender-male-female menu-icon float-right"></i></h4>
                           <!-- <p>{{$CoopFemaleFarmerspercentIncrease}}% increase in month</p> -->
                           <h4 class="text-dark font-weight-bold mb-2">{{$female_farmers}}</h4>
+                          <div class="col-sm-10">
+                              <div class="progress progress-lg mt-1">
+                                <div class="progress-bar bg-success" role="progressbar" style="width: {{($female_farmers/$totalFarmers *100)}}%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{Round(($female_farmers/$totalFarmers *100),2)}}%</div>
+                              </div>
+                          </div>
                       </div>
                       </div>
                 </div>
