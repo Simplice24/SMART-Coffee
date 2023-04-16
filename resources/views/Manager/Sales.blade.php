@@ -400,9 +400,6 @@
                         @endforeach
                       </tbody>
                     </table>
-                    <div class="pagination-block">
-                     {{ $CooperativeSales->links()}}
-                    </div>
                   </div>
                 </div>
               </div>

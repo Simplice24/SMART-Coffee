@@ -323,9 +323,6 @@
                         @endforeach 
                       </tbody>
                     </table>
-                    <div class="pagination-block">
-                     {{$CooperativeStock->links()}}
-                    </div>
                   </div>
                 </div>
               </div>

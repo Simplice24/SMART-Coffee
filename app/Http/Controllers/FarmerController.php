@@ -31,7 +31,7 @@ class FarmerController extends Controller
                    ->where('user_id', $userId)
                    ->value('cooperative_id');
         if ($cooperative_id) {
-        $farmers = Farmer::where('cooperative_id', $cooperative_id)->paginate(7);
+        $farmers = Farmer::where('cooperative_id', $cooperative_id)->get();
         return view('Manager/Cooperative-farmers',['farmers'=>$farmers,'no'=>$no,'profileImg'=>$profileImg]);
         }
         }

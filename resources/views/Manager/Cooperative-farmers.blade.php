@@ -197,9 +197,6 @@
                          @endforeach
                       </tbody>
                     </table>
-                    <div class="pagination-block">
-                    {{ $farmers->links()}}
-                    </div>
                   </div>
                 </div>
               </div>
