@@ -17,8 +17,22 @@ class DiseaseController extends Controller
         $profileImg=User::find($userId);
         $disease=Disease::all();
         $reported_diseases=ReportedDisease::all();
+        $currentMonth = date('m');
+        $currentYear=date('Y');
+        $monthlyCounts = DB::table('reported_diseases')
+                ->join('diseases', 'reported_diseases.disease_id', '=', 'diseases.id')
+                ->select(DB::raw('MONTH(reported_diseases.created_at) as month'), 'diseases.disease_name', DB::raw('COUNT(*) as count'))
+                ->whereRaw('MONTH(reported_diseases.created_at) = ?', [$currentMonth])
+                ->groupBy('month', 'diseases.disease_name')
+                ->get();
+        $yearlyCounts = DB::table('reported_diseases')
+                ->join('diseases', 'reported_diseases.disease_id', '=', 'diseases.id')
+                ->select(DB::raw('YEAR(reported_diseases.created_at) as year'), 'diseases.disease_name', DB::raw('COUNT(*) as count'))
+                ->whereRaw('YEAR(reported_diseases.created_at) = ?', [$currentYear])
+                ->groupBy('year', 'diseases.disease_name')
+                ->get();
         return view('All-diseases',['profileImg'=>$profileImg,'disease'=>$disease,'no'=>$no,
-    'reported_diseases'=>$reported_diseases,'noo'=>$noo]);
+        'reported_diseases'=>$reported_diseases,'noo'=>$noo,'monthlyCounts'=>$monthlyCounts,'yearlyCounts'=>$yearlyCounts]);
     }
 
     public function DiseaseRegistrationPage(){
