@@ -249,12 +249,10 @@
                   <div class="card-body">
                       <h4 class="card-title">Analytics</h4>
                       <div class="row">
-                          <div class="col-lg-5">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit amet cumque cupiditate</p>
-                          </div>
-                        <div class="col-lg-7">
-                          <div class="chart-legends d-lg-block d-none" ></div>
-                        </div>
+                          <!-- <div class="col-lg-5">
+                            <p>Trees increase indicates number of new trees this year</p>
+                            <p>Farmers increase indicates number of new Farmers this year</p>
+                          </div> -->
                       </div>
                       <div class="row">
                           <div class="col-sm-12">
@@ -281,11 +279,6 @@
     <!-- page-body-wrapper ends -->
   </div>
   <!-- container-scroller -->
-
-  <script>
-  
-  </script>
-  
   <!-- base:js -->
   <script src="/Customized/vendors/base/vendor.bundle.base.js"></script>
   <!-- endinject -->
@@ -302,9 +295,25 @@
   <!-- End plugin js for this page -->
   <!-- Custom js for this page-->
   <script src="/Customized/js/dashboard.js"></script>
-  <!-- End custom js for this page-->
-
+  <!-- End custom js for this page-->  
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    var ctx = document.getElementById('ManagerChart').getContext('2d');
+    var chartData = @json($chartData);
+    var chart = new Chart(ctx, {
+        type: 'line',
+        data: chartData,
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true,
+                    }
+                }]
+            }
+        }
+    });
+</script>
 </body>
-
 </html>
 
