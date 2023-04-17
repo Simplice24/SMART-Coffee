@@ -91,6 +91,8 @@ Icyiciro cy'indwara",
 "Forgot Password"=>"Wibagiwe ijambo ryibanga",
 "Your Password"=>"Ijambobanga ryawe",
 "Remember me"=>"Unyibuke",
-"Log in"=>"Injira"
+"Log in"=>"Injira",
+"Managers"=>"Abayobora amakoperative",
+"Analytics"=>"Isesengura"
 ]
 ?>

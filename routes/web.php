@@ -243,8 +243,7 @@ Route::get('/getCells',[DropdownController::class,'getCells']);
 
 Route::group(['middleware'=>["auth"]],function(){
 
-Route::get('Official/Home',[OfficialsController::class,'Dashboard']);
-
+Route::get('Official/Home',[OfficialsController::class,'OfficialsDashboard']);
 
     
 });

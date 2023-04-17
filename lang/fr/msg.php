@@ -19,7 +19,7 @@ Coopératives",
 "logout"=>"Déconnecter",
 "farmers"=>"Les agriculteurs",
 "diseases"=>"
-maladies",
+Maladies",
 "hi, welcome back!"=>"Salut, bienvenue!",
 "cooperatives, farmers, and system users"=>"Coopératives, Agriculteurs et Utilisateurs du système",
 "full name"=>"Nom",
@@ -98,6 +98,9 @@ nouvel agriculteur",
 Mot de passe oublié",
 "Your Password"=>"Votre mot de passe",
 "Remember me"=>"Souviens-toi de moi",
-"Log in"=>"Connexion"
+"Log in"=>"Connexion",
+"Managers"=>"
+Gérants",
+"Analytics"=>"Analytique"
 ]
 ?>

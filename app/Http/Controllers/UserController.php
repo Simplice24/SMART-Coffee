@@ -623,6 +623,8 @@ $DiseaseCategoryPercentage = DB::table('reported_diseases')
       $user_role=$user_details->role;
       if($user_role==="Manager"){
       return redirect()->intended('Manager/Home');
+      }elseif($user_role==="SEDO"){
+      return redirect()->intended('Official/Home');  
       }
       return redirect()->intended('Home');
     }

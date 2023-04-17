@@ -10,21 +10,21 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
 
   <!-- base:css -->
-  <link rel="stylesheet" href="Customized/vendors/mdi/css/materialdesignicons.min.css">
-  <link rel="stylesheet" href="Customized/vendors/feather/feather.css">
-  <link rel="stylesheet" href="Customized/vendors/base/vendor.bundle.base.css">
+  <link rel="stylesheet" href="/Customized/vendors/mdi/css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="/Customized/vendors/feather/feather.css">
+  <link rel="stylesheet" href="/Customized/vendors/base/vendor.bundle.base.css">
   <!-- endinject -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
   <!-- plugin css for this page -->
-  <link rel="stylesheet" href="Customized/vendors/flag-icon-css/css/flag-icon.min.css"/>
-  <link rel="stylesheet" href="Customized/vendors/font-awesome/css/font-awesome.min.css">
-  <link rel="stylesheet" href="Customized/vendors/jquery-bar-rating/fontawesome-stars-o.css">
-  <link rel="stylesheet" href="Customized/vendors/jquery-bar-rating/fontawesome-stars.css">
+  <link rel="stylesheet" href="/Customized/vendors/flag-icon-css/css/flag-icon.min.css"/>
+  <link rel="stylesheet" href="/Customized/vendors/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/Customized/vendors/jquery-bar-rating/fontawesome-stars-o.css">
+  <link rel="stylesheet" href="/Customized/vendors/jquery-bar-rating/fontawesome-stars.css">
   <!-- End plugin css for this page -->
   <!-- inject:css -->
-  <link rel="stylesheet" href="Customized/css/style.css">
+  <link rel="stylesheet" href="/Customized/css/style.css">
   <!-- endinject -->
-  <link rel="shortcut icon" href="Customized/images/favicon.png" />
+  <link rel="shortcut icon" href="/Customized/images/favicon.png" />
 </head>
 <body>
   <div class="container-scroller">
@@ -68,7 +68,7 @@
             
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
               <p class="mb-0 font-weight-normal float-left dropdown-header">{{ __('msg.settings') }}</p>
-              <a class="dropdown-item preview-item" href="<?=url('userProfile');?>">               
+              <a class="dropdown-item preview-item" href="">               
                   <i class="icon-head"></i> {{ __('msg.profile') }}
               </a>
               <!-- <a class="dropdown-item preview-item" href="">               
@@ -106,33 +106,39 @@
         </div>
         <ul class="nav">
           <li class="nav-item">
-            <a class="nav-link" href="<?=url('Home');?>">
+            <a class="nav-link" href="<?=url('Official/Home');?>">
               <i class="icon-air-play menu-icon"></i>
               <span class="menu-title">{{ __('msg.dashboard') }}</span>
             </a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="">
+              <i class="icon-head menu-icon"></i>
+              <span class="menu-title">{{ __('msg.Managers') }}</span>
+            </a>
+          </li>
            <li class="nav-item">
-            <a class="nav-link" href="<?=url('viewcooperatives');?>">
+            <a class="nav-link" href="">
               <i class="icon-disc menu-icon"></i>
               <span class="menu-title">{{ __('msg.cooperatives') }}</span>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="<?=url('viewfarmers');?>">
+            <a class="nav-link" href="">
               <i class="icon-pie-graph menu-icon"></i>
               <span class="menu-title">{{ __('msg.farmers') }}</span>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="<?=url('viewdiseases');?>">
+            <a class="nav-link" href="">
               <i class="icon-command menu-icon"></i>
               <span class="menu-title">{{ __('msg.diseases') }}</span>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="<?=url('analytics');?>">
+            <a class="nav-link" href="">
               <i class="icon-bar-graph-2 menu-icon"></i>
-              <span class="menu-title">Analytics</span>
+              <span class="menu-title">{{ __('msg.Analytics')}}</span>
             </a>
           </li>
         </ul>
@@ -150,12 +156,12 @@
           <div class="row">
               <div class="col-md-3 stretch-card grid-margin">
                 <div class="card bg-gradient-info card-img-holder text-white">
-                  <a href="<?=url('viewsystemuser');?>" style="text-decoration:none; color:white;">
+                  <a href="" style="text-decoration:none; color:white;">
                   <div class="card-body">
-                  <img src="Customized/assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
-                    <h4 class="font-weight-normal mb-3">Managers<i class="icon-head menu-icon float-right"></i>
+                  <img src="/Customized/assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
+                    <h4 class="font-weight-normal mb-3">{{ __('msg.Managers')}}<i class="icon-head menu-icon float-right"></i>
                     </h4>
-                    <h1 class="mb-5">{{$managers}}</h1>
+                    <h1 class="mb-5">{{$numberOfManagers}}</h1>
                     <!-- <h6 class="card-text"><b>Increased by 23% this month</b></h6> -->
                   </div>
                   </a>
@@ -163,12 +169,12 @@
               </div>
               <div class="col-md-3 stretch-card grid-margin">
                 <div class="card bg-gradient-success card-img-holder text-white">
-                <a href="<?=url('viewfarmers');?>" style="text-decoration:none; color:white;">
+                <a href="" style="text-decoration:none; color:white;">
                   <div class="card-body">
-                    <img src="Customized/assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
+                    <img src="/Customized/assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
                     <h4 class="font-weight-normal mb-3">{{ __('msg.farmers')}}<i class="icon-head menu-icon float-right"></i>
                     </h4>
-                    <h1 class="mb-5">{{$farmer}}</h1>
+                    <h1 class="mb-5">{{$numberOfFarmers}}</h1>
                     <!-- <h6 class="card-text"><b>Increased by 23% this month</b></h6> -->
                   </div>
                 </a>
@@ -176,12 +182,12 @@
               </div>
               <div class="col-md-3 stretch-card grid-margin">
                 <div class="card bg-gradient-primary card-img-holder text-white">
-                <a href="<?=url('viewcooperatives');?>" style="text-decoration:none; color:white;">
+                <a href="" style="text-decoration:none; color:white;">
                   <div class="card-body">
-                    <img src="Customized/assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
+                    <img src="/Customized/assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
                     <h4 class="font-weight-normal mb-3"> {{ __('msg.cooperatives')}}<i class="icon-disc menu-icon float-right"></i>
                     </h4>
-                    <h1 class="mb-5">{{$cooperative}}</h1>
+                    <h1 class="mb-5">{{$numberOfCooperatives}}</h1>
                     <!-- <h6 class="card-text"><b>Increased by 23% this month</b></h6> -->
                   </div>
                   </a>
@@ -189,11 +195,11 @@
               </div>
                <div class="col-md-3 stretch-card grid-margin">
                 <div class="card bg-gradient-danger card-img-holder text-white">
-                <a href="<?=url('viewdiseases');?>" style="text-decoration:none; color:white;">
+                <a href="" style="text-decoration:none; color:white;">
                   <div class="card-body">
-                    <img src="Customized/assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
+                    <img src="/Customized/assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
                     <h4 class="font-weight-normal mb-3"> {{ __('msg.diseases')}}<i class="icon-command menu-icon float-right"></i>
-                    <h1 class="mb-5">{{$disease}}</h1>
+                    <h1 class="mb-5">{{$diseases}}</h1>
                     <!-- <h6 class="card-text"><b>Increased by 23% this month</b></h6> -->
                   </div> 
                  </a> 
@@ -203,130 +209,6 @@
 
            <!-- starting point -->
 
-           <div class="row">
-              <div class="col-md-3  grid-margin">
-                <div class="card">
-                      <div class="card-body">
-                          <h4 class="card-title">Male users<i class="mdi mdi-gender-male menu-icon float-right"></i></h4>
-                          <!-- <p>23% increase this month</p> -->
-                          <h4 class="text-dark font-weight-bold mb-2">234</h4>
-                          <!-- <canvas id="MaleUsers"></canvas> -->
-                      </div>
-                      </div>
-                      <div class="card mt-2">
-                      <div class="card-body">
-                          <h4 class="card-title">Female users<i class="mdi mdi-gender-female menu-icon float-right"></i></h4>
-                          <!-- <p>23% increase this month</p> -->
-                          <h4 class="text-dark font-weight-bold mb-2">234</h4>
-                          <!-- <canvas id="FemaleUsers"></canvas> -->
-                      </div>
-                </div>
-              </div>
-              <div class="col-md-3 grid-margin">
-                <div class="card">
-                      <div class="card-body">
-                          <h4 class="card-title">Male farmers<i class="mdi mdi-gender-male menu-icon float-right"></i></h4>
-                          <!-- <p>23% increase this month</p> -->
-                          <h4 class="text-dark font-weight-bold mb-2">23</h4>
-                          <!-- <canvas id="MaleFarmers"></canvas> -->
-                      </div>
-                      </div>
-                      <div class="card mt-2">
-                      <div class="card-body">
-                          <h4 class="card-title">Female farmers<i class="mdi mdi-gender-female menu-icon float-right"></i></h4>
-                          <!-- <p>23% increase in month</p> -->
-                          <h4 class="text-dark font-weight-bold mb-2">23</h4>
-                          <!-- <canvas id="FemaleFarmers"></canvas> -->
-                      </div>
-                </div>
-              </div>
-              <div class="col-md-3 grid-margin">
-              <div class="card">
-                      <div class="card-body">
-                          <h4 class="card-title">Active cooperatives</h4>
-                          <!-- <p>23% increase in this month</p> -->
-                          <h4 class="text-dark font-weight-bold mb-2">23</h4>
-                          <!-- <canvas id="ActiveCooperatives"></canvas> -->
-                      </div>
-                      </div>
-                      <div class="card mt-2">
-                      <div class="card-body">
-                          <h4 class="card-title">Inactive cooperatives</h4>
-                          <!-- <p>23% increase this month</p> -->
-                          <h4 class="text-dark font-weight-bold mb-2">23</h4>
-                          <!-- <canvas id="InactiveCooperatives"></canvas> -->
-                      </div>
-              </div>      
-               
-              </div>
-               <div class="col-md-3 grid-margin">
-                <div class="card">
-                  <div class="card-body">
-                    <h4 class="card-title mb-2">Diseases</h4>
-                    <div class="row">
-                      <div class="col-sm-20">
-                        <div class="text-dark">
-                          @foreach ($diseases as $disease)
-                          <div class="d-flex pb-3 border-bottom justify-content-between">
-                            <div class="mr-3 mt-2"><i class="mdi mdi-signal-cellular-outline icon-md"></i></div>
-                            <div class="font-weight-bold mr-sm-4 mt-2">
-                              <div>{{ $disease->category}}</div>
-                              <div class="text-muted font-weight-normal mt-1"></div>
-                            </div>
-                            <div><h6 class="font-weight-bold text-danger ml-sm-2 mt-2">{{$disease->current_month_total}}</h6></div>
-                          </div>
-                          @endforeach
-                        </div>
-                      </div>
-                    </div>  
-                  </div>
-                </div>
-                <div class="card mt-2">
-                  <div class="card-body">
-                    <h4 class="card-title">Reported diseases</h4>
-                    <div class="row">
-                      <div class="col-sm-12">
-                          <div class="d-flex justify-content-between mt-2 text-dark mb-2">
-                              <div><span class="font-weight-bold">{{$TotalReportedDiseases}}</span> Reported diseases</div>
-                            </div>
-                      </div>
-                      <div class="col-sm-12">
-                        <div class="traffic-source-legend">
-                          <div class="d-flex justify-content-between mb-1 mt-2">
-                            <div class="font-weight-bold">DISEASES</div>
-                            <div class="font-weight-bold">TOTAL</div>
-                          </div>
-                          @foreach($percentByDiseaseCategory as $diseasepercentage)
-                          <div class="d-flex justify-content-between legend-label">
-                            <div><span class="bg-danger"></span>
-                            <?php
-                            $diseasename=\App\Models\Disease::find($diseasepercentage->disease_id);
-                            echo $diseasename->disease_name;
-                            ?>
-                            </div>
-                            <div>{{$diseasepercentage->percentage}}%</div>
-                          </div>
-                          @endforeach
-                          <div class="d-flex justify-content-between mb-1 mt-2">
-                            <div class="font-weight-bold">CATEGORY</div>
-                            <div class="font-weight-bold">TOTAL</div>
-                          </div>
-                          @foreach($DiseaseCategoryPercentage as $categorypercentage)
-                          <div class="d-flex justify-content-between legend-label">
-                            <div><span class="bg-danger"></span>
-                            {{$categorypercentage->disease_category}}
-                            </div>
-                            <div>{{$categorypercentage->percentage}}%</div>
-                          </div>
-                          @endforeach
-                        </div>
-                      </div>
-                    </div>  
-                  </div>
-                </div>
-              </div>
-           </div>
-           
            <!-- ending point -->
 
         </div>
@@ -344,365 +226,22 @@
     <!-- page-body-wrapper ends -->
   </div>
   <!-- container-scroller -->
-
-  <script>
-var MalexValues=@json($MaleMonth);
-var MaleyValues=@json($Malecount);
-var FemalexValues=@json($FemaleMonth);
-var FemaleyValues=@json($Femalecount);
-var MalefarmerxValues=@json($MalefarmerMonth);
-var MalefarmeryValues=@json($Malefarmercount);
-var FemalefarmerxValues=@json($FemalefarmerMonth);
-var FemalefarmeryValues=@json($Femalefarmercount);
-var ActivecoopxValues=@json($ActiveCoopMonth);
-var ActivecoopyValues=@json($ActiveCoopCount);
-var InactivecoopxValues=@json($InactiveCoopMonth);
-var InactivecoopyValues=@json($InactiveCoopCount);
-
-
-new Chart("MaleUsers", {
-  type: "bar",
-  data: {
-    labels: MalexValues,
-    datasets: [{
-        label: 'Male Users',
-        data: MaleyValues,
-        backgroundColor: "rgb(111,168,220)",
-        borderWidth: 1,
-        fill: false
-      }]
-  },
-  options: {
-    legend: {display: false},
-    title: {
-      display: true,
-    },
-    scales: {
-        yAxes: [{
-          ticks: {
-            beginAtZero: true,
-            display: true,
-            
-          },
-          gridLines: {
-            display: false,
-            drawBorder: false
-          }
-        }],
-        xAxes: [{
-          ticks: {
-            beginAtZero: true,
-            display: true,
-          },
-          gridLines: {
-            display: false,
-            drawBorder: false
-          }
-        }]
-      },
-      legend: {
-        display: false
-      },
-      elements: {
-        point: {
-          radius: 0
-        }
-      },
-      tooltips: {
-        enabled: false
-      }
-  }
-});
-
-new Chart("FemaleUsers", {
-  type: "bar",
-  data: {
-    labels: FemalexValues,
-    datasets: [{
-        label: 'Male Users',
-        data: FemalexValues,
-        backgroundColor: "rgb(213,166,189)",
-        borderWidth: 1,
-        fill: false
-      }]
-  },
-  options: {
-    legend: {display: false},
-    title: {
-      display: true,
-    },
-    scales: {
-        yAxes: [{
-          ticks: {
-            beginAtZero: true,
-            display: true,
-            
-          },
-          gridLines: {
-            display: false,
-            drawBorder: false
-          }
-        }],
-        xAxes: [{
-          ticks: {
-            beginAtZero: true,
-            display: true,
-          },
-          gridLines: {
-            display: false,
-            drawBorder: false
-          }
-        }]
-      },
-      legend: {
-        display: false
-      },
-      elements: {
-        point: {
-          radius: 0
-        }
-      },
-      tooltips: {
-        enabled: false
-      }
-  }
-});
-
-new Chart("MaleFarmers", {
-  type: "bar",
-  data: {
-    labels: MalefarmerxValues,
-    datasets: [{
-        label: 'Male Users',
-        data: MalefarmeryValues,
-        backgroundColor: "rgb(111,168,220)",
-        borderWidth: 1,
-        fill: false
-      }]
-  },
-  options: {
-    legend: {display: false},
-    title: {
-      display: true,
-    },
-    scales: {
-        yAxes: [{
-          ticks: {
-            beginAtZero: true,
-            display: true,
-            
-          },
-          gridLines: {
-            display: false,
-            drawBorder: false
-          }
-        }],
-        xAxes: [{
-          ticks: {
-            beginAtZero: true,
-            display: true,
-          },
-          gridLines: {
-            display: false,
-            drawBorder: false
-          }
-        }]
-      },
-      legend: {
-        display: false
-      },
-      elements: {
-        point: {
-          radius: 0
-        }
-      },
-      tooltips: {
-        enabled: false
-      }
-  }
-});
-
-new Chart("FemaleFarmers", {
-  type: "bar",
-  data: {
-    labels: FemalefarmerxValues,
-    datasets: [{
-        label: 'Male Users',
-        data: FemalefarmeryValues,
-        backgroundColor: "rgb(213,166,189)",
-        borderWidth: 1,
-        fill: false
-      }]
-  },
-  options: {
-    legend: {display: false},
-    title: {
-      display: true,
-    },
-    scales: {
-        yAxes: [{
-          ticks: {
-            beginAtZero: true,
-            display: true,
-            
-          },
-          gridLines: {
-            display: false,
-            drawBorder: false
-          }
-        }],
-        xAxes: [{
-          ticks: {
-            beginAtZero: true,
-            display: true,
-          },
-          gridLines: {
-            display: false,
-            drawBorder: false
-          }
-        }]
-      },
-      legend: {
-        display: false
-      },
-      elements: {
-        point: {
-          radius: 0
-        }
-      },
-      tooltips: {
-        enabled: false
-      }
-  }
-});
-
-new Chart("ActiveCooperatives", {
-  type: "bar",
-  data: {
-    labels: ActivecoopxValues,
-    datasets: [{
-        label: 'Male Users',
-        data: ActivecoopyValues,
-        backgroundColor: "rgb(84, 214, 139)",
-        borderWidth: 1,
-        fill: false
-      }]
-  },
-  options: {
-    legend: {display: false},
-    title: {
-      display: true,
-    },
-    scales: {
-        yAxes: [{
-          ticks: {
-            beginAtZero: true,
-            display: true,
-            
-          },
-          gridLines: {
-            display: false,
-            drawBorder: false
-          }
-        }],
-        xAxes: [{
-          ticks: {
-            beginAtZero: true,
-            display: true,
-          },
-          gridLines: {
-            display: false,
-            drawBorder: false
-          }
-        }]
-      },
-      legend: {
-        display: false
-      },
-      elements: {
-        point: {
-          radius: 0
-        }
-      },
-      tooltips: {
-        enabled: false
-      }
-  }
-});
-
-new Chart("InactiveCooperatives", {
-  type: "bar",
-  data: {
-    labels: InactivecoopxValues,
-    datasets: [{
-        label: 'Male Users',
-        data: InactivecoopyValues,
-        backgroundColor: "rgb(234, 199, 44)",
-        borderWidth: 1,
-        fill: false
-      }]
-  },
-  options: {
-    legend: {display: false},
-    title: {
-      display: true,
-    },
-    scales: {
-        yAxes: [{
-          ticks: {
-            beginAtZero: true,
-            display: true,
-            
-          },
-          gridLines: {
-            display: false,
-            drawBorder: false
-          }
-        }],
-        xAxes: [{
-          ticks: {
-            beginAtZero: true,
-            display: true,
-          },
-          gridLines: {
-            display: false,
-            drawBorder: false
-          }
-        }]
-      },
-      legend: {
-        display: false
-      },
-      elements: {
-        point: {
-          radius: 0
-        }
-      },
-      tooltips: {
-        enabled: false
-      }
-  }
-});
-
-
-  </script>
-  
   <!-- base:js -->
-  <script src="Customized/vendors/base/vendor.bundle.base.js"></script>
+  <script src="/Customized/vendors/base/vendor.bundle.base.js"></script>
   <!-- endinject -->
   <!-- Plugin js for this page-->
   <!-- End plugin js for this page-->
   <!-- inject:js -->
-  <script src="Customized/js/off-canvas.js"></script>
-  <script src="Customized/js/hoverable-collapse.js"></script>
-  <script src="Customized/js/template.js"></script>
+  <script src="/Customized/js/off-canvas.js"></script>
+  <script src="/Customized/js/hoverable-collapse.js"></script>
+  <script src="/Customized/js/template.js"></script>
   <!-- endinject -->
   <!-- plugin js for this page -->
-  <script src="Customized/vendors/chart.js/Chart.min.js"></script>
-  <script src="Customized/vendors/jquery-bar-rating/jquery.barrating.min.js"></script>
+  <script src="/Customized/vendors/chart.js/Chart.min.js"></script>
+  <script src="/Customized/vendors/jquery-bar-rating/jquery.barrating.min.js"></script>
   <!-- End plugin js for this page -->
   <!-- Custom js for this page-->
-  <script src="Customized/js/dashboard.js"></script>
+  <script src="/Customized/js/dashboard.js"></script>
   <!-- End custom js for this page-->
 </body>
 </html>

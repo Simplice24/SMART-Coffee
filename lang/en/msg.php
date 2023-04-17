@@ -91,7 +91,9 @@
          "Forgot Password"=>"Forgot Password",
          "Your Password"=>"Your Password",
          "Remember me"=>"Remember me",
-         "Log in"=>"Log in"
+         "Log in"=>"Log in",
+         "Managers"=>"Managers",
+         "Analytics"=>"Analytics"
   ]
  
 ?>
