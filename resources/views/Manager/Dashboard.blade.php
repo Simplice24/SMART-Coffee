@@ -187,7 +187,7 @@
               </div>
                <div class="col-md-3 stretch-card grid-margin">
                 <div class="card bg-gradient-primary bg-dark card-img-holder text-white">
-                <a href="" style="text-decoration:none; color:white;">
+                <a href="<?=url('CooperativeSales')?>" style="text-decoration:none; color:white;">
                   <div class="card-body">
                     <img src="/Customized/assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
                     <h4 class="font-weight-normal mb-3">Monthly Sales <i class="mdi mdi-chart-line mdi-24px float-right"></i>
@@ -205,7 +205,7 @@
               </div>
               <div class="col-md-3 stretch-card grid-margin">
                 <div class="card bg-gradient-secondary card-img-holder text-white">
-                <a href="" style="text-decoration:none; color:white;">
+                <a href="<?=url('StockDetails');?>" style="text-decoration:none; color:white;">
                   <div class="card-body">
                     <img src="/Customized/assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
                     <h4 class="font-weight-normal mb-3">Stock<i class="mdi mdi-stocking menu-icon float-right"></i>

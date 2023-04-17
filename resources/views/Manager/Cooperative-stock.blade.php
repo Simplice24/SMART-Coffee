@@ -121,12 +121,6 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="">
-              <i class="mdi mdi-stocking menu-icon"></i>
-              <span class="menu-title">Inventory </span>
-            </a>
-          </li>
-          <li class="nav-item">
             <a class="nav-link" href="<?=url('StockDetails');?>">
               <i class="mdi mdi-stocking menu-icon"></i>
               <span class="menu-title">Stock </span>

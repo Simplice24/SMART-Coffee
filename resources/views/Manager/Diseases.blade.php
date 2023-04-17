@@ -150,7 +150,7 @@
                 <div class="card-body">
                   <h4 class="card-title">{{__('msg.coffee diseases')}}</h4>
                   <div class="table-responsive">
-                    <table class="table table-striped" id="DiseasesTable">
+                    <table class="table table-striped" id="Diseases">
                       <thead>
                         <tr>
                           <th>
@@ -224,7 +224,7 @@
   <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
   <script>
   $(document).ready(function() {
-    $('#DiseasesTable').DataTable({
+    $('#Diseases').DataTable({
       "paging": true,
       "ordering": false,
       "searching": true
