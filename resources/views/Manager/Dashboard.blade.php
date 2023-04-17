@@ -156,7 +156,13 @@
                     <h4 class="font-weight-normal mb-3">{{ __('msg.farmers')}}<i class="icon-head menu-icon float-right"></i>
                     </h4>
                     <h1 class="mb-5">{{$totalFarmers}}</h1>
-                    <!-- <h6 class="card-text"><b>Increased by {{$CoopFarmerspercentIncrease}}% this month</b></h6> -->
+                    @if ($increasedPercentage > 0)
+                    <h6 class="card-text"><b>{{$increasedPercentage}}% increase this year</b></h6>
+                    @elseif($increasedPercentage < 0)
+                    <h6 class="card-text"><b>{{abs($increasedPercentage)}}% decrease this year</b></h6>
+                    @else
+                    <h6 class="card-text"><b>No change in cooperative farmers</b></h6>
+                    @endif
                   </div>
                 </a>
                 </div>
@@ -168,7 +174,13 @@
                     <img src="/Customized/assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
                     <h4 class="font-weight-normal mb-3">Coffee trees<i class="mdi mdi-barley menu-icon float-right"></i>
                     <h1 class="mb-5">{{$total_trees}}</h1>
-                    <!-- <h6 class="card-text"><b>Increased by {{$treespercentIncrease}}% this month</b></h6> -->
+                    @if($increaseInTrees > 0)
+                    <h6 class="card-text"><b>{{$increaseInTrees}}% increase this year</b></h6> 
+                    @elseif($increaseInTrees < 0)
+                    <h6 class="card-text"><b>{{abs($increaseInTrees)}}% decrease this year</b></h6> 
+                    @else
+                    <h6 class="card-text"><b>No change in trees this year</b></h6>
+                    @endif
                   </div>
                  </a> 
                 </div>
@@ -180,7 +192,13 @@
                     <img src="/Customized/assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
                     <h4 class="font-weight-normal mb-3">Monthly Sales <i class="mdi mdi-chart-line mdi-24px float-right"></i>
                     <h1 class="mb-5">{{$currentMonthSalesTotal}}</h1>
-                    <h1 class="mb-5"></h1>
+                    @if($increaseInSales > 0)
+                    <h6 class="card-text"><b>{{$increaseInSales}}% increase this month</b></h6>
+                    @elseif($increaseInSales < 0)
+                    <h6 class="card-text"><b>{{abs($increaseInSales)}}% decrease this month</b></h6>
+                    @else
+                    <h6 class="card-text"><b>No change in sales</b></h6>
+                    @endif
                   </div>
                  </a> 
                 </div>
@@ -224,11 +242,30 @@
                               </div>
                           </div>
                       </div>
+                      </div>                   
+                </div>
+                <div class="col-xl-9 d-flex grid-margin">
+                <div class="card">
+                  <div class="card-body">
+                      <h4 class="card-title">Analytics</h4>
+                      <div class="row">
+                          <div class="col-lg-5">
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit amet cumque cupiditate</p>
+                          </div>
+                        <div class="col-lg-7">
+                          <div class="chart-legends d-lg-block d-none" ></div>
+                        </div>
                       </div>
+                      <div class="row">
+                          <div class="col-sm-12">
+                              <canvas id="ManagerChart" class="mt-3"></canvas>
+                          </div>
+                      </div>
+                  </div>
                 </div>
               </div>
+              </div>
            </div>
-
         </div>
         <!-- content-wrapper ends -->
         <!-- partial:partials/_footer.html -->

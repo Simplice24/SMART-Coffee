@@ -390,16 +390,7 @@ $DiseaseCategoryPercentage = DB::table('reported_diseases')
                     ->whereMonth('created_at', $previousMonth)
                     ->whereYear('created_at', $previousYear)
                     ->count();
-        $treesCurrentMonthCount = DB::table('farmers')
-                    ->where('cooperative_id',$cooperative_id)
-                    ->whereMonth('created_at', $currentMonth)
-                    ->whereYear('created_at', $currentYear)
-                    ->sum('number_of_trees');
-        $treesPreviousMonthCount = DB::table('farmers')
-                    ->where('cooperative_id',$cooperative_id)
-                    ->whereMonth('created_at', $previousMonth)
-                    ->whereYear('created_at', $previousYear)
-                    ->sum('number_of_trees');
+     
         $maleFarmersCurrentMonthCount = DB::table('farmers')
                     ->where('gender','Male')
                     ->whereMonth('created_at', $currentMonth)
@@ -445,13 +436,7 @@ $DiseaseCategoryPercentage = DB::table('reported_diseases')
                       $CoopFarmerspercentIncrease = ($farmersCurrentMonthCount - $farmersPreviousMonthCount) / $farmersPreviousMonthCount * 100;
                       }
 
-                      if($treesCurrentMonthCount==0){
-                      $treespercentIncrease=0;
-                      }else if($treesPreviousMonthCount==0){
-                      $treespercentIncrease=100;
-                      }else{
-                      $treespercentIncrease = ($treesCurrentMonthCount - $treesPreviousMonthCount) / $treesPreviousMonthCount * 100;
-                      }
+                      
 
         // Get sum of sales for the current month
         $currentMonthSalesTotal = DB::table('sales')
@@ -465,13 +450,73 @@ $DiseaseCategoryPercentage = DB::table('reported_diseases')
                       ->groupBy('product_category')
                       ->get();
 
-                
+                      $currentYear = date('Y');
+                      $previousYear = $currentYear - 1;
+                      $currentMonth=date('m');
+                      $previousMonth=$currentMonth-1;
+                      if ($previousMonth == 0) {
+                        $previousMonth = 12;
+                    }
 
-        return view('Manager/Dashboard',['totalFarmers'=>$totalFarmers,'total_trees'=>$total_trees,
-        'diseases'=>$diseases,'profileImg'=>$profileImg,'male_farmers'=>$male_farmers,'female_farmers'=>$female_farmers,
-      'CoopFarmerspercentIncrease'=>$CoopFarmerspercentIncrease,'CoopMaleFarmerspercentIncrease'=>$CoopMaleFarmerspercentIncrease,
-    'CoopFemaleFarmerspercentIncrease'=>$CoopFemaleFarmerspercentIncrease,'treespercentIncrease'=>$treespercentIncrease,
-  'currentMonthSalesTotal'=>$currentMonthSalesTotal,'CooperativeStockInventoryByCategory'=>$CooperativeStockInventoryByCategory]);
+                      
+                      $currentYearCount = DB::table('farmers')
+                          ->where('cooperative_id',$cooperative_id)
+                          ->whereYear('created_at', $currentYear)
+                          ->count();
+                      
+                      $previousYearCount = DB::table('farmers')
+                          ->where('cooperative_id',$cooperative_id)
+                          ->whereYear('created_at', $previousYear)
+                          ->count();
+                      if($previousYearCount==0){
+                        $increasedPercentage=100;
+                      }else{
+                        $increasedPercentage = ($currentYearCount - $previousYearCount) / $previousYearCount * 100;
+                      }
+                      $Farmersincrease=$currentYearCount- $previousYearCount;
+                      
+                      $treesCurrentYearCount= DB::table('farmers')
+                      ->where('cooperative_id',$cooperative_id)
+                      ->whereYear('created_at', $currentYear)
+                      ->sum('number_of_trees');
+                    
+
+                      $treesPreviousYearCount= DB::table('farmers')
+                      ->where('cooperative_id',$cooperative_id)
+                      ->whereYear('created_at', $previousYear)
+                      ->sum('number_of_trees');
+
+                      if($treesPreviousYearCount == 0){
+                        $increaseInTrees=100;
+                      }else{
+                        $increaseInTrees= ($treesCurrentYearCount - $treesPreviousYearCount) / $treesPreviousYearCount * 100;
+                      }
+
+                      $TreesIncrease=$treesCurrentYearCount - $treesPreviousYearCount;
+
+                      $salesCurrentMonthCount=DB::table('sales')
+                      ->where('cooperative_id',$cooperative_id)
+                      ->whereMonth('created_at',$currentMonth)
+                      ->sum('price');
+
+                      $salesPreviousMonthCount=DB::table('sales')
+                      ->where('cooperative_id',$cooperative_id)
+                      ->whereMonth('created_at',$previousMonth)
+                      ->sum('price');
+
+                      if($salesPreviousMonthCount == 0){
+                        $increaseInSales=100;
+                      }else{
+                        $increaseInSales=($salesCurrentMonthCount - $salesPreviousMonthCount) / $salesPreviousMonthCount * 100;
+                      }
+                      
+
+  return view('Manager/Dashboard',['totalFarmers'=>$totalFarmers,'total_trees'=>$total_trees,
+  'diseases'=>$diseases,'profileImg'=>$profileImg,'male_farmers'=>$male_farmers,'female_farmers'=>$female_farmers,
+  'CoopFarmerspercentIncrease'=>$CoopFarmerspercentIncrease,'CoopMaleFarmerspercentIncrease'=>$CoopMaleFarmerspercentIncrease,
+  'CoopFemaleFarmerspercentIncrease'=>$CoopFemaleFarmerspercentIncrease,'currentMonthSalesTotal'=>$currentMonthSalesTotal,
+  'CooperativeStockInventoryByCategory'=>$CooperativeStockInventoryByCategory,'TreesIncrease'=>$TreesIncrease,'increaseInSales'=>$increaseInSales,
+  'increasedPercentage'=>$increasedPercentage,'Farmersincrease'=>$Farmersincrease,'increaseInTrees'=>$increaseInTrees]);
     }
   }
 
