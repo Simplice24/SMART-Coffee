@@ -9,6 +9,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SalesController;
 use App\Http\Controllers\StockController;
 use App\Http\Controllers\DropdownController;
+use App\Http\Controllers\OfficialsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -238,6 +239,14 @@ Route::get('/getSectors',[DropdownController::class,'getSectors']);
 
 Route::get('/getCells',[DropdownController::class,'getCells']);
 
+});
+
+Route::group(['middleware'=>["auth"]],function(){
+
+Route::get('Official/Home',[OfficialsController::class,'Dashboard']);
+
+
+    
 });
 
 
