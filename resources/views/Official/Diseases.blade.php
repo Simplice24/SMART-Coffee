@@ -25,6 +25,9 @@
   <link rel="stylesheet" href="/Customized/css/style.css">
   <!-- endinject -->
   <link rel="shortcut icon" href="/Customized/images/favicon.png" />
+   <!-- Datatable -->
+   <link href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css" rel="stylesheet">
+  <!-- End of datatable -->
 </head>
 <body>
   <div class="container-scroller">
@@ -135,28 +138,95 @@
               <span class="menu-title">{{ __('msg.diseases') }}</span>
             </a>
           </li>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a class="nav-link" href="<?=url('Official/Analytics');?>">
               <i class="icon-bar-graph-2 menu-icon"></i>
               <span class="menu-title">{{ __('msg.Analytics')}}</span>
             </a>
-          </li>
+          </li> -->
         </ul>
       </nav>
       <!-- partial -->
       <div class="main-panel">
         <div class="content-wrapper">
-       
-        </div>
-        <!-- content-wrapper ends -->
-        <!-- partial:partials/_footer.html -->
-        <footer class="footer">
-          <div class="d-sm-flex justify-content-center justify-content-sm-between">
-            <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © CCMS 2023</span>
+          <div class="row">
+            <div class="col-sm-12 mb-4 mb-xl-0">
+            @can('create-disease')
+            <li class="nav-item dropdown d-lg-flex d-none">
+            <a href="<?=url('registerNewDisease');?>"><button type="button" class="btn btn-info font-weight-bold">+ {{__('msg.new disease')}}</button></a>
+            </li>
+            @endcan
+            </div>
           </div>
-        </footer>
-        <!-- partial -->
+          
+           <div class="row">
+           <div class="col-lg-6 grid-margin">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">{{__('msg.coffee diseases')}}</h4>
+                  <div class="table-responsive">
+                  <table class="table table-striped" id="DiseasesTable">
+                    <thead>
+                      <tr>
+                        <th>#</th>
+                        <th>{{__('msg.Disease name')}}</th>
+                        <th>{{__('msg.Disease category')}}</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      @foreach($diseases as $i)
+                      <tr>
+                        <td>{{++$no}}</td>
+                        <td>{{$i->disease_name}}</td>
+                        <td>{{$i->category}}</td>
+                        <td>
+                          <div class="input-group-prepend">
+                            <button class="btn btn-sm btn-outline-primary" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">...</button>
+                            <div class="dropdown-menu">
+                              <a class="dropdown-item" href=""><i class="fa fa-eye" aria-hidden="true"></i>&nbsp; {{__('msg.view')}}</a>
+                              @can('delete-disease')
+                              <a class="dropdown-item" href=""><i class="fa fa-trash" aria-hidden="true"></i>&nbsp; {{__('msg.delete')}}</a>
+                              @endcan
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                      @endforeach
+                    </tbody>
+                  </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6 grid-margin">
+              <div class="card">
+  <div class="card-header">
+    <div class="dropdown">
+      <h6 class="float-left mt-2">Reported disease</h6>
+      <button class="btn btn-secondary dropdown-toggle float-right" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        This Month
+      </button>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <a class="dropdown-item" href="#" id="this-month-link">This Month</a>
+        <a class="dropdown-item" href="#" id="yearly-link">This Year</a>
       </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <div id="this-month-content">
+      <canvas id="MonthlyChart"></canvas>
+    </div>
+    <div id="yearly-content" style="display:none">
+      <canvas id="YearlyChart"></canvas>
+    </div>
+  </div>
+</div>
+
+
+            </div>
+           </div>
+        </div>
       <!-- main-panel ends -->
     </div>
     <!-- page-body-wrapper ends -->
@@ -179,6 +249,132 @@
   <!-- Custom js for this page-->
   <script src="/Customized/js/dashboard.js"></script>
   <!-- End custom js for this page-->
+  <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+  <script>
+  $(document).ready(function() {
+    $('#DiseasesTable').DataTable({
+      "paging": true,
+      "ordering": false,
+      "searching": true
+    });
+  });
+</script>
+<script>
+  document.getElementById("this-month-link").addEventListener("click", function(event) {
+    event.preventDefault(); // Prevent the default link behavior
+    document.getElementById("this-month-content").style.display = "block";
+    document.getElementById("yearly-content").style.display = "none";
+  });
+  
+  document.getElementById("yearly-link").addEventListener("click", function(event) {
+    event.preventDefault(); // Prevent the default link behavior
+    document.getElementById("this-month-content").style.display = "none";
+    document.getElementById("yearly-content").style.display = "block";
+  });
+</script>
+<script>
+    var monthlyCounts = @json($monthlyCounts);
+
+    var labels = [];
+    var countsByDisease = {};
+
+    monthlyCounts.forEach(function(item) {
+        if (!labels.includes(item.month)) {
+            labels.push(item.month);
+        }
+        
+        if (!countsByDisease[item.disease_name]) {
+            countsByDisease[item.disease_name] = [];
+        }
+
+        countsByDisease[item.disease_name].push(item.count);
+    });
+
+    var datasets = [];
+
+    for (var diseaseName in countsByDisease) {
+        var data = countsByDisease[diseaseName];
+
+        datasets.push({
+            label: diseaseName,
+            data: data,
+            fill: false,
+            borderColor: 'rgba(255, 99, 132, 1)',
+            borderWidth: 1
+        });
+    }
+
+    var ctx = document.getElementById('MonthlyChart').getContext('2d');
+    var chart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: datasets
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true,
+                        stepSize:1
+                    }
+                }]
+            }
+        }
+    });
+</script>
+<script>
+    var yearlyCounts = @json($yearlyCounts);
+
+    var labels = [];
+    var countsByDisease = {};
+
+    yearlyCounts.forEach(function(item) {
+        if (!labels.includes(item.year)) {
+            labels.push(item.year);
+        }
+        
+        if (!countsByDisease[item.disease_name]) {
+            countsByDisease[item.disease_name] = [];
+        }
+
+        countsByDisease[item.disease_name].push(item.count);
+    });
+
+    var datasets = [];
+
+    for (var diseaseName in countsByDisease) {
+        var data = countsByDisease[diseaseName];
+
+        datasets.push({
+            label: diseaseName,
+            data: data,
+            fill: false,
+            borderColor: 'rgba(255, 99, 132, 1)',
+            borderWidth: 1
+        });
+    }
+
+    var ctx = document.getElementById('YearlyChart').getContext('2d');
+    var chart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: datasets
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true,
+                        stepSize:1
+                    }
+                }]
+            }
+        }
+        
+    });
+</script>
 </body>
 </html>
 

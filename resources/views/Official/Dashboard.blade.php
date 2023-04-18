@@ -135,12 +135,12 @@
               <span class="menu-title">{{ __('msg.diseases') }}</span>
             </a>
           </li>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a class="nav-link" href="<?=url('Official/Analytics');?>">
               <i class="icon-bar-graph-2 menu-icon"></i>
               <span class="menu-title">{{ __('msg.Analytics')}}</span>
             </a>
-          </li>
+          </li> -->
         </ul>
       </nav>
       <!-- partial -->
@@ -156,7 +156,7 @@
           <div class="row">
               <div class="col-md-3 stretch-card grid-margin">
                 <div class="card bg-gradient-info card-img-holder text-white">
-                  <a href="" style="text-decoration:none; color:white;">
+                  <a href="<?=url('Official/Managers');?>" style="text-decoration:none; color:white;">
                   <div class="card-body">
                   <img src="/Customized/assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
                     <h4 class="font-weight-normal mb-3">{{ __('msg.Managers')}}<i class="icon-head menu-icon float-right"></i>
@@ -169,7 +169,7 @@
               </div>
               <div class="col-md-3 stretch-card grid-margin">
                 <div class="card bg-gradient-success card-img-holder text-white">
-                <a href="" style="text-decoration:none; color:white;">
+                <a href="<?=url('Official/Farmers');?>" style="text-decoration:none; color:white;">
                   <div class="card-body">
                     <img src="/Customized/assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
                     <h4 class="font-weight-normal mb-3">{{ __('msg.farmers')}}<i class="icon-head menu-icon float-right"></i>
@@ -182,7 +182,7 @@
               </div>
               <div class="col-md-3 stretch-card grid-margin">
                 <div class="card bg-gradient-primary card-img-holder text-white">
-                <a href="" style="text-decoration:none; color:white;">
+                <a href="<?=url('Official/Cooperatives');?>" style="text-decoration:none; color:white;">
                   <div class="card-body">
                     <img src="/Customized/assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
                     <h4 class="font-weight-normal mb-3"> {{ __('msg.cooperatives')}}<i class="icon-disc menu-icon float-right"></i>
@@ -195,7 +195,7 @@
               </div>
                <div class="col-md-3 stretch-card grid-margin">
                 <div class="card bg-gradient-danger card-img-holder text-white">
-                <a href="" style="text-decoration:none; color:white;">
+                <a href="<?=url('Official/Diseases');?>" style="text-decoration:none; color:white;">
                   <div class="card-body">
                     <img src="/Customized/assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
                     <h4 class="font-weight-normal mb-3"> {{ __('msg.diseases')}}<i class="icon-command menu-icon float-right"></i>

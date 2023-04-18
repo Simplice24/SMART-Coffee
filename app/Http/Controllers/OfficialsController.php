@@ -239,9 +239,155 @@ class OfficialsController extends Controller
 
           return view('Official/Farmers',['profileImg'=>$profileImg,'farmers'=>$farmers,'no'=>$no]);
         }
-      }
-      public function getDiseases(){
+        elseif($user_role==="Sector-agro"){
+          $Cooperatives = Cooperative::whereIn('province', $users_location->pluck('province'))
+               ->whereIn('district', $users_location->pluck('district'))
+               ->whereIn('sector', $users_location->pluck('sector'))
+               ->get();
+          $cooperativeIds = $Cooperatives->pluck('id');
+          $farmers=Farmer::whereIn('cooperative_id', $cooperativeIds)->get();
+          $no=0;
 
+          return view('Official/Farmers',['profileImg'=>$profileImg,'farmers'=>$farmers,'no'=>$no]);
+        }
+        elseif($user_role==="District-agro"){
+          $Cooperatives = Cooperative::whereIn('province', $users_location->pluck('province'))
+               ->whereIn('district', $users_location->pluck('district'))
+               ->get();
+          $cooperativeIds = $Cooperatives->pluck('id');
+          $farmers=Farmer::whereIn('cooperative_id', $cooperativeIds)->get();
+          $no=0;
+
+          return view('Official/Farmers',['profileImg'=>$profileImg,'farmers'=>$farmers,'no'=>$no]);
+        }else{
+          $farmers=Farmer::all();
+          $no=0;
+          return view('Official/Farmers',['profileImg'=>$profileImg,'farmers'=>$farmers,'no'=>$no]);
+        }
+      }
+
+      public function getDiseases(){
+        $user_id=auth()->user()->id;
+        $profileImg=User::find($user_id);
+        $users_location=User::select('province','district','sector','cell')
+                        ->where('id',$user_id)
+                        ->get();
+        $user_role=User::where('id',$user_id)->value('role');
+        if($user_role==="SEDO"){
+          $Cooperatives = Cooperative::whereIn('province', $users_location->pluck('province'))
+                        ->whereIn('district', $users_location->pluck('district'))
+                        ->whereIn('sector', $users_location->pluck('sector'))
+                        ->whereIn('cell', $users_location->pluck('cell'))
+                        ->get();
+          $cooperativeIds = $Cooperatives->pluck('id');
+          
+          $diseases=Disease::all();  
+          
+          $currentMonth=date('m');
+          $currentYear=date('Y');
+          $monthlyCounts = DB::table('reported_diseases')
+                ->join('diseases', 'reported_diseases.disease_id', '=', 'diseases.id')
+                ->select(DB::raw('MONTH(reported_diseases.created_at) as month'), 'diseases.disease_name', DB::raw('COUNT(*) as count'))
+                ->whereIn('reported_diseases.cooperative_id', $cooperativeIds)
+                ->whereRaw('MONTH(reported_diseases.created_at) = ?', [$currentMonth])
+                ->groupBy('month', 'diseases.disease_name')
+                ->get();
+                
+          $yearlyCounts = DB::table('reported_diseases')
+                ->join('diseases', 'reported_diseases.disease_id', '=', 'diseases.id')
+                ->select(DB::raw('YEAR(reported_diseases.created_at) as year'), 'diseases.disease_name', DB::raw('COUNT(*) as count'))
+                ->whereIn('reported_diseases.cooperative_id', $cooperativeIds)
+                ->whereRaw('YEAR(reported_diseases.created_at) = ?', [$currentYear])
+                ->groupBy('year', 'diseases.disease_name')
+                ->get();      
+          $no=0;
+
+          return view('Official/Diseases',['profileImg'=>$profileImg,'monthlyCounts'=>$monthlyCounts,
+          'no'=>$no,'diseases'=>$diseases,'yearlyCounts'=>$yearlyCounts]);
+        }
+        elseif($user_role==="Sector-agro"){
+          $Cooperatives = Cooperative::whereIn('province', $users_location->pluck('province'))
+                        ->whereIn('district', $users_location->pluck('district'))
+                        ->whereIn('sector', $users_location->pluck('sector'))
+                        ->get();
+          $cooperativeIds = $Cooperatives->pluck('id');
+          
+          $diseases=Disease::all();  
+          
+          $currentMonth=date('m');
+          $currentYear=date('Y');
+          $monthlyCounts = DB::table('reported_diseases')
+                ->join('diseases', 'reported_diseases.disease_id', '=', 'diseases.id')
+                ->select(DB::raw('MONTH(reported_diseases.created_at) as month'), 'diseases.disease_name', DB::raw('COUNT(*) as count'))
+                ->whereIn('reported_diseases.cooperative_id', $cooperativeIds)
+                ->whereRaw('MONTH(reported_diseases.created_at) = ?', [$currentMonth])
+                ->groupBy('month', 'diseases.disease_name')
+                ->get();
+                
+          $yearlyCounts = DB::table('reported_diseases')
+                ->join('diseases', 'reported_diseases.disease_id', '=', 'diseases.id')
+                ->select(DB::raw('YEAR(reported_diseases.created_at) as year'), 'diseases.disease_name', DB::raw('COUNT(*) as count'))
+                ->whereIn('reported_diseases.cooperative_id', $cooperativeIds)
+                ->whereRaw('YEAR(reported_diseases.created_at) = ?', [$currentYear])
+                ->groupBy('year', 'diseases.disease_name')
+                ->get();      
+          $no=0;
+
+          return view('Official/Diseases',['profileImg'=>$profileImg,'monthlyCounts'=>$monthlyCounts,
+          'no'=>$no,'diseases'=>$diseases,'yearlyCounts'=>$yearlyCounts]);
+        }
+        elseif($user_role==="District-agro"){
+          $Cooperatives = Cooperative::whereIn('province', $users_location->pluck('province'))
+                        ->whereIn('district', $users_location->pluck('district'))
+                        ->whereIn('sector', $users_location->pluck('sector'))
+                        ->whereIn('cell', $users_location->pluck('cell'))
+                        ->get();
+          $cooperativeIds = $Cooperatives->pluck('id');
+          
+          $diseases=Disease::all();  
+          
+          $currentMonth=date('m');
+          $currentYear=date('Y');
+          $monthlyCounts = DB::table('reported_diseases')
+                ->join('diseases', 'reported_diseases.disease_id', '=', 'diseases.id')
+                ->select(DB::raw('MONTH(reported_diseases.created_at) as month'), 'diseases.disease_name', DB::raw('COUNT(*) as count'))
+                ->whereIn('reported_diseases.cooperative_id', $cooperativeIds)
+                ->whereRaw('MONTH(reported_diseases.created_at) = ?', [$currentMonth])
+                ->groupBy('month', 'diseases.disease_name')
+                ->get();
+                
+          $yearlyCounts = DB::table('reported_diseases')
+                ->join('diseases', 'reported_diseases.disease_id', '=', 'diseases.id')
+                ->select(DB::raw('YEAR(reported_diseases.created_at) as year'), 'diseases.disease_name', DB::raw('COUNT(*) as count'))
+                ->whereIn('reported_diseases.cooperative_id', $cooperativeIds)
+                ->whereRaw('YEAR(reported_diseases.created_at) = ?', [$currentYear])
+                ->groupBy('year', 'diseases.disease_name')
+                ->get();      
+          $no=0;
+
+          return view('Official/Diseases',['profileImg'=>$profileImg,'monthlyCounts'=>$monthlyCounts,
+          'no'=>$no,'diseases'=>$diseases,'yearlyCounts'=>$yearlyCounts]);
+        }
+        else{
+        $currentMonth = date('m');
+        $currentYear = date('Y');
+        $monthlyCounts = DB::table('reported_diseases')
+                ->join('diseases', 'reported_diseases.disease_id', '=', 'diseases.id')
+                ->select(DB::raw('MONTH(reported_diseases.created_at) as month'), 'diseases.disease_name', DB::raw('COUNT(*) as count'))
+                ->whereRaw('MONTH(reported_diseases.created_at) = ?', [$currentMonth])
+                ->groupBy('month', 'diseases.disease_name')
+                ->get();
+        $yearlyCounts = DB::table('reported_diseases')
+                ->join('diseases', 'reported_diseases.disease_id', '=', 'diseases.id')
+                ->select(DB::raw('YEAR(reported_diseases.created_at) as year'), 'diseases.disease_name', DB::raw('COUNT(*) as count'))
+                ->whereRaw('YEAR(reported_diseases.created_at) = ?', [$currentYear])
+                ->groupBy('year', 'diseases.disease_name')
+                ->get(); 
+        $no=0;        
+
+        return view('Official/Diseases',['profileImg'=>$profileImg,'monthlyCounts'=>$monthlyCounts,
+        'no'=>$no,'diseases'=>$diseases,'yearlyCounts'=>$yearlyCounts]);        
+        }
       }
        
       public function getAnalytics(){

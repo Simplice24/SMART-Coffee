@@ -138,12 +138,12 @@
               <span class="menu-title">{{ __('msg.diseases') }}</span>
             </a>
           </li>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a class="nav-link" href="<?=url('Official/Analytics');?>">
               <i class="icon-bar-graph-2 menu-icon"></i>
               <span class="menu-title">{{ __('msg.Analytics')}}</span>
             </a>
-          </li>
+          </li> -->
         </ul>
       </nav>
       <!-- partial -->
@@ -160,8 +160,8 @@
                       <thead>
                         <tr>
                           <th>#</th>
-                          <th>{{__('msg.full name')}}</th>
-                          <th>{{ __('msg.cooperative')}}</th>
+                          <th>Full name</th>
+                          <th>cooperative</th>
                           <th>actions</th>
                         </tr>
                       </thead>
