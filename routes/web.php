@@ -231,6 +231,8 @@ Route::put('StockUpdate/{id}',[StockController::class,'StockUpdate']);
     
 });
 
+//Location routes
+
 Route::group(['middleware'=>["auth"]],function(){
 
 Route::get('/getDistricts',[DropdownController::class,'getDistricts']);    
@@ -241,10 +243,21 @@ Route::get('/getCells',[DropdownController::class,'getCells']);
 
 });
 
+//Officials routes
+
 Route::group(['middleware'=>["auth"]],function(){
 
 Route::get('Official/Home',[OfficialsController::class,'OfficialsDashboard']);
 
+Route::get('Official/Managers',[OfficialsController::class,'getManagers']);
+
+Route::get('Official/Cooperatives',[OfficialsController::class,'getCooperatives']);
+
+Route::get('Official/Farmers',[OfficialsController::class,'getFarmers']);
+
+Route::get('Official/Diseases',[OfficialsController::class,'getDiseases']);
+
+Route::get('Official/Analytics',[OfficialsController::class,'getAnalytics']);
     
 });
 

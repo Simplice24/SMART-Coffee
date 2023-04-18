@@ -31,8 +31,8 @@
     <!-- partial:partials/_navbar.html -->
     <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
       <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-        <a class="navbar-brand brand-logo" href={{"Home"}}><i class="icon-air-play menu-icon"></i>CCMS</a>
-        <a class="navbar-brand brand-logo-mini" href={{"Home"}}>CCMS</a>
+        <a class="navbar-brand brand-logo" href={{"Official/Home"}}><i class="icon-air-play menu-icon"></i>CCMS</a>
+        <a class="navbar-brand brand-logo-mini" href={{"Official/Home"}}>CCMS</a>
       </div>
       <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
         <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
@@ -112,31 +112,31 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="">
+            <a class="nav-link" href="<?=url('Official/Managers');?>">
               <i class="icon-head menu-icon"></i>
               <span class="menu-title">{{ __('msg.Managers') }}</span>
             </a>
           </li>
            <li class="nav-item">
-            <a class="nav-link" href="">
+            <a class="nav-link" href="<?=url('Official/Cooperatives');?>">
               <i class="icon-disc menu-icon"></i>
               <span class="menu-title">{{ __('msg.cooperatives') }}</span>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="">
-              <i class="icon-pie-graph menu-icon"></i>
+            <a class="nav-link" href="<?=url('Official/Farmers');?>">
+              <i class="icon-head menu-icon"></i>
               <span class="menu-title">{{ __('msg.farmers') }}</span>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="">
+            <a class="nav-link" href="<?=url('Official/Diseases');?>">
               <i class="icon-command menu-icon"></i>
               <span class="menu-title">{{ __('msg.diseases') }}</span>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="">
+            <a class="nav-link" href="<?=url('Official/Analytics');?>">
               <i class="icon-bar-graph-2 menu-icon"></i>
               <span class="menu-title">{{ __('msg.Analytics')}}</span>
             </a>
@@ -162,7 +162,7 @@
                     <h4 class="font-weight-normal mb-3">{{ __('msg.Managers')}}<i class="icon-head menu-icon float-right"></i>
                     </h4>
                     <h1 class="mb-5">{{$numberOfManagers}}</h1>
-                    <!-- <h6 class="card-text"><b>Increased by 23% this month</b></h6> -->
+                    <h6 class="card-text"><b>Increased by 23% this month</b></h6>
                   </div>
                   </a>
                 </div>
@@ -175,7 +175,7 @@
                     <h4 class="font-weight-normal mb-3">{{ __('msg.farmers')}}<i class="icon-head menu-icon float-right"></i>
                     </h4>
                     <h1 class="mb-5">{{$numberOfFarmers}}</h1>
-                    <!-- <h6 class="card-text"><b>Increased by 23% this month</b></h6> -->
+                    <h6 class="card-text"><b>Increased by 23% this month</b></h6>
                   </div>
                 </a>
                 </div>
@@ -188,7 +188,7 @@
                     <h4 class="font-weight-normal mb-3"> {{ __('msg.cooperatives')}}<i class="icon-disc menu-icon float-right"></i>
                     </h4>
                     <h1 class="mb-5">{{$numberOfCooperatives}}</h1>
-                    <!-- <h6 class="card-text"><b>Increased by 23% this month</b></h6> -->
+                    <h6 class="card-text"><b>Increased by 23% this month</b></h6>
                   </div>
                   </a>
                 </div>
@@ -200,7 +200,7 @@
                     <img src="/Customized/assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
                     <h4 class="font-weight-normal mb-3"> {{ __('msg.diseases')}}<i class="icon-command menu-icon float-right"></i>
                     <h1 class="mb-5">{{$diseases}}</h1>
-                    <!-- <h6 class="card-text"><b>Increased by 23% this month</b></h6> -->
+                    <h6 class="card-text"><b>Increased by 23% this month</b></h6>
                   </div> 
                  </a> 
                 </div>

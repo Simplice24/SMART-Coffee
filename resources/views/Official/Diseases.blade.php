@@ -1,19 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
 
+<!DOCTYPE html>
+<html lang="{{ app()->getLocale() }}">
 <head>
   <!-- Required meta tags --> 
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>CCMS</title>
-  <!-- base:css -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
 
+  <!-- base:css -->
   <link rel="stylesheet" href="/Customized/vendors/mdi/css/materialdesignicons.min.css">
   <link rel="stylesheet" href="/Customized/vendors/feather/feather.css">
   <link rel="stylesheet" href="/Customized/vendors/base/vendor.bundle.base.css">
   <!-- endinject -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
   <!-- plugin css for this page -->
   <link rel="stylesheet" href="/Customized/vendors/flag-icon-css/css/flag-icon.min.css"/>
   <link rel="stylesheet" href="/Customized/vendors/font-awesome/css/font-awesome.min.css">
@@ -30,8 +31,8 @@
     <!-- partial:partials/_navbar.html -->
     <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
       <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-        <a class="navbar-brand brand-logo" href={{"Manager/Home"}}>CCMS</a>
-        <a class="navbar-brand brand-logo-mini" href={{"Manager/Home"}}>CCMS</a>
+        <a class="navbar-brand brand-logo" href={{"Official/Home"}}><i class="icon-air-play menu-icon"></i>CCMS</a>
+        <a class="navbar-brand brand-logo-mini" href={{"Official/Home"}}>CCMS</a>
       </div>
       <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
         <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
@@ -64,11 +65,18 @@
             <a class="nav-link count-indicator dropdown-toggle d-flex align-items-center justify-content-center" id="notificationDropdown" href="#" data-toggle="dropdown">
               <i class="icon-cog"></i>
             </a>
+            
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
               <p class="mb-0 font-weight-normal float-left dropdown-header">{{ __('msg.settings') }}</p>
-              <a class="dropdown-item preview-item" href="<?=url('userProfile');?>">               
+              <a class="dropdown-item preview-item" href="">               
                   <i class="icon-head"></i> {{ __('msg.profile') }}
               </a>
+              <!-- <a class="dropdown-item preview-item" href="">               
+                  <i class="icon-head"></i> French
+              </a>
+              <a class="dropdown-item preview-item" href="">               
+                  <i class="icon-head"></i> English
+              </a> -->
               <a class="dropdown-item preview-item" href="<?=url('logout');?>">
                   <i class="icon-inbox"></i> {{ __('msg.logout') }}
               </a>
@@ -98,33 +106,39 @@
         </div>
         <ul class="nav">
           <li class="nav-item">
-            <a class="nav-link" href="<?=url('Manager/Home');?>">
+            <a class="nav-link" href="<?=url('Official/Home');?>">
               <i class="icon-air-play menu-icon"></i>
               <span class="menu-title">{{ __('msg.dashboard') }}</span>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="<?=url('CooperativeFarmers');?>">
-              <i class="icon-pie-graph menu-icon"></i>
+            <a class="nav-link" href="<?=url('Official/Managers');?>">
+              <i class="icon-head menu-icon"></i>
+              <span class="menu-title">{{ __('msg.Managers') }}</span>
+            </a>
+          </li>
+           <li class="nav-item">
+            <a class="nav-link" href="<?=url('Official/Cooperatives');?>">
+              <i class="icon-disc menu-icon"></i>
+              <span class="menu-title">{{ __('msg.cooperatives') }}</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="<?=url('Official/Farmers');?>">
+              <i class="icon-head menu-icon"></i>
               <span class="menu-title">{{ __('msg.farmers') }}</span>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="<?=url('StockDetails');?>">
-              <i class="mdi mdi-stocking menu-icon"></i>
-              <span class="menu-title">Stock </span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="<?=url('CooperativeSales');?>">
-              <i class="mdi mdi-chart-line menu-icon"></i>
-              <span class="menu-title">Sales tracking</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="<?=url('CooperativeDiseases');?>">
+            <a class="nav-link" href="<?=url('Official/Diseases');?>">
               <i class="icon-command menu-icon"></i>
               <span class="menu-title">{{ __('msg.diseases') }}</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="<?=url('Official/Analytics');?>">
+              <i class="icon-bar-graph-2 menu-icon"></i>
+              <span class="menu-title">{{ __('msg.Analytics')}}</span>
             </a>
           </li>
         </ul>
@@ -132,71 +146,7 @@
       <!-- partial -->
       <div class="main-panel">
         <div class="content-wrapper">
-          
-           <div class="row">
-             
-           <div class="container">
-           <div class="main-body">
-          <div class="row gutters-sm">
-            <div class="col-md-4 mb-3">
-              <div class="card">
-                <div class="card-body">
-                  <div class="d-flex flex-column align-items-center text-center">
-                    <img src="{{asset('/storage/images/diseases/'.$diseaseinfo->image)}}" alt="Admin"  width="360x" >
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-8">
-              <div class="card mb-3">
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col-sm-3">
-                      <h6 class="mb-0">{{ __('msg.Disease name') }}</h6>
-                    </div>
-                    <div class="col-sm-9 text-dark">
-                      {{$diseaseinfo->disease_name}}
-                    </div>
-                  </div>
-                  <hr>
-                  <div class="row">
-                    <div class="col-sm-3">
-                      <h6 class="mb-0">{{ __('msg.category')}}</h6>
-                    </div>
-                    <div class="col-sm-9 text-dark">
-                    {{$diseaseinfo->category}}
-                    </div>
-                  </div>
-                  <hr>
-                  <div class="row">
-                    <div class="col-sm-3">
-                      <h6 class="mb-0">{{ __('msg.Description') }}</h6>
-                    </div>
-                    <div class="col-sm-9 text-dark">
-                    {{$diseaseinfo->description}}
-                    </div>
-                  </div>
-                  <hr>
-                  @if (session('error'))
-                        <div class="alert alert-danger">{{ session('error') }}</div>
-                    @endif
-                    
-                  <div class="row">
-                    <div class="col-sm-12">
-                      <a class="btn btn-danger" href={{"ReportingDisease/".$diseaseinfo->id}}>Report disease</a>
-                    </div>
-                  </div>
-                  <hr>
-                  @if (session('success'))
-                        <div class="alert alert-success">{{ session('success') }}</div>
-                  @endif
-                </div>
-              </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        </div>
+       
         </div>
         <!-- content-wrapper ends -->
         <!-- partial:partials/_footer.html -->
@@ -212,7 +162,6 @@
     <!-- page-body-wrapper ends -->
   </div>
   <!-- container-scroller -->
-
   <!-- base:js -->
   <script src="/Customized/vendors/base/vendor.bundle.base.js"></script>
   <!-- endinject -->
@@ -231,6 +180,5 @@
   <script src="/Customized/js/dashboard.js"></script>
   <!-- End custom js for this page-->
 </body>
-
 </html>
 
