@@ -357,14 +357,17 @@
     event.preventDefault(); // Prevent the default link behavior
     document.getElementById("this-month-content").style.display = "block";
     document.getElementById("yearly-content").style.display = "none";
+    document.getElementById("dropdownMenuButton").textContent = "This Month"; // Change button text to "This Month"
   });
   
   document.getElementById("yearly-link").addEventListener("click", function(event) {
     event.preventDefault(); // Prevent the default link behavior
     document.getElementById("this-month-content").style.display = "none";
     document.getElementById("yearly-content").style.display = "block";
+    document.getElementById("dropdownMenuButton").textContent = "This Year"; // Change button text to "This Year"
   });
 </script>
+
 <script>
 var monthlyCounts = @json($monthlyCounts);
 var yearlyCounts = @json($yearlyCounts);
@@ -403,7 +406,7 @@ for (var diseaseName in monthlyCountsByDisease) {
         data: data,
         fill: false,
         borderColor: getRandomColor(),
-        borderWidth: 1
+        borderWidth: 3
     });
 }
 
@@ -451,7 +454,7 @@ for (var diseaseName in yearlyCountsByDisease) {
         data: data,
         fill: false,
         borderColor: getRandomColor(),
-        borderWidth: 1
+        borderWidth: 3
     });
 }
 
