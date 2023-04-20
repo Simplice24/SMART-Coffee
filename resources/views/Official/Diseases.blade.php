@@ -419,6 +419,17 @@ var yearlyChart = new Chart(yearlyCtx, {
       }
     }).addTo(map);
 
+    // Add markers for each district
+    var pinIcon = L.icon({
+      iconUrl: '/Images/pin-icon.png',
+      iconSize: [15, 25],
+      iconAnchor: [15, 50],
+    });
+
+    @foreach ($districts as $district)
+    var marker = L.marker([{{ $district['latitude'] }}, {{ $district['longitude'] }}], { icon: pinIcon }).addTo(map);
+    marker.bindPopup("{{ $district['name'] }}");
+    @endforeach
   });
 </script>
 </body>

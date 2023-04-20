@@ -480,8 +480,6 @@ var yearlyChart = new Chart(yearlyCtx, {
         }
     }
 });
-
-
 </script>
 <script>
   // Initialize the Leaflet map
