@@ -484,7 +484,6 @@ var yearlyChart = new Chart(yearlyCtx, {
 
 </script>
 <script>
-  
   // Initialize the Leaflet map
   var map = L.map('map', {
     minZoom: 9,

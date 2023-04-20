@@ -617,17 +617,24 @@ $DiseaseCategoryPercentage = DB::table('reported_diseases')
     ]);
   
     if (Auth::attempt($credentials)) {
-      $request->session()->put('user',$credentials['email']);
-      $user_id=auth()->user()->id;
-      $user_details=User::find($user_id);
-      $user_role=$user_details->role;
-      if($user_role==="Manager"){
-      return redirect()->intended('Manager/Home');
-      }elseif($user_role==="SEDO" || $user_role==="Sector-agro" || $user_role==="District-agro" || $user_role==="Naeb" || $user_role==="Rab"){
-      return redirect()->intended('Official/Home');  
+      // Store the user's email address in the session
+      session(['email' => $credentials['email'], 'lifetime' => 0]);
+      
+      // Get the user's role
+      $user_id = auth()->user()->id;
+      $user_details = User::find($user_id);
+      $user_role = $user_details->role;
+      
+      // Redirect the user based on their role
+      if ($user_role === "Manager") {
+        return redirect()->intended('Manager/Home');
+      } elseif ($user_role === "SEDO" || $user_role === "Sector-agro" || $user_role === "District-agro" || $user_role === "Naeb" || $user_role === "Rab") {
+        return redirect()->intended('Official/Home');
       }
-      return redirect()->intended('Home');
-    }
+      
+        return redirect()->intended('Home');
+  }
+  
   
     return back()->withErrors([
       'email' => 'The provided credentials do not match our records.',
