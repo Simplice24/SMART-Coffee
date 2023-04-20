@@ -33,31 +33,44 @@ class DiseaseController extends Controller
                 ->get();
         
                 $districts = [
-                    ['name' => 'Kigali City', 'latitude' => -1.9441, 'longitude' => 30.0619],
-                    ['name' => 'Gasabo', 'latitude' => -1.9516, 'longitude' => 30.1166],
-                    ['name' => 'Kicukiro', 'latitude' => -1.9439, 'longitude' => 30.1412],
-                    ['name' => 'Nyarugenge', 'latitude' => -1.9534, 'longitude' => 30.0594],
-                    ['name' => 'Burera', 'latitude' => -1.4671, 'longitude' => 29.8116],
-                    ['name' => 'Gakenke', 'latitude' => -1.7865, 'longitude' => 29.7757],
-                    ['name' => 'Gicumbi', 'latitude' => -1.6784, 'longitude' => 29.7077],
-                    ['name' => 'Musanze', 'latitude' => -1.4793, 'longitude' => 29.5835],
-                    ['name' => 'Rulindo', 'latitude' => -1.5553, 'longitude' => 29.7955],
-                    ['name' => 'Nyabihu', 'latitude' => -1.5231, 'longitude' => 29.4035],
-                    ['name' => 'Nyamasheke', 'latitude' => -2.4376, 'longitude' => 29.1608],
-                    ['name' => 'Rubavu', 'latitude' => -1.7038, 'longitude' => 29.6327],
-                    ['name' => 'Rusizi', 'latitude' => -2.4439, 'longitude' => 28.8947],
-                    ['name' => 'Nyamagabe', 'latitude' => -2.6001, 'longitude' => 29.3729],
-                    ['name' => 'Nyanza', 'latitude' => -2.3526, 'longitude' => 29.7402],
-                    ['name' => 'Huye', 'latitude' => -2.5085, 'longitude' => 29.6415],
-                    ['name' => 'Gisagara', 'latitude' => -2.5299, 'longitude' => 29.7695],
-                    ['name' => 'Kamonyi', 'latitude' => -2.2391, 'longitude' => 29.8109],
-                    ['name' => 'Muhanga', 'latitude' => -2.1663, 'longitude' => 29.7362],
-                    ['name' => 'Ngororero', 'latitude' => -2.5158, 'longitude' => 29.2934],
-                    ['name' => 'Karongi', 'latitude' => -2.0956, 'longitude' => 29.3606],
-                    ['name' => 'Rutsiro', 'latitude' => -2.0778, 'longitude' => 29.1937],
-                    ['name' => 'Ruhango', 'latitude' => -2.1116, 'longitude' => 29.6311],
-                    ['name' => 'Kayonza', 'latitude' => -1.8672, 'longitude' => 30.4289],
-                    ['name' => 'Kirehe', 'latitude' => -2.1315, 'longitude' => 30.4015],
+                    // ['name' => 'Kigali City', 'latitude' => -1.9536 , 'longitude' => 30.0605],
+                    ['name' => 'Gasabo', 'latitude' => -1.9543 , 'longitude' => 30.1358 ],
+                    ['name' => 'Kicukiro', 'latitude' => -1.9906, 'longitude' => 30.1256],
+                    ['name' => 'Nyarugenge', 'latitude' => -1.9544, 'longitude' => 30.0604],
+
+                    ['name' => 'Nyanza', 'latitude' => -2.3418 , 'longitude' => 29.7381],
+                    ['name' => 'Huye', 'latitude' => -2.5061, 'longitude' => 29.6919],
+                    ['name' => 'Gisagara', 'latitude' => -2.4874, 'longitude' => 29.5266],
+                    ['name' => 'Kamonyi', 'latitude' => -2.0618, 'longitude' =>  29.8649],
+                    ['name' => 'Muhanga', 'latitude' => -2.0061, 'longitude' => 29.7386],
+                    ['name' => 'Ruhango', 'latitude' => -2.1459, 'longitude' => 29.7753],
+                    ['name' => 'Nyamagabe', 'latitude' => -2.4687, 'longitude' => 29.5837],
+                    ['name' => 'Nyaruguru', 'latitude' => -2.5853, 'longitude' => 29.5735],
+
+                    ['name' => 'Karongi', 'latitude' => -2.1543, 'longitude' => 29.3688],
+                    ['name' => 'Ngororero', 'latitude' => -2.5022, 'longitude' => 29.5645],
+                    ['name' => 'Nyabihu', 'latitude' => -1.6705, 'longitude' => 29.3594],
+                    ['name' => 'Nyamasheke', 'latitude' => -2.3356, 'longitude' => 29.1196],
+                    ['name' => 'Rubavu', 'latitude' => -1.5074, 'longitude' => 29.6309],
+                    ['name' => 'Rusizi', 'latitude' => -2.4702, 'longitude' => 28.9092],
+                    ['name' => 'Rutsiro', 'latitude' => -2.0736, 'longitude' => 29.1937],
+
+
+                    ['name' => 'Burera', 'latitude' => -1.5986, 'longitude' => 29.6316],
+                    ['name' => 'Gakenke', 'latitude' => -1.7326, 'longitude' => 29.8046],
+                    ['name' => 'Gicumbi', 'latitude' => -1.6850, 'longitude' => 30.0642],
+                    ['name' => 'Musanze', 'latitude' => -1.5014, 'longitude' =>  29.6317],
+                    ['name' => 'Rulindo', 'latitude' => -1.6361, 'longitude' => 30.1165],
+                    
+                    
+                    
+                    ['name' => 'Bugesera', 'latitude' => -2.1841, 'longitude' => 30.0512],
+                    ['name' => 'Gatsibo', 'latitude' => -1.6756, 'longitude' => 30.4091],
+                    ['name' => 'Kayonza', 'latitude' => -1.8623, 'longitude' => 30.5663],
+                    ['name' => 'Kirehe', 'latitude' => -2.1581, 'longitude' => 30.5424],
+                    ['name' => 'Ngoma', 'latitude' => -2.1965, 'longitude' => 30.5285],
+                    ['name' => 'Nyagatare', 'latitude' => -1.3121, 'longitude' => 30.4212],
+                    ['name' => 'Rwamagana', 'latitude' => -1.9514, 'longitude' => 30.4384],
                 ];
                         
 

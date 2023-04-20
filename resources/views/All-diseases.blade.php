@@ -543,7 +543,7 @@ var yearlyChart = new Chart(yearlyCtx, {
     // Add markers for each district
     var pinIcon = L.icon({
       iconUrl: '/Images/pin-icon.png',
-      iconSize: [30, 50],
+      iconSize: [15, 25],
       iconAnchor: [15, 50],
     });
 
