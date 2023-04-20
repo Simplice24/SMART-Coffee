@@ -27,6 +27,10 @@
   <!-- Datatable -->
   <link href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css" rel="stylesheet">
   <!-- End of datatable -->
+  <!-- Leaflet Map -->
+  <link rel="stylesheet" href="{{ asset('leaflet/leaflet.css') }}" />
+  <script src="{{ asset('leaflet/leaflet.js') }}"></script>
+  <!-- End of LeafletMap -->
 </head>
 <body>
   <div class="container-scroller">
@@ -166,6 +170,9 @@
       <!-- partial -->
       <div class="main-panel">
         <div class="content-wrapper">
+        <!-- Leaflet Map -->
+        <div id="map" style="height: 650px; width:780px; margin-bottom:20px;"></div>
+        <!-- End of Leaflet Map -->
           <div class="row">
             <div class="col-sm-12 mb-4 mb-xl-0">
             @can('create-disease')
@@ -359,109 +366,144 @@
   });
 </script>
 <script>
-    var monthlyCounts = @json($monthlyCounts);
+var monthlyCounts = @json($monthlyCounts);
+var yearlyCounts = @json($yearlyCounts);
 
-    var labels = [];
-    var countsByDisease = {};
+function getRandomColor() {
+    var letters = '0123456789ABCDEF';
+    var color = '#';
+    for (var i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+}
 
-    monthlyCounts.forEach(function(item) {
-        if (!labels.includes(item.month)) {
-            labels.push(item.month);
-        }
-        
-        if (!countsByDisease[item.disease_name]) {
-            countsByDisease[item.disease_name] = [];
-        }
+var monthlyLabels = [];
+var monthlyCountsByDisease = {};
 
-        countsByDisease[item.disease_name].push(item.count);
-    });
-
-    var datasets = [];
-
-    for (var diseaseName in countsByDisease) {
-        var data = countsByDisease[diseaseName];
-
-        datasets.push({
-            label: diseaseName,
-            data: data,
-            fill: false,
-            borderColor: 'rgba(255, 99, 132, 1)',
-            borderWidth: 1
-        });
+monthlyCounts.forEach(function(item) {
+    if (!monthlyLabels.includes(item.month)) {
+        monthlyLabels.push(item.month);
+    }
+    
+    if (!monthlyCountsByDisease[item.disease_name]) {
+        monthlyCountsByDisease[item.disease_name] = [];
     }
 
-    var ctx = document.getElementById('MonthlyChart').getContext('2d');
-    var chart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: labels,
-            datasets: datasets
-        },
-        options: {
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true,
-                        stepSize:1
-                    }
-                }]
-            }
-        }
+    monthlyCountsByDisease[item.disease_name].push(item.count);
+});
+
+var monthlyDatasets = [];
+
+for (var diseaseName in monthlyCountsByDisease) {
+    var data = monthlyCountsByDisease[diseaseName];
+
+    monthlyDatasets.push({
+        label: diseaseName,
+        data: data,
+        fill: false,
+        borderColor: getRandomColor(),
+        borderWidth: 1
     });
+}
+
+var monthlyCtx = document.getElementById('MonthlyChart').getContext('2d');
+var monthlyChart = new Chart(monthlyCtx, {
+    type: 'bar',
+    data: {
+        labels: monthlyLabels,
+        datasets: monthlyDatasets
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true,
+                    stepSize:1
+                }
+            }]
+        }
+    }
+});
+
+var yearlyLabels = [];
+var yearlyCountsByDisease = {};
+
+yearlyCounts.forEach(function(item) {
+    if (!yearlyLabels.includes(item.year)) {
+        yearlyLabels.push(item.year);
+    }
+    
+    if (!yearlyCountsByDisease[item.disease_name]) {
+        yearlyCountsByDisease[item.disease_name] = [];
+    }
+
+    yearlyCountsByDisease[item.disease_name].push(item.count);
+});
+
+var yearlyDatasets = [];
+
+for (var diseaseName in yearlyCountsByDisease) {
+    var data = yearlyCountsByDisease[diseaseName];
+
+    yearlyDatasets.push({
+        label: diseaseName,
+        data: data,
+        fill: false,
+        borderColor: getRandomColor(),
+        borderWidth: 1
+    });
+}
+
+var yearlyCtx = document.getElementById('YearlyChart').getContext('2d');
+var yearlyChart = new Chart(yearlyCtx, {
+    type: 'bar',
+    data: {
+        labels: yearlyLabels,
+        datasets: yearlyDatasets
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true,
+                    stepSize:1
+                }
+            }]
+        }
+    }
+});
+
+
 </script>
 <script>
-    var yearlyCounts = @json($yearlyCounts);
+  // Initialize the Leaflet map
+  var map = L.map('map', {
+    minZoom: 9,
+    maxZoom: 14
+  }).setView([-1.9403, 29.8739], 9);
 
-    var labels = [];
-    var countsByDisease = {};
+  // Add a tile layer from OpenStreetMap
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; OpenStreetMap contributors'
+  }).addTo(map);
 
-    yearlyCounts.forEach(function(item) {
-        if (!labels.includes(item.year)) {
-            labels.push(item.year);
-        }
-        
-        if (!countsByDisease[item.disease_name]) {
-            countsByDisease[item.disease_name] = [];
-        }
+  // Load the Rwanda GeoJSON file and add it to the map as a layer
+  $.getJSON("{{ url('geojson/RWA.geo.json') }}", function(data) {
+    var districts = L.geoJSON(data, {
+      filter: function(feature, layer) {
+        return feature.properties.type === "District";
+      }
+    }).addTo(map);
 
-        countsByDisease[item.disease_name].push(item.count);
-    });
+    var provinces = L.geoJSON(data, {
+      filter: function(feature, layer) {
+        return feature.properties.type === "Province";
+      }
+    }).addTo(map);
 
-    var datasets = [];
-
-    for (var diseaseName in countsByDisease) {
-        var data = countsByDisease[diseaseName];
-
-        datasets.push({
-            label: diseaseName,
-            data: data,
-            fill: false,
-            borderColor: 'rgba(255, 99, 132, 1)',
-            borderWidth: 1
-        });
-    }
-
-    var ctx = document.getElementById('YearlyChart').getContext('2d');
-    var chart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: labels,
-            datasets: datasets
-        },
-        options: {
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true,
-                        stepSize:1
-                    }
-                }]
-            }
-        }
-        
-    });
+  });
 </script>
-
 </body>
 
 </html>
