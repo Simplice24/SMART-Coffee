@@ -484,37 +484,7 @@ var yearlyChart = new Chart(yearlyCtx, {
 
 </script>
 <script>
-  var districts = [
-        { name: 'Kigali City', latitude: -1.9441, longitude: 30.0619 },
-        { name: 'Gasabo', latitude: -1.9516, longitude: 30.1166 },
-        { name: 'Kicukiro', latitude: -1.9439, longitude: 30.1412 },
-        { name: 'Nyarugenge', latitude: -1.9534, longitude: 30.0594 },
-        { name: 'Burera', latitude: -1.4671, longitude: 29.8116 },
-        { name: 'Gakenke', latitude: -1.7865, longitude: 29.7757 },
-        { name: 'Gicumbi', latitude: -1.6784, longitude: 29.7077 },
-        { name: 'Musanze', latitude: -1.4793, longitude: 29.5835 },
-        { name: 'Rulindo', latitude: -1.5553, longitude: 29.7955 },
-        { name: 'Nyabihu', latitude: -1.5231, longitude: 29.4035 },
-        { name: 'Nyamasheke', latitude: -2.4376, longitude: 29.1608 },
-        { name: 'Rubavu', latitude: -1.7038, longitude: 29.6327 },
-        { name: 'Rusizi', latitude: -2.4439, longitude: 28.8947 },
-        { name: 'Nyamagabe', latitude: -2.6001, longitude: 29.3729 },
-        { name: 'Nyanza', latitude: -2.3526, longitude: 29.7402 },
-        { name: 'Huye', latitude: -2.5085, longitude: 29.6415 },
-        { name: 'Gisagara', latitude: -2.5299, longitude: 29.7695 },
-        { name: 'Kamonyi', latitude: -2.2391, longitude: 29.8109 },
-        { name: 'Muhanga', latitude: -2.1663, longitude: 29.7362 },
-        { name: 'Ngororero', latitude: -2.5158, longitude: 29.2934 },
-        { name: 'Karongi', latitude: -2.0956, longitude: 29.3606 },
-        { name: 'Rutsiro', latitude: -2.0778, longitude: 29.1937 },
-        { name: 'Ruhango', latitude: -2.1116, longitude: 29.6311 },
-        { name: 'Kayonza', latitude: -1.8672, longitude: 30.4289 },
-        { name: 'Kirehe', latitude: -2.1315, longitude: 30.4015 },
-        { name: 'Ngoma', latitude: -2.1999, longitude: 30.5662 },
-        { name: 'Nyagatare', latitude: -1.4289, longitude: 30.4393 },
-        { name: 'Gatsibo', latitude: -1.8671, longitude: 30.3995 },
-        { name: 'Bugesera', latitude: -2.4268, longitude: 30.1239 }
-    ];
+  
   // Initialize the Leaflet map
   var map = L.map('map', {
     minZoom: 9,

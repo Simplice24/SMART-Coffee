@@ -383,7 +383,7 @@ class OfficialsController extends Controller
                 ->whereRaw('YEAR(reported_diseases.created_at) = ?', [$currentYear])
                 ->groupBy('year', 'diseases.disease_name')
                 ->get(); 
-        $no=0;        
+        $no=0;     
 
         return view('Official/Diseases',['profileImg'=>$profileImg,'monthlyCounts'=>$monthlyCounts,
         'no'=>$no,'diseases'=>$diseases,'yearlyCounts'=>$yearlyCounts]);        

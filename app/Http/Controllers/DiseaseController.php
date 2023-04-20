@@ -55,15 +55,12 @@ class DiseaseController extends Controller
                     ['name' => 'Rusizi', 'latitude' => -2.4702, 'longitude' => 28.9092],
                     ['name' => 'Rutsiro', 'latitude' => -2.0736, 'longitude' => 29.1937],
 
-
                     ['name' => 'Burera', 'latitude' => -1.5986, 'longitude' => 29.6316],
                     ['name' => 'Gakenke', 'latitude' => -1.7326, 'longitude' => 29.8046],
                     ['name' => 'Gicumbi', 'latitude' => -1.6850, 'longitude' => 30.0642],
                     ['name' => 'Musanze', 'latitude' => -1.5014, 'longitude' =>  29.6317],
                     ['name' => 'Rulindo', 'latitude' => -1.6361, 'longitude' => 30.1165],
-                    
-                    
-                    
+                          
                     ['name' => 'Bugesera', 'latitude' => -2.1841, 'longitude' => 30.0512],
                     ['name' => 'Gatsibo', 'latitude' => -1.6756, 'longitude' => 30.4091],
                     ['name' => 'Kayonza', 'latitude' => -1.8623, 'longitude' => 30.5663],
