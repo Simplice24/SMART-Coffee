@@ -154,7 +154,9 @@
       <div class="main-panel">
         <div class="content-wrapper">
         <!-- Leaflet Map -->
-        <div id="map" style="height: 650px; width:780px; margin-bottom:20px;"></div>
+        <div class="col-md-7">
+          <div id="map" style="height: 650px; margin-bottom:20px;"></div>
+        </div>
         <!-- End of Leaflet Map -->
           <div class="row">
             <div class="col-sm-12 mb-4 mb-xl-0">
