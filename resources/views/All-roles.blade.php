@@ -213,17 +213,18 @@
               </div>
             </div>
             <div class="col-md-3  grid-margin">
-                <div class="card">
-                      <div class="card-body">
-                          <h4 class="card-title">NAEB Employees</h4>          
-                          <h4 class="text-dark font-weight-bold mb-2">{{$naeb}}</h4>
-                          <div class="col-sm-10">
-                              <div class="progress progress-lg mt-1">
-                                <div class="progress-bar bg-info" role="progressbar" style="width: {{($naeb/$users *100)}}%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{($naeb/$users *100)}}%</div>
-                              </div>
-                          </div>
-                      </div>
-                      </div>
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">NAEB Employees</h4>          
+                    <h4 class="text-dark font-weight-bold mb-2">{{$naeb}}</h4>
+                    <div class="col-sm-10">
+                        <div class="progress progress-lg mt-1">
+                            <div class="progress-bar bg-info" role="progressbar" style="width: {{($naeb/$users *100)}}%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{($naeb/$users *100)}}%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
                       <div class="card mt-2">
                       <div class="card-body">
                           <h4 class="card-title">District Agronomists</h4>
