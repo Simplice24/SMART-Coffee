@@ -618,8 +618,7 @@ $DiseaseCategoryPercentage = DB::table('reported_diseases')
   
     if (Auth::attempt($credentials)) {
       // Store the user's email address in the session
-      session(['email' => $credentials['email'], 'lifetime' => 0]);
-      
+      Session::put('user', $credentials['email']);
       // Get the user's role
       $user_id = auth()->user()->id;
       $user_details = User::find($user_id);

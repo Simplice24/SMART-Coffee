@@ -162,7 +162,14 @@
                     <h4 class="font-weight-normal mb-3">{{ __('msg.Managers')}}<i class="icon-head menu-icon float-right"></i>
                     </h4>
                     <h1 class="mb-5">{{$numberOfManagers}}</h1>
-                    <h6 class="card-text"><b>Increased by 23% this month</b></h6>
+                    @if($ManagersPercentage>0)
+                    <h6 class="card-text"><b>{{$ManagersPercentage}}% increase this Year</b></h6>
+                    @elseif($ManagersPercentage==0){
+                      <h6 class="card-text"><b>No increase this Year</b></h6>  
+                    }
+                    @else
+                    <h6 class="card-text"><b>{{$ManagersPercentage}}% decrease this Year</b></h6>
+                    @endif
                   </div>
                   </a>
                 </div>
@@ -175,7 +182,13 @@
                     <h4 class="font-weight-normal mb-3">{{ __('msg.farmers')}}<i class="icon-head menu-icon float-right"></i>
                     </h4>
                     <h1 class="mb-5">{{$numberOfFarmers}}</h1>
-                    <h6 class="card-text"><b>Increased by 23% this month</b></h6>
+                    @if($FarmersPercentage>0)
+                    <h6 class="card-text"><b>{{$FarmersPercentage}}% increase this Year</b></h6>
+                    @elseif($FarmersPercentage==0)
+                    <h6 class="card-text"><b>No increase this Year</b></h6>
+                    @else
+                    <h6 class="card-text"><b>{{$FarmersPercentage}}% decrease this Year</b></h6>
+                    @endif
                   </div>
                 </a>
                 </div>
@@ -188,7 +201,13 @@
                     <h4 class="font-weight-normal mb-3"> {{ __('msg.cooperatives')}}<i class="icon-disc menu-icon float-right"></i>
                     </h4>
                     <h1 class="mb-5">{{$numberOfCooperatives}}</h1>
-                    <h6 class="card-text"><b>Increased by 23% this month</b></h6>
+                    @if($coopPercentage>0)
+                    <h6 class="card-text"><b>{{$coopPercentage}}% increase this Year</b></h6>
+                    @elseif($coopPercentage==0)
+                    <h6 class="card-text"><b>No increase this Year</b></h6>
+                    @else
+                    <h6 class="card-text"><b>{{$coopPercentage}}% decrease this Year</b></h6>
+                    @endif
                   </div>
                   </a>
                 </div>

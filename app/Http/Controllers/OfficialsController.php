@@ -26,6 +26,8 @@ class OfficialsController extends Controller
                       ->where('id',$user_id)
                       ->get();
       $user_role=User::where('id',$user_id)->value('role');
+      $currentYear=date('Y');
+      $previousYear=$currentYear-1;
       if($user_role==="SEDO"){
         $Cooperatives = Cooperative::whereIn('province', $users_location->pluck('province'))
              ->whereIn('district', $users_location->pluck('district'))
@@ -41,6 +43,23 @@ class OfficialsController extends Controller
         $managers= DB::table('users')
             ->whereIn('id',$managerIds)
             ->get();
+
+        //Managers percentage 
+        $CurrentYearManagers= DB::table('users')
+            ->whereIn('id',$managerIds)
+            ->whereRaw('YEAR(users.created_at)=?',[$currentYear])
+            ->count(); 
+
+        $PreviousYearManagers= DB::table('users')
+            ->whereIn('id',$managerIds)
+            ->whereRaw('YEAR(users.created_at)=?',[$previousYear])
+            ->count(); 
+        
+        if(!$PreviousYearManagers==0){
+          $ManagersPercentage=($CurrentYearManagers - $PreviousYearManagers) / $PreviousYearManagers *100;
+        }else{
+          $ManagersPercentage=100;
+        }    
             
         $numberOfManagers=DB::table('users')
             ->whereIn('id',$managerIds)
@@ -50,7 +69,21 @@ class OfficialsController extends Controller
 
         $farmers = Farmer::whereIn('cooperative_id', $cooperativeIds)->get();
 
-        $trees= Farmer::whereIn('cooperative_id',$cooperativeIds)->sum('number_of_trees');
+        //Farmers percentage calculation
+        $CurrentYearFarmers=Farmer::whereIn('cooperative_id',$cooperativeIds)
+                           ->whereRaw('YEAR(farmers.created_at)=?',[$currentYear])
+                           ->count();
+                           
+        $PreviousYearFarmers=Farmer::whereIn('cooperative_id',$cooperativeIds)
+                            ->whereRaw('YEAR(farmers.created_at)=?',[$previousYear])
+                            ->count();
+              
+        if(!$PreviousYearFarmers==0){
+          $FarmersPercentage=($CurrentYearFarmers - $PreviousYearFarmers)/ $PreviousYearFarmers * 100;
+        }else{
+          $FarmersPercentage=100;
+        }                    
+                            
 
         $numberOfFarmers = Farmer::whereIn('cooperative_id', $cooperativeIds)->count();
 
@@ -59,10 +92,31 @@ class OfficialsController extends Controller
         ->whereIn('sector', $users_location->pluck('sector'))
         ->whereIn('cell', $users_location->pluck('cell'))
         ->count();
+       //Current and previous year cooperatives
+        $CurrentYearCoop=Cooperative::whereIn('province', $users_location->pluck('province'))
+        ->whereIn('district', $users_location->pluck('district'))
+        ->whereIn('sector', $users_location->pluck('sector'))
+        ->whereIn('cell', $users_location->pluck('cell'))
+        ->whereRaw('YEAR(cooperatives.created_at) = ?', [$currentYear])
+        ->count();
+        $PreviousYearCoop=Cooperative::whereIn('province', $users_location->pluck('province'))
+        ->whereIn('district', $users_location->pluck('district'))
+        ->whereIn('sector', $users_location->pluck('sector'))
+        ->whereIn('cell', $users_location->pluck('cell'))
+        ->whereRaw('YEAR(cooperatives.created_at) = ?', [$previousYear])
+        ->count();
+        //Percentage of Cooperative increase comparing current and previous year
+        if(!$PreviousYearCoop==0){
+          $coopPercentage=($CurrentYearCoop - $PreviousYearCoop) / $PreviousYearCoop * 100;
+        }else{
+          $coopPercentage=100;
+        }
+        
 
         
-        return view('Official/Dashboard',['numberOfCooperatives'=>$numberOfCooperatives,'numberOfFarmers'=>$numberOfFarmers,'trees'=>$trees,
-        'diseases'=>$diseases,'profileImg'=>$profileImg,'numberOfManagers'=>$numberOfManagers]);
+        return view('Official/Dashboard',['numberOfCooperatives'=>$numberOfCooperatives,'numberOfFarmers'=>$numberOfFarmers,
+        'diseases'=>$diseases,'profileImg'=>$profileImg,'numberOfManagers'=>$numberOfManagers,'coopPercentage'=>$coopPercentage,
+        'ManagersPercentage'=>$ManagersPercentage,'FarmersPercentage'=>$FarmersPercentage]);
       }
     }
 
