@@ -39,6 +39,11 @@ class OfficialsController extends Controller
         $managerIds = DB::table('cooperative_user')
             ->whereIn('cooperative_id', $cooperativeIds)
             ->pluck('user_id');
+
+        $farmerIds = DB::table('farmers') 
+                    ->whereIn('cooperative_id',$cooperativeIds)
+                    ->pluck('id');
+                       
         
         $managers= DB::table('users')
             ->whereIn('id',$managerIds)
@@ -144,12 +149,44 @@ class OfficialsController extends Controller
           $FemaleManagercount[]= count($femaleManagers);
         }
 
+        $MaleFarmers=Farmer::whereIn('id',$farmerIds)
+                      ->where('gender','Male')
+                      ->get();
     
+        $MaleFarmersByYearMonth = $MaleFarmers->groupBy(function ($user) {
+                    return $user->created_at->format('Y-m');
+                    });
+        
+        $MaleFarmerMonthYear=[];
+        $MaleFarmercount=[]; 
+        
+        foreach ($MaleFarmersByYearMonth as $yearMonth => $maleFarmers) {
+          $MaleFarmerMonthYear[]=$yearMonth;
+          $MaleFarmercount[]= count($maleFarmers);
+        }
+
+        $FemaleFarmers=Farmer::whereIn('id',$farmerIds)
+                      ->where('gender','Female')
+                      ->get();
+    
+        $FemaleFarmersByYearMonth = $FemaleFarmers->groupBy(function ($user) {
+                    return $user->created_at->format('Y-m');
+                    });
+        
+        $FemaleFarmerMonthYear=[];
+        $FemaleFarmercount=[]; 
+        
+        foreach ($FemaleFarmersByYearMonth as $yearMonth => $femaleFarmers) {
+          $FemaleFarmerMonthYear[]=$yearMonth;
+          $FemaleFarmercount[]= count($femaleFarmers);
+        }
         
         return view('Official/Dashboard',['numberOfCooperatives'=>$numberOfCooperatives,'numberOfFarmers'=>$numberOfFarmers,
         'diseases'=>$diseases,'profileImg'=>$profileImg,'numberOfManagers'=>$numberOfManagers,'coopPercentage'=>$coopPercentage,
         'ManagersPercentage'=>$ManagersPercentage,'FarmersPercentage'=>$FarmersPercentage,'MaleManagerMonthYear'=>$MaleManagerMonthYear,
-        'MaleManagercount'=>$MaleManagercount,'FemaleManagerMonthYear'=>$FemaleManagerMonthYear,'FemaleManagercount'=>$FemaleManagercount]);
+        'MaleManagercount'=>$MaleManagercount,'FemaleManagerMonthYear'=>$FemaleManagerMonthYear,'FemaleManagercount'=>$FemaleManagercount,
+        'MaleFarmerMonthYear'=>$MaleFarmerMonthYear,'MaleFarmercount'=>$MaleFarmercount,'FemaleFarmerMonthYear'=>$FemaleFarmerMonthYear,
+        'FemaleFarmercount'=>$FemaleFarmercount]);
       }
     }
 

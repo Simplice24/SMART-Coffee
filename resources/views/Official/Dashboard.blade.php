@@ -243,7 +243,7 @@
                           <h4 class="card-title">Female managers<i class="mdi mdi-gender-female menu-icon float-right"></i></h4>
                           
                           <h4 class="text-dark font-weight-bold mb-2"></h4>
-                          <canvas id="FemaleUsers"></canvas>
+                          <canvas id="FemaleManagers"></canvas>
                       </div>
                 </div>
               </div>
@@ -444,7 +444,7 @@
 <script>
   var FemaleManagersxValues=@json($FemaleManagerMonthYear);
   var FemaleManagersyValues=@json($FemaleManagercount);
-  new Chart("FemaleUsers", {
+  new Chart("FemaleManagers", {
   type: "bar",
   data: {
     labels: FemaleManagersxValues,
@@ -498,6 +498,120 @@
   }
 });
 </script>  
+<script>
+  var MalefarmerxValues=@json($MaleFarmerMonthYear);
+  var MalefarmeryValues=@json($MaleFarmercount);
+  new Chart("MaleFarmers", {
+  type: "bar",
+  data: {
+    labels: MalefarmerxValues,
+    datasets: [{
+        label: 'Male Users',
+        data: MalefarmeryValues,
+        backgroundColor: "rgb(111,168,220)",
+        borderWidth: 1,
+        fill: false
+      }]
+  },
+  options: {
+    legend: {display: false},
+    title: {
+      display: true,
+    },
+    scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true,
+            display: true,
+            
+          },
+          gridLines: {
+            display: false,
+            drawBorder: false
+          }
+        }],
+        xAxes: [{
+          ticks: {
+            beginAtZero: true,
+            display: true,
+          },
+          gridLines: {
+            display: false,
+            drawBorder: false
+          }
+        }]
+      },
+      legend: {
+        display: false
+      },
+      elements: {
+        point: {
+          radius: 0
+        }
+      },
+      tooltips: {
+        enabled: false
+      }
+  }
+});
+</script> 
+<script>
+var FemalefarmerxValues=@json($FemaleFarmerMonthYear);
+var FemalefarmeryValues=@json($FemaleFarmercount);
+new Chart("FemaleFarmers", {
+  type: "bar",
+  data: {
+    labels: FemalefarmerxValues,
+    datasets: [{
+        label: 'Male Users',
+        data: FemalefarmeryValues,
+        backgroundColor: "rgb(213,166,189)",
+        borderWidth: 1,
+        fill: false
+      }]
+  },
+  options: {
+    legend: {display: false},
+    title: {
+      display: true,
+    },
+    scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true,
+            display: true,
+            
+          },
+          gridLines: {
+            display: false,
+            drawBorder: false
+          }
+        }],
+        xAxes: [{
+          ticks: {
+            beginAtZero: true,
+            display: true,
+          },
+          gridLines: {
+            display: false,
+            drawBorder: false
+          }
+        }]
+      },
+      legend: {
+        display: false
+      },
+      elements: {
+        point: {
+          radius: 0
+        }
+      },
+      tooltips: {
+        enabled: false
+      }
+  }
+});
+</script>
 </body>
 </html>
 
