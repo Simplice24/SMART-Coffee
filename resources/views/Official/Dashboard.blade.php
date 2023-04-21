@@ -228,6 +228,128 @@
 
            <!-- starting point -->
 
+           <div class="row">
+              <div class="col-md-3  grid-margin">
+                <div class="card">
+                      <div class="card-body">
+                          <h4 class="card-title">Male managers<i class="mdi mdi-gender-male menu-icon float-right"></i></h4>
+                          
+                          <h4 class="text-dark font-weight-bold mb-2"></h4>
+                          <canvas id="MaleManagers"></canvas>
+                      </div>
+                      </div>
+                      <div class="card mt-2">
+                      <div class="card-body">
+                          <h4 class="card-title">Female managers<i class="mdi mdi-gender-female menu-icon float-right"></i></h4>
+                          
+                          <h4 class="text-dark font-weight-bold mb-2"></h4>
+                          <canvas id="FemaleUsers"></canvas>
+                      </div>
+                </div>
+              </div>
+              <div class="col-md-3 grid-margin">
+                <div class="card">
+                      <div class="card-body">
+                          <h4 class="card-title">Male farmers<i class="mdi mdi-gender-male menu-icon float-right"></i></h4>
+                          
+                          <h4 class="text-dark font-weight-bold mb-2"></h4>
+                          <canvas id="MaleFarmers"></canvas>
+                      </div>
+                      </div>
+                      <div class="card mt-2">
+                      <div class="card-body">
+                          <h4 class="card-title">Female farmers<i class="mdi mdi-gender-female menu-icon float-right"></i></h4>
+                          
+                          <h4 class="text-dark font-weight-bold mb-2"></h4>
+                          <canvas id="FemaleFarmers"></canvas>
+                      </div>
+                </div>
+              </div>
+              <div class="col-md-3 grid-margin">
+              <div class="card">
+                      <div class="card-body">
+                          <h4 class="card-title">Active cooperatives</h4>
+                          
+                          <h4 class="text-dark font-weight-bold mb-2"></h4>
+                          <canvas id="ActiveCooperatives"></canvas>
+                      </div>
+                      </div>
+                      <div class="card mt-2">
+                      <div class="card-body">
+                          <h4 class="card-title">Inactive cooperatives</h4>
+                          
+                          <h4 class="text-dark font-weight-bold mb-2"></h4>
+                          <canvas id="InactiveCooperatives"></canvas>
+                      </div>
+              </div>      
+               
+              </div>
+               <div class="col-md-3 grid-margin">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title mb-2">Diseases</h4>
+                    <div class="row">
+                      <div class="col-sm-20">
+                        <div class="text-dark">
+                          
+                          <div class="d-flex pb-3 border-bottom justify-content-between">
+                            <div class="mr-3 mt-2"><i class="mdi mdi-signal-cellular-outline icon-md"></i></div>
+                            <div class="font-weight-bold mr-sm-4 mt-2">
+                              <div></div>
+                              <div class="text-muted font-weight-normal mt-1"></div>
+                            </div>
+                            <div><h6 class="font-weight-bold text-danger ml-sm-2 mt-2"></h6></div>
+                          </div>
+                          
+                        </div>
+                      </div>
+                    </div>  
+                  </div>
+                </div>
+                <div class="card mt-2">
+                  <div class="card-body">
+                    <h4 class="card-title">Reported diseases</h4>
+                    <div class="row">
+                      <div class="col-sm-12">
+                          <div class="d-flex justify-content-between mt-2 text-dark mb-2">
+                              <div><span class="font-weight-bold"></span> Reported diseases</div>
+                              
+                            </div>
+                       
+                      </div>
+                      <div class="col-sm-12">
+                        <div class="traffic-source-legend">
+                          <div class="d-flex justify-content-between mb-1 mt-2">
+                            <div class="font-weight-bold">DISEASES</div>
+                            <div class="font-weight-bold">TOTAL</div>
+                          </div>
+                          
+                          <div class="d-flex justify-content-between legend-label">
+                            <div><span class="bg-danger"></span>
+                            </div>
+                            <div>%</div>
+                          </div>
+                        
+                          <div class="d-flex justify-content-between mb-1 mt-2">
+                            <div class="font-weight-bold">CATEGORY</div>
+                            <div class="font-weight-bold">TOTAL</div>
+                          </div>
+                          
+                          <div class="d-flex justify-content-between legend-label">
+                            <div><span class="bg-danger"></span>
+                            
+                            </div>
+                            <div>%</div>
+                          </div>
+                      
+                        </div>
+                      </div>
+                    </div>  
+                  </div>
+                </div>
+              </div>
+           </div>
+
            <!-- ending point -->
 
         </div>
@@ -262,6 +384,120 @@
   <!-- Custom js for this page-->
   <script src="/Customized/js/dashboard.js"></script>
   <!-- End custom js for this page-->
+  <script>
+    var MaleManagersxValues=@json($MaleManagerMonthYear);
+    var MaleManagersyValues=@json($MaleManagercount);
+  new Chart("MaleManagers", {
+  type: "bar",
+  data: {
+    labels: MaleManagersxValues,
+    datasets: [{
+        label: 'Male Managers',
+        data: MaleManagersyValues,
+        backgroundColor: "rgb(111,168,220)",
+        borderWidth: 1,
+        fill: false
+      }]
+  },
+  options: {
+    legend: {display: false},
+    title: {
+      display: true,
+    },
+    scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true,
+            display: true,
+            
+          },
+          gridLines: {
+            display: false,
+            drawBorder: false
+          }
+        }],
+        xAxes: [{
+          ticks: {
+            beginAtZero: true,
+            display: true,
+          },
+          gridLines: {
+            display: false,
+            drawBorder: false
+          }
+        }]
+      },
+      legend: {
+        display: false
+      },
+      elements: {
+        point: {
+          radius: 0
+        }
+      },
+      tooltips: {
+        enabled: false
+      }
+  }
+});
+</script>
+<script>
+  var FemaleManagersxValues=@json($FemaleManagerMonthYear);
+  var FemaleManagersyValues=@json($FemaleManagercount);
+  new Chart("FemaleUsers", {
+  type: "bar",
+  data: {
+    labels: FemaleManagersxValues,
+    datasets: [{
+        label: 'Male Users',
+        data: FemaleManagersyValues,
+        backgroundColor: "rgb(213,166,189)",
+        borderWidth: 1,
+        fill: false
+      }]
+  },
+  options: {
+    legend: {display: false},
+    title: {
+      display: true,
+    },
+    scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true,
+            display: true,
+            
+          },
+          gridLines: {
+            display: false,
+            drawBorder: false
+          }
+        }],
+        xAxes: [{
+          ticks: {
+            beginAtZero: true,
+            display: true,
+          },
+          gridLines: {
+            display: false,
+            drawBorder: false
+          }
+        }]
+      },
+      legend: {
+        display: false
+      },
+      elements: {
+        point: {
+          radius: 0
+        }
+      },
+      tooltips: {
+        enabled: false
+      }
+  }
+});
+</script>  
 </body>
 </html>
 

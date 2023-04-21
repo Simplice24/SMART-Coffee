@@ -111,12 +111,45 @@ class OfficialsController extends Controller
         }else{
           $coopPercentage=100;
         }
-        
 
+        $MaleManagers=User::whereIn('id',$managerIds)
+                      ->where('gender','Male')
+                      ->get();
+    
+        $MaleManagersByYearMonth = $MaleManagers->groupBy(function ($user) {
+                    return $user->created_at->format('Y-m');
+                    });
+        
+        $MaleManagerMonthYear=[];
+        $MaleManagercount=[]; 
+        
+        foreach ($MaleManagersByYearMonth as $yearMonth => $maleManagers) {
+          $MaleManagerMonthYear[]=$yearMonth;
+          $MaleManagercount[]= count($maleManagers);
+        }
+
+        $FemaleManagers=User::whereIn('id',$managerIds)
+                      ->where('gender','Female')
+                      ->get();
+    
+        $FemaleManagersByYearMonth = $FemaleManagers->groupBy(function ($user) {
+                    return $user->created_at->format('Y-m');
+                    });
+        
+        $FemaleManagerMonthYear=[];
+        $FemaleManagercount=[]; 
+        
+        foreach ($FemaleManagersByYearMonth as $yearMonth => $femaleManagers) {
+          $FemaleManagerMonthYear[]=$yearMonth;
+          $FemaleManagercount[]= count($femaleManagers);
+        }
+
+    
         
         return view('Official/Dashboard',['numberOfCooperatives'=>$numberOfCooperatives,'numberOfFarmers'=>$numberOfFarmers,
         'diseases'=>$diseases,'profileImg'=>$profileImg,'numberOfManagers'=>$numberOfManagers,'coopPercentage'=>$coopPercentage,
-        'ManagersPercentage'=>$ManagersPercentage,'FarmersPercentage'=>$FarmersPercentage]);
+        'ManagersPercentage'=>$ManagersPercentage,'FarmersPercentage'=>$FarmersPercentage,'MaleManagerMonthYear'=>$MaleManagerMonthYear,
+        'MaleManagercount'=>$MaleManagercount,'FemaleManagerMonthYear'=>$FemaleManagerMonthYear,'FemaleManagercount'=>$FemaleManagercount]);
       }
     }
 
