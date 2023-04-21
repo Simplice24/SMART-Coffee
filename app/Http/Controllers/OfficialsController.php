@@ -217,6 +217,11 @@ class OfficialsController extends Controller
                     ->select('category', DB::raw('COUNT(*) as current_month_total'))
                     ->groupBy('category')
                     ->get();
+
+        $TotalReportedDiseases= DB::table('reported_diseases')    
+                               ->whereIn('cooperative_id',$cooperativeIds)
+                               ->count();
+                                     
                       
         return view('Official/Dashboard',['numberOfCooperatives'=>$numberOfCooperatives,'numberOfFarmers'=>$numberOfFarmers,
         'diseases'=>$diseases,'profileImg'=>$profileImg,'numberOfManagers'=>$numberOfManagers,'coopPercentage'=>$coopPercentage,
@@ -224,7 +229,7 @@ class OfficialsController extends Controller
         'MaleManagercount'=>$MaleManagercount,'FemaleManagerMonthYear'=>$FemaleManagerMonthYear,'FemaleManagercount'=>$FemaleManagercount,
         'MaleFarmerMonthYear'=>$MaleFarmerMonthYear,'MaleFarmercount'=>$MaleFarmercount,'FemaleFarmerMonthYear'=>$FemaleFarmerMonthYear,
         'FemaleFarmercount'=>$FemaleFarmercount,'ActiveCoopMonthYear'=>$ActiveCoopMonthYear,'ActiveCoopcount'=>$ActiveCoopcount,
-        'InactiveCoopMonthYear'=>$InactiveCoopMonthYear,'InactiveCoopcount'=>$InactiveCoopcount,'Totaldiseases'=>$Totaldiseases]);
+        'InactiveCoopMonthYear'=>$InactiveCoopMonthYear,'InactiveCoopcount'=>$InactiveCoopcount,'Totaldiseases'=>$Totaldiseases,'TotalReportedDiseases'=>$TotalReportedDiseases]);
       }
       elseif($user_role==="Sector-agro"){
         $Cooperatives = Cooperative::whereIn('province', $users_location->pluck('province'))
@@ -414,13 +419,17 @@ class OfficialsController extends Controller
                 ->select('category', DB::raw('COUNT(*) as current_month_total'))
                 ->groupBy('category')
                 ->get();
+
+        $TotalReportedDiseases= DB::table('reported_diseases')    
+                ->whereIn('cooperative_id',$cooperativeIds)
+                ->count();        
         
         return view('Official/Dashboard',['numberOfCooperatives'=>$numberOfCooperatives,'numberOfFarmers'=>$numberOfFarmers,
         'diseases'=>$diseases,'profileImg'=>$profileImg,'numberOfManagers'=>$numberOfManagers,'coopPercentage'=>$coopPercentage,
         'ManagersPercentage'=>$ManagersPercentage,'FarmersPercentage'=>$FarmersPercentage,'MaleManagerMonthYear'=>$MaleManagerMonthYear,
         'MaleManagercount'=>$MaleManagercount,'FemaleManagerMonthYear'=>$FemaleManagerMonthYear,'FemaleManagercount'=>$FemaleManagercount,
         'MaleFarmerMonthYear'=>$MaleFarmerMonthYear,'MaleFarmercount'=>$MaleFarmercount,'FemaleFarmerMonthYear'=>$FemaleFarmerMonthYear,
-        'FemaleFarmercount'=>$FemaleFarmercount,'ActiveCoopMonthYear'=>$ActiveCoopMonthYear,'ActiveCoopcount'=>$ActiveCoopcount,
+        'FemaleFarmercount'=>$FemaleFarmercount,'ActiveCoopMonthYear'=>$ActiveCoopMonthYear,'ActiveCoopcount'=>$ActiveCoopcount,'TotalReportedDiseases'=>$TotalReportedDiseases,
         'InactiveCoopMonthYear'=>$InactiveCoopMonthYear,'InactiveCoopcount'=>$InactiveCoopcount,'Totaldiseases'=>$Totaldiseases]);
       }
       elseif($user_role==="District-agro"){
@@ -611,13 +620,17 @@ class OfficialsController extends Controller
                   ->groupBy('category')
                   ->get();
         
+        $TotalReportedDiseases= DB::table('reported_diseases')    
+                  ->whereIn('cooperative_id',$cooperativeIds)
+                  ->count();           
+        
         return view('Official/Dashboard',['numberOfCooperatives'=>$numberOfCooperatives,'numberOfFarmers'=>$numberOfFarmers,
         'diseases'=>$diseases,'profileImg'=>$profileImg,'numberOfManagers'=>$numberOfManagers,'coopPercentage'=>$coopPercentage,
         'ManagersPercentage'=>$ManagersPercentage,'FarmersPercentage'=>$FarmersPercentage,'MaleManagerMonthYear'=>$MaleManagerMonthYear,
         'MaleManagercount'=>$MaleManagercount,'FemaleManagerMonthYear'=>$FemaleManagerMonthYear,'FemaleManagercount'=>$FemaleManagercount,
         'MaleFarmerMonthYear'=>$MaleFarmerMonthYear,'MaleFarmercount'=>$MaleFarmercount,'FemaleFarmerMonthYear'=>$FemaleFarmerMonthYear,
         'FemaleFarmercount'=>$FemaleFarmercount,'ActiveCoopMonthYear'=>$ActiveCoopMonthYear,'ActiveCoopcount'=>$ActiveCoopcount,'Totaldiseases'=>$Totaldiseases,
-        'InactiveCoopMonthYear'=>$InactiveCoopMonthYear,'InactiveCoopcount'=>$InactiveCoopcount,'diseasesReported'=>$diseasesReported]);
+        'InactiveCoopMonthYear'=>$InactiveCoopMonthYear,'InactiveCoopcount'=>$InactiveCoopcount,'diseasesReported'=>$diseasesReported,'TotalReportedDiseases'=>$TotalReportedDiseases]);
       }else{
         $Cooperatives = Cooperative::all();
         $cooperativeIds = $Cooperatives->pluck('id');
@@ -798,6 +811,14 @@ class OfficialsController extends Controller
         $InactiveCoopMonthYear[]=$yearMonth;
         $InactiveCoopcount[]= count($inactivecoop);
         }
+
+        $Totaldiseases = DB::table('diseases')
+                  ->select('category', DB::raw('COUNT(*) as current_month_total'))
+                  ->groupBy('category')
+                  ->get();
+        
+        $TotalReportedDiseases=ReportedDisease::count();
+
         
         return view('Official/Dashboard',['numberOfCooperatives'=>$numberOfCooperatives,'numberOfFarmers'=>$numberOfFarmers,
         'diseases'=>$diseases,'profileImg'=>$profileImg,'numberOfManagers'=>$numberOfManagers,'coopPercentage'=>$coopPercentage,
@@ -805,7 +826,8 @@ class OfficialsController extends Controller
         'MaleManagercount'=>$MaleManagercount,'FemaleManagerMonthYear'=>$FemaleManagerMonthYear,'FemaleManagercount'=>$FemaleManagercount,
         'MaleFarmerMonthYear'=>$MaleFarmerMonthYear,'MaleFarmercount'=>$MaleFarmercount,'FemaleFarmerMonthYear'=>$FemaleFarmerMonthYear,
         'FemaleFarmercount'=>$FemaleFarmercount,'ActiveCoopMonthYear'=>$ActiveCoopMonthYear,'ActiveCoopcount'=>$ActiveCoopcount,
-        'InactiveCoopMonthYear'=>$InactiveCoopMonthYear,'InactiveCoopcount'=>$InactiveCoopcount]);
+        'InactiveCoopMonthYear'=>$InactiveCoopMonthYear,'InactiveCoopcount'=>$InactiveCoopcount,'Totaldiseases'=>$Totaldiseases,
+        'TotalReportedDiseases'=>$TotalReportedDiseases]);
       }
     }
 

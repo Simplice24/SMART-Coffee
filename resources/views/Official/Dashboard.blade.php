@@ -312,7 +312,7 @@
                     <div class="row">
                       <div class="col-sm-12">
                           <div class="d-flex justify-content-between mt-2 text-dark mb-2">
-                              <div><span class="font-weight-bold"></span> Reported diseases</div>
+                              <div><span class="font-weight-bold">{{$TotalReportedDiseases}}</span> Reported diseases</div>
                               
                             </div>
                        

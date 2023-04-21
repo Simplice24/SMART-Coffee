@@ -345,10 +345,7 @@
                           @foreach($percentByDiseaseCategory as $diseasepercentage)
                           <div class="d-flex justify-content-between legend-label">
                             <div><span class="bg-danger"></span>
-                            <?php
-                            $diseasename=\App\Models\Disease::find($diseasepercentage->disease_id);
-                            echo $diseasename->disease_name;
-                            ?>
+                            {{$diseasepercentage->disease_name}}
                             </div>
                             <div>{{$diseasepercentage->percentage}}%</div>
                           </div>
