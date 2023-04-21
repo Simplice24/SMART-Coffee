@@ -180,13 +180,617 @@ class OfficialsController extends Controller
           $FemaleFarmerMonthYear[]=$yearMonth;
           $FemaleFarmercount[]= count($femaleFarmers);
         }
+
+        $ActiveCooperatives=Cooperative::whereIn('id',$cooperativeIds)
+                      ->where('status','Operating')
+                      ->get();
+    
+        $ActiveByYearMonth = $ActiveCooperatives->groupBy(function ($coop) {
+                    return $coop->created_at->format('Y-m');
+                    });
+        
+        $ActiveCoopMonthYear=[];
+        $ActiveCoopcount=[]; 
+        
+        foreach ($ActiveByYearMonth as $yearMonth => $activecoop) {
+          $ActiveCoopMonthYear[]=$yearMonth;
+          $ActiveCoopcount[]= count($activecoop);
+        }
+
+        $InactiveCooperatives=Cooperative::whereIn('id',$cooperativeIds)
+        ->where('status','Not operating')
+        ->get();
+
+        $InactiveByYearMonth = $InactiveCooperatives->groupBy(function ($coop) {
+              return $coop->created_at->format('Y-m');
+              });
+
+        $InactiveCoopMonthYear=[];
+        $InactiveCoopcount=[]; 
+
+        foreach ($InactiveByYearMonth as $yearMonth => $inactivecoop) {
+        $InactiveCoopMonthYear[]=$yearMonth;
+        $InactiveCoopcount[]= count($inactivecoop);
+        }
         
         return view('Official/Dashboard',['numberOfCooperatives'=>$numberOfCooperatives,'numberOfFarmers'=>$numberOfFarmers,
         'diseases'=>$diseases,'profileImg'=>$profileImg,'numberOfManagers'=>$numberOfManagers,'coopPercentage'=>$coopPercentage,
         'ManagersPercentage'=>$ManagersPercentage,'FarmersPercentage'=>$FarmersPercentage,'MaleManagerMonthYear'=>$MaleManagerMonthYear,
         'MaleManagercount'=>$MaleManagercount,'FemaleManagerMonthYear'=>$FemaleManagerMonthYear,'FemaleManagercount'=>$FemaleManagercount,
         'MaleFarmerMonthYear'=>$MaleFarmerMonthYear,'MaleFarmercount'=>$MaleFarmercount,'FemaleFarmerMonthYear'=>$FemaleFarmerMonthYear,
-        'FemaleFarmercount'=>$FemaleFarmercount]);
+        'FemaleFarmercount'=>$FemaleFarmercount,'ActiveCoopMonthYear'=>$ActiveCoopMonthYear,'ActiveCoopcount'=>$ActiveCoopcount,
+        'InactiveCoopMonthYear'=>$InactiveCoopMonthYear,'InactiveCoopcount'=>$InactiveCoopcount]);
+      }
+      elseif($user_role==="Sector-agro"){
+        $Cooperatives = Cooperative::whereIn('province', $users_location->pluck('province'))
+             ->whereIn('district', $users_location->pluck('district'))
+             ->whereIn('sector', $users_location->pluck('sector'))
+             ->get();
+        $cooperativeIds = $Cooperatives->pluck('id');
+
+        $managerIds = DB::table('cooperative_user')
+            ->whereIn('cooperative_id', $cooperativeIds)
+            ->pluck('user_id');
+
+        $farmerIds = DB::table('farmers') 
+                    ->whereIn('cooperative_id',$cooperativeIds)
+                    ->pluck('id');
+                       
+        
+        $managers= DB::table('users')
+            ->whereIn('id',$managerIds)
+            ->get();
+
+        //Managers percentage 
+        $CurrentYearManagers= DB::table('users')
+            ->whereIn('id',$managerIds)
+            ->whereRaw('YEAR(users.created_at)=?',[$currentYear])
+            ->count(); 
+
+        $PreviousYearManagers= DB::table('users')
+            ->whereIn('id',$managerIds)
+            ->whereRaw('YEAR(users.created_at)=?',[$previousYear])
+            ->count(); 
+        
+        if(!$PreviousYearManagers==0){
+          $ManagersPercentage=($CurrentYearManagers - $PreviousYearManagers) / $PreviousYearManagers *100;
+        }else{
+          $ManagersPercentage=100;
+        }    
+            
+        $numberOfManagers=DB::table('users')
+            ->whereIn('id',$managerIds)
+            ->count();   
+
+        $diseases=Disease::count();
+
+        $farmers = Farmer::whereIn('cooperative_id', $cooperativeIds)->get();
+
+        //Farmers percentage calculation
+        $CurrentYearFarmers=Farmer::whereIn('cooperative_id',$cooperativeIds)
+                           ->whereRaw('YEAR(farmers.created_at)=?',[$currentYear])
+                           ->count();
+                           
+        $PreviousYearFarmers=Farmer::whereIn('cooperative_id',$cooperativeIds)
+                            ->whereRaw('YEAR(farmers.created_at)=?',[$previousYear])
+                            ->count();
+              
+        if(!$PreviousYearFarmers==0){
+          $FarmersPercentage=($CurrentYearFarmers - $PreviousYearFarmers)/ $PreviousYearFarmers * 100;
+        }else{
+          $FarmersPercentage=100;
+        }                    
+                            
+
+        $numberOfFarmers = Farmer::whereIn('cooperative_id', $cooperativeIds)->count();
+
+        $numberOfCooperatives=Cooperative::whereIn('province', $users_location->pluck('province'))
+        ->whereIn('district', $users_location->pluck('district'))
+        ->whereIn('sector', $users_location->pluck('sector'))
+        ->whereIn('cell', $users_location->pluck('cell'))
+        ->count();
+       //Current and previous year cooperatives
+        $CurrentYearCoop=Cooperative::whereIn('province', $users_location->pluck('province'))
+        ->whereIn('district', $users_location->pluck('district'))
+        ->whereIn('sector', $users_location->pluck('sector'))
+        ->whereIn('cell', $users_location->pluck('cell'))
+        ->whereRaw('YEAR(cooperatives.created_at) = ?', [$currentYear])
+        ->count();
+        $PreviousYearCoop=Cooperative::whereIn('province', $users_location->pluck('province'))
+        ->whereIn('district', $users_location->pluck('district'))
+        ->whereIn('sector', $users_location->pluck('sector'))
+        ->whereIn('cell', $users_location->pluck('cell'))
+        ->whereRaw('YEAR(cooperatives.created_at) = ?', [$previousYear])
+        ->count();
+        //Percentage of Cooperative increase comparing current and previous year
+        if(!$PreviousYearCoop==0){
+          $coopPercentage=($CurrentYearCoop - $PreviousYearCoop) / $PreviousYearCoop * 100;
+        }else{
+          $coopPercentage=100;
+        }
+
+        $MaleManagers=User::whereIn('id',$managerIds)
+                      ->where('gender','Male')
+                      ->get();
+    
+        $MaleManagersByYearMonth = $MaleManagers->groupBy(function ($user) {
+                    return $user->created_at->format('Y-m');
+                    });
+        
+        $MaleManagerMonthYear=[];
+        $MaleManagercount=[]; 
+        
+        foreach ($MaleManagersByYearMonth as $yearMonth => $maleManagers) {
+          $MaleManagerMonthYear[]=$yearMonth;
+          $MaleManagercount[]= count($maleManagers);
+        }
+
+        $FemaleManagers=User::whereIn('id',$managerIds)
+                      ->where('gender','Female')
+                      ->get();
+    
+        $FemaleManagersByYearMonth = $FemaleManagers->groupBy(function ($user) {
+                    return $user->created_at->format('Y-m');
+                    });
+        
+        $FemaleManagerMonthYear=[];
+        $FemaleManagercount=[]; 
+        
+        foreach ($FemaleManagersByYearMonth as $yearMonth => $femaleManagers) {
+          $FemaleManagerMonthYear[]=$yearMonth;
+          $FemaleManagercount[]= count($femaleManagers);
+        }
+
+        $MaleFarmers=Farmer::whereIn('id',$farmerIds)
+                      ->where('gender','Male')
+                      ->get();
+    
+        $MaleFarmersByYearMonth = $MaleFarmers->groupBy(function ($user) {
+                    return $user->created_at->format('Y-m');
+                    });
+        
+        $MaleFarmerMonthYear=[];
+        $MaleFarmercount=[]; 
+        
+        foreach ($MaleFarmersByYearMonth as $yearMonth => $maleFarmers) {
+          $MaleFarmerMonthYear[]=$yearMonth;
+          $MaleFarmercount[]= count($maleFarmers);
+        }
+
+        $FemaleFarmers=Farmer::whereIn('id',$farmerIds)
+                      ->where('gender','Female')
+                      ->get();
+    
+        $FemaleFarmersByYearMonth = $FemaleFarmers->groupBy(function ($user) {
+                    return $user->created_at->format('Y-m');
+                    });
+        
+        $FemaleFarmerMonthYear=[];
+        $FemaleFarmercount=[]; 
+        
+        foreach ($FemaleFarmersByYearMonth as $yearMonth => $femaleFarmers) {
+          $FemaleFarmerMonthYear[]=$yearMonth;
+          $FemaleFarmercount[]= count($femaleFarmers);
+        }
+
+        $ActiveCooperatives=Cooperative::whereIn('id',$cooperativeIds)
+                      ->where('status','Operating')
+                      ->get();
+    
+        $ActiveByYearMonth = $ActiveCooperatives->groupBy(function ($coop) {
+                    return $coop->created_at->format('Y-m');
+                    });
+        
+        $ActiveCoopMonthYear=[];
+        $ActiveCoopcount=[]; 
+        
+        foreach ($ActiveByYearMonth as $yearMonth => $activecoop) {
+          $ActiveCoopMonthYear[]=$yearMonth;
+          $ActiveCoopcount[]= count($activecoop);
+        }
+
+        $InactiveCooperatives=Cooperative::whereIn('id',$cooperativeIds)
+        ->where('status','Not operating')
+        ->get();
+
+        $InactiveByYearMonth = $InactiveCooperatives->groupBy(function ($coop) {
+              return $coop->created_at->format('Y-m');
+              });
+
+        $InactiveCoopMonthYear=[];
+        $InactiveCoopcount=[]; 
+
+        foreach ($InactiveByYearMonth as $yearMonth => $inactivecoop) {
+        $InactiveCoopMonthYear[]=$yearMonth;
+        $InactiveCoopcount[]= count($inactivecoop);
+        }
+        
+        return view('Official/Dashboard',['numberOfCooperatives'=>$numberOfCooperatives,'numberOfFarmers'=>$numberOfFarmers,
+        'diseases'=>$diseases,'profileImg'=>$profileImg,'numberOfManagers'=>$numberOfManagers,'coopPercentage'=>$coopPercentage,
+        'ManagersPercentage'=>$ManagersPercentage,'FarmersPercentage'=>$FarmersPercentage,'MaleManagerMonthYear'=>$MaleManagerMonthYear,
+        'MaleManagercount'=>$MaleManagercount,'FemaleManagerMonthYear'=>$FemaleManagerMonthYear,'FemaleManagercount'=>$FemaleManagercount,
+        'MaleFarmerMonthYear'=>$MaleFarmerMonthYear,'MaleFarmercount'=>$MaleFarmercount,'FemaleFarmerMonthYear'=>$FemaleFarmerMonthYear,
+        'FemaleFarmercount'=>$FemaleFarmercount,'ActiveCoopMonthYear'=>$ActiveCoopMonthYear,'ActiveCoopcount'=>$ActiveCoopcount,
+        'InactiveCoopMonthYear'=>$InactiveCoopMonthYear,'InactiveCoopcount'=>$InactiveCoopcount]);
+      }
+      elseif($user_role==="District-agro"){
+        $Cooperatives = Cooperative::whereIn('province', $users_location->pluck('province'))
+             ->whereIn('district', $users_location->pluck('district'))
+             ->get();
+        $cooperativeIds = $Cooperatives->pluck('id');
+
+        $managerIds = DB::table('cooperative_user')
+            ->whereIn('cooperative_id', $cooperativeIds)
+            ->pluck('user_id');
+
+        $farmerIds = DB::table('farmers') 
+                    ->whereIn('cooperative_id',$cooperativeIds)
+                    ->pluck('id');
+                       
+        
+        $managers= DB::table('users')
+            ->whereIn('id',$managerIds)
+            ->get();
+
+        //Managers percentage 
+        $CurrentYearManagers= DB::table('users')
+            ->whereIn('id',$managerIds)
+            ->whereRaw('YEAR(users.created_at)=?',[$currentYear])
+            ->count(); 
+
+        $PreviousYearManagers= DB::table('users')
+            ->whereIn('id',$managerIds)
+            ->whereRaw('YEAR(users.created_at)=?',[$previousYear])
+            ->count(); 
+        
+        if(!$PreviousYearManagers==0){
+          $ManagersPercentage=($CurrentYearManagers - $PreviousYearManagers) / $PreviousYearManagers *100;
+        }else{
+          $ManagersPercentage=100;
+        }    
+            
+        $numberOfManagers=DB::table('users')
+            ->whereIn('id',$managerIds)
+            ->count();   
+
+        $diseases=Disease::count();
+
+        $farmers = Farmer::whereIn('cooperative_id', $cooperativeIds)->get();
+
+        //Farmers percentage calculation
+        $CurrentYearFarmers=Farmer::whereIn('cooperative_id',$cooperativeIds)
+                           ->whereRaw('YEAR(farmers.created_at)=?',[$currentYear])
+                           ->count();
+                           
+        $PreviousYearFarmers=Farmer::whereIn('cooperative_id',$cooperativeIds)
+                            ->whereRaw('YEAR(farmers.created_at)=?',[$previousYear])
+                            ->count();
+              
+        if(!$PreviousYearFarmers==0){
+          $FarmersPercentage=($CurrentYearFarmers - $PreviousYearFarmers)/ $PreviousYearFarmers * 100;
+        }else{
+          $FarmersPercentage=100;
+        }                    
+                            
+
+        $numberOfFarmers = Farmer::whereIn('cooperative_id', $cooperativeIds)->count();
+
+        $numberOfCooperatives=Cooperative::whereIn('province', $users_location->pluck('province'))
+        ->whereIn('district', $users_location->pluck('district'))
+        ->whereIn('sector', $users_location->pluck('sector'))
+        ->whereIn('cell', $users_location->pluck('cell'))
+        ->count();
+       //Current and previous year cooperatives
+        $CurrentYearCoop=Cooperative::whereIn('province', $users_location->pluck('province'))
+        ->whereIn('district', $users_location->pluck('district'))
+        ->whereIn('sector', $users_location->pluck('sector'))
+        ->whereIn('cell', $users_location->pluck('cell'))
+        ->whereRaw('YEAR(cooperatives.created_at) = ?', [$currentYear])
+        ->count();
+        $PreviousYearCoop=Cooperative::whereIn('province', $users_location->pluck('province'))
+        ->whereIn('district', $users_location->pluck('district'))
+        ->whereIn('sector', $users_location->pluck('sector'))
+        ->whereIn('cell', $users_location->pluck('cell'))
+        ->whereRaw('YEAR(cooperatives.created_at) = ?', [$previousYear])
+        ->count();
+        //Percentage of Cooperative increase comparing current and previous year
+        if(!$PreviousYearCoop==0){
+          $coopPercentage=($CurrentYearCoop - $PreviousYearCoop) / $PreviousYearCoop * 100;
+        }else{
+          $coopPercentage=100;
+        }
+
+        $MaleManagers=User::whereIn('id',$managerIds)
+                      ->where('gender','Male')
+                      ->get();
+    
+        $MaleManagersByYearMonth = $MaleManagers->groupBy(function ($user) {
+                    return $user->created_at->format('Y-m');
+                    });
+        
+        $MaleManagerMonthYear=[];
+        $MaleManagercount=[]; 
+        
+        foreach ($MaleManagersByYearMonth as $yearMonth => $maleManagers) {
+          $MaleManagerMonthYear[]=$yearMonth;
+          $MaleManagercount[]= count($maleManagers);
+        }
+
+        $FemaleManagers=User::whereIn('id',$managerIds)
+                      ->where('gender','Female')
+                      ->get();
+    
+        $FemaleManagersByYearMonth = $FemaleManagers->groupBy(function ($user) {
+                    return $user->created_at->format('Y-m');
+                    });
+        
+        $FemaleManagerMonthYear=[];
+        $FemaleManagercount=[]; 
+        
+        foreach ($FemaleManagersByYearMonth as $yearMonth => $femaleManagers) {
+          $FemaleManagerMonthYear[]=$yearMonth;
+          $FemaleManagercount[]= count($femaleManagers);
+        }
+
+        $MaleFarmers=Farmer::whereIn('id',$farmerIds)
+                      ->where('gender','Male')
+                      ->get();
+    
+        $MaleFarmersByYearMonth = $MaleFarmers->groupBy(function ($user) {
+                    return $user->created_at->format('Y-m');
+                    });
+        
+        $MaleFarmerMonthYear=[];
+        $MaleFarmercount=[]; 
+        
+        foreach ($MaleFarmersByYearMonth as $yearMonth => $maleFarmers) {
+          $MaleFarmerMonthYear[]=$yearMonth;
+          $MaleFarmercount[]= count($maleFarmers);
+        }
+
+        $FemaleFarmers=Farmer::whereIn('id',$farmerIds)
+                      ->where('gender','Female')
+                      ->get();
+    
+        $FemaleFarmersByYearMonth = $FemaleFarmers->groupBy(function ($user) {
+                    return $user->created_at->format('Y-m');
+                    });
+        
+        $FemaleFarmerMonthYear=[];
+        $FemaleFarmercount=[]; 
+        
+        foreach ($FemaleFarmersByYearMonth as $yearMonth => $femaleFarmers) {
+          $FemaleFarmerMonthYear[]=$yearMonth;
+          $FemaleFarmercount[]= count($femaleFarmers);
+        }
+
+        $ActiveCooperatives=Cooperative::whereIn('id',$cooperativeIds)
+                      ->where('status','Operating')
+                      ->get();
+    
+        $ActiveByYearMonth = $ActiveCooperatives->groupBy(function ($coop) {
+                    return $coop->created_at->format('Y-m');
+                    });
+        
+        $ActiveCoopMonthYear=[];
+        $ActiveCoopcount=[]; 
+        
+        foreach ($ActiveByYearMonth as $yearMonth => $activecoop) {
+          $ActiveCoopMonthYear[]=$yearMonth;
+          $ActiveCoopcount[]= count($activecoop);
+        }
+
+        $InactiveCooperatives=Cooperative::whereIn('id',$cooperativeIds)
+        ->where('status','Not operating')
+        ->get();
+
+        $InactiveByYearMonth = $InactiveCooperatives->groupBy(function ($coop) {
+              return $coop->created_at->format('Y-m');
+              });
+
+        $InactiveCoopMonthYear=[];
+        $InactiveCoopcount=[]; 
+
+        foreach ($InactiveByYearMonth as $yearMonth => $inactivecoop) {
+        $InactiveCoopMonthYear[]=$yearMonth;
+        $InactiveCoopcount[]= count($inactivecoop);
+        }
+        
+        return view('Official/Dashboard',['numberOfCooperatives'=>$numberOfCooperatives,'numberOfFarmers'=>$numberOfFarmers,
+        'diseases'=>$diseases,'profileImg'=>$profileImg,'numberOfManagers'=>$numberOfManagers,'coopPercentage'=>$coopPercentage,
+        'ManagersPercentage'=>$ManagersPercentage,'FarmersPercentage'=>$FarmersPercentage,'MaleManagerMonthYear'=>$MaleManagerMonthYear,
+        'MaleManagercount'=>$MaleManagercount,'FemaleManagerMonthYear'=>$FemaleManagerMonthYear,'FemaleManagercount'=>$FemaleManagercount,
+        'MaleFarmerMonthYear'=>$MaleFarmerMonthYear,'MaleFarmercount'=>$MaleFarmercount,'FemaleFarmerMonthYear'=>$FemaleFarmerMonthYear,
+        'FemaleFarmercount'=>$FemaleFarmercount,'ActiveCoopMonthYear'=>$ActiveCoopMonthYear,'ActiveCoopcount'=>$ActiveCoopcount,
+        'InactiveCoopMonthYear'=>$InactiveCoopMonthYear,'InactiveCoopcount'=>$InactiveCoopcount]);
+      }else{
+        $Cooperatives = Cooperative::all();
+        $cooperativeIds = $Cooperatives->pluck('id');
+
+        $managerIds = DB::table('cooperative_user')
+            ->whereIn('cooperative_id', $cooperativeIds)
+            ->pluck('user_id');
+
+        $farmerIds = DB::table('farmers') 
+                    ->whereIn('cooperative_id',$cooperativeIds)
+                    ->pluck('id');
+                       
+        
+        $managers= DB::table('users')
+            ->whereIn('id',$managerIds)
+            ->get();
+
+        //Managers percentage 
+        $CurrentYearManagers= DB::table('users')
+            ->whereIn('id',$managerIds)
+            ->whereRaw('YEAR(users.created_at)=?',[$currentYear])
+            ->count(); 
+
+        $PreviousYearManagers= DB::table('users')
+            ->whereIn('id',$managerIds)
+            ->whereRaw('YEAR(users.created_at)=?',[$previousYear])
+            ->count(); 
+        
+        if(!$PreviousYearManagers==0){
+          $ManagersPercentage=($CurrentYearManagers - $PreviousYearManagers) / $PreviousYearManagers *100;
+        }else{
+          $ManagersPercentage=100;
+        }    
+            
+        $numberOfManagers=DB::table('users')
+            ->whereIn('id',$managerIds)
+            ->count();   
+
+        $diseases=Disease::count();
+
+        $farmers = Farmer::whereIn('cooperative_id', $cooperativeIds)->get();
+
+        //Farmers percentage calculation
+        $CurrentYearFarmers=Farmer::whereIn('cooperative_id',$cooperativeIds)
+                           ->whereRaw('YEAR(farmers.created_at)=?',[$currentYear])
+                           ->count();
+                           
+        $PreviousYearFarmers=Farmer::whereIn('cooperative_id',$cooperativeIds)
+                            ->whereRaw('YEAR(farmers.created_at)=?',[$previousYear])
+                            ->count();
+              
+        if(!$PreviousYearFarmers==0){
+          $FarmersPercentage=($CurrentYearFarmers - $PreviousYearFarmers)/ $PreviousYearFarmers * 100;
+        }else{
+          $FarmersPercentage=100;
+        }                    
+                            
+
+        $numberOfFarmers = Farmer::whereIn('cooperative_id', $cooperativeIds)->count();
+
+        $numberOfCooperatives=Cooperative::whereIn('province', $users_location->pluck('province'))
+        ->whereIn('district', $users_location->pluck('district'))
+        ->whereIn('sector', $users_location->pluck('sector'))
+        ->whereIn('cell', $users_location->pluck('cell'))
+        ->count();
+       //Current and previous year cooperatives
+        $CurrentYearCoop=Cooperative::whereIn('province', $users_location->pluck('province'))
+        ->whereIn('district', $users_location->pluck('district'))
+        ->whereIn('sector', $users_location->pluck('sector'))
+        ->whereIn('cell', $users_location->pluck('cell'))
+        ->whereRaw('YEAR(cooperatives.created_at) = ?', [$currentYear])
+        ->count();
+        $PreviousYearCoop=Cooperative::whereIn('province', $users_location->pluck('province'))
+        ->whereIn('district', $users_location->pluck('district'))
+        ->whereIn('sector', $users_location->pluck('sector'))
+        ->whereIn('cell', $users_location->pluck('cell'))
+        ->whereRaw('YEAR(cooperatives.created_at) = ?', [$previousYear])
+        ->count();
+        //Percentage of Cooperative increase comparing current and previous year
+        if(!$PreviousYearCoop==0){
+          $coopPercentage=($CurrentYearCoop - $PreviousYearCoop) / $PreviousYearCoop * 100;
+        }else{
+          $coopPercentage=100;
+        }
+
+        $MaleManagers=User::whereIn('id',$managerIds)
+                      ->where('gender','Male')
+                      ->get();
+    
+        $MaleManagersByYearMonth = $MaleManagers->groupBy(function ($user) {
+                    return $user->created_at->format('Y-m');
+                    });
+        
+        $MaleManagerMonthYear=[];
+        $MaleManagercount=[]; 
+        
+        foreach ($MaleManagersByYearMonth as $yearMonth => $maleManagers) {
+          $MaleManagerMonthYear[]=$yearMonth;
+          $MaleManagercount[]= count($maleManagers);
+        }
+
+        $FemaleManagers=User::whereIn('id',$managerIds)
+                      ->where('gender','Female')
+                      ->get();
+    
+        $FemaleManagersByYearMonth = $FemaleManagers->groupBy(function ($user) {
+                    return $user->created_at->format('Y-m');
+                    });
+        
+        $FemaleManagerMonthYear=[];
+        $FemaleManagercount=[]; 
+        
+        foreach ($FemaleManagersByYearMonth as $yearMonth => $femaleManagers) {
+          $FemaleManagerMonthYear[]=$yearMonth;
+          $FemaleManagercount[]= count($femaleManagers);
+        }
+
+        $MaleFarmers=Farmer::whereIn('id',$farmerIds)
+                      ->where('gender','Male')
+                      ->get();
+    
+        $MaleFarmersByYearMonth = $MaleFarmers->groupBy(function ($user) {
+                    return $user->created_at->format('Y-m');
+                    });
+        
+        $MaleFarmerMonthYear=[];
+        $MaleFarmercount=[]; 
+        
+        foreach ($MaleFarmersByYearMonth as $yearMonth => $maleFarmers) {
+          $MaleFarmerMonthYear[]=$yearMonth;
+          $MaleFarmercount[]= count($maleFarmers);
+        }
+
+        $FemaleFarmers=Farmer::whereIn('id',$farmerIds)
+                      ->where('gender','Female')
+                      ->get();
+    
+        $FemaleFarmersByYearMonth = $FemaleFarmers->groupBy(function ($user) {
+                    return $user->created_at->format('Y-m');
+                    });
+        
+        $FemaleFarmerMonthYear=[];
+        $FemaleFarmercount=[]; 
+        
+        foreach ($FemaleFarmersByYearMonth as $yearMonth => $femaleFarmers) {
+          $FemaleFarmerMonthYear[]=$yearMonth;
+          $FemaleFarmercount[]= count($femaleFarmers);
+        }
+
+        $ActiveCooperatives=Cooperative::whereIn('id',$cooperativeIds)
+                      ->where('status','Operating')
+                      ->get();
+    
+        $ActiveByYearMonth = $ActiveCooperatives->groupBy(function ($coop) {
+                    return $coop->created_at->format('Y-m');
+                    });
+        
+        $ActiveCoopMonthYear=[];
+        $ActiveCoopcount=[]; 
+        
+        foreach ($ActiveByYearMonth as $yearMonth => $activecoop) {
+          $ActiveCoopMonthYear[]=$yearMonth;
+          $ActiveCoopcount[]= count($activecoop);
+        }
+
+        $InactiveCooperatives=Cooperative::whereIn('id',$cooperativeIds)
+        ->where('status','Not operating')
+        ->get();
+
+        $InactiveByYearMonth = $InactiveCooperatives->groupBy(function ($coop) {
+              return $coop->created_at->format('Y-m');
+              });
+
+        $InactiveCoopMonthYear=[];
+        $InactiveCoopcount=[]; 
+
+        foreach ($InactiveByYearMonth as $yearMonth => $inactivecoop) {
+        $InactiveCoopMonthYear[]=$yearMonth;
+        $InactiveCoopcount[]= count($inactivecoop);
+        }
+        
+        return view('Official/Dashboard',['numberOfCooperatives'=>$numberOfCooperatives,'numberOfFarmers'=>$numberOfFarmers,
+        'diseases'=>$diseases,'profileImg'=>$profileImg,'numberOfManagers'=>$numberOfManagers,'coopPercentage'=>$coopPercentage,
+        'ManagersPercentage'=>$ManagersPercentage,'FarmersPercentage'=>$FarmersPercentage,'MaleManagerMonthYear'=>$MaleManagerMonthYear,
+        'MaleManagercount'=>$MaleManagercount,'FemaleManagerMonthYear'=>$FemaleManagerMonthYear,'FemaleManagercount'=>$FemaleManagercount,
+        'MaleFarmerMonthYear'=>$MaleFarmerMonthYear,'MaleFarmercount'=>$MaleFarmercount,'FemaleFarmerMonthYear'=>$FemaleFarmerMonthYear,
+        'FemaleFarmercount'=>$FemaleFarmercount,'ActiveCoopMonthYear'=>$ActiveCoopMonthYear,'ActiveCoopcount'=>$ActiveCoopcount,
+        'InactiveCoopMonthYear'=>$InactiveCoopMonthYear,'InactiveCoopcount'=>$InactiveCoopcount]);
       }
     }
 
@@ -231,7 +835,7 @@ class OfficialsController extends Controller
   
           $managerIds = DB::table('cooperative_user')
               ->whereIn('cooperative_id', $cooperativeIds)
-              ->pluck('user_id');
+              ->pluck('user_id');   
            
           $managers = DB::table('users')
               ->whereIn('users.id', $managerIds)
@@ -252,7 +856,7 @@ class OfficialsController extends Controller
     
             $managerIds = DB::table('cooperative_user')
                 ->whereIn('cooperative_id', $cooperativeIds)
-                ->pluck('user_id');
+                ->pluck('user_id');   
              
             $managers = DB::table('users')
                 ->whereIn('users.id', $managerIds)
@@ -271,6 +875,7 @@ class OfficialsController extends Controller
               $managerIds = DB::table('cooperative_user')
                 ->whereIn('cooperative_id', $cooperativeIds)
                 ->pluck('user_id');
+
                 $managers = DB::table('users')
                 ->whereIn('users.id', $managerIds)
                 ->leftJoin('cooperative_user', 'users.id', '=', 'cooperative_user.user_id')

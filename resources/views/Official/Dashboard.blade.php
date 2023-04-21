@@ -612,6 +612,121 @@ new Chart("FemaleFarmers", {
   }
 });
 </script>
+<script>
+  var activexValues=@json($ActiveCoopMonthYear);
+  var activeyValues=@json($ActiveCoopcount);
+
+  new Chart("ActiveCooperatives", {
+  type: "bar",
+  data: {
+    labels: activexValues,
+    datasets: [{
+        label: 'Male Users',
+        data: activeyValues,
+        backgroundColor: "rgb(84, 214, 139)",
+        borderWidth: 1,
+        fill: false
+      }]
+  },
+  options: {
+    legend: {display: false},
+    title: {
+      display: true,
+    },
+    scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true,
+            display: true,
+            
+          },
+          gridLines: {
+            display: false,
+            drawBorder: false
+          }
+        }],
+        xAxes: [{
+          ticks: {
+            beginAtZero: true,
+            display: true,
+          },
+          gridLines: {
+            display: false,
+            drawBorder: false
+          }
+        }]
+      },
+      legend: {
+        display: false
+      },
+      elements: {
+        point: {
+          radius: 0
+        }
+      },
+      tooltips: {
+        enabled: false
+      }
+  }
+});
+</script> 
+<script>
+  var InactivecoopxValues=@json($InactiveCoopMonthYear);
+  var InactivecoopyValues=@json($InactiveCoopcount);
+  new Chart("InactiveCooperatives", {
+  type: "bar",
+  data: {
+    labels: InactivecoopxValues,
+    datasets: [{
+        label: 'Male Users',
+        data: InactivecoopyValues,
+        backgroundColor: "rgb(234, 199, 44)",
+        borderWidth: 1,
+        fill: false
+      }]
+  },
+  options: {
+    legend: {display: false},
+    title: {
+      display: true,
+    },
+    scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true,
+            display: true,
+            
+          },
+          gridLines: {
+            display: false,
+            drawBorder: false
+          }
+        }],
+        xAxes: [{
+          ticks: {
+            beginAtZero: true,
+            display: true,
+          },
+          gridLines: {
+            display: false,
+            drawBorder: false
+          }
+        }]
+      },
+      legend: {
+        display: false
+      },
+      elements: {
+        point: {
+          radius: 0
+        }
+      },
+      tooltips: {
+        enabled: false
+      }
+  }
+});
+</script>  
 </body>
 </html>
 
