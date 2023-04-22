@@ -438,7 +438,22 @@ class OfficialsController extends Controller
 
         $TotalReportedDiseases= DB::table('reported_diseases')    
                 ->whereIn('cooperative_id',$cooperativeIds)
-                ->count();        
+                ->count(); 
+                
+        $percentByDiseaseCategory =DB::table('diseases')
+                               ->select('diseases.id', 'diseases.disease_name as disease_name', DB::raw('ROUND(COUNT(reported_diseases.id) * 100 / SUM(COUNT(*)) OVER(), 0) AS percentage'))
+                               ->join('reported_diseases', 'diseases.id', '=', 'reported_diseases.disease_id')
+                               ->whereIn('reported_diseases.cooperative_id',$cooperativeIds)
+                               ->groupBy('diseases.id','disease_name')
+                               ->orderBy('percentage', 'desc')
+                               ->get();
+                               
+        
+        $DiseaseCategoryPercentage = DB::table('reported_diseases')
+                              ->select('disease_category', DB::raw('ROUND(COUNT(*) * 100.0 / SUM(COUNT(*)) OVER ()) AS percentage'))
+                              ->whereIn('cooperative_id',$cooperativeIds)
+                              ->groupBy('disease_category')
+                              ->get();
         
         return view('Official/Dashboard',['numberOfCooperatives'=>$numberOfCooperatives,'numberOfFarmers'=>$numberOfFarmers,
         'diseases'=>$diseases,'profileImg'=>$profileImg,'numberOfManagers'=>$numberOfManagers,'coopPercentage'=>$coopPercentage,
@@ -446,7 +461,8 @@ class OfficialsController extends Controller
         'MaleManagercount'=>$MaleManagercount,'FemaleManagerMonthYear'=>$FemaleManagerMonthYear,'FemaleManagercount'=>$FemaleManagercount,
         'MaleFarmerMonthYear'=>$MaleFarmerMonthYear,'MaleFarmercount'=>$MaleFarmercount,'FemaleFarmerMonthYear'=>$FemaleFarmerMonthYear,
         'FemaleFarmercount'=>$FemaleFarmercount,'ActiveCoopMonthYear'=>$ActiveCoopMonthYear,'ActiveCoopcount'=>$ActiveCoopcount,'TotalReportedDiseases'=>$TotalReportedDiseases,
-        'InactiveCoopMonthYear'=>$InactiveCoopMonthYear,'InactiveCoopcount'=>$InactiveCoopcount,'Totaldiseases'=>$Totaldiseases]);
+        'InactiveCoopMonthYear'=>$InactiveCoopMonthYear,'InactiveCoopcount'=>$InactiveCoopcount,'Totaldiseases'=>$Totaldiseases,'percentByDiseaseCategory'=>$percentByDiseaseCategory,
+        'DiseaseCategoryPercentage'=>$DiseaseCategoryPercentage]);
       }
       elseif($user_role==="District-agro"){
         $Cooperatives = Cooperative::whereIn('province', $users_location->pluck('province'))
@@ -640,13 +656,29 @@ class OfficialsController extends Controller
                   ->whereIn('cooperative_id',$cooperativeIds)
                   ->count();           
         
+        $percentByDiseaseCategory =DB::table('diseases')
+                  ->select('diseases.id', 'diseases.disease_name as disease_name', DB::raw('ROUND(COUNT(reported_diseases.id) * 100 / SUM(COUNT(*)) OVER(), 0) AS percentage'))
+                  ->join('reported_diseases', 'diseases.id', '=', 'reported_diseases.disease_id')
+                  ->whereIn('reported_diseases.cooperative_id',$cooperativeIds)
+                  ->groupBy('diseases.id','disease_name')
+                  ->orderBy('percentage', 'desc')
+                  ->get();
+                  
+
+        $DiseaseCategoryPercentage = DB::table('reported_diseases')
+                 ->select('disease_category', DB::raw('ROUND(COUNT(*) * 100.0 / SUM(COUNT(*)) OVER ()) AS percentage'))
+                 ->whereIn('cooperative_id',$cooperativeIds)
+                 ->groupBy('disease_category')
+                 ->get();
+                  
         return view('Official/Dashboard',['numberOfCooperatives'=>$numberOfCooperatives,'numberOfFarmers'=>$numberOfFarmers,
         'diseases'=>$diseases,'profileImg'=>$profileImg,'numberOfManagers'=>$numberOfManagers,'coopPercentage'=>$coopPercentage,
         'ManagersPercentage'=>$ManagersPercentage,'FarmersPercentage'=>$FarmersPercentage,'MaleManagerMonthYear'=>$MaleManagerMonthYear,
         'MaleManagercount'=>$MaleManagercount,'FemaleManagerMonthYear'=>$FemaleManagerMonthYear,'FemaleManagercount'=>$FemaleManagercount,
         'MaleFarmerMonthYear'=>$MaleFarmerMonthYear,'MaleFarmercount'=>$MaleFarmercount,'FemaleFarmerMonthYear'=>$FemaleFarmerMonthYear,
         'FemaleFarmercount'=>$FemaleFarmercount,'ActiveCoopMonthYear'=>$ActiveCoopMonthYear,'ActiveCoopcount'=>$ActiveCoopcount,'Totaldiseases'=>$Totaldiseases,
-        'InactiveCoopMonthYear'=>$InactiveCoopMonthYear,'InactiveCoopcount'=>$InactiveCoopcount,'diseasesReported'=>$diseasesReported,'TotalReportedDiseases'=>$TotalReportedDiseases]);
+        'InactiveCoopMonthYear'=>$InactiveCoopMonthYear,'InactiveCoopcount'=>$InactiveCoopcount,'diseasesReported'=>$diseasesReported,'TotalReportedDiseases'=>$TotalReportedDiseases,
+        'percentByDiseaseCategory'=>$percentByDiseaseCategory,'DiseaseCategoryPercentage'=>$DiseaseCategoryPercentage]);
       }else{
         $Cooperatives = Cooperative::all();
         $cooperativeIds = $Cooperatives->pluck('id');
@@ -835,6 +867,19 @@ class OfficialsController extends Controller
         
         $TotalReportedDiseases=ReportedDisease::count();
 
+        $percentByDiseaseCategory =DB::table('diseases')
+                        ->select('diseases.id', 'diseases.disease_name as disease_name', DB::raw('ROUND(COUNT(reported_diseases.id) * 100 / SUM(COUNT(*)) OVER(), 0) AS percentage'))
+                        ->join('reported_diseases', 'diseases.id', '=', 'reported_diseases.disease_id')
+                        ->groupBy('diseases.id','disease_name')
+                        ->orderBy('percentage', 'desc')
+                        ->get();
+
+        $DiseaseCategoryPercentage = DB::table('reported_diseases')
+                            ->select('disease_category', DB::raw('ROUND(COUNT(*) * 100.0 / SUM(COUNT(*)) OVER ()) AS percentage'))
+                            ->groupBy('disease_category')
+                            ->get();    
+   
+
         
         return view('Official/Dashboard',['numberOfCooperatives'=>$numberOfCooperatives,'numberOfFarmers'=>$numberOfFarmers,
         'diseases'=>$diseases,'profileImg'=>$profileImg,'numberOfManagers'=>$numberOfManagers,'coopPercentage'=>$coopPercentage,
@@ -843,7 +888,8 @@ class OfficialsController extends Controller
         'MaleFarmerMonthYear'=>$MaleFarmerMonthYear,'MaleFarmercount'=>$MaleFarmercount,'FemaleFarmerMonthYear'=>$FemaleFarmerMonthYear,
         'FemaleFarmercount'=>$FemaleFarmercount,'ActiveCoopMonthYear'=>$ActiveCoopMonthYear,'ActiveCoopcount'=>$ActiveCoopcount,
         'InactiveCoopMonthYear'=>$InactiveCoopMonthYear,'InactiveCoopcount'=>$InactiveCoopcount,'Totaldiseases'=>$Totaldiseases,
-        'TotalReportedDiseases'=>$TotalReportedDiseases]);
+        'TotalReportedDiseases'=>$TotalReportedDiseases,'percentByDiseaseCategory'=>$percentByDiseaseCategory,
+        'DiseaseCategoryPercentage'=>$DiseaseCategoryPercentage]);
       }
     }
 
