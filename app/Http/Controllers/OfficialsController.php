@@ -222,6 +222,7 @@ class OfficialsController extends Controller
                                ->whereIn('cooperative_id',$cooperativeIds)
                                ->count();
                                      
+                       
                       
         return view('Official/Dashboard',['numberOfCooperatives'=>$numberOfCooperatives,'numberOfFarmers'=>$numberOfFarmers,
         'diseases'=>$diseases,'profileImg'=>$profileImg,'numberOfManagers'=>$numberOfManagers,'coopPercentage'=>$coopPercentage,

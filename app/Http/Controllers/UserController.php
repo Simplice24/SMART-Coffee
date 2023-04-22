@@ -336,6 +336,7 @@ foreach ($inactiveCoopByYearMonth as $yearMonth => $inactive) {
 }
 
 $TotalReportedDiseases=ReportedDisease::count();
+
 $percentByDiseaseCategory =DB::table('diseases')
 ->select('diseases.id', 'diseases.disease_name as disease_name', DB::raw('ROUND(COUNT(reported_diseases.id) * 100 / SUM(COUNT(*)) OVER(), 0) AS percentage'))
 ->join('reported_diseases', 'diseases.id', '=', 'reported_diseases.disease_id')
