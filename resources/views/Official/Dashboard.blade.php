@@ -323,25 +323,26 @@
                             <div class="font-weight-bold">DISEASES</div>
                             <div class="font-weight-bold">TOTAL</div>
                           </div>
-                          
+                          @foreach($percentByDiseaseCategory as $diseasepercentage)
                           <div class="d-flex justify-content-between legend-label">
                             <div><span class="bg-danger"></span>
+                            {{$diseasepercentage->disease_name}}
                             </div>
-                            <div>%</div>
+                            <div>{{$diseasepercentage->percentage}}%</div>
                           </div>
-                        
+                          @endforeach
                           <div class="d-flex justify-content-between mb-1 mt-2">
                             <div class="font-weight-bold">CATEGORY</div>
                             <div class="font-weight-bold">TOTAL</div>
                           </div>
-                          
+                          @foreach($DiseaseCategoryPercentage as $categorypercentage)
                           <div class="d-flex justify-content-between legend-label">
                             <div><span class="bg-danger"></span>
-                            
+                            {{$categorypercentage->disease_category}}
                             </div>
-                            <div>%</div>
+                            <div>{{$categorypercentage->percentage}}%</div>
                           </div>
-                      
+                          @endforeach
                         </div>
                       </div>
                     </div>  
