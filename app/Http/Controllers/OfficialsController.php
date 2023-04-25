@@ -1156,7 +1156,7 @@ class OfficialsController extends Controller
             ['name' => 'Burera', 'latitude' => -1.5986, 'longitude' => 29.6316],
             ['name' => 'Gakenke', 'latitude' => -1.7326, 'longitude' => 29.8046],
             ['name' => 'Gicumbi', 'latitude' => -1.6850, 'longitude' => 30.0642],
-            ['name' => 'Musanze', 'latitude' => -1.5014, 'longitude' =>  29.6317],
+            ['name' => 'Musanze', 'latitude' => -1.5012, 'longitude' => 29.6359 ],
             ['name' => 'Rulindo', 'latitude' => -1.6361, 'longitude' => 30.1165],
                   
             ['name' => 'Bugesera', 'latitude' => -2.1841, 'longitude' => 30.0512],
