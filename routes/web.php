@@ -10,6 +10,8 @@ use App\Http\Controllers\SalesController;
 use App\Http\Controllers\StockController;
 use App\Http\Controllers\DropdownController;
 use App\Http\Controllers\OfficialsController;
+use App\Http\Controllers\ReporterController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -116,8 +118,17 @@ Route::put('CooperativeFarmerUpdate/{id}',[FarmerController::class,'CooperativeF
 
 Route::get('DeleteCooperativeFarmer/{id}',[FarmerController::class,'DeleteCooperativeFarmer']);
 
+
 });
 
+
+//Reporter's routes
+
+Route::group(['middleware'=>["auth"]],function(){
+
+Route::get('reportPrevilege/{id}',[ReporterController::class,'ReportPrevilegePage']);
+
+});
 
 // diseases' routes
 

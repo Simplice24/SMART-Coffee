@@ -15,6 +15,7 @@ return new class extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('farmer_id');
             $table->string('username');
+            $table->string('email');
             $table->string('password');
             $table->timestamps();
 
