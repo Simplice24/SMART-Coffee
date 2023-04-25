@@ -137,6 +137,9 @@
         <div class="content-wrapper">
           <div class="row">
             <div class="col-sm-12 mb-4 mb-xl-0">
+            @if (session('success'))
+                        <div class="alert alert-success">{{ session('success') }}</div>
+            @endif
             <li class="nav-item dropdown d-lg-flex d-none">
                 <a href="<?=url('Register-Farmer');?>"><button type="button" class="btn btn-info font-weight-bold">+{{__('msg.new farmer')}}</button></a>
             </li>

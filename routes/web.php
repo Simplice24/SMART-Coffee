@@ -128,6 +128,8 @@ Route::group(['middleware'=>["auth"]],function(){
 
 Route::get('reportPrevilege/{id}',[ReporterController::class,'ReportPrevilegePage']);
 
+Route::post('reportPrevilege/Grant-previlege',[ReporterController::class,'GrantPrevilege']);
+
 });
 
 // diseases' routes

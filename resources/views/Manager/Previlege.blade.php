@@ -148,7 +148,7 @@
                     @csrf
                     <div class="form-group d-none">
                       <label for="exampleInputUsername1">Farmer id</label>
-                      <input type="text" class="form-control" name="username" value="{{$farmer}}" required>
+                      <input type="text" class="form-control" name="farmer_id" value="{{$farmer}}" required>
                     </div>
                     <div class="form-group">
                       <label for="exampleInputUsername1">Username</label>
@@ -164,9 +164,12 @@
                     </div>
                     <div class="form-group">
                       <label for="exampleInputConfirmPassword1">Confirm Password</label>
-                      <input type="password" class="form-control" name="confirm-password" placeholder="Password" required>
+                      <input type="password" class="form-control" name="confirm_password" placeholder="Password" required>
                     </div>
                     <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                    @if (session('error'))
+                        <div class="alert alert-danger">{{ session('error') }}</div>
+                    @endif
                   </form>
                 </div>
               </div>
