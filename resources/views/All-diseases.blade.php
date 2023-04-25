@@ -175,6 +175,20 @@
         <div class="col-md-7">
           <div id="map" style="height: 650px; margin-bottom:20px;"></div>
         </div>
+        <div class="col-md-5">
+        <div class="card">
+  <div class="card-header">
+    <div class="dropdown">
+      <h6 class="float-left mt-2">Reported disease</h6>
+    </div>
+  </div>
+  <div class="card-body">
+    <div>
+      <canvas id="ReportedDiseases"></canvas>
+    </div>
+  </div>
+</div>
+        </div>  
         <!-- End of Leaflet Map -->
         </div>
           <div class="row">
@@ -287,7 +301,7 @@
                   </div>
                 </div>
               </div> -->
-              <div class="card">
+  <div class="card">
   <div class="card-header">
     <div class="dropdown">
       <h6 class="float-left mt-2">Reported disease</h6>
@@ -520,7 +534,80 @@ var yearlyChart = new Chart(yearlyCtx, {
     @endforeach
   });
 </script>
-</body>
+<script>
+var DiseaseCounts = @json($DiseaseReported);
 
+function getRandomColor() {
+    var letters = '0123456789ABCDEF';
+    var color = '#';
+    for (var i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+}
+
+var YearMonthLabels = [];
+var YearMonthlyCountsByDisease = {};
+
+DiseaseCounts.forEach(function(item) {
+    var YearMonth = item.YearMonth;
+    var diseaseName = item.disease_name;
+    var count = item.count;
+
+    if (!YearMonthLabels.includes(YearMonth)) {
+        YearMonthLabels.push(YearMonth);
+    }
+
+    if (!YearMonthlyCountsByDisease[diseaseName]) {
+        YearMonthlyCountsByDisease[diseaseName] = {};
+    }
+
+    if (!YearMonthlyCountsByDisease[diseaseName][YearMonth]) {
+        YearMonthlyCountsByDisease[diseaseName][YearMonth] = 0;
+    }
+
+    YearMonthlyCountsByDisease[diseaseName][YearMonth] += count;
+});
+
+var YearMonthlyDatasets = [];
+
+for (var diseaseName in YearMonthlyCountsByDisease) {
+    var data = [];
+
+    for (var i = 0; i < YearMonthLabels.length; i++) {
+        var YearMonth = YearMonthLabels[i];
+        var count = YearMonthlyCountsByDisease[diseaseName][YearMonth] || 0;
+        data.push(count);
+    }
+
+    YearMonthlyDatasets.push({
+        label: diseaseName,
+        data: data,
+        fill: false,
+        borderColor: getRandomColor(),
+        borderWidth: 3
+    });
+}
+
+var YearMonthlyCtx = document.getElementById('ReportedDiseases').getContext('2d');
+var YearMonthlyChart = new Chart(YearMonthlyCtx, {
+    type: 'bar',
+    data: {
+        labels: YearMonthLabels,
+        datasets: YearMonthlyDatasets
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true,
+                    stepSize: 1
+                }
+            }]
+        }
+    }
+});
+</script> 
+</body>
 </html>
 

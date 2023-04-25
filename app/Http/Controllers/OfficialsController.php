@@ -235,7 +235,8 @@ class OfficialsController extends Controller
                               ->select('disease_category', DB::raw('ROUND(COUNT(*) * 100.0 / SUM(COUNT(*)) OVER ()) AS percentage'))
                               ->whereIn('cooperative_id',$cooperativeIds)
                               ->groupBy('disease_category')
-                              ->get();
+                              ->get();                     
+                                                
                                
                       
         return view('Official/Dashboard',['numberOfCooperatives'=>$numberOfCooperatives,'numberOfFarmers'=>$numberOfFarmers,
