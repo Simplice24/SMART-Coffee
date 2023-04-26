@@ -40,7 +40,9 @@
     <div class="container-fluid p-0 nav-bar">
         <nav class="navbar navbar-expand-lg bg-none navbar-dark py-3">
             <a href="{{url('/')}}" class="navbar-brand px-lg-4 m-0">
-                <h1 class="m-0 display-4 text-uppercase text-white"><i class="icon-air-play menu-icon"></i>CCMS</h1>
+                <h1 class="m-0 display-4 text-uppercase text-white">
+                    <img src="logo.png" alt="My Logo" width="100" height="100"></i>CCMS
+                </h1>
             </a>
             <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
                 <span class="navbar-toggler-icon"></span>
