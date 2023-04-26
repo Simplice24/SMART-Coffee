@@ -1,20 +1,19 @@
-
 <!DOCTYPE html>
-<html lang="{{ app()->getLocale() }}">
+<html lang="en">
+
 <head>
   <!-- Required meta tags --> 
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>CCMS</title>
+  <!-- base:css -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
 
-  <!-- base:css -->
   <link rel="stylesheet" href="/Customized/vendors/mdi/css/materialdesignicons.min.css">
   <link rel="stylesheet" href="/Customized/vendors/feather/feather.css">
   <link rel="stylesheet" href="/Customized/vendors/base/vendor.bundle.base.css">
   <!-- endinject -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
   <!-- plugin css for this page -->
   <link rel="stylesheet" href="/Customized/vendors/flag-icon-css/css/flag-icon.min.css"/>
   <link rel="stylesheet" href="/Customized/vendors/font-awesome/css/font-awesome.min.css">
@@ -25,9 +24,6 @@
   <link rel="stylesheet" href="/Customized/css/style.css">
   <!-- endinject -->
   <link rel="shortcut icon" href="/Customized/images/favicon.png" />
-  <!-- Datatable -->
-  <link href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css" rel="stylesheet">
-  <!-- End of datatable -->
 </head>
 <body>
   <div class="container-scroller">
@@ -152,57 +148,138 @@
       <!-- partial -->
       <div class="main-panel">
         <div class="content-wrapper">
-        <div class="row">
+          
+           <div class="row">
              
-           <div class="col-lg-12 grid-margin">
+           <div class="container">
+           <div class="main-body">
+          <div class="row gutters-sm">
+            <div class="col-md-4 mb-3">
               <div class="card">
                 <div class="card-body">
-                  <h4 class="card-title">{{ __('msg.Farmers') }}</h4>
-                  <div class="table-responsive">
-                  <table class="table table-striped" id="FarmersTable">
-                      <thead>
-                        <tr>
-                          <th>#</th>
-                          <th>Name</th>
-                          <th>Cooperative</th>
-                          <th>Gender</th>
-                          <th>Trees</th>
-                          <th>ID</th>
-                          <th>Fertilizer</th>
-                          <th>Phone</th>
-                          <th></th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        @foreach($farmers as $farmer)
-                          <tr>
-                            <td>{{++$no}}</td>
-                            <td>{{$farmer->name}}</td>
-                            <td>{{$farmer->cooperative_name}}</td>
-                            <td>{{$farmer->gender}}</td>
-                            <td>{{$farmer->number_of_trees}}</td>
-                            <td>{{$farmer->idn}}</td>
-                            <td>{{$farmer->fertilizer}}</td>
-                            <td>{{$farmer->phone}}</td>
-                            <td>
-                              <div class="input-group-prepend">
-                              <button class="btn btn-sm btn-outline-success dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">action</button>
-                                <div class="dropdown-menu">
-                                  <a class="dropdown-item" href="{{"Farmer-profile/".$farmer->id}}"><i class="fa fa-eye" aria-hidden="true"></i>&nbsp; {{__('msg.view')}}</a>
-                                </div>
-                              </div> <!-- add this closing tag -->
-                            </td>
-                          </tr>
-                        @endforeach
-                      </tbody>
-                    </table>
+                  <div class="d-flex flex-column align-items-center text-center">
+                    <div class="mt-3">
+                      <h4>{{$farmerinfo->name}}</h4>
+                      <h5>{{$farmerinfo->cooperative_name}}</h5>
+                      <h5>{{$farmerinfo->category}}</h5>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
+            <div class="col-md-8">
+              <div class="card mb-3">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">{{ __('msg.full name') }}</h6>
+                    </div>
+                    <div class="col-sm-9 text-dark">
+                      {{$farmerinfo->name}}
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">{{ __('msg.ID No')}}</h6>
+                    </div>
+                    <div class="col-sm-9 text-dark">
+                    {{$farmerinfo->idn}}
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">{{ __('msg.cooperative name') }}</h6>
+                    </div>
+                    <div class="col-sm-9 text-dark">
+                    {{$farmerinfo->cooperative_name}}
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">{{ __('msg.gender') }}</h6>
+                    </div>
+                    <div class="col-sm-9 text-dark">
+                    {{$farmerinfo->gender}}
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">{{ __('msg.number of trees') }}</h6>
+                    </div>
+                    <div class="col-sm-9 text-dark">
+                    {{$farmerinfo->number_of_trees}}
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">{{ __('msg.fertilizer') }}</h6>
+                    </div>
+                    <div class="col-sm-9 text-dark">
+                    {{$farmerinfo->fertilizer}}
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">{{ __('msg.phone') }}</h6>
+                    </div>
+                    <div class="col-sm-9 text-dark">
+                    {{$farmerinfo->phone}}
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">{{ __('msg.Province') }}</h6>
+                    </div>
+                    <div class="col-sm-9 text-dark">
+                    {{$farmerinfo->province}}
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">{{ __('msg.district') }}</h6>
+                    </div>
+                    <div class="col-sm-9 text-dark">
+                    {{$farmerinfo->district}}
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">{{ __('msg.sector') }}</h6>
+                    </div>
+                    <div class="col-sm-9 text-dark">
+                    {{$farmerinfo->sector}}
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">{{ __('msg.cell') }}</h6>
+                    </div>
+                    <div class="col-sm-9 text-dark">
+                    {{$farmerinfo->cell}}
+                    </div>
+                  </div>
+                  <hr>
+                  
+                </div>
+              </div>
+              </div>
+            </div>
+          </div>
+        </div>
+              
+
            </div>
-           </div>
-      
+        </div>
         <!-- content-wrapper ends -->
         <!-- partial:partials/_footer.html -->
         <footer class="footer">
@@ -217,6 +294,7 @@
     <!-- page-body-wrapper ends -->
   </div>
   <!-- container-scroller -->
+
   <!-- base:js -->
   <script src="/Customized/vendors/base/vendor.bundle.base.js"></script>
   <!-- endinject -->
@@ -234,16 +312,6 @@
   <!-- Custom js for this page-->
   <script src="/Customized/js/dashboard.js"></script>
   <!-- End custom js for this page-->
-  <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
-  <script>
-  $(document).ready(function() {
-    $('#FarmersTable').DataTable({
-      "paging": true,
-      "ordering": false,
-      "searching": true
-    });
-  });
-</script>
 </body>
 </html>
 

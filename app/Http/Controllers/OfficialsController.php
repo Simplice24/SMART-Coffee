@@ -1104,6 +1104,15 @@ $diseases = DB::table('reported_diseases')
               }
           
       }
+
+      public function OfficialFarmerView($id){
+        $userId =auth()->user()->id;
+        $profileImg=User::find($userId);
+        $farmerinfo=Farmer::find($id);
+        return view('Official/Farmer-details',['farmerinfo'=>$farmerinfo,'profileImg'=>$profileImg]);
+      }
+
+
       public function getFarmers(){
         $user_id=auth()->user()->id;
         $profileImg=User::find($user_id);

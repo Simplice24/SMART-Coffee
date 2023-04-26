@@ -275,6 +275,8 @@ Route::get('Official/Analytics',[OfficialsController::class,'getAnalytics']);
 Route::get('Official/ManagerProfile/{id}',[OfficialsController::class,'ManagerProfile']);
 
 Route::get('Official/Cooperative-details/{id}',[OfficialsController::class,'OfficialCooperativeView']);
+
+Route::get('Official/Farmer-profile/{id}',[OfficialsController::class,'OfficialFarmerView']);
     
 });
 
