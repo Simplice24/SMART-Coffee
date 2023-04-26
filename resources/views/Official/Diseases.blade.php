@@ -194,7 +194,7 @@
                         <td>{{$i->category}}</td>
                         <td>
                           <div class="input-group-prepend">
-                            <button class="btn btn-sm btn-outline-primary" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">...</button>
+                          <button class="btn btn-sm btn-outline-success dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">...</button>
                             <div class="dropdown-menu">
                               <a class="dropdown-item" href=""><i class="fa fa-eye" aria-hidden="true"></i>&nbsp; {{__('msg.view')}}</a>
                               @can('delete-disease')

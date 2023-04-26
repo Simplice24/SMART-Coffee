@@ -271,6 +271,10 @@ Route::get('Official/Farmers',[OfficialsController::class,'getFarmers']);
 Route::get('Official/Diseases',[OfficialsController::class,'getDiseases']);
 
 Route::get('Official/Analytics',[OfficialsController::class,'getAnalytics']);
+
+Route::get('Official/ManagerProfile/{id}',[OfficialsController::class,'ManagerProfile']);
+
+Route::get('Official/Cooperative-details/{id}',[OfficialsController::class,'OfficialCooperativeView']);
     
 });
 

@@ -893,6 +893,61 @@ class OfficialsController extends Controller
         'DiseaseCategoryPercentage'=>$DiseaseCategoryPercentage]);
       }
     }
+    
+    public function ManagerProfile($id){
+      $user_id=auth()->user()->id;
+      $profileImg=User::find($user_id);
+      $ManagerDetails=User::find($id);
+      return view('Official/Manager-details',['ManagerDetails'=>$ManagerDetails,'profileImg'=>$profileImg]);     
+    }
+
+  public function OfficialCooperativeView($id){
+    $userId =auth()->user()->id;
+    $profileImg=User::find($userId);
+    $cooperativeinfo=Cooperative::find($id);
+    $cooperative_farmers=Farmer::where('cooperative_id',$id)->count();
+    $females=Farmer::where(['cooperative_id'=>$id,'gender'=>'Female'])->count();
+    $males=Farmer::where(['cooperative_id'=>$id,'gender'=>'Male'])->count();
+    $femalePercentage=Round(($females/$cooperative_farmers)*100,2);
+    $malepercentage=Round(($males/$cooperative_farmers)*100,2);
+   
+    $diseasesReported = DB::table('reported_diseases')
+        ->select('disease_id', DB::raw('YEAR(created_at) as year'), DB::raw('COUNT(*) as count'))
+        ->where('cooperative_id', $id)
+        ->groupBy('disease_id', 'year')
+        ->get();     
+
+$total_quantity = DB::table('stocks')
+->where('cooperative_id', $id)
+->sum('quantity');
+
+$quantities_by_category = DB::table('stocks')
+->select('product', DB::raw('SUM(quantity) as total_quantity'))
+->where('cooperative_id', $id)
+->groupBy('product')
+->get();
+
+$percentages_by_category = [];
+foreach ($quantities_by_category as $category) {
+$percentage = Round(($category->total_quantity / $total_quantity) * 100,2);
+$percentages_by_category[$category->product] = $percentage;
+}
+
+$diseases = DB::table('reported_diseases')
+->join('diseases', 'reported_diseases.disease_id', '=', 'diseases.id')
+->select(DB::raw('YEAR(reported_diseases.created_at) as year'), 'reported_diseases.disease_id', 'diseases.disease_name', DB::raw('COUNT(*) as count'))
+->where('reported_diseases.cooperative_id',$id)
+->groupBy('year', 'reported_diseases.disease_id', 'diseases.disease_name')
+->orderBy('year')
+->get();
+
+
+    return view('Official/Cooperative-details',['cooperativeinfo'=>$cooperativeinfo,'profileImg'=>$profileImg,
+    'cooperative_farmers'=>$cooperative_farmers,'femalePercentage'=>$femalePercentage,
+    'malePercentage'=>$malepercentage,'percentages_by_category'=>$percentages_by_category,
+    'diseases'=>$diseases]);
+  }
+
 
     public function getManagers(){
       $user_id=auth()->user()->id;
@@ -918,7 +973,7 @@ class OfficialsController extends Controller
             ->leftJoin('cooperative_user', 'users.id', '=', 'cooperative_user.user_id')
             ->leftJoin('cooperatives', 'cooperative_user.cooperative_id', '=', 'cooperatives.id')
             ->whereIn('cooperatives.id', $cooperativeIds)
-            ->select('users.name as manager_name', 'cooperatives.name as cooperative_name')
+            ->select('users.id as user_id','users.name as manager_name', 'cooperatives.name as cooperative_name')
             ->get();    
         
         
