@@ -175,7 +175,7 @@
                           <button class="btn btn-sm btn-outline-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">actions</button>
                           <div class="dropdown-menu">
                             <a class="dropdown-item" href="{{"CooperativeFarmerprofile/".$i->id}}"><i class="fa fa-eye" aria-hidden="true"></i>&nbsp;{{__('msg.view')}}</a>
-                            <a class="dropdown-item" href="{{"reportPrevilege/".$i->id}}"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Report previlege</a>
+                            <a class="dropdown-item" href="{{"reportPrevilege/".$i->id}}"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Grant reporting previlege</a>
                             <a class="dropdown-item" href="{{"DeleteCooperativeFarmer/".$i->id}}"><i class="fa fa-trash" aria-hidden="true"></i>&nbsp;{{__('msg.delete')}}</a>
                           </div>
                         </div>
