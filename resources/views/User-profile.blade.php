@@ -178,7 +178,7 @@
                 @method('PUT')
               <input type="file" class="form-control" value="{{$userinfo->image}}" name="image" id="exampleInputEmail1" placeholder="Upload image" required>
               <br>
-              <button class="btn btn-primary profile-button" type="submit">Change profile picture</button>
+              <button class="btn btn-success profile-button" type="submit">Change profile picture</button>
               </form>
           </div>
         </div>
@@ -226,7 +226,7 @@
                     </div>
                 </div>
                 <div class="mt-5 text-center">
-                  <button class="btn btn-primary profile-button" type="submit">Save Profile</button>
+                  <button class="btn btn-success profile-button" type="submit">Save Profile</button>
                 </div>
                 </form>
             </div>
@@ -267,7 +267,7 @@
                     </div>
                 </div>
                 <div class="mt-5 text-center">
-                <button class="btn btn-primary profile-button" type="submit">Change password</button>
+                <button class="btn btn-success profile-button" type="submit">Change password</button>
                 </div>
                 </form>
             </div>

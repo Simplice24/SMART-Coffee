@@ -11280,7 +11280,7 @@ fieldset:disabled .ajax-upload-dragdrop a.ajax-file-upload,
 }
 
 .btn-outline-primary {
-  color: #226e02;
+  color: #fff;
   border-color: #226e02;
 }
 
@@ -11291,7 +11291,7 @@ fieldset:disabled .ajax-upload-dragdrop a.ajax-file-upload,
 }
 
 .btn-outline-primary:focus, .btn-outline-primary.focus {
-  box-shadow: 0 0 0 0.2rem rgba(236, 55, 252, 0.5);
+  box-shadow: 0 0 0 0.2rem rgba(52, 175, 0, 1);
 }
 
 .btn-outline-primary.disabled, .btn-outline-primary:disabled {
@@ -11308,7 +11308,7 @@ fieldset:disabled .ajax-upload-dragdrop a.ajax-file-upload,
 
 .btn-outline-primary:not(:disabled):not(.disabled):active:focus, .btn-outline-primary:not(:disabled):not(.disabled).active:focus,
 .show > .btn-outline-primary.dropdown-toggle:focus {
-  box-shadow: 0 0 0 0.2rem rgba(236, 55, 252, 0.5);
+  box-shadow: 0 0 0 0.2rem rgba(52, 175, 0, 1);
 }
 
 .btn-outline-secondary {

@@ -31,7 +31,7 @@
     <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
       <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
         <a class="navbar-brand brand-logo" href={{"Home"}}>
-        <img src="/logo.png" alt="My Logo" class="full-height">
+            <img src="/logo.png" alt="My Logo" class="full-height">
             <span class="logo-text">CCMS</span>
         </a>
         <a class="navbar-brand brand-logo-mini" href={{"Home"}}>CCMS</a>
@@ -205,7 +205,7 @@
                             <label class="col-sm-3 col-form-label">{{ __('msg.Image') }}</label>
                             <div class="col-sm-9">
                             <div class="input-group col-xs-12">
-                                  <input type="file" name="image" class="file-upload-browse btn btn-primary" value={{$diseaseinfo->image}}>
+                                  <input type="file" name="image" class="file-upload-browse btn btn-success" value={{$diseaseinfo->image}}>
                               </div>
                             </div>
                           </div>

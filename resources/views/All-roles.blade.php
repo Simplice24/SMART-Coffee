@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="{{ app()->getLocale() }}">
-
 <head>
   <!-- Required meta tags --> 
   <meta charset="utf-8">
@@ -199,7 +198,7 @@
                       <td>{{$i->name}}</td>
                       <td>
                         <div class="input-group-prepend">
-                          <button class="btn btn-sm btn-outline-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Actions</button>
+                        <button class="btn btn-sm btn-outline-success dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">action</button>
                           <div class="dropdown-menu">
                             <a class="dropdown-item" href={{"Roledetails/".$i->id}}><i class="fa fa-eye" aria-hidden="true"></i>&nbsp; Edit</a>
                             <a class="dropdown-item" href={{"deleterole/".$i->id}}><i class="fa fa-trash" aria-hidden="true"></i>&nbsp; Delete</a>

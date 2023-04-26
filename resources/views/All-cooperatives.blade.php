@@ -267,7 +267,7 @@
                             </td>
                             <td>
                               <div class="input-group-prepend">
-                                <button class="btn btn-sm btn-outline-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">action</button>
+                                <button class="btn btn-sm btn-outline-success dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">action</button>
                                 <div class="dropdown-menu">
                                 <a class="dropdown-item" href={{"updateCooperative/".$i->id}}><i class="fa fa-eye" aria-hidden="true"></i>&nbsp; {{ __('msg.view')}}</a>
                           <a class="dropdown-item" href={{"deletecooperative/".$i->id}}><i class="fa fa-trash" aria-hidden="true"></i>&nbsp; {{ __('msg.delete')}}</a>

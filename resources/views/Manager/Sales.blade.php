@@ -398,7 +398,7 @@
                           </td>
                           <td>
                           <div class="input-group-prepend">
-                        <button class="btn btn-sm btn-outline-primary " type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">...</button>
+                          <button class="btn btn-sm btn-outline-success dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">...</button>
                         <div class="dropdown-menu">
                           <a class="dropdown-item" href={{"updateCooperativeSales/".$Cooperativesale->id}}><i class="fa fa-edit" aria-hidden="true"></i>&nbsp;Edit</a>
                       </div>
