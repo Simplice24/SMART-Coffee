@@ -301,7 +301,7 @@
                         </div>
                       </div> -->
                       <livewire:location-dropdown />
-                      <button type="submit" class="btn btn-primary mr-2">{{ __('msg.submit')}}</button>
+                      <button type="submit" class="btn btn-success mr-2">{{ __('msg.submit')}}</button>
                     <!-- <button class="btn btn-light">Cancel</button> -->
                     </form>
                   </div>

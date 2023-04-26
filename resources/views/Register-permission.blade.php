@@ -179,7 +179,7 @@
                               <input type="text" class="form-control" name="name" placeholder="Enter permission name" required/>
                             </div>
                           </div>
-                      <button type="submit" class="btn btn-primary mr-2">{{ __('msg.submit')}}</button>
+                      <button type="submit" class="btn btn-success mr-2">{{ __('msg.submit')}}</button>
                     </form>
                   </div>
                 </div>

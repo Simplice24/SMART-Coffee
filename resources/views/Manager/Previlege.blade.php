@@ -169,7 +169,7 @@
                       <label for="exampleInputConfirmPassword1">Confirm Password</label>
                       <input type="password" class="form-control" name="confirm_password" placeholder="Password" required>
                     </div>
-                    <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                    <button type="submit" class="btn btn-success mr-2">Submit</button>
                     @if (session('error'))
                         <div class="alert alert-danger">{{ session('error') }}</div>
                     @endif

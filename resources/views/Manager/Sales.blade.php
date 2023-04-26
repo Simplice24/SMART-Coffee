@@ -236,7 +236,7 @@
                             </ul>
                         </div>
                     @endif
-                    <button type="submit" class="btn btn-primary mr-2">Submit</button><hr>
+                    <button type="submit" class="btn btn-success mr-2">Submit</button><hr>
                     @if (session('error'))
                         <div class="alert alert-danger">{{ session('error') }}</div>
                     @endif
