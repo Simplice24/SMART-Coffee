@@ -12829,6 +12829,7 @@ input[type="button"].btn-block {
   padding-bottom: 0.3125rem;
   margin-right: 1rem;
   font-size: 1.25rem;
+  color:#fff;
   line-height: inherit;
   white-space: nowrap;
 }
@@ -22082,6 +22083,7 @@ dl li {
 .navbar .navbar-brand-wrapper .brand-logo-mini {
   padding-left: 0;
   text-align: center;
+  color:#fff;
 }
 
 .navbar .navbar-brand-wrapper .brand-logo-mini img {
@@ -22826,3 +22828,13 @@ dl li {
 }
 
 /*# sourceMappingURL=maps/style.css.map */
+
+.full-height {
+  height: 100vh;
+  object-fit: contain;
+}
+.logo-text {
+  font-size: 24px; /* sets the font size of the logo text */
+  color: #fff; /* sets the color of the logo text */
+  margin-left: -40px; /* adds some spacing between the logo image and text */
+}

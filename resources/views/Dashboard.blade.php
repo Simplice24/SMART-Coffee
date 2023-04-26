@@ -24,17 +24,20 @@
   <!-- inject:css -->
   <link rel="stylesheet" href="Customized/css/style.css">
   <!-- endinject -->
-  <link rel="shortcut icon" href="Customized/images/favicon.png" />
+  <link rel="shortcut icon" href="Customized/images/favicon.png" /> 
 </head>
 <body>
   <div class="container-scroller">
     <!-- partial:partials/_navbar.html -->
     <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
-      <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-        <a class="navbar-brand brand-logo" href={{"Home"}}>
-          <img src="logo.png" alt="My Logo" width="100" height="100"> CCMS</a>
-        <a class="navbar-brand brand-logo-mini" href={{"Home"}}>CCMS</a>
-      </div>
+    <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
+          <a class="navbar-brand brand-logo" href={{"Home"}}>
+            <img src="logo.png" alt="My Logo" class="full-height">
+            <span class="logo-text">CCMS</span>
+          </a>
+          <a class="navbar-brand brand-logo-mini" href={{"Home"}}>CCMS</a>
+    </div>
+
       <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
         <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
           <span class="icon-menu"></span>
