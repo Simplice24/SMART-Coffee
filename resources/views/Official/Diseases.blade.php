@@ -196,7 +196,7 @@
                           <div class="input-group-prepend">
                           <button class="btn btn-sm btn-outline-success dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">...</button>
                             <div class="dropdown-menu">
-                              <a class="dropdown-item" href=""><i class="fa fa-eye" aria-hidden="true"></i>&nbsp; {{__('msg.view')}}</a>
+                              <a class="dropdown-item" href="{{"diseaseDetails/".$i->id}}"><i class="fa fa-eye" aria-hidden="true"></i>&nbsp; {{__('msg.view')}}</a>
                               @can('delete-disease')
                               <a class="dropdown-item" href=""><i class="fa fa-trash" aria-hidden="true"></i>&nbsp; {{__('msg.delete')}}</a>
                               @endcan

@@ -1159,6 +1159,13 @@ $diseases = DB::table('reported_diseases')
         }
       }
 
+      public function DiseaseDetailsPage($id){
+        $userId =auth()->user()->id;
+        $profileImg=User::find($userId);
+        $diseaseinfo=Disease::find($id);
+        return view('Official/Disease-details',['diseaseinfo'=>$diseaseinfo,'profileImg'=>$profileImg]);
+      }
+
       public function getDiseases(){
         $user_id=auth()->user()->id;
         $profileImg=User::find($user_id);

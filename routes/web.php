@@ -262,6 +262,8 @@ Route::group(['middleware'=>["auth"]],function(){
 
 Route::get('Official/Home',[OfficialsController::class,'OfficialsDashboard']);
 
+Route::get('Official/Official/Home',[OfficialsController::class,'OfficialsDashboard']);
+
 Route::get('Official/Managers',[OfficialsController::class,'getManagers']);
 
 Route::get('Official/Cooperatives',[OfficialsController::class,'getCooperatives']);
@@ -277,6 +279,8 @@ Route::get('Official/ManagerProfile/{id}',[OfficialsController::class,'ManagerPr
 Route::get('Official/Cooperative-details/{id}',[OfficialsController::class,'OfficialCooperativeView']);
 
 Route::get('Official/Farmer-profile/{id}',[OfficialsController::class,'OfficialFarmerView']);
+
+Route::get("Official/diseaseDetails/{id}",[OfficialsController::class,'DiseaseDetailsPage']);
     
 });
 
