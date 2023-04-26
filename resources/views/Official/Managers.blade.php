@@ -34,7 +34,10 @@
     <!-- partial:partials/_navbar.html -->
     <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
       <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-        <a class="navbar-brand brand-logo" href={{"Official/Home"}}><i class="icon-air-play menu-icon"></i>CCMS</a>
+        <a class="navbar-brand brand-logo" href={{"Official/Home"}}>
+            <img src="/logo.png" alt="My Logo" class="full-height">
+            <span class="logo-text">CCMS</span>
+        </a>
         <a class="navbar-brand brand-logo-mini" href={{"Official/Home"}}>CCMS</a>
       </div>
       <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
