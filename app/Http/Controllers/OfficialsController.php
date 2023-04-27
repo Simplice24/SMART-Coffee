@@ -1085,7 +1085,6 @@ $diseases = DB::table('reported_diseases')
             elseif($user_role==="District-agro"){
               $Cooperatives = Cooperative::whereIn('province', $users_location->pluck('province'))
                    ->whereIn('district', $users_location->pluck('district'))
-                   ->whereIn('sector', $users_location->pluck('sector'))
                    ->get();
               $cooperativeIds = $Cooperatives->pluck('id');
     
