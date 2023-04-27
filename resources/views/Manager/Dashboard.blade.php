@@ -149,13 +149,14 @@
               <!-- <p class="font-weight-normal mb-2 text-muted">APRIL 1, 2019</p> -->
             </div>
           </div>
+           <!-- Second row -->
 
-          <div class="row">
+           <div class="row">
               <div class="col-md-3 stretch-card grid-margin">
-                <div class="card bg-gradient-success card-img-holder text-white">
-                <a href="<?=url('CooperativeFarmers');?>" style="text-decoration:none; color:white;">
+                <div class="card bg-gradient-info card-img-holder text-white">
+                  <a href="<?=url('CooperativeFarmers');?>" style="text-decoration:none; color:white;">
                   <div class="card-body">
-                    <img src="/Customized/assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
+                  <img src="/Customized/assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
                     <h4 class="font-weight-normal mb-3">{{ __('msg.farmers')}}<i class="icon-head menu-icon float-right"></i>
                     </h4>
                     <h1 class="mb-5">{{$totalFarmers}}</h1>
@@ -167,7 +168,7 @@
                     <h6 class="card-text"><b>No change in cooperative farmers</b></h6>
                     @endif
                   </div>
-                </a>
+                  </a>
                 </div>
               </div>
               <div class="col-md-3 stretch-card grid-margin">
@@ -176,6 +177,7 @@
                   <div class="card-body">
                     <img src="/Customized/assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
                     <h4 class="font-weight-normal mb-3">Coffee trees<i class="mdi mdi-barley menu-icon float-right"></i>
+                    </h4>
                     <h1 class="mb-5">{{$total_trees}}</h1>
                     @if($increaseInTrees > 0)
                     <h6 class="card-text"><b>{{$increaseInTrees}}% increase this year</b></h6> 
@@ -185,11 +187,11 @@
                     <h6 class="card-text"><b>No change in trees this year</b></h6>
                     @endif
                   </div>
-                 </a> 
+                </a>
                 </div>
               </div>
-               <div class="col-md-3 stretch-card grid-margin">
-                <div class="card bg-gradient-primary bg-dark card-img-holder text-white">
+              <div class="col-md-3 stretch-card grid-margin">
+                <div class="card bg-gradient-primary card-img-holder text-white">
                 <a href="<?=url('CooperativeSales')?>" style="text-decoration:none; color:white;">
                   <div class="card-body">
                     <img src="/Customized/assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
@@ -203,25 +205,28 @@
                     <h6 class="card-text"><b>No change in sales</b></h6>
                     @endif
                   </div>
-                 </a> 
+                  </a>
                 </div>
               </div>
-              <div class="col-md-3 stretch-card grid-margin">
-                <div class="card bg-gradient-secondary card-img-holder text-white">
+               <div class="col-md-3 stretch-card grid-margin">
+               <div class="card bg-gradient-secondary card-img-holder text-white">
                 <a href="<?=url('StockDetails');?>" style="text-decoration:none; color:white;">
                   <div class="card-body">
-                    <img src="/Customized/assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
-                    <h4 class="font-weight-normal mb-3">Stock<i class="mdi mdi-stocking menu-icon float-right"></i>
+                  <img src="/Customized/assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />  
+                  <h4 class="font-weight-normal mb-3">Stock<i class="mdi mdi-stocking menu-icon float-right"></i>
                     @foreach($CooperativeStockInventoryByCategory as $product)
                     <h2>{{$product->total_quantity}} Kgs</h2>
                     <h6>{{$product->product_category}}</h6>
                     @endforeach
-                  </div>
+                  </div> 
                  </a> 
                 </div>
+              </div>
            </div>
+              
+           <!-- End of second row -->
            <div class="row ">
-              <div class="col-md-3 grid-margin">
+              <div class="col-md-3">
                 <div class="card">
                       <div class="card-body">
                           <h4 class="card-title">Male farmers<i class="mdi mdi-gender-male menu-icon float-right"></i></h4>
@@ -247,7 +252,7 @@
                       </div>
                       </div>                   
                 </div>
-                <div class="col-lg-4 grid-margin">
+            <div class="col-lg-4">
               <div class="card">
                 <div class="card-header">
                   <div class="dropdown">
@@ -270,12 +275,20 @@
                   </div>
                 </div>
               </div>
-
-
+            </div>
+            <div class="col-lg-5">
+              <div class="card">
+                <div class="card-body">
+                  <h6 class="float-left">Stock and Sales</h6>
+                  <div id="this-month-content">
+                    <canvas id="FarmersChart"></canvas>
+                  </div>
+                </div>
+              </div>
             </div>
            </div>
         </div>
-</div>
+
         <!-- content-wrapper ends -->
         <!-- partial:partials/_footer.html -->
         <footer class="footer">

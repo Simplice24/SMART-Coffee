@@ -75,12 +75,6 @@
               <a class="dropdown-item preview-item" href="<?=url('userProfile');?>">               
                   <i class="icon-head"></i> {{ __('msg.profile') }}
               </a>
-              <!-- <a class="dropdown-item preview-item" href="">               
-                  <i class="icon-head"></i> French
-              </a>
-              <a class="dropdown-item preview-item" href="">               
-                  <i class="icon-head"></i> English
-              </a> -->
               <a class="dropdown-item preview-item" href="<?=url('logout');?>">
                   <i class="icon-inbox"></i> {{ __('msg.logout') }}
               </a>
