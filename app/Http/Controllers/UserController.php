@@ -476,7 +476,21 @@ $DiseaseCategoryPercentage = DB::table('reported_diseases')
                       }else{
                         $increasedPercentage = ($currentYearCount - $previousYearCount) / $previousYearCount * 100;
                       }
-                      $Farmers=$currentYearCount- $previousYearCount;
+                      
+                      $farmerCounts = DB::table('farmers')
+                      ->select(DB::raw('DATE_FORMAT(created_at, "%Y-%m") as ym, COUNT(*) as count'))
+                      ->where('cooperative_id', $cooperative_id)
+                      ->groupBy('ym')
+                      ->get();
+      
+
+                      $treeCounts = DB::table('farmers')
+                        ->select(DB::raw('DATE_FORMAT(created_at, "%Y-%m") as ym, SUM(number_of_trees) as total_trees'))
+                        ->where('cooperative_id', $cooperative_id)
+                        ->groupBy('ym')
+                        ->get();
+               
+                      
                       
                       $treesCurrentYearCount= DB::table('farmers')
                       ->where('cooperative_id',$cooperative_id)
@@ -495,7 +509,6 @@ $DiseaseCategoryPercentage = DB::table('reported_diseases')
                         $increaseInTrees= ($treesCurrentYearCount - $treesPreviousYearCount) / $treesPreviousYearCount * 100;
                       }
 
-                      $Trees=$treesCurrentYearCount - $treesPreviousYearCount;
 
                       $salesCurrentMonthCount=DB::table('sales')
                       ->where('cooperative_id',$cooperative_id)
@@ -513,38 +526,6 @@ $DiseaseCategoryPercentage = DB::table('reported_diseases')
                         $increaseInSales=($salesCurrentMonthCount - $salesPreviousMonthCount) / $salesPreviousMonthCount * 100;
                       }
 
-                      $chartData = [
-                        'labels' => [$currentYear],
-                        'datasets' => [
-                            [
-                                'label' => 'Farmer Increase',
-                                'data' => [$Farmers],
-                                'backgroundColor' => 'rgba(54, 162, 235, 0.2)',
-                                'borderColor' => 'rgba(54, 162, 235, 1)',
-                                'borderWidth' => 1,
-                            ], [
-                                'label' => 'Tree Increase',
-                                'data' => [$Trees],
-                                'backgroundColor' => 'rgba(255, 99, 132, 0.2)',
-                                'borderColor' => 'rgba(255, 99, 132, 1)',
-                                'borderWidth' => 1,
-                            ],
-                        ],
-                        'options' => [
-                            'scales' => [
-                                'yAxes' => [
-                                    [
-                                        'type' => 'logarithmic',
-                                        'ticks' => [
-                                            'beginAtZero' => true,
-                                        ],
-                                    ],
-                                ],
-                            ],
-                        ],
-                    ];
-                    
-                      
                       
 
   return view('Manager/Dashboard',['totalFarmers'=>$totalFarmers,'total_trees'=>$total_trees,
@@ -552,7 +533,7 @@ $DiseaseCategoryPercentage = DB::table('reported_diseases')
   'CoopFarmerspercentIncrease'=>$CoopFarmerspercentIncrease,'CoopMaleFarmerspercentIncrease'=>$CoopMaleFarmerspercentIncrease,
   'CoopFemaleFarmerspercentIncrease'=>$CoopFemaleFarmerspercentIncrease,'currentMonthSalesTotal'=>$currentMonthSalesTotal,
   'CooperativeStockInventoryByCategory'=>$CooperativeStockInventoryByCategory,'increaseInSales'=>$increaseInSales,
-  'increasedPercentage'=>$increasedPercentage,'increaseInTrees'=>$increaseInTrees,'chartData'=>$chartData]);
+  'increasedPercentage'=>$increasedPercentage,'increaseInTrees'=>$increaseInTrees,'farmerCounts'=>$farmerCounts,'treeCounts'=>$treeCounts]);
     }
   }
 

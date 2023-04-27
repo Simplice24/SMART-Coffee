@@ -247,27 +247,35 @@
                       </div>
                       </div>                   
                 </div>
-                <div class="col-xl-9 d-flex grid-margin">
-                <div class="card">
-                  <div class="card-body">
-                      <h4 class="card-title">Analytics</h4>
-                      <div class="row">
-                          <!-- <div class="col-lg-5">
-                            <p>Trees increase indicates number of new trees this year</p>
-                            <p>Farmers increase indicates number of new Farmers this year</p>
-                          </div> -->
-                      </div>
-                      <div class="row">
-                          <div class="col-sm-12">
-                              <canvas id="ManagerChart" class="mt-3"></canvas>
-                          </div>
-                      </div>
+                <div class="col-lg-4 grid-margin">
+              <div class="card">
+                <div class="card-header">
+                  <div class="dropdown">
+                    <h6 class="float-left mt-2">Charts</h6>
+                    <button class="btn btn-secondary dropdown-toggle float-right" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Farmers
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                      <a class="dropdown-item" href="#" id="this-month-link">Farmers</a>
+                      <a class="dropdown-item" href="#" id="yearly-link">Coffee trees</a>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <div id="this-month-content">
+                    <canvas id="FarmersChart"></canvas>
+                  </div>
+                  <div id="yearly-content" style="display:none">
+                    <canvas id="TreesChart"></canvas>
                   </div>
                 </div>
               </div>
-              </div>
+
+
+            </div>
            </div>
         </div>
+</div>
         <!-- content-wrapper ends -->
         <!-- partial:partials/_footer.html -->
         <footer class="footer">
@@ -301,21 +309,86 @@
   <!-- End custom js for this page-->  
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-    var ctx = document.getElementById('ManagerChart').getContext('2d');
-    var chartData = @json($chartData);
-    var chart = new Chart(ctx, {
-        type: 'line',
-        data: chartData,
-        options: {
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true,
-                    }
-                }]
-            }
+var ctx = document.getElementById('FarmersChart').getContext('2d');
+var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: [
+            @foreach($farmerCounts as $count)
+                '{{ $count->ym }}',
+            @endforeach
+        ],
+        datasets: [{
+            label: 'Number of farmers registered',
+            data: [
+                @foreach($farmerCounts as $count)
+                    {{ $count->count }},
+                @endforeach
+            ],
+            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+            borderColor: 'rgba(54, 162, 235, 1)',
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true,
+                    stepSize: 1
+                }
+            }]
         }
-    });
+    }
+});
+</script>
+<script>
+    var ctx = document.getElementById('TreesChart').getContext('2d');
+var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: [
+            @foreach($treeCounts as $count)
+                '{{ $count->ym }}',
+            @endforeach
+        ],
+        datasets: [{
+            label: 'Number of trees',
+            data: [
+                @foreach($treeCounts as $count)
+                    {{ $count->total_trees }},
+                @endforeach
+            ],
+            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+            borderColor: 'rgba(54, 162, 235, 1)',
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true,
+                }
+            }]
+        }
+    }
+});
+</script>
+<script>
+  document.getElementById("this-month-link").addEventListener("click", function(event) {
+    event.preventDefault(); // Prevent the default link behavior
+    document.getElementById("this-month-content").style.display = "block";
+    document.getElementById("yearly-content").style.display = "none";
+    document.getElementById("dropdownMenuButton").textContent = "Farmers"; // Change button text to "This Month"
+  });
+  
+  document.getElementById("yearly-link").addEventListener("click", function(event) {
+    event.preventDefault(); // Prevent the default link behavior
+    document.getElementById("this-month-content").style.display = "none";
+    document.getElementById("yearly-content").style.display = "block";
+    document.getElementById("dropdownMenuButton").textContent = "Coffee trees"; // Change button text to "This Year"
+  });
 </script>
 </body>
 </html>
