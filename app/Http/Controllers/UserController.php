@@ -526,13 +526,36 @@ $DiseaseCategoryPercentage = DB::table('reported_diseases')
                         $increaseInSales=($salesCurrentMonthCount - $salesPreviousMonthCount) / $salesPreviousMonthCount * 100;
                       }
 
-                      
+                      $sales = DB::table('sales')
+                                ->select(DB::raw('DATE_FORMAT(created_at, "%Y-%m") as ym, SUM(price) as total_sales'))
+                                ->where('cooperative_id', $cooperative_id)
+                                ->groupBy('ym')
+                                ->get();
+
+                      $stocks = DB::table('stocks')          
+                                ->select(DB::raw('DATE_FORMAT(created_at, "%Y-%m") as ym, SUM(quantity) as total_stocks'))
+                                ->where('cooperative_id', $cooperative_id)
+                                ->groupBy('ym')
+                                ->get();
+
+                      $stocksDates = DB::table('stocks')
+                                ->select(DB::raw("DATE_FORMAT(created_at, '%Y-%m') as ym"))
+                                ->distinct()
+                                ->get();
+                            
+                      $salesDates = DB::table('sales')
+                                ->select(DB::raw("DATE_FORMAT(created_at, '%Y-%m') as ym"))
+                                ->distinct()
+                                ->get();
+                            
+                      $labels = $stocksDates->merge($salesDates)->unique('ym')->values();
+                            
 
   return view('Manager/Dashboard',['totalFarmers'=>$totalFarmers,'total_trees'=>$total_trees,
   'diseases'=>$diseases,'profileImg'=>$profileImg,'male_farmers'=>$male_farmers,'female_farmers'=>$female_farmers,
   'CoopFarmerspercentIncrease'=>$CoopFarmerspercentIncrease,'CoopMaleFarmerspercentIncrease'=>$CoopMaleFarmerspercentIncrease,
-  'CoopFemaleFarmerspercentIncrease'=>$CoopFemaleFarmerspercentIncrease,'currentMonthSalesTotal'=>$currentMonthSalesTotal,
-  'CooperativeStockInventoryByCategory'=>$CooperativeStockInventoryByCategory,'increaseInSales'=>$increaseInSales,
+  'CoopFemaleFarmerspercentIncrease'=>$CoopFemaleFarmerspercentIncrease,'currentMonthSalesTotal'=>$currentMonthSalesTotal,'stocks'=>$stocks,
+  'CooperativeStockInventoryByCategory'=>$CooperativeStockInventoryByCategory,'increaseInSales'=>$increaseInSales,'sales'=>$sales,'labels'=>$labels,
   'increasedPercentage'=>$increasedPercentage,'increaseInTrees'=>$increaseInTrees,'farmerCounts'=>$farmerCounts,'treeCounts'=>$treeCounts]);
     }
   }

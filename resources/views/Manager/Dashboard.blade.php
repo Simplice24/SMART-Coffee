@@ -213,7 +213,7 @@
                 <a href="<?=url('StockDetails');?>" style="text-decoration:none; color:white;">
                   <div class="card-body">
                   <img src="/Customized/assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />  
-                  <h4 class="font-weight-normal mb-3">Stock<i class="mdi mdi-stocking menu-icon float-right"></i>
+                  <h4 class="font-weight-normal mb-3">Available Stock<i class="mdi mdi-stocking menu-icon float-right"></i>
                     @foreach($CooperativeStockInventoryByCategory as $product)
                     <h2>{{$product->total_quantity}} Kgs</h2>
                     <h6>{{$product->product_category}}</h6>
@@ -281,7 +281,7 @@
                 <div class="card-body">
                   <h6 class="float-left">Stock and Sales</h6>
                   <div id="this-month-content">
-                    <canvas id="FarmersChart"></canvas>
+                    <canvas id="StockSalesChart"></canvas>
                   </div>
                 </div>
               </div>
@@ -402,6 +402,50 @@ var myChart = new Chart(ctx, {
     document.getElementById("yearly-content").style.display = "block";
     document.getElementById("dropdownMenuButton").textContent = "Coffee trees"; // Change button text to "This Year"
   });
+</script>
+<script>
+var ctx = document.getElementById('StockSalesChart').getContext('2d');
+var myChart = new Chart(ctx, {
+    type: 'bar', // default chart type
+    data: {
+        labels: [
+            @foreach($labels as $count)
+                '{{ $count->ym }}',
+            @endforeach
+        ],
+        datasets: [{
+            label: 'Stock',
+            data: [
+                @foreach($stocks as $count)
+                    {{ $count->total_stocks }},
+                @endforeach
+            ],
+            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+            borderColor: 'rgba(54, 162, 235, 1)',
+            borderWidth: 1
+        }, {
+            type: 'line', // chart type for second dataset
+            label: 'Sales',
+            data: [
+                @foreach($sales as $count)
+                    {{ $count->total_sales }} ,
+                @endforeach
+            ],
+            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+            borderColor: 'rgba(255, 99, 132, 1)',
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+});
 </script>
 </body>
 </html>
