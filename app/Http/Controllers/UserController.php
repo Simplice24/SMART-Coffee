@@ -692,6 +692,8 @@ $DiseaseCategoryPercentage = DB::table('reported_diseases')
           $userinfo=User::find($userId);
           if($userinfo->role==="Manager"){
             return view('Manager/Manager-profile',['userinfo'=>$userinfo,'userId'=>$userId,'profileImg'=>$profileImg]);
+          }elseif($userinfo->role==="SEDO" || $userinfo->role==="Sector-agro" || $userinfo->role==="District-agro" || $userinfo->role==="Naeb" || $userinfo->role==="Rab"){
+            return view('Official/Official-profile',['userinfo'=>$userinfo,'userId'=>$userId,'profileImg'=>$profileImg]);
           }else{
             return view('User-profile',['userinfo'=>$userinfo,'userId'=>$userId,'profileImg'=>$profileImg]);
           }

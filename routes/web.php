@@ -281,6 +281,7 @@ Route::get('Official/Cooperative-details/{id}',[OfficialsController::class,'Offi
 Route::get('Official/Farmer-profile/{id}',[OfficialsController::class,'OfficialFarmerView']);
 
 Route::get("Official/diseaseDetails/{id}",[OfficialsController::class,'DiseaseDetailsPage']);
+
     
 });
 
