@@ -153,7 +153,7 @@
 
            <div class="row">
               <div class="col-md-3 stretch-card grid-margin">
-                <div class="card bg-gradient-info card-img-holder text-white">
+                <div class="card bg-gradient-success card-img-holder text-white">
                   <a href="<?=url('CooperativeFarmers');?>" style="text-decoration:none; color:white;">
                   <div class="card-body">
                   <img src="/Customized/assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
@@ -256,7 +256,7 @@
               <div class="card">
                 <div class="card-header">
                   <div class="dropdown">
-                    <h6 class="float-left mt-2">Charts</h6>
+                    <h6 class="float-left mt-2">Farmers and Coffee trees</h6>
                     <button class="btn btn-secondary dropdown-toggle float-right" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       Farmers
                     </button>
@@ -338,8 +338,8 @@ var myChart = new Chart(ctx, {
                     {{ $count->count }},
                 @endforeach
             ],
-            backgroundColor: 'rgba(54, 162, 235, 0.2)',
-            borderColor: 'rgba(54, 162, 235, 1)',
+            backgroundColor: 'rgba(40, 167, 69, 1)',
+            borderColor: 'rgba(40, 167, 69, 1)',
             borderWidth: 1
         }]
     },
@@ -372,8 +372,8 @@ var myChart = new Chart(ctx, {
                     {{ $count->total_trees }},
                 @endforeach
             ],
-            backgroundColor: 'rgba(54, 162, 235, 0.2)',
-            borderColor: 'rgba(54, 162, 235, 1)',
+            backgroundColor: 'rgba(255, 193, 7, 1)',
+            borderColor: 'rgba(255, 193, 7, 3)',
             borderWidth: 1
         }]
     },
