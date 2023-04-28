@@ -67,7 +67,7 @@
                   <span class="ml-auto"><a href="<?=url('forgetpassword');?>" class="forgot-pass">{{ __('msg.Forgot Password')}}</a></span> 
                 </div>
 
-                <input type="submit" value="{{ __('msg.Log in')}}" class="btn btn-block btn-primary">
+                <input type="submit" value="{{ __('msg.Log in')}}" class="btn btn-block btn-success">
 
               </form>
             </div>
