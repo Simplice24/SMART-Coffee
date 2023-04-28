@@ -293,6 +293,5 @@ Route::group(['middleware'=>["auth"]],function(){
 
 Route::get('StockReportDuration',[ReportController::class,'DurationForm']);    
 
-
 });
 

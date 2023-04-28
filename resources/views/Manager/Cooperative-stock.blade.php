@@ -275,7 +275,7 @@
                   <h4 class="card-title">Stock records</h4>
                   <div id="report">
                     <div class="button-container" style="display: flex; justify-content: space-between;">
-                      <a href="stockReportDuration">
+                      <a href="<?=url('StockReportDuration');?>">
                         <button type="submit" class="btn btn-info">Report</button>
                       </a>  
                       <!-- <a href="StockExcelDuration">
