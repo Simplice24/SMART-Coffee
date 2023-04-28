@@ -310,6 +310,12 @@
               <div class="card">
                 <div class="card-body">
                   <h4 class="card-title">Stock records</h4>
+                  <p class="card-description">
+                    From: <b>{{$start}}</b>
+                  </p>
+                  <p class="card-description">
+                    To: <b>{{$end}}</b>
+                  </p>
                   <div class="table-responsive">
                     <table class="table table-striped" id="records">
                       <thead>

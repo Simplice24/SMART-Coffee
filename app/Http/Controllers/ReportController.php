@@ -36,9 +36,11 @@ class ReportController extends Controller
 
     public function generatePDF() {
         $stocks = json_decode(urldecode(request('stocks')), true);
+        $start = request()->input('start');
+        $end = request()->input('end');
         $no=0;
         // Render the view as HTML
-        $html = view('Manager/stock-pdf', ['stocks' => $stocks,'no'=>$no])->render();
+        $html = view('Manager/stock-pdf', ['stocks' => $stocks,'no'=>$no,'start'=>$start,'end'=>$end])->render();
         
         // Create a new Dompdf instance
         $dompdf = new Dompdf();

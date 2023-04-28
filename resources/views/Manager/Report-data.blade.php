@@ -158,7 +158,7 @@
                   </p>
                   <div id="report">
                     <div class="button-container">
-                      <a href="<?=url('PDFGeneration?stocks='.urlencode(json_encode($stocks)));?>">
+                    <a href="<?= url('PDFGeneration?stocks=' . urlencode(json_encode($stocks)) . '&start=' . $start . '&end=' . $end) ?>">
                         <button type="submit" class="btn btn-info">PDF</button>
                       </a>  
                     </div>
