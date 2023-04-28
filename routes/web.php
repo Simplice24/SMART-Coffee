@@ -295,5 +295,7 @@ Route::get('StockReportDuration',[ReportController::class,'DurationForm']);
 
 Route::post('ReportGeneration',[ReportController::class,'ReportGeneration']);
 
+Route::get('PDFGeneration',[ReportController::class,'generatePDF']);
+
 });
 

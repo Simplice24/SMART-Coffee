@@ -25,6 +25,9 @@
   <link rel="stylesheet" href="/Customized/css/style.css">
   <!-- endinject -->
   <link rel="shortcut icon" href="/Customized/images/favicon.png" />
+  <!-- Datatable -->
+  <link href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css" rel="stylesheet">
+  <!-- End of datatable -->
 </head>
 <body>
   <div class="container-scroller">
@@ -143,7 +146,76 @@
       <!-- partial -->
       <div class="main-panel">
         <div class="content-wrapper">
-           
+        <div class="col-lg-12 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Stock records</h4>
+                  <p class="card-description">
+                    From: <b>{{$start}}</b>
+                  </p>
+                  <p class="card-description">
+                    To: <b>{{$end}}</b>
+                  </p>
+                  <div id="report">
+                    <div class="button-container">
+                      <a href="<?=url('PDFGeneration?stocks='.urlencode(json_encode($stocks)));?>">
+                        <button type="submit" class="btn btn-info">PDF</button>
+                      </a>  
+                    </div>
+                  </div>
+                  <div class="table-responsive">
+                    <table class="table table-striped" id="records">
+                      <thead>
+                        <tr>
+                          <th>
+                            #
+                          </th>  
+                          <th>
+                            Coffee beans
+                          </th>
+                          <th>
+                            Quantity
+                          </th>
+                          <th>
+                            Season
+                          </th>
+                          <th>
+                            Year
+                          </th>
+                          <th>
+                            Recorded 
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        @foreach($stocks as $record)
+                        <tr>
+                          <td>
+                            {{++$no}}
+                          </td>
+                          <td>
+                            {{$record->product}}
+                          </td>
+                          <td>
+                            {{$record->quantity}} Kgs
+                          </td>
+                          <td>
+                            {{$record->season}} 
+                          </td>
+                          <td>
+                            {{$record->year}}
+                          </td>
+                          <td>
+                            {{$record->created_at}}
+                          </td>
+                        </tr>
+                        @endforeach
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
         </div>
         <!-- content-wrapper ends -->
         <!-- partial:partials/_footer.html -->
@@ -177,6 +249,16 @@
   <script src="/Customized/js/dashboard.js"></script>
   <!-- End custom js for this page-->  
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+  <script>
+  $(document).ready(function() {
+    $('#records').DataTable({
+      "paging": true,
+      "ordering": false,
+      "searching": true
+    });
+  });
+</script>
 </body>
 </html>
 

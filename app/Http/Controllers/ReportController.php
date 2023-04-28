@@ -27,7 +27,32 @@ class ReportController extends Controller
         $stocks = DB::table('stocks')
             ->whereBetween('created_at', [$start, $end])
             ->get();
-            return view('Manager/Report-data',['stocks'=>$stocks,'profileImg'=>$profileImg]);
+            $no=0;
+            return view('Manager/Report-data',['stocks'=>$stocks,
+            'profileImg'=>$profileImg,'start'=>$start,'end'=>$end,'no'=>$no]);
       }  
+    
+    }
+
+    public function generatePDF() {
+        $stocks = json_decode(urldecode(request('stocks')), true);
+        $no=0;
+        // Render the view as HTML
+        $html = view('Manager/stock-pdf', ['stocks' => $stocks,'no'=>$no])->render();
+        
+        // Create a new Dompdf instance
+        $dompdf = new Dompdf();
+        
+        // Load the HTML into Dompdf
+        $dompdf->loadHtml($html);
+        
+        // Set the paper size and orientation
+        $dompdf->setPaper('A4', 'portrait');
+        
+        // Render the PDF
+        $dompdf->render();
+        
+        // Output the PDF
+        return $dompdf->stream('stocks.pdf');
     }
 }
