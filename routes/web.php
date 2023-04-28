@@ -11,6 +11,7 @@ use App\Http\Controllers\StockController;
 use App\Http\Controllers\DropdownController;
 use App\Http\Controllers\OfficialsController;
 use App\Http\Controllers\ReporterController;
+use App\Http\Controllers\ReportController;
 
 
 /*
@@ -285,4 +286,13 @@ Route::get("Official/diseaseDetails/{id}",[OfficialsController::class,'DiseaseDe
     
 });
 
+
+//Report routes
+
+Route::group(['middleware'=>["auth"]],function(){
+
+Route::get('StockReportDuration',[ReportController::class,'DurationForm']);    
+
+
+});
 

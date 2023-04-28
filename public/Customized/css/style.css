@@ -22838,3 +22838,11 @@ dl li {
   color: #fff; /* sets the color of the logo text */
   margin-left: -40px; /* adds some spacing between the logo image and text */
 }
+#report {
+  width: 60px;
+  margin: 10px;
+}
+#report .btn {
+  display: inline-block;
+  margin-right: 10px; /* add margin between the buttons */
+}

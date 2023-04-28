@@ -27,7 +27,7 @@
   <link rel="shortcut icon" href="/Customized/images/favicon.png" />
   <!-- Datatable -->
   <link href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css" rel="stylesheet">
-  <!-- End of datatable -->
+  <!-- End of datatable --> 
 </head>
 <body>
   <div class="container-scroller">
@@ -268,11 +268,21 @@
 
         <!-- </div> -->
 
-        <div class="row">
+        <div class="row">   
         <div class="col-lg-8 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
                   <h4 class="card-title">Stock records</h4>
+                  <div id="report">
+                    <div class="button-container" style="display: flex; justify-content: space-between;">
+                      <a href="stockReportDuration">
+                        <button type="submit" class="btn btn-info">Report</button>
+                      </a>  
+                      <!-- <a href="StockExcelDuration">
+                        <button type="submit" class="btn btn-info">Excel</button>
+                      </a>  -->
+                    </div>
+                  </div>
                   <div class="table-responsive">
                     <table class="table table-striped" id="StockTable">
                       <thead>
@@ -297,7 +307,7 @@
                       </thead>
                       <tbody>
                         <tr>
-                     @foreach($CooperativeStock as $Stock)
+                      @foreach($CooperativeStock as $Stock)
                           <td>
                            {{++$i}}
                           </td>
@@ -321,7 +331,7 @@
                         </div>
                           </td>
                          </tr>
-                        @endforeach 
+                      @endforeach 
                       </tbody>
                     </table>
                   </div>
