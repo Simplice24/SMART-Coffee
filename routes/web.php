@@ -291,7 +291,9 @@ Route::get("Official/diseaseDetails/{id}",[OfficialsController::class,'DiseaseDe
 
 Route::group(['middleware'=>["auth"]],function(){
 
-Route::get('StockReportDuration',[ReportController::class,'DurationForm']);    
+Route::get('StockReportDuration',[ReportController::class,'DurationForm']);
+
+Route::post('ReportGeneration',[ReportController::class,'ReportGeneration']);
 
 });
 
