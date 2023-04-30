@@ -711,12 +711,20 @@ $DiseaseCategoryPercentage = DB::table('reported_diseases')
           $current_password=$req->input('current_password');
           if(Hash::check($current_password, $input->password)){
               $input->update();
-              }else{
-                return redirect('userProfile');
-                   }
-                  
-          return redirect('Home');
+              $user_id=auth()->user()->id;
+              $user_role=User::where('id',$user_id)->value('role');
+              if($user_role==="Manager"){
+                return redirect('Manager/Home');
+              }elseif($user_role==="SEDO" || $user_role==="Sector-agro" || $user_role==="District-agro" || $user_role==="Naeb" || $user_role==="Rab"){
+                return redirect('Official/Home');
+              }
+              else{
+                return redirect('Home');
+              }
+        }else{
+          return redirect('userProfile');
         }
+      }
 
         public function profilePicUpdate(Request $req,$id){
           $input=User::find($id);
@@ -737,7 +745,17 @@ $DiseaseCategoryPercentage = DB::table('reported_diseases')
           if($new_password===$confirm_password && (Hash::check($user_password, $input->password)) ){
           $input->password=Hash::make($new_password);
           $input->save();
-          return redirect('Home');
+          $user_id=auth()->user()->id;
+          $user_role=User::where('id',$user_id)->value('role');
+          if($user_role==="Manager"){
+            return redirect('Manager/Home');
+          }elseif($user_role==="SEDO" || $user_role==="Sector-agro" || $user_role==="District-agro" || $user_role==="Naeb" || $user_role==="Rab"){
+            return redirect('Official/Home');
+          }
+          else{
+            return redirect('Home');
+          }
+
           }
           return redirect('userProfile');
         }

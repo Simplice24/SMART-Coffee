@@ -168,7 +168,7 @@
                         <select class="form-control" style="height:46px; width:180px"  name="format" required>
                             <option disable selected>Select report format</option>
                             <option>PDF</option>
-                            <option>Excel File</option>
+                            <!-- <option>Excel File</option> -->
                         </select>
                     </div>
                     <button type="submit" class="btn btn-success mr-2">Generate report</button>
