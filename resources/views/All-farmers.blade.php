@@ -185,6 +185,13 @@
               <div class="card">
                 <div class="card-body">
                   <h4 class="card-title">{{ __('msg.coffee farmers') }}</h4>
+                  <div id="report">
+                    <div class="button-container" style="display: flex; justify-content: space-between;">
+                      <a href="<?=url('Admin-FarmersReportDuration');?>">
+                        <button type="submit" class="btn btn-info">Report</button>
+                      </a>  
+                    </div>
+                  </div>
                   <div class="table-responsive">
                   <table class="table table-striped" id="FarmersTable">
                       <thead>

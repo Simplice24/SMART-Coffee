@@ -185,61 +185,14 @@
               <div class="card">
                 <div class="card-body">
                   <h4 class="card-title">{{ __('msg.all cooperatives')}}</h4>
+                  <div id="report">
+                    <div class="button-container" style="display: flex; justify-content: space-between;">
+                      <a href="<?=url('Admin-CooperativeReportDuration');?>">
+                        <button type="submit" class="btn btn-info">Report</button>
+                      </a>  
+                    </div>
+                  </div>
                   <div class="table-responsive">
-                    <!-- <table class="table table-striped" id="CooperativesTable">
-                      <thead>
-                        <tr>
-                          <th>
-                            #
-                          </th>
-                          <th>
-                          {{ __('msg.cooperative name')}}
-                          </th>
-                          <th>
-                          {{ __('msg.manager')}}
-                          </th>
-                          <th>
-                          {{ __('msg.email')}}
-                          </th>
-                          <th>
-                            Status
-                          </th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                        @foreach($data as $i)
-                          <td>
-                          {{  ++$no }}
-                          </td>
-                          <td>
-                          {{  $i->name }}
-                          </td>
-                          <td>
-                          {{  $i->manager_name }}
-                          </td>
-                          <td>
-                          {{  $i->email }}
-                          </td>
-                          <td>
-                            @if($i->status=="Operating")
-                            <label class="bg-success text-white rounded p-1 d-flex align-items-stretch justify-content-stretch mt-1">{{ $i->status }}</label>
-                            @else
-                            <label class="bg-warning text-white rounded p-1 d-flex align-items-stretch justify-content-stretch mt-1">{{ $i->status }}</label>
-                            @endif
-                          </td>
-                          <td>
-                          <div class="input-group-prepend">
-                        <button class="btn btn-sm btn-outline-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Actions</button>
-                        <div class="dropdown-menu">
-                          <a class="dropdown-item" href={{"updateCooperative/".$i->id}}><i class="fa fa-eye" aria-hidden="true"></i>&nbsp; {{ __('msg.view')}}</a>
-                          <a class="dropdown-item" href={{"deletecooperative/".$i->id}}><i class="fa fa-trash" aria-hidden="true"></i>&nbsp; {{ __('msg.delete')}}</a>
-                      </div>
-                          </td>
-                        </tr>
-                        @endforeach
-                      </tbody>
-                    </table> -->
                     <table class="table table-striped" id="FarmersTable">
                       <thead>
                         <tr>

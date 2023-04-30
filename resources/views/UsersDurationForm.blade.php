@@ -1,44 +1,43 @@
+
 <!DOCTYPE html>
 <html lang="{{ app()->getLocale() }}">
-
 <head>
   <!-- Required meta tags --> 
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>CCMS</title>
-  <!-- base:css -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
 
-  <link rel="stylesheet" href="Customized/vendors/mdi/css/materialdesignicons.min.css">
-  <link rel="stylesheet" href="Customized/vendors/feather/feather.css">
-  <link rel="stylesheet" href="Customized/vendors/base/vendor.bundle.base.css">
+  <!-- base:css -->
+  <link rel="stylesheet" href="/Customized/vendors/mdi/css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="/Customized/vendors/feather/feather.css">
+  <link rel="stylesheet" href="/Customized/vendors/base/vendor.bundle.base.css">
   <!-- endinject -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
   <!-- plugin css for this page -->
-  <link rel="stylesheet" href="Customized/vendors/flag-icon-css/css/flag-icon.min.css"/>
-  <link rel="stylesheet" href="Customized/vendors/font-awesome/css/font-awesome.min.css">
-  <link rel="stylesheet" href="Customized/vendors/jquery-bar-rating/fontawesome-stars-o.css">
-  <link rel="stylesheet" href="Customized/vendors/jquery-bar-rating/fontawesome-stars.css">
+  <link rel="stylesheet" href="/Customized/vendors/flag-icon-css/css/flag-icon.min.css"/>
+  <link rel="stylesheet" href="/Customized/vendors/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/Customized/vendors/jquery-bar-rating/fontawesome-stars-o.css">
+  <link rel="stylesheet" href="/Customized/vendors/jquery-bar-rating/fontawesome-stars.css">
   <!-- End plugin css for this page -->
   <!-- inject:css -->
-  <link rel="stylesheet" href="Customized/css/style.css">
+  <link rel="stylesheet" href="/Customized/css/style.css">
   <!-- endinject -->
-  <link rel="shortcut icon" href="Customized/images/favicon.png" />
- <!-- Datatable -->
- <link href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css" rel="stylesheet">
-  <!-- End of datatable -->
+  <link rel="shortcut icon" href="/Customized/images/favicon.png" />
 </head>
 <body>
   <div class="container-scroller">
     <!-- partial:partials/_navbar.html -->
     <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
-      <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-        <a class="navbar-brand brand-logo" href={{"Home"}}>
+    <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
+          <a class="navbar-brand brand-logo" href={{"Home"}}>
             <img src="logo.png" alt="My Logo" class="full-height">
             <span class="logo-text">CCMS</span>
-        </a>
-        <a class="navbar-brand brand-logo-mini" href={{"Home"}}>CCMS</a>
-      </div>
+          </a>
+          <a class="navbar-brand brand-logo-mini" href={{"Home"}}>CCMS</a>
+    </div>
+
       <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
         <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
           <span class="icon-menu"></span>
@@ -70,13 +69,14 @@
             <a class="nav-link count-indicator dropdown-toggle d-flex align-items-center justify-content-center" id="notificationDropdown" href="#" data-toggle="dropdown">
               <i class="icon-cog"></i>
             </a>
+            
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
-              <p class="mb-0 font-weight-normal float-left dropdown-header">{{ __('msg.settings')}}</p>
+              <p class="mb-0 font-weight-normal float-left dropdown-header">{{ __('msg.settings') }}</p>
               <a class="dropdown-item preview-item" href="<?=url('userProfile');?>">               
-                  <i class="icon-head"></i> {{ __('msg.profile')}}
+                  <i class="icon-head"></i> {{ __('msg.profile') }}
               </a>
               <a class="dropdown-item preview-item" href="<?=url('logout');?>">
-                  <i class="icon-inbox"></i> {{ __('msg.logout')}}
+                  <i class="icon-inbox"></i> {{ __('msg.logout') }}
               </a>
             </div>
           </li>
@@ -135,6 +135,14 @@
             </a>
           </li>
           @endcan
+          @role('Manager')
+          <li class="nav-item">
+            <a class="nav-link" href="<?=url('CooperativeFarmers');?>">
+              <i class="icon-pie-graph menu-icon"></i>
+              <span class="menu-title">Members</span>
+            </a>
+          </li>
+          @endrole
           @can('create-disease')
           <li class="nav-item">
             <a class="nav-link" href="<?=url('viewdiseases');?>">
@@ -169,71 +177,51 @@
       <!-- partial -->
       <div class="main-panel">
         <div class="content-wrapper">
-        <div class="row">
-            <div class="col-sm-12 mb-4 mb-xl-0">
-            @can('create-user')
-            <li class="nav-item dropdown d-lg-flex d-none">
-                <a href="<?=url('registerNewUser');?>"><button type="button" class="btn btn-info font-weight-bold">+{{__('msg.new user')}}</button></a>
-            </li>
-            @endcan
-            </div>
-          </div>
-           <div class="row"> 
-           <div class="col-lg-12 grid-margin stretch-card">
+        <div class="col-md-6 grid-margin stretch-card mx-auto">
               <div class="card">
                 <div class="card-body">
-                  <h4 class="card-title">{{ __('msg.system users')}}</h4>
-                  <div id="report">
-                    <div class="button-container" style="display: flex; justify-content: space-between;">
-                      <a href="<?=url('UsersReportDuration');?>">
-                        <button type="submit" class="btn btn-info">Report</button>
-                      </a>  
+                  <h4 class="card-title">Provide starting and ending date of report</h4>
+                  <form class="forms-sample" action="UsersReportGeneration" method="POST">
+                    @csrf
+                    <div class="form-group">
+                      <label for="exampleInputUsername1">From</label>
+                      <input type="date" class="form-control" name="starting_date" value="{{ old('starting_date') }}" required>
+                      @error('starting_date')
+                          <div class="text-danger">{{ $message }}</div>
+                      @enderror
                     </div>
-                  </div>
-                  <div class="table-responsive">
-                  <table class="table table-striped" id="UsersTable">
-                    <thead>
-                      <tr>
-                        <th>#</th>
-                        <th>Profile</th>
-                        <th>{{ __('msg.full name')}}</th>
-                        <th>{{ __('msg.user name')}}</th>
-                        <th>{{ __('msg.role')}}</th>
-                        <th>{{ __('msg.email')}}</th>
-                        <th>{{ __('msg.phone')}}</th>
-                        <th></th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      @foreach($data as $i)
-                        <tr>
-                          <td>{{++$no}}</td>
-                          <td><img src="{{asset('/storage/images/users/'.$i->image)}}"></td>
-                          <td>{{$i->name}}</td>
-                          <td>{{$i->username}}</td>
-                          <td>{{$i->role}}</td>
-                          <td>{{$i->email}}</td>
-                          <td>{{$i->phone}}</td>
-                          <td>
-                            <div class="input-group-prepend">
-                            <button class="btn btn-sm btn-outline-success dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">action</button>
-                              <div class="dropdown-menu">
-                                <a class="dropdown-item" href={{"profile/".$i->id}}><i class="fa fa-eye" aria-hidden="true"></i>&nbsp; {{ __('msg.view')}}</a>
-                                <a class="dropdown-item" href={{"deleteuser/".$i->id}}><i class="fa fa-trash" aria-hidden="true"></i>&nbsp; {{ __('msg.delete')}}</a>
-                              </div>
-                            </div>
-                          </td>
-                        </tr>
-                      @endforeach
-                    </tbody>
-                  </table>
-                  </div>
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">To</label>
+                      <input type="date" class="form-control" name="ending_date" value="{{ old('ending_date') }}" required>
+                      @error('ending_date')
+                          <div class="text-danger">{{ $message }}</div>
+                      @enderror
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputPassword1">Format</label>
+                        <select class="form-control" style="height:46px; width:180px"  name="format" required>
+                            <option disable selected>Select report format</option>
+                            <option>PDF</option>
+                            <!-- <option>Excel File</option> -->
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-success mr-2">Generate report</button>
+                    @if($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+                  </form>
                 </div>
               </div>
             </div>
-              
-           </div>
+           
         </div>
+
         <!-- content-wrapper ends -->
         <!-- partial:partials/_footer.html -->
         <footer class="footer">
@@ -249,33 +237,23 @@
   </div>
   <!-- container-scroller -->
   <!-- base:js -->
-  <script src="Customized/vendors/base/vendor.bundle.base.js"></script>
+  <script src="/Customized/vendors/base/vendor.bundle.base.js"></script>
   <!-- endinject -->
   <!-- Plugin js for this page-->
   <!-- End plugin js for this page-->
   <!-- inject:js -->
-  <script src="Customized/js/off-canvas.js"></script>
-  <script src="Customized/js/hoverable-collapse.js"></script>
-  <script src="Customized/js/template.js"></script>
+  <script src="/Customized/js/off-canvas.js"></script>
+  <script src="/Customized/js/hoverable-collapse.js"></script>
+  <script src="/Customized/js/template.js"></script>
   <!-- endinject -->
   <!-- plugin js for this page -->
-  <script src="Customized/vendors/chart.js/Chart.min.js"></script>
-  <script src="Customized/vendors/jquery-bar-rating/jquery.barrating.min.js"></script>
+  <script src="/Customized/vendors/chart.js/Chart.min.js"></script>
+  <script src="/Customized/vendors/jquery-bar-rating/jquery.barrating.min.js"></script>
   <!-- End plugin js for this page -->
   <!-- Custom js for this page-->
-  <script src="Customized/js/dashboard.js"></script>
-  <!-- End custom js for this page-->
-  <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
-  <script>
-  $(document).ready(function() {
-    $('#UsersTable').DataTable({
-      "paging": true,
-      "ordering": false,
-      "searching": true
-    });
-  });
-</script>
+  <script src="/Customized/js/dashboard.js"></script>
+  <!-- End custom js for this page-->  
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </body>
-
 </html>
 

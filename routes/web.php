@@ -303,11 +303,17 @@ Route::post('SalesReportGeneration',[ReportController::class,'SalesReportGenerat
 
 Route::post('FarmerReportGeneration',[ReportController::class,'FarmerReportGeneration']);
 
+Route::post('UsersReportGeneration',[ReportController::class,'UsersReportGeneration']);
+
 Route::get('PDFGeneration',[ReportController::class,'generatePDF']);
 
 Route::get('SalesPDFGeneration',[ReportController::class,'SalesGeneratePDF']);
 
 Route::get('FarmersPDFGeneration',[ReportController::class,'FarmersPDFGeneration']);
+
+Route::get('UsersPDFGeneration',[ReportController::class,'UsersPDFGeneration']);
+
+Route::get('UsersReportDuration',[ReportController::class,'UsersReportDuration']);
 
 });
 
