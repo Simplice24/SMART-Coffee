@@ -30,8 +30,11 @@ class ReportController extends Controller
       $end=$req->ending_date;
       $format=$req->format;
       if($format==="PDF"){
+        $cooperativeId=DB::table('cooperative_user')
+                       ->where('user_id',$user_id)->value('cooperative_id');
         $stocks = DB::table('stocks')
             ->whereBetween('created_at', [$start, $end])
+            ->where('cooperative_id',$cooperativeId)
             ->get();
             $no=0;
             return view('Manager/Report-data',['stocks'=>$stocks,
@@ -47,8 +50,11 @@ class ReportController extends Controller
       $end=$req->ending_date;
       $format=$req->format;
       if($format==="PDF"){
+        $cooperativeId=DB::table('cooperative_user')
+        ->where('user_id',$user_id)->value('cooperative_id');
         $sales = DB::table('sales')
             ->whereBetween('created_at', [$start, $end])
+            ->where('cooperative_id',$cooperativeId)
             ->get();
             $no=0;
             return view('Manager/Sales-Report-data',['sales'=>$sales,
