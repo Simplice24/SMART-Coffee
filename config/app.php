@@ -183,6 +183,7 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
         Livewire\LivewireServiceProvider::class,
+        
 
         /*
          * Package Service Providers...

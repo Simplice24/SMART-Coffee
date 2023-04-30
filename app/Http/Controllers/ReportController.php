@@ -7,7 +7,10 @@ use Dompdf\Dompdf;
 use App\Models\Stock;
 use App\Models\Sales;
 use App\Models\User;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
+
 
 class ReportController extends Controller
 {
@@ -30,11 +33,22 @@ class ReportController extends Controller
     }
 
     public function StockReportGeneration(Request $req){
+      $validator = Validator::make($req->all(), [
+        'starting_date' => 'required|date',
+        'ending_date' => 'required|date|after_or_equal:starting_date',
+        'format' => 'required|in:PDF,Excel File',
+    ]);
+
+    // If validation fails, redirect back with error messages
+    if ($validator->fails()) {
+        return redirect()->back()->withErrors($validator)->withInput();
+    }
       $user_id=auth()->user()->id;
       $profileImg=User::find($user_id);  
       $start=$req->starting_date;
       $end=$req->ending_date;
       $format=$req->format;
+      
       if($format==="PDF"){
         $cooperativeId=DB::table('cooperative_user')
                        ->where('user_id',$user_id)->value('cooperative_id');
@@ -45,11 +59,23 @@ class ReportController extends Controller
             $no=0;
             return view('Manager/Report-data',['stocks'=>$stocks,
             'profileImg'=>$profileImg,'start'=>$start,'end'=>$end,'no'=>$no]);
-      }  
+      }else{
+        return redirect()->back();
+      }
     
     }
 
     public function SalesReportGeneration(Request $req){
+      $validator = Validator::make($req->all(), [
+        'starting_date' => 'required|date',
+        'ending_date' => 'required|date|after_or_equal:starting_date',
+        'format' => 'required|in:PDF,Excel File',
+    ]);
+
+    // If validation fails, redirect back with error messages
+    if ($validator->fails()) {
+        return redirect()->back()->withErrors($validator)->withInput();
+    }
       $user_id=auth()->user()->id;
       $profileImg=User::find($user_id);  
       $start=$req->starting_date;
@@ -65,10 +91,22 @@ class ReportController extends Controller
             $no=0;
             return view('Manager/Sales-Report-data',['sales'=>$sales,
             'profileImg'=>$profileImg,'start'=>$start,'end'=>$end,'no'=>$no]);
+      }else{
+        return redirect()->back();
       }  
     }
 
     public function FarmerReportGeneration(Request $req){
+      $validator = Validator::make($req->all(), [
+        'starting_date' => 'required|date',
+        'ending_date' => 'required|date|after_or_equal:starting_date',
+        'format' => 'required|in:PDF,Excel File',
+    ]);
+
+    // If validation fails, redirect back with error messages
+    if ($validator->fails()) {
+        return redirect()->back()->withErrors($validator)->withInput();
+    }
       $user_id=auth()->user()->id;
       $profileImg=User::find($user_id);  
       $start=$req->starting_date;
@@ -84,6 +122,8 @@ class ReportController extends Controller
             $no=0;
             return view('Manager/Farmer-Report-data',['farmers'=>$farmers,
             'profileImg'=>$profileImg,'start'=>$start,'end'=>$end,'no'=>$no]);
+      }else{
+        return redirect()->back();
       } 
     }
 
