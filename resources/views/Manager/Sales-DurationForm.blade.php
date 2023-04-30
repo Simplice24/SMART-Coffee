@@ -147,7 +147,7 @@
               <div class="card">
                 <div class="card-body">
                   <h4 class="card-title">Provide starting and ending date of report</h4>
-                  <form class="forms-sample" action="ReportGeneration" method="POST">
+                  <form class="forms-sample" action="SalesReportGeneration" method="POST">
                     @csrf
                     <div class="form-group">
                       <label for="exampleInputUsername1">From</label>

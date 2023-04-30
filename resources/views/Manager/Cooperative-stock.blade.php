@@ -278,9 +278,6 @@
                       <a href="<?=url('StockReportDuration');?>">
                         <button type="submit" class="btn btn-info">Report</button>
                       </a>  
-                      <!-- <a href="StockExcelDuration">
-                        <button type="submit" class="btn btn-info">Excel</button>
-                      </a>  -->
                     </div>
                   </div>
                   <div class="table-responsive">

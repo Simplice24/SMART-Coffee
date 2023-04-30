@@ -25,6 +25,9 @@
   <link rel="stylesheet" href="/Customized/css/style.css">
   <!-- endinject -->
   <link rel="shortcut icon" href="/Customized/images/favicon.png" />
+  <!-- Datatable -->
+  <link href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css" rel="stylesheet">
+  <!-- End of datatable -->
 </head>
 <body>
   <div class="container-scroller">
@@ -143,39 +146,89 @@
       <!-- partial -->
       <div class="main-panel">
         <div class="content-wrapper">
-        <div class="col-md-6 grid-margin stretch-card mx-auto">
+        <div class="col-lg-12 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
-                  <h4 class="card-title">Provide starting and ending date of report</h4>
-                  <form class="forms-sample" action="ReportGeneration" method="POST">
-                    @csrf
-                    <div class="form-group">
-                      <label for="exampleInputUsername1">From</label>
-                      <input type="date" class="form-control" name="starting_date" required>
+                  <h4 class="card-title">Sales records</h4>
+                  <p class="card-description">
+                    From: <b>{{$start}}</b>
+                  </p>
+                  <p class="card-description">
+                    To: <b>{{$end}}</b>
+                  </p>
+                  <div id="report">
+                    <div class="button-container">
+                      <a href="<?= url('SalesPDFGeneration?sales=' . urlencode(json_encode($sales)) . '&start=' . $start . '&end=' . $end) ?>">
+                        <button type="submit" class="btn btn-info">PDF</button>
+                      </a>  
                     </div>
-                    <div class="form-group">
-                      <label for="exampleInputEmail1">To</label>
-                      <input type="date" class="form-control" name="ending_date" required>
-                    </div>
-                    <div class="form-group">
-                      <label for="exampleInputPassword1">Format</label>
-                        <select class="form-control" style="height:46px; width:180px"  name="format" required>
-                            <option disable selected>Select report format</option>
-                            <option>PDF</option>
-                            <option>Excel File</option>
-                        </select>
-                    </div>
-                    <button type="submit" class="btn btn-success mr-2">Generate report</button>
-                    @if (session('error'))
-                        <div class="alert alert-danger">{{ session('error') }}</div>
-                    @endif
-                  </form>
+                  </div>
+                  <div class="table-responsive">
+                    <table class="table table-striped" id="records">
+                      <thead>
+                        <tr>
+                          <th>
+                            #
+                          </th>  
+                          <th>
+                            Customer
+                          </th>
+                          <th>
+                            Product
+                          </th>
+                          <th>
+                            Quantity
+                          </th>
+                          <th>
+                            Price
+                          </th>
+                          <th>
+                            Payment 
+                          </th>
+                          <th>
+                            Year
+                          </th>
+                          <th>
+                            Recorded 
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        @foreach($sales as $record)
+                        <tr>
+                          <td>
+                            {{++$no}}
+                          </td>
+                          <td>
+                            {{$record->customer}}
+                          </td>
+                          <td>
+                            {{$record->product}} 
+                          </td>
+                          <td>
+                            {{$record->quantity}} Kgs
+                          </td>
+                          <td>
+                            {{$record->price}}
+                          </td>
+                          <td>
+                            {{$record->payment}}
+                          </td>
+                          <td>
+                            {{$record->year}}
+                          </td>
+                          <td>
+                            {{$record->created_at}}
+                          </td>
+                        </tr>
+                        @endforeach
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
               </div>
             </div>
-           
         </div>
-
         <!-- content-wrapper ends -->
         <!-- partial:partials/_footer.html -->
         <footer class="footer">
@@ -208,6 +261,16 @@
   <script src="/Customized/js/dashboard.js"></script>
   <!-- End custom js for this page-->  
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+  <script>
+  $(document).ready(function() {
+    $('#records').DataTable({
+      "paging": true,
+      "ordering": false,
+      "searching": true
+    });
+  });
+</script>
 </body>
 </html>
 

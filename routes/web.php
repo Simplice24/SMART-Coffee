@@ -293,9 +293,15 @@ Route::group(['middleware'=>["auth"]],function(){
 
 Route::get('StockReportDuration',[ReportController::class,'DurationForm']);
 
-Route::post('ReportGeneration',[ReportController::class,'ReportGeneration']);
+Route::get('SalesReportDuration',[ReportController::class,'SalesDurationForm']);
+
+Route::post('ReportGeneration',[ReportController::class,'StockReportGeneration']);
+
+Route::post('SalesReportGeneration',[ReportController::class,'SalesReportGeneration']);
 
 Route::get('PDFGeneration',[ReportController::class,'generatePDF']);
+
+Route::get('SalesPDFGeneration',[ReportController::class,'SalesGeneratePDF']);
 
 });
 
