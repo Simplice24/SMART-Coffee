@@ -3,7 +3,7 @@
 <html lang="{{ app()->getLocale() }}">
 <head>
 <style>
-table {
+    table {
       border-collapse: collapse;
       margin: 0 auto; /* centers the table horizontally */
     }
@@ -32,7 +32,7 @@ table {
         <div class="col-lg-12 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
-                  <h4 class="card-title">Stock records</h4>
+                  <h4 class="card-title">Farmers records</h4>
                   <p class="card-description">
                     From: <b>{{$start}}</b>
                   </p>
@@ -47,16 +47,22 @@ table {
                             #
                           </th>
                           <th>
-                            Coffee beans
+                            Names
                           </th>
                           <th>
-                            Quantity
+                            Gender
                           </th>
                           <th>
-                            Season
+                            ID No
                           </th>
                           <th>
-                            Year
+                            No of trees
+                          </th>
+                          <th>
+                            Fertilizer
+                          </th>
+                          <th>
+                            Phone
                           </th>
                           <th>
                             Recorded 
@@ -64,22 +70,28 @@ table {
                         </tr>
                       </thead>
                       <tbody>
-                        @foreach($stocks as $record)
+                        @foreach($farmers as $record)
                         <tr>
                           <td>
                             {{++$no}}
                           </td> 
                           <td>
-                            {{$record['product']}}
+                            {{$record['name']}}
                           </td>
                           <td>
-                            {{$record['quantity']}} Kgs
+                            {{$record['gender']}}
                           </td>
                           <td>
-                            {{$record['season']}} 
+                            {{$record['idn']}} 
                           </td>
                           <td>
-                            {{$record['year']}}
+                            {{$record['number_of_trees']}}
+                          </td>
+                          <td>
+                            {{$record['fertilizer']}}
+                          </td>
+                          <td>
+                            {{$record['phone']}}
                           </td>
                           <td>
                             {{$record['created_at']}}

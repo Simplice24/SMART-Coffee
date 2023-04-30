@@ -293,15 +293,21 @@ Route::group(['middleware'=>["auth"]],function(){
 
 Route::get('StockReportDuration',[ReportController::class,'DurationForm']);
 
+Route::get('FarmersReportDuration',[ReportController::class,'FarmersReportDuration']);
+
 Route::get('SalesReportDuration',[ReportController::class,'SalesDurationForm']);
 
 Route::post('ReportGeneration',[ReportController::class,'StockReportGeneration']);
 
 Route::post('SalesReportGeneration',[ReportController::class,'SalesReportGeneration']);
 
+Route::post('FarmerReportGeneration',[ReportController::class,'FarmerReportGeneration']);
+
 Route::get('PDFGeneration',[ReportController::class,'generatePDF']);
 
 Route::get('SalesPDFGeneration',[ReportController::class,'SalesGeneratePDF']);
+
+Route::get('FarmersPDFGeneration',[ReportController::class,'FarmersPDFGeneration']);
 
 });
 
