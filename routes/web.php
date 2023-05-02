@@ -356,6 +356,12 @@ Route::post('FarmersReportGeneration',[ReportController::class,'FarmersReportGen
 
 Route::get('FarmerPDFGeneration',[ReportController::class,'FarmerPDFGeneration']);
 
+Route::get('DiseasesReportDuration',[ReportController::class,'DiseasesReportDuration']);
+
+Route::post('DiseasesReportGeneration',[ReportController::class,'DiseasesReportGeneration']);
+
+Route::get('DiseasePDFGeneration',[ReportController::class,'DiseasePDFGeneration']);
+
 });
 
 
