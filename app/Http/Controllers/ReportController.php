@@ -451,6 +451,12 @@ class ReportController extends Controller
     return view('Official/CooperativesDurationForm',['profileImg'=>$profileImg]);
   }
 
+  public function FarmerReportDuration(){
+    $user_id=auth()->user()->id;
+    $profileImg=User::find($user_id);
+    return view('Official/FarmerDurationForm',['profileImg'=>$profileImg]);
+  }
+
   public function ManagersReportGeneration(Request $req){
     $user_id=auth()->user()->id;
     $profileImg=User::find($user_id);
@@ -618,6 +624,89 @@ class ReportController extends Controller
     }
   }
 
+  public function FarmersReportGeneration(Request $req){
+    $user_id=auth()->user()->id;
+    $profileImg=User::find($user_id);
+    $user_role=User::where('id',$user_id)->value('role');
+    $users_location=User::select('province','district','sector','cell')
+                      ->where('id',$user_id)
+                      ->get();
+    $validator = Validator::make($req->all(), [
+      'starting_date' => 'required|date',
+      'ending_date' => 'required|date|after_or_equal:starting_date',
+      'format' => 'required|in:PDF,Excel File',
+  ]);
+
+  // If validation fails, redirect back with error messages
+  if ($validator->fails()) {
+      return redirect()->back()->withErrors($validator)->withInput();
+  }
+    $start=$req->starting_date;
+    $end=$req->ending_date;
+    $format=$req->format;
+    if($format==="PDF" && $user_role==="SEDO"){
+              $cooperatives = Cooperative::whereIn('province', $users_location->pluck('province'))
+                  ->whereIn('district', $users_location->pluck('district'))
+                  ->whereIn('sector', $users_location->pluck('sector'))
+                  ->whereIn('cell', $users_location->pluck('cell'))
+                  ->whereBetween('created_at',[$start,$end])
+                  ->get();
+
+              $farmersIds=$cooperatives->pluck('id');
+              
+              $farmers=DB::table('farmers')
+                       ->whereIn('cooperative_id',$farmersIds)
+                       ->get();
+              
+              $no=0;
+              return view('Official/Farmer-Report-data',['farmers'=>$farmers,
+              'profileImg'=>$profileImg,'start'=>$start,'end'=>$end,'no'=>$no]);
+        }elseif($format==="PDF" && $user_role==="Sector-agro"){
+            $Cooperatives = Cooperative::whereIn('province', $users_location->pluck('province'))
+                          ->whereIn('district', $users_location->pluck('district'))
+                          ->whereIn('sector', $users_location->pluck('sector'))
+                          ->whereBetween('created_at',[$start,$end])
+                          ->get();
+
+            $farmersIds=$cooperatives->pluck('id');
+              
+            $farmers=DB::table('farmers')
+                     ->whereIn('cooperative_id',$farmersIds)
+                     ->get();              
+            
+            $no=0;
+            return view('Official/Farmer-Report-data',['farmers'=>$farmers,
+            'profileImg'=>$profileImg,'start'=>$start,'end'=>$end,'no'=>$no]);
+    }elseif($format==="PDF" && $user_role==="District-agro"){
+              $Cooperatives = Cooperative::whereIn('province', $users_location->pluck('province'))
+                          ->whereIn('district', $users_location->pluck('district'))
+                          ->whereBetween('created_at',[$start,$end])
+                          ->get();
+
+              $farmersIds=$cooperatives->pluck('id');
+              
+              $farmers=DB::table('farmers')
+                       ->whereIn('cooperative_id',$farmersIds)
+                       ->get();
+              
+              $no=0;
+              return view('Official/Farmer-Report-data',['farmers'=>$farmers,
+              'profileImg'=>$profileImg,'start'=>$start,'end'=>$end,'no'=>$no]);
+    }else{ 
+        $cooperatives=Cooperative::whereBetween('created_at',[$start,$end])->get();
+
+        $farmersIds=$cooperatives->pluck('id');
+              
+        $farmers=DB::table('farmers')
+                       ->whereIn('cooperative_id',$farmersIds)
+                       ->get();
+        
+        $no=0;
+        return view('Official/Farmer-Report-data',['farmers'=>$farmers,
+        'profileImg'=>$profileImg,'start'=>$start,'end'=>$end,'no'=>$no]);
+    }
+  }
+
   public function ManagersPDFGeneration(){
       $managers = json_decode(urldecode(request('managers')), true);
       $start = request()->input('start');
@@ -664,5 +753,29 @@ class ReportController extends Controller
     
     // Output the PDF
     return $dompdf->stream('Cooperatives.pdf');
+  }
+
+  public function FarmerPDFGeneration(){
+    $farmers = json_decode(urldecode(request('farmers')), true);
+    $start = request()->input('start');
+    $end = request()->input('end');
+    $no=0;
+    // Render the view as HTML
+    $html = view('Official/farmers-pdf', ['farmers' => $farmers,'no'=>$no,'start'=>$start,'end'=>$end])->render();
+    
+    // Create a new Dompdf instance
+    $dompdf = new Dompdf();
+    
+    // Load the HTML into Dompdf
+    $dompdf->loadHtml($html);
+    
+    // Set the paper size and orientation
+    $dompdf->setPaper('A4', 'landscape');
+    
+    // Render the PDF
+    $dompdf->render();
+    
+    // Output the PDF
+    return $dompdf->stream('Farmers.pdf');
   }
 }

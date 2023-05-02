@@ -74,7 +74,7 @@
             
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
               <p class="mb-0 font-weight-normal float-left dropdown-header">{{ __('msg.settings') }}</p>
-              <a class="dropdown-item preview-item" href="">               
+              <a class="dropdown-item preview-item" href="<?=url('userProfile');?>">               
                   <i class="icon-head"></i> {{ __('msg.profile') }}
               </a>
               <!-- <a class="dropdown-item preview-item" href="">               
@@ -152,54 +152,81 @@
       <!-- partial -->
       <div class="main-panel">
         <div class="content-wrapper">
-        <div class="row">
-             
-           <div class="col-lg-12 grid-margin">
+        <div class="col-lg-12 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
-                  <h4 class="card-title">{{ __('msg.Farmers') }}</h4>
+                  <h4 class="card-title">Farmers report</h4>
+                  <p class="card-description">
+                    From: <b>{{$start}}</b>
+                  </p>
+                  <p class="card-description">
+                    To: <b>{{$end}}</b>
+                  </p>
                   <div id="report">
-                    <div class="button-container" style="display: flex; justify-content: space-between;">
-                      <a href="<?=url('FarmerReportDuration');?>">
-                        <button type="submit" class="btn btn-info">Report</button>
+                    <div class="button-container">
+                    <a href="<?= url('FarmerPDFGeneration?farmers=' . urlencode(json_encode($farmers)) . '&start=' . $start . '&end=' . $end) ?>">
+                        <button type="submit" class="btn btn-info">PDF</button>
                       </a>  
                     </div>
                   </div>
                   <div class="table-responsive">
-                  <table class="table table-striped" id="FarmersTable">
+                    <table class="table table-striped" id="records">
                       <thead>
                         <tr>
-                          <th>#</th>
-                          <th>Name</th>
-                          <th>Cooperative</th>
-                          <th>Gender</th>
-                          <th>Trees</th>
-                          <th>ID</th>
-                          <th>Fertilizer</th>
-                          <th>Phone</th>
-                          <th></th>
+                          <th>
+                            #
+                          </th>  
+                          <th>
+                            Name
+                          </th>
+                          <th>
+                            ID
+                          </th>
+                          <th>
+                            Cooperative
+                          </th>
+                          <th>
+                            Gender
+                          </th>
+                          <th>
+                            Trees
+                          </th>
+                          <th>
+                            Fertilizer
+                          </th>
+                          <th>
+                            Phone
+                          </th>
                         </tr>
                       </thead>
                       <tbody>
-                        @foreach($farmers as $farmer)
-                          <tr>
-                            <td>{{++$no}}</td>
-                            <td>{{$farmer->name}}</td>
-                            <td>{{$farmer->cooperative_name}}</td>
-                            <td>{{$farmer->gender}}</td>
-                            <td>{{$farmer->number_of_trees}}</td>
-                            <td>{{$farmer->idn}}</td>
-                            <td>{{$farmer->fertilizer}}</td>
-                            <td>{{$farmer->phone}}</td>
-                            <td>
-                              <div class="input-group-prepend">
-                              <button class="btn btn-sm btn-outline-success dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">action</button>
-                                <div class="dropdown-menu">
-                                  <a class="dropdown-item" href="{{"Farmer-profile/".$farmer->id}}"><i class="fa fa-eye" aria-hidden="true"></i>&nbsp; {{__('msg.view')}}</a>
-                                </div>
-                              </div> <!-- add this closing tag -->
-                            </td>
-                          </tr>
+                        @foreach($farmers as $record)
+                        <tr>
+                          <td>
+                            {{++$no}}
+                          </td>
+                          <td>
+                            {{$record->name}}
+                          </td>
+                          <td>
+                            {{$record->idn}} 
+                          </td>
+                          <td>
+                            {{$record->cooperative_name}} 
+                          </td>
+                          <td>
+                            {{$record->gender}} 
+                          </td>
+                          <td>
+                            {{$record->number_of_trees}} 
+                          </td>
+                          <td>
+                            {{$record->fertilizer}} 
+                          </td>
+                          <td>
+                            {{$record->phone}} 
+                          </td>
+                        </tr>
                         @endforeach
                       </tbody>
                     </table>
@@ -207,9 +234,7 @@
                 </div>
               </div>
             </div>
-           </div>
-           </div>
-      
+        </div>
         <!-- content-wrapper ends -->
         <!-- partial:partials/_footer.html -->
         <footer class="footer">
@@ -240,11 +265,12 @@
   <!-- End plugin js for this page -->
   <!-- Custom js for this page-->
   <script src="/Customized/js/dashboard.js"></script>
-  <!-- End custom js for this page-->
+  <!-- End custom js for this page-->  
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
   <script>
   $(document).ready(function() {
-    $('#FarmersTable').DataTable({
+    $('#records').DataTable({
       "paging": true,
       "ordering": false,
       "searching": true

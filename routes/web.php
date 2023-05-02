@@ -350,6 +350,12 @@ Route::post('CooperativeReportGeneration',[ReportController::class,'CooperativeR
 
 Route::get('CooperativePDFGeneration',[ReportController::class,'CooperativePDFGeneration']);
 
+Route::get('FarmerReportDuration',[ReportController::class,'FarmerReportDuration']);
+
+Route::post('FarmersReportGeneration',[ReportController::class,'FarmersReportGeneration']);
+
+Route::get('FarmerPDFGeneration',[ReportController::class,'FarmerPDFGeneration']);
+
 });
 
 
