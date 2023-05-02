@@ -25,9 +25,6 @@
   <link rel="stylesheet" href="/Customized/css/style.css">
   <!-- endinject -->
   <link rel="shortcut icon" href="/Customized/images/favicon.png" />
-   <!-- Datatable -->
-   <link href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css" rel="stylesheet">
-  <!-- End of datatable -->
 </head>
 <body>
   <div class="container-scroller">
@@ -74,7 +71,7 @@
             
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
               <p class="mb-0 font-weight-normal float-left dropdown-header">{{ __('msg.settings') }}</p>
-              <a class="dropdown-item preview-item" href="">               
+              <a class="dropdown-item preview-item" href="<?=url('userProfile');?>">               
                   <i class="icon-head"></i> {{ __('msg.profile') }}
               </a>
               <!-- <a class="dropdown-item preview-item" href="">               
@@ -152,66 +149,51 @@
       <!-- partial -->
       <div class="main-panel">
         <div class="content-wrapper">
-        <div class="row">
-             
-           <div class="col-lg-12 grid-margin">
+        <div class="col-md-6 grid-margin stretch-card mx-auto">
               <div class="card">
                 <div class="card-body">
-                  <h4 class="card-title">{{ __('msg.Cooperatives') }}</h4>
-                  <div id="report">
-                    <div class="button-container" style="display: flex; justify-content: space-between;">
-                      <a href="<?=url('CooperativesReportDuration');?>">
-                        <button type="submit" class="btn btn-info">Report</button>
-                      </a>  
+                  <h4 class="card-title">Provide starting and ending date of report</h4>
+                  <form class="forms-sample" action="CooperativeReportGeneration" method="POST">
+                    @csrf
+                    <div class="form-group">
+                      <label for="exampleInputUsername1">From</label>
+                      <input type="date" class="form-control" name="starting_date" value="{{ old('starting_date') }}" required>
+                      @error('starting_date')
+                          <div class="text-danger">{{ $message }}</div>
+                      @enderror
                     </div>
-                  </div>
-                  <div class="table-responsive">
-                  <table class="table table-striped" id="CooperativesTable">
-                      <thead>
-                        <tr>
-                          <th>#</th>
-                          <th>Name</th>
-                          <th>Manager</th>
-                          <th>Status</th>
-                          <th>Email</th>
-                          <th>Started</th>
-                          <th></th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        @foreach($cooperatives as $cooperative)
-                          <tr>
-                            <td>{{++$no}}</td>
-                            <td>{{$cooperative->name}}</td>
-                            <td>{{$cooperative->manager_name}}</td>
-                            <td>
-                            @if($cooperative->status=="Operating")
-                            <label class="bg-success text-white rounded p-1 d-flex align-items-stretch justify-content-stretch mt-1">{{ $cooperative->status }}</label>
-                            @else
-                            <label class="bg-warning text-white rounded p-1 d-flex align-items-stretch justify-content-stretch mt-1">{{ $cooperative->status }}</label>
-                            @endif
-                            </td>
-                            <td>{{$cooperative->email}}</td>
-                            <td>{{$cooperative->starting_date}}</td>
-                            <td>
-                              <div class="input-group-prepend">
-                              <button class="btn btn-sm btn-outline-success dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">action</button>
-                                <div class="dropdown-menu">
-                                  <a class="dropdown-item" href="{{"Cooperative-details/".$cooperative->id}}"><i class="fa fa-eye" aria-hidden="true"></i>&nbsp; {{__('msg.view')}}</a>
-                                </div>
-                              </div> <!-- add this closing tag -->
-                            </td>
-                          </tr>
-                        @endforeach
-                      </tbody>
-                    </table>
-                  </div>
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">To</label>
+                      <input type="date" class="form-control" name="ending_date" value="{{ old('ending_date') }}" required>
+                      @error('ending_date')
+                          <div class="text-danger">{{ $message }}</div>
+                      @enderror
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputPassword1">Format</label>
+                        <select class="form-control" style="height:46px; width:180px"  name="format" required>
+                            <option disable selected>Select report format</option>
+                            <option>PDF</option>
+                            <!-- <option>Excel File</option> -->
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-success mr-2">Generate report</button>
+                    @if($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+                  </form>
                 </div>
               </div>
             </div>
-           </div>
-           </div>
-      
+           
+        </div>
+
         <!-- content-wrapper ends -->
         <!-- partial:partials/_footer.html -->
         <footer class="footer">
@@ -242,17 +224,8 @@
   <!-- End plugin js for this page -->
   <!-- Custom js for this page-->
   <script src="/Customized/js/dashboard.js"></script>
-  <!-- End custom js for this page-->
-  <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
-  <script>
-  $(document).ready(function() {
-    $('#CooperativesTable').DataTable({
-      "paging": true,
-      "ordering": false,
-      "searching": true
-    });
-  });
-</script>
+  <!-- End custom js for this page-->  
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </body>
 </html>
 

@@ -344,6 +344,12 @@ Route::post('ManagersReportGeneration',[ReportController::class,'ManagersReportG
 
 Route::get('ManagersPDFGeneration',[ReportController::class,'ManagersPDFGeneration']);
 
+Route::get('CooperativesReportDuration',[ReportController::class,'CooperativesReportDuration']);
+
+Route::post('CooperativeReportGeneration',[ReportController::class,'CooperativeReportGeneration']);
+
+Route::get('CooperativePDFGeneration',[ReportController::class,'CooperativePDFGeneration']);
+
 });
 
 

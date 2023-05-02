@@ -25,8 +25,8 @@
   <link rel="stylesheet" href="/Customized/css/style.css">
   <!-- endinject -->
   <link rel="shortcut icon" href="/Customized/images/favicon.png" />
-   <!-- Datatable -->
-   <link href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css" rel="stylesheet">
+  <!-- Datatable -->
+  <link href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css" rel="stylesheet">
   <!-- End of datatable -->
 </head>
 <body>
@@ -74,7 +74,7 @@
             
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
               <p class="mb-0 font-weight-normal float-left dropdown-header">{{ __('msg.settings') }}</p>
-              <a class="dropdown-item preview-item" href="">               
+              <a class="dropdown-item preview-item" href="<?=url('userProfile');?>">               
                   <i class="icon-head"></i> {{ __('msg.profile') }}
               </a>
               <!-- <a class="dropdown-item preview-item" href="">               
@@ -152,56 +152,69 @@
       <!-- partial -->
       <div class="main-panel">
         <div class="content-wrapper">
-        <div class="row">
-             
-           <div class="col-lg-12 grid-margin">
+        <div class="col-lg-12 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
-                  <h4 class="card-title">{{ __('msg.Cooperatives') }}</h4>
+                  <h4 class="card-title">Cooperatives report</h4>
+                  <p class="card-description">
+                    From: <b>{{$start}}</b>
+                  </p>
+                  <p class="card-description">
+                    To: <b>{{$end}}</b>
+                  </p>
                   <div id="report">
-                    <div class="button-container" style="display: flex; justify-content: space-between;">
-                      <a href="<?=url('CooperativesReportDuration');?>">
-                        <button type="submit" class="btn btn-info">Report</button>
+                    <div class="button-container">
+                    <a href="<?= url('CooperativePDFGeneration?cooperatives=' . urlencode(json_encode($cooperatives)) . '&start=' . $start . '&end=' . $end) ?>">
+                        <button type="submit" class="btn btn-info">PDF</button>
                       </a>  
                     </div>
                   </div>
                   <div class="table-responsive">
-                  <table class="table table-striped" id="CooperativesTable">
+                    <table class="table table-striped" id="records">
                       <thead>
                         <tr>
-                          <th>#</th>
-                          <th>Name</th>
-                          <th>Manager</th>
-                          <th>Status</th>
-                          <th>Email</th>
-                          <th>Started</th>
-                          <th></th>
+                          <th>
+                            #
+                          </th>  
+                          <th>
+                            Name
+                          </th>
+                          <th>
+                            Manager
+                          </th>
+                          <th>
+                            Started
+                          </th>
+                          <th>
+                            Status
+                          </th>
+                          <th>
+                            Email
+                          </th>
                         </tr>
                       </thead>
                       <tbody>
-                        @foreach($cooperatives as $cooperative)
-                          <tr>
-                            <td>{{++$no}}</td>
-                            <td>{{$cooperative->name}}</td>
-                            <td>{{$cooperative->manager_name}}</td>
-                            <td>
-                            @if($cooperative->status=="Operating")
-                            <label class="bg-success text-white rounded p-1 d-flex align-items-stretch justify-content-stretch mt-1">{{ $cooperative->status }}</label>
-                            @else
-                            <label class="bg-warning text-white rounded p-1 d-flex align-items-stretch justify-content-stretch mt-1">{{ $cooperative->status }}</label>
-                            @endif
-                            </td>
-                            <td>{{$cooperative->email}}</td>
-                            <td>{{$cooperative->starting_date}}</td>
-                            <td>
-                              <div class="input-group-prepend">
-                              <button class="btn btn-sm btn-outline-success dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">action</button>
-                                <div class="dropdown-menu">
-                                  <a class="dropdown-item" href="{{"Cooperative-details/".$cooperative->id}}"><i class="fa fa-eye" aria-hidden="true"></i>&nbsp; {{__('msg.view')}}</a>
-                                </div>
-                              </div> <!-- add this closing tag -->
-                            </td>
-                          </tr>
+                        @foreach($cooperatives as $record)
+                        <tr>
+                          <td>
+                            {{++$no}}
+                          </td>
+                          <td>
+                            {{$record->name}}
+                          </td>
+                          <td>
+                            {{$record->manager_name}} 
+                          </td>
+                          <td>
+                            {{$record->starting_date}} 
+                          </td>
+                          <td>
+                            {{$record->status}} 
+                          </td>
+                          <td>
+                            {{$record->email}} 
+                          </td>
+                        </tr>
                         @endforeach
                       </tbody>
                     </table>
@@ -209,9 +222,7 @@
                 </div>
               </div>
             </div>
-           </div>
-           </div>
-      
+        </div>
         <!-- content-wrapper ends -->
         <!-- partial:partials/_footer.html -->
         <footer class="footer">
@@ -242,11 +253,12 @@
   <!-- End plugin js for this page -->
   <!-- Custom js for this page-->
   <script src="/Customized/js/dashboard.js"></script>
-  <!-- End custom js for this page-->
+  <!-- End custom js for this page-->  
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
   <script>
   $(document).ready(function() {
-    $('#CooperativesTable').DataTable({
+    $('#records').DataTable({
       "paging": true,
       "ordering": false,
       "searching": true
