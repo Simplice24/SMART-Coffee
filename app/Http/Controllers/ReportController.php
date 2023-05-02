@@ -219,6 +219,12 @@ class ReportController extends Controller
     return view('FarmersDurationForm',['profileImg'=>$profileImg]);
   }
 
+  public function AdminDiseasesReportDuration(){
+    $user_id=auth()->user()->id;
+    $profileImg=User::find($user_id);
+    return view('DiseasesDurationForm',['profileImg'=>$profileImg]);
+  }
+
   public function UsersReportGeneration(Request $req){
     $validator = Validator::make($req->all(), [
       'starting_date' => 'required|date',
@@ -303,6 +309,37 @@ class ReportController extends Controller
     }
   }
 
+  public function AdminDiseasesReportGeneration(Request $req){
+      $validator = Validator::make($req->all(), [
+      'starting_date' => 'required|date',
+      'ending_date' => 'required|date|after_or_equal:starting_date',
+      'format' => 'required|in:PDF,Excel File',
+  ]);
+
+  // If validation fails, redirect back with error messages
+  if ($validator->fails()) {
+      return redirect()->back()->withErrors($validator)->withInput();
+  }
+    $user_id=auth()->user()->id;
+    $profileImg=User::find($user_id);  
+    $start=$req->starting_date;
+    $end=$req->ending_date;
+    $format=$req->format;
+    if($format==="PDF"){
+          $diseases = DB::table('diseases')
+                ->select('diseases.id', 'diseases.disease_name as name','diseases.category as category','diseases.description as description', DB::raw('count(reported_diseases.id) as count'))
+                ->leftJoin('reported_diseases', 'diseases.id', '=', 'reported_diseases.disease_id')
+                ->whereBetween('reported_diseases.created_at', [$start, $end])
+                ->groupBy('diseases.id', 'name','category','description')
+                ->get();
+          $no=0;
+          return view('disease-Report-data',['diseases'=>$diseases,
+          'profileImg'=>$profileImg,'start'=>$start,'end'=>$end,'no'=>$no]);
+    }else{
+      return redirect()->back();
+    }
+  }
+
   public function UsersPDFGeneration(){
       $users = json_decode(urldecode(request('users')), true);
       $start = request()->input('start');
@@ -373,5 +410,29 @@ class ReportController extends Controller
       
       // Output the PDF
       return $dompdf->stream('Farmers.pdf');
+  }
+
+  public function DiseasesPDFGeneration(){
+      $diseases = json_decode(urldecode(request('diseases')), true);
+      $start = request()->input('start');
+      $end = request()->input('end');
+      $no=0;
+      // Render the view as HTML
+      $html = view('diseases-pdf', ['diseases' => $diseases,'no'=>$no,'start'=>$start,'end'=>$end])->render();
+      
+      // Create a new Dompdf instance
+      $dompdf = new Dompdf();
+      
+      // Load the HTML into Dompdf
+      $dompdf->loadHtml($html);
+      
+      // Set the paper size and orientation
+      $dompdf->setPaper('A4', 'landscape');
+      
+      // Render the PDF
+      $dompdf->render();
+      
+      // Output the PDF
+      return $dompdf->stream('Diseases.pdf');
   }
 }

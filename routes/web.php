@@ -319,11 +319,17 @@ Route::get('CooperativesPDFGeneration',[ReportController::class,'CooperativesPDF
 
 Route::get('AdminFarmersPDFGeneration',[ReportController::class,'AdminFarmersPDFGeneration']);
 
+Route::get('DiseasesPDFGeneration',[ReportController::class,'DiseasesPDFGeneration']);
+
 Route::get('UsersReportDuration',[ReportController::class,'UsersReportDuration']);
 
 Route::get('Admin-CooperativeReportDuration',[ReportController::class,'AdminCoopReportDuration']);
 
 Route::get('Admin-FarmersReportDuration',[ReportController::class,'AdminFarmersReportDuration']);
+
+Route::get('Admin-DiseasesReportDuration',[ReportController::class,'AdminDiseasesReportDuration']);
+
+Route::post('AdminDiseasesReportGeneration',[ReportController::class,'AdminDiseasesReportGeneration']);
 
 });
 
