@@ -333,3 +333,18 @@ Route::post('AdminDiseasesReportGeneration',[ReportController::class,'AdminDisea
 
 });
 
+
+//Official's report routes
+
+Route::group(['middleware'=>["auth"]],function(){
+
+Route::get('ManagersReportDuration',[ReportController::class,'ManagersReportDuration']);
+
+Route::post('ManagersReportGeneration',[ReportController::class,'ManagersReportGeneration']);
+
+Route::get('ManagersPDFGeneration',[ReportController::class,'ManagersPDFGeneration']);
+
+});
+
+
+

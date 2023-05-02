@@ -74,7 +74,7 @@
             
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
               <p class="mb-0 font-weight-normal float-left dropdown-header">{{ __('msg.settings') }}</p>
-              <a class="dropdown-item preview-item" href="">               
+              <a class="dropdown-item preview-item" href="<?=url('userProfile');?>">               
                   <i class="icon-head"></i> {{ __('msg.profile') }}
               </a>
               <!-- <a class="dropdown-item preview-item" href="">               
@@ -152,44 +152,69 @@
       <!-- partial -->
       <div class="main-panel">
         <div class="content-wrapper">
-        <div class="row">
-             
-           <div class="col-lg-12 grid-margin">
+        <div class="col-lg-12 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
-                  <h4 class="card-title">{{ __('msg.Managers') }}</h4>
+                  <h4 class="card-title">Managers report</h4>
+                  <p class="card-description">
+                    From: <b>{{$start}}</b>
+                  </p>
+                  <p class="card-description">
+                    To: <b>{{$end}}</b>
+                  </p>
                   <div id="report">
-                    <div class="button-container" style="display: flex; justify-content: space-between;">
-                      <a href="<?=url('ManagersReportDuration');?>">
-                        <button type="submit" class="btn btn-info">Report</button>
+                    <div class="button-container">
+                    <a href="<?= url('ManagersPDFGeneration?managers=' . urlencode(json_encode($managers)) . '&start=' . $start . '&end=' . $end) ?>">
+                        <button type="submit" class="btn btn-info">PDF</button>
                       </a>  
                     </div>
                   </div>
                   <div class="table-responsive">
-                  <table class="table table-striped" id="ManagersTable">
+                    <table class="table table-striped" id="records">
                       <thead>
                         <tr>
-                          <th>#</th>
-                          <th>Full name</th>
-                          <th>cooperative</th>
-                          <th>actions</th>
+                          <th>
+                            #
+                          </th>  
+                          <th>
+                            Manager
+                          </th>
+                          <th>
+                            Gender
+                          </th>
+                          <th>
+                            Cooperative
+                          </th>
+                          <th>
+                            Email
+                          </th>
+                          <th>
+                            Phone
+                          </th>
                         </tr>
                       </thead>
                       <tbody>
-                        @foreach($managers as $manager)
-                          <tr>
-                            <td>{{++$no}}</td>
-                            <td>{{$manager->manager_name}}</td>
-                            <td>{{$manager->cooperative_name}}</td>
-                            <td>
-                              <div class="input-group-prepend">
-                              <button class="btn btn-sm btn-outline-success dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">action</button>
-                                <div class="dropdown-menu">
-                                  <a class="dropdown-item" href="{{"ManagerProfile/".$manager->user_id}}"><i class="fa fa-eye" aria-hidden="true"></i>&nbsp; {{__('msg.view')}}</a>
-                                </div>
-                              </div> <!-- add this closing tag -->
-                            </td>
-                          </tr>
+                        @foreach($managers as $record)
+                        <tr>
+                          <td>
+                            {{++$no}}
+                          </td>
+                          <td>
+                            {{$record->manager_name}}
+                          </td>
+                          <td>
+                            {{$record->gender}} 
+                          </td>
+                          <td>
+                            {{$record->cooperative_name}} 
+                          </td>
+                          <td>
+                            {{$record->email}} 
+                          </td>
+                          <td>
+                            {{$record->phone}} 
+                          </td>
+                        </tr>
                         @endforeach
                       </tbody>
                     </table>
@@ -197,9 +222,7 @@
                 </div>
               </div>
             </div>
-           </div>
-           </div>
-      
+        </div>
         <!-- content-wrapper ends -->
         <!-- partial:partials/_footer.html -->
         <footer class="footer">
@@ -230,11 +253,12 @@
   <!-- End plugin js for this page -->
   <!-- Custom js for this page-->
   <script src="/Customized/js/dashboard.js"></script>
-  <!-- End custom js for this page-->
+  <!-- End custom js for this page-->  
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
   <script>
   $(document).ready(function() {
-    $('#ManagersTable').DataTable({
+    $('#records').DataTable({
       "paging": true,
       "ordering": false,
       "searching": true

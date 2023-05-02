@@ -7,6 +7,7 @@ use Dompdf\Dompdf;
 use App\Models\Stock;
 use App\Models\Sales;
 use App\Models\User;
+use App\Models\Cooperative;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -434,5 +435,85 @@ class ReportController extends Controller
       
       // Output the PDF
       return $dompdf->stream('Diseases.pdf');
+  }
+
+  //Official's report functions
+
+  public function ManagersReportDuration(){
+    $user_id=auth()->user()->id;
+    $profileImg=User::find($user_id);
+    return view('Official/ManagersDurationForm',['profileImg'=>$profileImg]);
+  }
+
+  public function ManagersReportGeneration(Request $req){
+    $user_id=auth()->user()->id;
+    $profileImg=User::find($user_id);
+    $user_role=User::where('id',$user_id)->value('role');
+    $users_location=User::select('province','district','sector','cell')
+                      ->where('id',$user_id)
+                      ->get();
+    $validator = Validator::make($req->all(), [
+      'starting_date' => 'required|date',
+      'ending_date' => 'required|date|after_or_equal:starting_date',
+      'format' => 'required|in:PDF,Excel File',
+  ]);
+
+  // If validation fails, redirect back with error messages
+  if ($validator->fails()) {
+      return redirect()->back()->withErrors($validator)->withInput();
+  }
+    $start=$req->starting_date;
+    $end=$req->ending_date;
+    $format=$req->format;
+    if($format==="PDF" && $user_role==="SEDO"){
+      $Cooperatives = Cooperative::whereIn('province', $users_location->pluck('province'))
+               ->whereIn('district', $users_location->pluck('district'))
+               ->whereIn('sector', $users_location->pluck('sector'))
+               ->whereIn('cell', $users_location->pluck('cell'))
+               ->get();
+          $cooperativeIds = $Cooperatives->pluck('id');
+  
+          $managerIds = DB::table('cooperative_user')
+              ->whereIn('cooperative_id', $cooperativeIds)
+              ->pluck('user_id'); 
+      
+          $managers = DB::table('users')
+              ->whereIn('users.id', $managerIds)
+              ->leftJoin('cooperative_user', 'users.id', '=', 'cooperative_user.user_id')
+              ->leftJoin('cooperatives', 'cooperative_user.cooperative_id', '=', 'cooperatives.id')
+              ->whereIn('cooperatives.id', $cooperativeIds)
+              ->whereBetween('users.created_at',[$start,$end])
+              ->select('users.name as manager_name','users.gender as gender','users.email as email','users.phone as phone','cooperatives.name as cooperative_name')
+              ->get();
+              
+          
+          $no=0;
+          return view('Official/Manager-Report-data',['managers'=>$managers,
+          'profileImg'=>$profileImg,'start'=>$start,'end'=>$end,'no'=>$no]);
+    }
+  }
+
+  public function ManagersPDFGeneration(){
+      $managers = json_decode(urldecode(request('managers')), true);
+      $start = request()->input('start');
+      $end = request()->input('end');
+      $no=0;
+      // Render the view as HTML
+      $html = view('Official/managers-pdf', ['managers' => $managers,'no'=>$no,'start'=>$start,'end'=>$end])->render();
+      
+      // Create a new Dompdf instance
+      $dompdf = new Dompdf();
+      
+      // Load the HTML into Dompdf
+      $dompdf->loadHtml($html);
+      
+      // Set the paper size and orientation
+      $dompdf->setPaper('A4', 'landscape');
+      
+      // Render the PDF
+      $dompdf->render();
+      
+      // Output the PDF
+      return $dompdf->stream('Managers.pdf');
   }
 }
