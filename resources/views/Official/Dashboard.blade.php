@@ -237,7 +237,7 @@
                       <div class="card-body">
                           <h4 class="card-title">Male managers<i class="mdi mdi-gender-male menu-icon float-right"></i></h4>
                           
-                          <h4 class="text-dark font-weight-bold mb-2"></h4>
+                          <h4 class="text-dark font-weight-bold mb-2">{{ $MaleManagersCount }}</h4>
                           <canvas id="MaleManagers"></canvas>
                       </div>
                       </div>
@@ -245,7 +245,7 @@
                       <div class="card-body">
                           <h4 class="card-title">Female managers<i class="mdi mdi-gender-female menu-icon float-right"></i></h4>
                           
-                          <h4 class="text-dark font-weight-bold mb-2"></h4>
+                          <h4 class="text-dark font-weight-bold mb-2">{{ $FemaleManagersCount}}</h4>
                           <canvas id="FemaleManagers"></canvas>
                       </div>
                 </div>
@@ -255,7 +255,7 @@
                       <div class="card-body">
                           <h4 class="card-title">Male farmers<i class="mdi mdi-gender-male menu-icon float-right"></i></h4>
                           
-                          <h4 class="text-dark font-weight-bold mb-2"></h4>
+                          <h4 class="text-dark font-weight-bold mb-2">{{ $MaleFarmersCount }}</h4>
                           <canvas id="MaleFarmers"></canvas>
                       </div>
                       </div>
@@ -263,7 +263,7 @@
                       <div class="card-body">
                           <h4 class="card-title">Female farmers<i class="mdi mdi-gender-female menu-icon float-right"></i></h4>
                           
-                          <h4 class="text-dark font-weight-bold mb-2"></h4>
+                          <h4 class="text-dark font-weight-bold mb-2">{{ $FemaleFarmersCount }}</h4>
                           <canvas id="FemaleFarmers"></canvas>
                       </div>
                 </div>
@@ -273,7 +273,7 @@
                       <div class="card-body">
                           <h4 class="card-title">Active cooperatives</h4>
                           
-                          <h4 class="text-dark font-weight-bold mb-2"></h4>
+                          <h4 class="text-dark font-weight-bold mb-2">{{ $ActiveCooperativesCount }}</h4>
                           <canvas id="ActiveCooperatives"></canvas>
                       </div>
                       </div>
@@ -281,7 +281,7 @@
                       <div class="card-body">
                           <h4 class="card-title">Inactive cooperatives</h4>
                           
-                          <h4 class="text-dark font-weight-bold mb-2"></h4>
+                          <h4 class="text-dark font-weight-bold mb-2">{{ $InactiveCooperativesCount }}</h4>
                           <canvas id="InactiveCooperatives"></canvas>
                       </div>
               </div>      

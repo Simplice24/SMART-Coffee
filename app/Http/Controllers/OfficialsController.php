@@ -120,6 +120,7 @@ class OfficialsController extends Controller
         $MaleManagers=User::whereIn('id',$managerIds)
                       ->where('gender','Male')
                       ->get();
+        $MaleManagersCount=$MaleManagers->count();         
     
         $MaleManagersByYearMonth = $MaleManagers->groupBy(function ($user) {
                     return $user->created_at->format('Y-m');
@@ -136,6 +137,7 @@ class OfficialsController extends Controller
         $FemaleManagers=User::whereIn('id',$managerIds)
                       ->where('gender','Female')
                       ->get();
+        $FemaleManagersCount=$FemaleManagers->count();              
     
         $FemaleManagersByYearMonth = $FemaleManagers->groupBy(function ($user) {
                     return $user->created_at->format('Y-m');
@@ -152,6 +154,7 @@ class OfficialsController extends Controller
         $MaleFarmers=Farmer::whereIn('id',$farmerIds)
                       ->where('gender','Male')
                       ->get();
+        $MaleFarmersCount=$MaleFarmers->count();              
     
         $MaleFarmersByYearMonth = $MaleFarmers->groupBy(function ($user) {
                     return $user->created_at->format('Y-m');
@@ -168,6 +171,7 @@ class OfficialsController extends Controller
         $FemaleFarmers=Farmer::whereIn('id',$farmerIds)
                       ->where('gender','Female')
                       ->get();
+        $FemaleFarmersCount=$FemaleFarmers->count();              
     
         $FemaleFarmersByYearMonth = $FemaleFarmers->groupBy(function ($user) {
                     return $user->created_at->format('Y-m');
@@ -184,6 +188,7 @@ class OfficialsController extends Controller
         $ActiveCooperatives=Cooperative::whereIn('id',$cooperativeIds)
                       ->where('status','Operating')
                       ->get();
+        $ActiveCooperativesCount=$ActiveCooperatives->count();              
     
         $ActiveByYearMonth = $ActiveCooperatives->groupBy(function ($coop) {
                     return $coop->created_at->format('Y-m');
@@ -200,6 +205,7 @@ class OfficialsController extends Controller
         $InactiveCooperatives=Cooperative::whereIn('id',$cooperativeIds)
         ->where('status','Not operating')
         ->get();
+        $InactiveCooperativesCount=$InactiveCooperatives->count();
 
         $InactiveByYearMonth = $InactiveCooperatives->groupBy(function ($coop) {
               return $coop->created_at->format('Y-m');
@@ -246,7 +252,8 @@ class OfficialsController extends Controller
         'MaleFarmerMonthYear'=>$MaleFarmerMonthYear,'MaleFarmercount'=>$MaleFarmercount,'FemaleFarmerMonthYear'=>$FemaleFarmerMonthYear,
         'FemaleFarmercount'=>$FemaleFarmercount,'ActiveCoopMonthYear'=>$ActiveCoopMonthYear,'ActiveCoopcount'=>$ActiveCoopcount,'percentByDiseaseCategory'=>$percentByDiseaseCategory,
         'InactiveCoopMonthYear'=>$InactiveCoopMonthYear,'InactiveCoopcount'=>$InactiveCoopcount,'Totaldiseases'=>$Totaldiseases,'TotalReportedDiseases'=>$TotalReportedDiseases,
-        'DiseaseCategoryPercentage'=>$DiseaseCategoryPercentage]);
+        'DiseaseCategoryPercentage'=>$DiseaseCategoryPercentage,'MaleManagersCount'=>$MaleManagersCount,'FemaleManagersCount'=>$FemaleManagersCount,'MaleFarmersCount'=>$MaleFarmersCount,
+        'FemaleFarmersCount'=>$FemaleFarmersCount,'ActiveCooperativesCount'=>$ActiveCooperativesCount,'InactiveCooperativesCount'=>$InactiveCooperativesCount]);
       }
       elseif($user_role==="Sector-agro"){
         $Cooperatives = Cooperative::whereIn('province', $users_location->pluck('province'))
@@ -339,6 +346,7 @@ class OfficialsController extends Controller
         $MaleManagers=User::whereIn('id',$managerIds)
                       ->where('gender','Male')
                       ->get();
+        $MaleManagersCount=$MaleManagers->count();              
     
         $MaleManagersByYearMonth = $MaleManagers->groupBy(function ($user) {
                     return $user->created_at->format('Y-m');
@@ -355,6 +363,7 @@ class OfficialsController extends Controller
         $FemaleManagers=User::whereIn('id',$managerIds)
                       ->where('gender','Female')
                       ->get();
+        $FemaleManagersCount=$FemaleManagers->count();              
     
         $FemaleManagersByYearMonth = $FemaleManagers->groupBy(function ($user) {
                     return $user->created_at->format('Y-m');
@@ -371,6 +380,7 @@ class OfficialsController extends Controller
         $MaleFarmers=Farmer::whereIn('id',$farmerIds)
                       ->where('gender','Male')
                       ->get();
+        $MaleFarmersCount=$MaleFarmers->count();              
     
         $MaleFarmersByYearMonth = $MaleFarmers->groupBy(function ($user) {
                     return $user->created_at->format('Y-m');
@@ -387,6 +397,7 @@ class OfficialsController extends Controller
         $FemaleFarmers=Farmer::whereIn('id',$farmerIds)
                       ->where('gender','Female')
                       ->get();
+        $FemaleFarmersCount=$FemaleFarmers->count();              
     
         $FemaleFarmersByYearMonth = $FemaleFarmers->groupBy(function ($user) {
                     return $user->created_at->format('Y-m');
@@ -403,6 +414,7 @@ class OfficialsController extends Controller
         $ActiveCooperatives=Cooperative::whereIn('id',$cooperativeIds)
                       ->where('status','Operating')
                       ->get();
+        $ActiveCooperativesCount=$ActiveCooperatives->count();              
     
         $ActiveByYearMonth = $ActiveCooperatives->groupBy(function ($coop) {
                     return $coop->created_at->format('Y-m');
@@ -419,6 +431,7 @@ class OfficialsController extends Controller
         $InactiveCooperatives=Cooperative::whereIn('id',$cooperativeIds)
         ->where('status','Not operating')
         ->get();
+        $InactiveCooperativesCount=$InactiveCooperatives->count();
 
         $InactiveByYearMonth = $InactiveCooperatives->groupBy(function ($coop) {
               return $coop->created_at->format('Y-m');
@@ -463,7 +476,8 @@ class OfficialsController extends Controller
         'MaleFarmerMonthYear'=>$MaleFarmerMonthYear,'MaleFarmercount'=>$MaleFarmercount,'FemaleFarmerMonthYear'=>$FemaleFarmerMonthYear,
         'FemaleFarmercount'=>$FemaleFarmercount,'ActiveCoopMonthYear'=>$ActiveCoopMonthYear,'ActiveCoopcount'=>$ActiveCoopcount,'TotalReportedDiseases'=>$TotalReportedDiseases,
         'InactiveCoopMonthYear'=>$InactiveCoopMonthYear,'InactiveCoopcount'=>$InactiveCoopcount,'Totaldiseases'=>$Totaldiseases,'percentByDiseaseCategory'=>$percentByDiseaseCategory,
-        'DiseaseCategoryPercentage'=>$DiseaseCategoryPercentage]);
+        'DiseaseCategoryPercentage'=>$DiseaseCategoryPercentage,'MaleManagersCount'=>$MaleManagersCount,'FemaleManagersCount'=>$FemaleManagersCount,'MaleFarmersCount'=>$MaleFarmersCount,
+        'FemaleFarmersCount'=>$FemaleFarmersCount,'ActiveCooperativesCount'=>$ActiveCooperativesCount,'InactiveCooperativesCount'=>$InactiveCooperativesCount]);
       }
       elseif($user_role==="District-agro"){
         $Cooperatives = Cooperative::whereIn('province', $users_location->pluck('province'))
@@ -555,6 +569,7 @@ class OfficialsController extends Controller
         $MaleManagers=User::whereIn('id',$managerIds)
                       ->where('gender','Male')
                       ->get();
+        $MaleManagersCount=$MaleManagers->count();             
     
         $MaleManagersByYearMonth = $MaleManagers->groupBy(function ($user) {
                     return $user->created_at->format('Y-m');
@@ -571,6 +586,7 @@ class OfficialsController extends Controller
         $FemaleManagers=User::whereIn('id',$managerIds)
                       ->where('gender','Female')
                       ->get();
+        $FemaleManagersCount=$FemaleManagers->count();              
     
         $FemaleManagersByYearMonth = $FemaleManagers->groupBy(function ($user) {
                     return $user->created_at->format('Y-m');
@@ -587,6 +603,7 @@ class OfficialsController extends Controller
         $MaleFarmers=Farmer::whereIn('id',$farmerIds)
                       ->where('gender','Male')
                       ->get();
+        $MaleFarmersCount=$MaleFarmers->count();             
     
         $MaleFarmersByYearMonth = $MaleFarmers->groupBy(function ($user) {
                     return $user->created_at->format('Y-m');
@@ -603,6 +620,7 @@ class OfficialsController extends Controller
         $FemaleFarmers=Farmer::whereIn('id',$farmerIds)
                       ->where('gender','Female')
                       ->get();
+        $FemaleFarmersCount=$FemaleFarmers->count();              
     
         $FemaleFarmersByYearMonth = $FemaleFarmers->groupBy(function ($user) {
                     return $user->created_at->format('Y-m');
@@ -619,6 +637,7 @@ class OfficialsController extends Controller
         $ActiveCooperatives=Cooperative::whereIn('id',$cooperativeIds)
                       ->where('status','Operating')
                       ->get();
+        $ActiveCooperativesCount=$ActiveCooperatives->count();              
     
         $ActiveByYearMonth = $ActiveCooperatives->groupBy(function ($coop) {
                     return $coop->created_at->format('Y-m');
@@ -635,6 +654,7 @@ class OfficialsController extends Controller
         $InactiveCooperatives=Cooperative::whereIn('id',$cooperativeIds)
         ->where('status','Not operating')
         ->get();
+        $InactiveCooperativesCount=$InactiveCooperatives->count();
 
         $InactiveByYearMonth = $InactiveCooperatives->groupBy(function ($coop) {
               return $coop->created_at->format('Y-m');
@@ -679,7 +699,9 @@ class OfficialsController extends Controller
         'MaleFarmerMonthYear'=>$MaleFarmerMonthYear,'MaleFarmercount'=>$MaleFarmercount,'FemaleFarmerMonthYear'=>$FemaleFarmerMonthYear,
         'FemaleFarmercount'=>$FemaleFarmercount,'ActiveCoopMonthYear'=>$ActiveCoopMonthYear,'ActiveCoopcount'=>$ActiveCoopcount,'Totaldiseases'=>$Totaldiseases,
         'InactiveCoopMonthYear'=>$InactiveCoopMonthYear,'InactiveCoopcount'=>$InactiveCoopcount,'diseasesReported'=>$diseasesReported,'TotalReportedDiseases'=>$TotalReportedDiseases,
-        'percentByDiseaseCategory'=>$percentByDiseaseCategory,'DiseaseCategoryPercentage'=>$DiseaseCategoryPercentage]);
+        'percentByDiseaseCategory'=>$percentByDiseaseCategory,'DiseaseCategoryPercentage'=>$DiseaseCategoryPercentage,'MaleManagersCount'=>$MaleManagersCount,'FemaleManagersCount'=>$FemaleManagersCount,
+        'MaleFarmersCount'=>$MaleFarmersCount,'FemaleFarmersCount'=>$FemaleFarmersCount,'ActiveCooperativesCount'=>$ActiveCooperativesCount,
+        'InactiveCooperativesCount'=>$InactiveCooperativesCount]);
       }else{
         $Cooperatives = Cooperative::all();
         $cooperativeIds = $Cooperatives->pluck('id');
@@ -768,6 +790,7 @@ class OfficialsController extends Controller
         $MaleManagers=User::whereIn('id',$managerIds)
                       ->where('gender','Male')
                       ->get();
+        $MaleManagersCount=$MaleManagers->count();              
     
         $MaleManagersByYearMonth = $MaleManagers->groupBy(function ($user) {
                     return $user->created_at->format('Y-m');
@@ -784,6 +807,7 @@ class OfficialsController extends Controller
         $FemaleManagers=User::whereIn('id',$managerIds)
                       ->where('gender','Female')
                       ->get();
+        $FemaleManagersCount=$FemaleManagers->count();              
     
         $FemaleManagersByYearMonth = $FemaleManagers->groupBy(function ($user) {
                     return $user->created_at->format('Y-m');
@@ -800,6 +824,7 @@ class OfficialsController extends Controller
         $MaleFarmers=Farmer::whereIn('id',$farmerIds)
                       ->where('gender','Male')
                       ->get();
+        $MaleFarmersCount=$MaleFarmers->count();              
     
         $MaleFarmersByYearMonth = $MaleFarmers->groupBy(function ($user) {
                     return $user->created_at->format('Y-m');
@@ -816,6 +841,7 @@ class OfficialsController extends Controller
         $FemaleFarmers=Farmer::whereIn('id',$farmerIds)
                       ->where('gender','Female')
                       ->get();
+        $FemaleFarmersCount=$FemaleFarmers->count();             
     
         $FemaleFarmersByYearMonth = $FemaleFarmers->groupBy(function ($user) {
                     return $user->created_at->format('Y-m');
@@ -832,6 +858,7 @@ class OfficialsController extends Controller
         $ActiveCooperatives=Cooperative::whereIn('id',$cooperativeIds)
                       ->where('status','Operating')
                       ->get();
+        $ActiveCooperativesCount=$ActiveCooperatives->count();              
     
         $ActiveByYearMonth = $ActiveCooperatives->groupBy(function ($coop) {
                     return $coop->created_at->format('Y-m');
@@ -848,6 +875,7 @@ class OfficialsController extends Controller
         $InactiveCooperatives=Cooperative::whereIn('id',$cooperativeIds)
         ->where('status','Not operating')
         ->get();
+        $InactiveCooperativesCount=$InactiveCooperatives->count();
 
         $InactiveByYearMonth = $InactiveCooperatives->groupBy(function ($coop) {
               return $coop->created_at->format('Y-m');
@@ -890,7 +918,9 @@ class OfficialsController extends Controller
         'FemaleFarmercount'=>$FemaleFarmercount,'ActiveCoopMonthYear'=>$ActiveCoopMonthYear,'ActiveCoopcount'=>$ActiveCoopcount,
         'InactiveCoopMonthYear'=>$InactiveCoopMonthYear,'InactiveCoopcount'=>$InactiveCoopcount,'Totaldiseases'=>$Totaldiseases,
         'TotalReportedDiseases'=>$TotalReportedDiseases,'percentByDiseaseCategory'=>$percentByDiseaseCategory,
-        'DiseaseCategoryPercentage'=>$DiseaseCategoryPercentage]);
+        'DiseaseCategoryPercentage'=>$DiseaseCategoryPercentage,'MaleManagersCount'=>$MaleManagersCount,'FemaleManagersCount'=>$FemaleManagersCount,
+        'MaleFarmersCount'=>$MaleFarmersCount,'FemaleFarmersCount'=>$FemaleFarmersCount,'ActiveCooperativesCount'=>$ActiveCooperativesCount,
+        'InactiveCooperativesCount'=>$InactiveCooperativesCount]);
       }
     }
     
