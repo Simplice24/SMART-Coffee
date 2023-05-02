@@ -213,6 +213,12 @@ class ReportController extends Controller
      return view('CooperativesDurationForm',['profileImg'=>$profileImg]); 
   }
 
+  public function AdminFarmersReportDuration(){
+    $user_id=auth()->user()->id;
+    $profileImg=User::find($user_id);
+    return view('FarmersDurationForm',['profileImg'=>$profileImg]);
+  }
+
   public function UsersReportGeneration(Request $req){
     $validator = Validator::make($req->all(), [
       'starting_date' => 'required|date',
@@ -269,6 +275,34 @@ class ReportController extends Controller
     }
   }
 
+  public function AdminFarmersReportGeneration(Request $req){
+    $validator = Validator::make($req->all(), [
+      'starting_date' => 'required|date',
+      'ending_date' => 'required|date|after_or_equal:starting_date',
+      'format' => 'required|in:PDF,Excel File',
+  ]);
+
+  // If validation fails, redirect back with error messages
+  if ($validator->fails()) {
+      return redirect()->back()->withErrors($validator)->withInput();
+  }
+    $user_id=auth()->user()->id;
+    $profileImg=User::find($user_id);  
+    $start=$req->starting_date;
+    $end=$req->ending_date;
+    $format=$req->format;
+    if($format==="PDF"){
+      $farmers = DB::table('farmers')
+          ->whereBetween('created_at', [$start, $end])
+          ->get();
+          $no=0;
+          return view('farmers-Report-data',['farmers'=>$farmers,
+          'profileImg'=>$profileImg,'start'=>$start,'end'=>$end,'no'=>$no]);
+    }else{
+      return redirect()->back();
+    }
+  }
+
   public function UsersPDFGeneration(){
       $users = json_decode(urldecode(request('users')), true);
       $start = request()->input('start');
@@ -315,5 +349,29 @@ class ReportController extends Controller
       
       // Output the PDF
       return $dompdf->stream('Cooperatives.pdf');
+  }
+
+  public function AdminFarmersPDFGeneration(){
+      $farmers = json_decode(urldecode(request('farmers')), true);
+      $start = request()->input('start');
+      $end = request()->input('end');
+      $no=0;
+      // Render the view as HTML
+      $html = view('farmers-pdf', ['farmers' => $farmers,'no'=>$no,'start'=>$start,'end'=>$end])->render();
+      
+      // Create a new Dompdf instance
+      $dompdf = new Dompdf();
+      
+      // Load the HTML into Dompdf
+      $dompdf->loadHtml($html);
+      
+      // Set the paper size and orientation
+      $dompdf->setPaper('A4', 'landscape');
+      
+      // Render the PDF
+      $dompdf->render();
+      
+      // Output the PDF
+      return $dompdf->stream('Farmers.pdf');
   }
 }
