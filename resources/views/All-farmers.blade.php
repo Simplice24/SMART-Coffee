@@ -196,15 +196,15 @@
                   <h4 class="card-title">{{ __('msg.coffee farmers') }}</h4>
                   
                   <div>
-                    <label for="start-date">Start Date:</label>
-                    <input type="date" id="start-date" name="start-date">
+                      <label for="start-date">Start Date:</label>
+                      <input type="date" id="start-date" name="start-date">
                   </div>
                   <div>
-                    <label for="end-date">End Date:</label>
-                    <input type="date" id="end-date" name="end-date">
+                      <label for="end-date">End Date:</label>
+                      <input type="date" id="end-date" name="end-date">
                   </div>
                   <div>
-                    <button type="button" id="date-filter">Filter by Date Range</button>
+                      <button type="button" id="date-filter">Filter by Date Range</button>
                   </div>
 
                   <div class="table-responsive">
@@ -292,8 +292,8 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.70/pdfmake.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.70/vfs_fonts.js"></script>
   <script>
-  $(document).ready(function() {
-    $('#FarmersTable').DataTable( {
+    $(document).ready(function() {
+    var table = $('#FarmersTable').DataTable({
         dom: 'Bfrtip',
         buttons: [
             {
@@ -321,9 +321,9 @@
                 }
             }
         ]
-    } );
-} );
-$('#date-filter').on('click', function() {
+    });
+
+    $('#date-filter').on('click', function() {
         var startDate = $('#start-date').val();
         var endDate = $('#end-date').val();
 
@@ -338,6 +338,7 @@ $('#date-filter').on('click', function() {
         // Search for records with dates between the starting and ending dates
         table.columns(6).search(startString + '|' + endString, true, false).draw();
     });
+});
 </script>
 </body>
 </html>
