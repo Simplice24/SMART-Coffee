@@ -873,7 +873,7 @@ class ReportController extends Controller
     $dompdf->render();
     
     // Output the PDF
-    return $dompdf->stream('Farmers.pdf');
+    return $dompdf->stream('Farmers__.pdf');
   }
 
   public function DiseasePDFGeneration(){

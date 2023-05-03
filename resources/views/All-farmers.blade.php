@@ -27,6 +27,15 @@
   <!-- Datatable -->
   <link href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css" rel="stylesheet">
   <!-- End of datatable -->
+  <!-- Starting of Datatable -->
+  <link href="https://code.jquery.com/jquery-3.5.1.js">
+  <link href="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js">
+  <link href="https://cdn.datatables.net/buttons/2.3.6/js/dataTables.buttons.min.js">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js">
+  <link href="https://cdn.datatables.net/buttons/2.3.6/js/buttons.html5.min.js">
+  <!-- Ending of datatable -->
 </head>
 <body>
   <div class="container-scroller">
@@ -185,13 +194,19 @@
               <div class="card">
                 <div class="card-body">
                   <h4 class="card-title">{{ __('msg.coffee farmers') }}</h4>
-                  <div id="report">
-                    <div class="button-container" style="display: flex; justify-content: space-between;">
-                      <a href="<?=url('Admin-FarmersReportDuration');?>">
-                        <button type="submit" class="btn btn-info">Report</button>
-                      </a>  
-                    </div>
+                  
+                  <div>
+                    <label for="start-date">Start Date:</label>
+                    <input type="date" id="start-date" name="start-date">
                   </div>
+                  <div>
+                    <label for="end-date">End Date:</label>
+                    <input type="date" id="end-date" name="end-date">
+                  </div>
+                  <div>
+                    <button type="button" id="date-filter">Filter by Date Range</button>
+                  </div>
+
                   <div class="table-responsive">
                   <table class="table table-striped" id="FarmersTable">
                       <thead>
@@ -201,6 +216,8 @@
                           <th>{{__('msg.cooperative')}}</th>
                           <th>{{__('msg.number of trees')}}</th>
                           <th>{{__('msg.fertilizer')}}</th>
+                          <th>{{__('msg.phone')}}</th>
+                          <th>created_at</th>
                           <th>actions</th>
                         </tr>
                       </thead>
@@ -212,6 +229,8 @@
                             <td>{{$i->cooperative_name}}</td>
                             <td>{{$i->number_of_trees}}</td>
                             <td>{{$i->fertilizer}}</td>
+                            <td>{{$i->phone}}</td>
+                            <td>{{$i->created_at}}</td>
                             <td>
                               <div class="input-group-prepend">
                                 <button class="btn btn-sm btn-outline-success dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">action</button>
@@ -264,14 +283,61 @@
   <script src="Customized/js/dashboard.js"></script>
   <!-- End custom js for this page-->
   <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+  
+  <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.11.3/datatables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.0.1/js/dataTables.buttons.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.0.1/js/buttons.html5.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.70/pdfmake.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.70/vfs_fonts.js"></script>
   <script>
   $(document).ready(function() {
-    $('#FarmersTable').DataTable({
-      "paging": true,
-      "ordering": false,
-      "searching": true
+    $('#FarmersTable').DataTable( {
+        dom: 'Bfrtip',
+        buttons: [
+            {
+                extend: 'copyHtml5',
+                exportOptions: {
+                    columns: [ 0,1,2,3,4,5,6 ]
+                }
+            },
+            {
+                extend: 'excelHtml5',
+                exportOptions: {
+                  columns: [ 0,1,2,3,4,5,6 ]
+                }
+            },
+            {
+                extend: 'csvHtml5',
+                exportOptions: {
+                  columns: [ 0,1,2,3,4,5,6 ]
+                }
+            },
+            {
+                extend: 'pdfHtml5',
+                exportOptions: {
+                  columns: [ 0,1,2,3,4,5,6 ]
+                }
+            }
+        ]
+    } );
+} );
+$('#date-filter').on('click', function() {
+        var startDate = $('#start-date').val();
+        var endDate = $('#end-date').val();
+
+        // Convert the start and end date strings to Date objects
+        var start = new Date(startDate);
+        var end = new Date(endDate);
+
+        // Format the start and end dates as strings in the format "YYYY-MM-DD"
+        var startString = start.getFullYear() + '-' + (start.getMonth() + 1) + '-' + start.getDate();
+        var endString = end.getFullYear() + '-' + (end.getMonth() + 1) + '-' + end.getDate();
+
+        // Search for records with dates between the starting and ending dates
+        table.columns(6).search(startString + '|' + endString, true, false).draw();
     });
-  });
 </script>
 </body>
 </html>
