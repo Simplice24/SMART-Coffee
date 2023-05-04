@@ -22846,3 +22846,13 @@ dl li {
   display: inline-block;
   margin-right: 10px; /* add margin between the buttons */
 }
+#date-filter {
+  height: 30px;
+  padding: 0 5px;
+}
+#date-filter span {
+  margin: 0 5px;
+}
+#end, #start{
+  padding: 0 5px;
+}

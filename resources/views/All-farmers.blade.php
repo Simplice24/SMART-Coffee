@@ -195,16 +195,19 @@
                 <div class="card-body">
                   <h4 class="card-title">{{ __('msg.coffee farmers') }}</h4>
                   
-                  <div>
-                      <label for="start-date">Start Date:</label>
-                      <input type="date" id="start-date" name="start-date">
-                  </div>
-                  <div>
-                      <label for="end-date">End Date:</label>
-                      <input type="date" id="end-date" name="end-date">
-                  </div>
-                  <div>
-                      <button type="button" id="date-filter">Filter by Date Range</button>
+                  <div class="form-inline">
+                    <label for="inlineFormInputName2" id="start">Start Date:</label>
+                    <input type="date" class="form-control mb-2 mr-sm-2" id="start-date" name="start-date" style="height:20px;">
+                  
+                    <label for="inlineFormInputGroupUsername2" id="end">End Date:</label>
+                    <div class="input-group mb-2 mr-sm-2">
+                      <input type="date" class="form-control" id="end-date" name="end-date" style="height:20px;">
+                    </div>
+                    
+                    <button type="submit" id="date-filter" class="btn btn-success mb-2">
+                      <span>Filter by Date Range</span>
+                    </button>
+
                   </div>
 
                   <div class="table-responsive">
