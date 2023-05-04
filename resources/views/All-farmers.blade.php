@@ -36,6 +36,12 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js">
   <link href="https://cdn.datatables.net/buttons/2.3.6/js/buttons.html5.min.js">
   <!-- Ending of datatable -->
+  <link href="https://cdn.datatables.net/datetime/1.4.1/js/dataTables.dateTime.min.js">
+  <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.0.1/css/buttons.dataTables.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+  <!-- filtering -->
+
+  <!-- end of filtering -->
 </head>
 <body>
   <div class="container-scroller">
@@ -296,9 +302,8 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.70/vfs_fonts.js"></script>
     <!-- Include Moment.js library from CDN -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
- 
   <script>
-    $(document).ready(function() {
+$(document).ready(function() {
     var table = $('#FarmersTable').DataTable({
         dom: 'Bfrtip',
         buttons: [
@@ -330,15 +335,13 @@
     });
 
     $('#date-filter').on('click', function() {
-  var startDate = moment($('#start-date').val(), 'YYYY-MM-DD').format('YYYY-MM-DD HH:mm:ss');
-  var endDate = moment($('#end-date').val(), 'YYYY-MM-DD').format('YYYY-MM-DD HH:mm:ss');
-
-  console.log(startDate);
-  console.log(endDate);
-  table.columns(6).search(startDate + '|' + endDate).draw();
- 
-});
-
+        var startDate = moment($('#start-date').val(), 'YYYY-MM-DD').format('YYYY-MM-DD HH:mm:ss');
+        var endDate = moment($('#end-date').val(), 'YYYY-MM-DD').format('YYYY-MM-DD HH:mm:ss');
+        
+        console.log(startDate);
+        console.log(endDate);
+        table.columns(6).search(startDate + '|' + endDate, true, false).draw();
+    });
 });
 </script>
 </body>
