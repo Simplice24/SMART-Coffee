@@ -845,4 +845,9 @@ $DiseaseCategoryPercentage = DB::table('reported_diseases')
         'UserMonthCount'=>$UserMonthCount,'Diseasemonths'=>$Diseasemonths,'DiseaseMonthCount'=>$DiseaseMonthCount]);
         }
 
+        public function DeleteDisease($id){
+            Disease::find($id)->delete();
+            return redirect()->back();
+        }
+
 }

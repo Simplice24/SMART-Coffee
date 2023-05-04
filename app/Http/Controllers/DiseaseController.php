@@ -98,18 +98,22 @@ class DiseaseController extends Controller
     }
 
     public function DiseaseRegistration(Request $req){
-        $Disease=new Disease;
-        $destination_path ='public/images/diseases';
-        $Disease->disease_name=$req->disease;
-        $Disease->category=$req->category;
-        $Disease->description=$req->description;
-        $image=$req->file('image');
-        $image_name=$image->getClientOriginalName();
-        $path = $req->file('image')->storeAs($destination_path,$image_name);
-        $Disease->image=$image_name;
+        $Disease = new Disease;
+        $destination_path = 'public/images/diseases';
+        $Disease->disease_name = $req->disease;
+        $Disease->category = $req->category;
+        $Disease->description = $req->description;
+        $image = $req->file('image');
+        $image_name = $image->getClientOriginalName();
+        $image_extension = $image->getClientOriginalExtension();
+        $image_full_name = $image_name;
+        $path = $req->file('image')->storeAs($destination_path, $image_full_name);
+        $path = str_replace('public/', '', $path); // remove 'public/' segment from path
+        $Disease->image = $path;
         $Disease->save();            
         return redirect('viewdiseases');
     }
+    
 
     public function DiseaseDetailsPage($id){
         $userId =auth()->user()->id;
@@ -125,26 +129,29 @@ class DiseaseController extends Controller
         return view('Disease-update',['diseaseinfo'=> $diseaseinfo,'profileImg'=>$profileImg]);
     }
     
-    public function DiseaseUpdate(Request $req,$id){
-        $destination_path = 'public/images/diseases';
+    public function DiseaseUpdate(Request $req, $id){
+        $destination_path = 'images/diseases';
         $input = Disease::find($id);
-        $default_name = $input->image;
+        $default_path = $input->image;
         $input->disease_name = $req->input('disease_name');
         $input->category = $req->input('category');
         $input->description = $req->input('description');
         $image = $req->file('image');
         if ($image) {
             $image_name = $image->getClientOriginalName();
-            $path = $req->file('image')->storeAs($destination_path, $image_name);
+            $image_extension = $image->getClientOriginalExtension();
+            $image_full_name = $image_name . '.' . $image_extension;
+            $path = $req->file('image')->storeAs($destination_path, $image_full_name);
         } else {
-            $image_name = $default_name;
+            $image_full_name = $default_path;
             $path = null; // Set path to null since no file was uploaded
         }
-        $input->image = $image_name;
+        $input->image = $path ?? $image_full_name;
         $input->update();
-
+    
         return redirect('viewdiseases');
-      }
+    }
+    
 
       public function DeleteDisease($id){
         Disease::find($id)->delete();

@@ -164,7 +164,7 @@
               <div class="card">
                 <div class="card-body">
                   <div class="d-flex flex-column align-items-center text-center">
-                    <img src="{{asset('/storage/images/diseases/'.$diseaseinfo->image)}}" alt="Admin"  width="360x" >
+                    <img src="{{ asset('storage/'.$diseaseinfo->image)}}" alt="Admin"  width="360x" >
                   </div>
                 </div>
               </div>
