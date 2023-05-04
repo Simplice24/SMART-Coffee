@@ -203,11 +203,11 @@
                   
                   <div class="form-inline">
                     <label for="inlineFormInputName2" id="start">Start Date:</label>
-                    <input type="date" class="form-control mb-2 mr-sm-2" id="start-date" name="start-date" style="height:20px;">
+                    <input type="date" class="form-control mb-2 mr-sm-2" id="start_date" name="start-date" style="height:20px;">
                   
                     <label for="inlineFormInputGroupUsername2" id="end">End Date:</label>
                     <div class="input-group mb-2 mr-sm-2">
-                      <input type="date" class="form-control" id="end-date" name="end-date" style="height:20px;">
+                      <input type="date" class="form-control" id="end-date" name="end_date" style="height:20px;">
                     </div>
                     
                     <button type="submit" id="date-filter" class="btn btn-success mb-2">

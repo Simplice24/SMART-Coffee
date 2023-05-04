@@ -310,6 +310,7 @@ class ReportController extends Controller
     }
   }
 
+
   public function AdminDiseasesReportGeneration(Request $req){
       $validator = Validator::make($req->all(), [
       'starting_date' => 'required|date',
