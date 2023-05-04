@@ -294,6 +294,9 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.70/pdfmake.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.70/vfs_fonts.js"></script>
+    <!-- Include Moment.js library from CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+ 
   <script>
     $(document).ready(function() {
     var table = $('#FarmersTable').DataTable({
@@ -327,20 +330,15 @@
     });
 
     $('#date-filter').on('click', function() {
-        var startDate = $('#start-date').val();
-        var endDate = $('#end-date').val();
+  var startDate = moment($('#start-date').val(), 'YYYY-MM-DD').format('YYYY-MM-DD HH:mm:ss');
+  var endDate = moment($('#end-date').val(), 'YYYY-MM-DD').format('YYYY-MM-DD HH:mm:ss');
 
-        // Convert the start and end date strings to Date objects
-        var start = new Date(startDate);
-        var end = new Date(endDate);
+  console.log(startDate);
+  console.log(endDate);
+  table.columns(6).search(startDate + '|' + endDate).draw();
+ 
+});
 
-        // Format the start and end dates as strings in the format "YYYY-MM-DD"
-        var startString = start.getFullYear() + '-' + (start.getMonth() + 1) + '-' + start.getDate();
-        var endString = end.getFullYear() + '-' + (end.getMonth() + 1) + '-' + end.getDate();
-
-        // Search for records with dates between the starting and ending dates
-        table.columns(6).search(startString + '|' + endString, true, false).draw();
-    });
 });
 </script>
 </body>

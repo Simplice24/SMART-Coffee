@@ -70,6 +70,13 @@
                 <input type="submit" value="{{ __('msg.Log in')}}" class="btn btn-block btn-success">
 
               </form>
+              <br>
+              @if($errors->any())
+                  <div class="alert alert-danger center">
+                      {{ $errors->first() }}
+                  </div>
+              @endif
+
             </div>
           </div>
         </div>

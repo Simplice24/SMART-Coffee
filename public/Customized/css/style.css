@@ -22856,3 +22856,8 @@ dl li {
 #end, #start{
   padding: 0 5px;
 }
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

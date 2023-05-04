@@ -643,7 +643,7 @@ $DiseaseCategoryPercentage = DB::table('reported_diseases')
   
   
     return back()->withErrors([
-      'email' => 'The provided credentials do not match our records.',
+      'email' => 'Credentials you provided are not correct.',
     ])->onlyInput('email');
   
     }
