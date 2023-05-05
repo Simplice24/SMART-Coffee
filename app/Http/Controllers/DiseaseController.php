@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Disease;
 use App\Models\ReportedDisease;
 use Illuminate\Support\Facades\DB;
+use GeoIp2\Database\Reader;
 
 class DiseaseController extends Controller
 {
@@ -165,7 +166,7 @@ class DiseaseController extends Controller
         return view('Manager/Disease-details',['diseaseinfo'=>$diseaseinfo,'profileImg'=>$profileImg]);
       }
 
-      public function ReportingDisease($id){
+      public function ReportingDisease(Request $request,$id){
         $Manager_id=auth()->user()->id;
         $cooperative_id=DB::table('cooperative_user')
                         ->where('user_id',$Manager_id)

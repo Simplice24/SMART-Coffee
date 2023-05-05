@@ -11,6 +11,8 @@ class ReportedDisease extends Model
     protected $fillable=[
         'cooperative_id',
         'disease_id',
-        'disease_category'
+        'disease_category',
+        'latitude',
+        'longitude'
     ];
 }

@@ -97,7 +97,7 @@
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <div class="user-profile">
           <div class="user-image">
-          <img src="{{asset('/storage/images/users/'.$profileImg->image)}}">
+          <img src="{{asset('storage/'.$profileImg->image)}}">
           </div>
           <div class="user-name">
           {{session('user')}}

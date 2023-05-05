@@ -362,7 +362,6 @@ Route::post('DiseasesReportGeneration',[ReportController::class,'DiseasesReportG
 
 Route::get('DiseasePDFGeneration',[ReportController::class,'DiseasePDFGeneration']);
 
-
 });
 
 
