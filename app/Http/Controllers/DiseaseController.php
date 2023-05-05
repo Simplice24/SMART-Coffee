@@ -167,6 +167,16 @@ class DiseaseController extends Controller
       }
 
       public function ReportingDisease(Request $request,$id){
+//         $reader = new Reader(storage_path('app/GeoLite2-City.mmdb'));
+
+// $ip = '172.17.25.222'; // Replace with the client's IP address
+
+// $record = $reader->city($ip);
+
+// $latitude = $record->location->latitude;
+// $longitude = $record->location->longitude;
+
+        
         $Manager_id=auth()->user()->id;
         $cooperative_id=DB::table('cooperative_user')
                         ->where('user_id',$Manager_id)
