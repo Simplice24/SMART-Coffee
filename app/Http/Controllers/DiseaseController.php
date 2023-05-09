@@ -196,6 +196,4 @@ class DiseaseController extends Controller
         ReportedDisease::where('disease_id',$id)->delete();
         return redirect('viewdiseases');
       }
-
-
 }
