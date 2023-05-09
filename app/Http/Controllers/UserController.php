@@ -579,12 +579,27 @@ $DiseaseCategoryPercentage = DB::table('reported_diseases')
                    ->where('product', 'Robusta beans')
                    ->sum('price');
                               
-    $revenueByCategory = DB::table('sales')
-                      ->select('product', DB::raw('SUM(price) as revenue'))
-                      ->where('cooperative_id',$cooperative_id)
-                      ->whereMonth('created_at', Carbon::now()->month)
-                      ->groupBy('product')
-                      ->get();
+                   $currentMonth = Carbon::now()->month;
+$previousMonth = $currentMonth - 1;
+if ($previousMonth == 0) {
+    $previousMonth = 12;
+}
+
+$revenueByCategory = DB::table('sales')
+    ->select('product', 
+             DB::raw('(SUM(CASE WHEN MONTH(created_at) = '.$currentMonth.' THEN price ELSE 0 END)) as current_month_revenue'),
+             DB::raw('(SUM(CASE WHEN MONTH(created_at) = '.$previousMonth.' THEN price ELSE 0 END)) as previous_month_revenue'),
+             DB::raw('(SUM(CASE WHEN MONTH(created_at) = '.$currentMonth.' THEN price ELSE 0 END) - SUM(CASE WHEN MONTH(created_at) = '.$previousMonth.' THEN price ELSE 0 END)) / SUM(CASE WHEN MONTH(created_at) = '.$previousMonth.' THEN price ELSE 0 END) * 100 as percentageIncrease')
+            )
+    ->where('cooperative_id', $cooperative_id)
+    ->where(function ($query) use ($currentMonth) {
+        $query->whereMonth('created_at', $currentMonth)
+            ->orWhereMonth('created_at', $currentMonth - 1);
+    })
+    ->groupBy('product')
+    ->get();
+    
+
     $CooperativeSales=Sales::where('cooperative_id',$cooperative_id)->get();
 
     $SalesByPayment = DB::table('sales')
