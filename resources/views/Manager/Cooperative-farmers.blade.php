@@ -24,9 +24,15 @@
   <link rel="stylesheet" href="Customized/css/style.css">
   <!-- endinject -->
   <link rel="shortcut icon" href="Customized/images/favicon.png" />
-  <!-- Datatable -->
-  <link href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css" rel="stylesheet">
-  <!-- End of datatable -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- DataTables CSS -->
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.25/datatables.min.css"/>
+<link rel="stylesheet" href="https://cdn.datatables.net/datetime/1.4.1/css/dataTables.dateTime.min.css">
+<!--  End of DataTable CSS --> 
+<!-- DataTable report Links -->
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.7.1/css/buttons.dataTables.min.css"/>
+<!-- End of DataTable report links -->
 </head>
 <body>
   <div class="container-scroller">
@@ -153,13 +159,17 @@
               <div class="card">
                 <div class="card-body">
                   <h4 class="card-title">{{ __('msg.coffee farmers') }}</h4>
-                  <div id="report">
-                    <div class="button-container" style="display: flex; justify-content: space-between;">
-                      <a href="<?=url('FarmersReportDuration');?>">
-                        <button type="submit" class="btn btn-info">Report</button>
-                      </a>  
-                    </div>
+                  <div class="form-inline">
+                      <div class="form-group mr-2">
+                          <label for="min">Minimum date: </label>
+                          <input type="text" class="form-control" id="min" name="min">
+                      </div>
+                      <div class="form-group mr-2">
+                          <label for="max">Maximum date: </label>
+                          <input type="text" class="form-control" id="max" name="max">
+                      </div>
                   </div>
+                  <br>
                   <div class="table-responsive">
                   <table class="table table-striped" id="FarmersTable">
                   <thead>
@@ -169,6 +179,7 @@
                       <th>{{__('msg.cooperative')}}</th>
                       <th>{{__('msg.number of trees')}}</th>
                       <th>{{__('msg.fertilizer')}}</th>
+                      <th>Registered</th>
                       <th></th>
                     </tr>
                   </thead>
@@ -180,6 +191,7 @@
                       <td>{{$i->cooperative_name}}</td>
                       <td>{{$i->number_of_trees}}</td>
                       <td>{{$i->fertilizer}}</td>
+                      <td>{{$i->created_at->format('Y-m-d')}}</td>
                       <td>
                         <div class="input-group-prepend">
                         <button class="btn btn-sm btn-outline-success dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">action</button>
@@ -232,16 +244,91 @@
   <!-- Custom js for this page-->
   <script src="Customized/js/dashboard.js"></script>
   <!-- End custom js for this page-->
-  <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
-  <script>
-  $(document).ready(function() {
-    $('#FarmersTable').DataTable({
-      "paging": true,
-      "ordering": false,
-      "searching": true
+  <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.2/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/datetime/1.4.1/js/dataTables.dateTime.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.7.1/js/dataTables.buttons.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.html5.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.print.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.5/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.66/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script>
+        var minDate, maxDate;
+ 
+// Custom filtering function which will search data in column four between two values
+$.fn.dataTable.ext.search.push(
+    function( settings, data, dataIndex ) {
+        var min = minDate.val();
+        var max = maxDate.val();
+        var date = new Date( data[5] );
+ 
+        if (
+            ( min === null && max === null ) ||
+            ( min === null && date <= max ) ||
+            ( min <= date   && max === null ) ||
+            ( min <= date   && date <= max )
+        ) {
+            return true;
+        }
+        return false;
+    }
+);
+ 
+$(document).ready(function() {
+    // Create date inputs
+    minDate = new DateTime($('#min'), {
+        format: 'MMMM Do YYYY'
     });
-  });
-</script>
+    maxDate = new DateTime($('#max'), {
+        format: 'MMMM Do YYYY'
+    });
+ 
+    // DataTables initialisation with Buttons extension
+    var table = $('#FarmersTable').DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+        {
+            extend: 'copy',
+            exportOptions: {
+                columns: [0, 1, 2, 3, 4, 5] // Include columns 1-5
+            }
+        },
+        {
+            extend: 'csv',
+            exportOptions: {
+                columns: [0, 1, 2, 3, 4, 5] // Include columns 1-5
+            }
+        },
+        {
+            extend: 'excel',
+            exportOptions: {
+                columns: [0, 1, 2, 3, 4, 5] // Include columns 1-5
+            }
+        },
+        {
+            extend: 'pdf',
+            exportOptions: {
+                columns: [0, 1, 2, 3, 4, 5] // Include columns 1-5
+            }
+        },
+        {
+            extend: 'print',
+            exportOptions: {
+                columns: [0, 1, 2, 3, 4, 5] // Include columns 1-5
+            }
+        }
+    ]
+    });
+ 
+    // Refilter the table
+    $('#min, #max').on('change', function () {
+        table.draw();
+    });
+});
+    </script>
 </body>
 
 </html>
