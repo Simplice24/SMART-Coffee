@@ -497,6 +497,7 @@ class OfficialsController extends Controller
         $managers= DB::table('users')
             ->whereIn('id',$managerIds)
             ->get();
+            
 
         //Managers percentage 
         $CurrentYearManagers= DB::table('users')
@@ -1003,8 +1004,9 @@ $diseases = DB::table('reported_diseases')
             ->leftJoin('cooperative_user', 'users.id', '=', 'cooperative_user.user_id')
             ->leftJoin('cooperatives', 'cooperative_user.cooperative_id', '=', 'cooperatives.id')
             ->whereIn('cooperatives.id', $cooperativeIds)
-            ->select('users.id as user_id','users.name as manager_name', 'cooperatives.name as cooperative_name')
+            ->select('users.id as user_id','users.name as manager_name', 'cooperatives.name as cooperative_name','users.created_at')
             ->get();    
+           
         
         
         $no=0;    
