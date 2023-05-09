@@ -107,31 +107,34 @@ $diseases = DB::table('reported_diseases')
         $manager_names=User::all()->where('role','Manager');
         $provinces=Province::all();
         return view('Cooperative-update',['cooperativeinfo'=> $cooperativeinfo,'manager_names'=>$manager_names,'profileImg'=>$profileImg,
-      'provinces'=>$provinces]);
+      'provinces'=>$provinces])->with('req', request());
       }
 
-      public function UpdateSystemCooperative(Request $req,$id){
+      public function UpdateSystemCooperative(Request $req, $id) {
         $user_id = DB::table('cooperative_user')
-                ->where('cooperative_id', $id)
-                ->value('user_id');
-        $manager_id=$req->manager_name;
-        $manager_details = User::find($manager_id);
-        $manager_name= $manager_details->name;
-        $input=Cooperative::find($id);
-        $input->name=$req->input('name');
-        $input->manager_name=$manager_name;
-        $input->email=$req->input('email');
-        $input->status=$req->input('status');
-        $input->starting_date=$req->input('starting_date');
-        $input->province=Province::where('provincecode',$req->input('province'))->value('provincename');
-        $input->district=District::where('districtcode',$req->input('district'))->value('namedistrict');
-        $input->sector=Sector::where('sectorcode',$req->input('sector'))->value('namesector');
-        $input->cell=Cell::where('codecell',$req->input('cell'))->value('nameCell');
+                    ->where('cooperative_id', $id)
+                    ->value('user_id');
+        $current_manager_name = $req->input('current_manager_name');
+        $selected_manager_name = $req->input('manager_name');
+        $manager_name = $selected_manager_name ? $selected_manager_name : $current_manager_name;
+        $manager_details = User::where('name', $manager_name)->first();
+        $manager_id = $manager_details->id;
+        $input = Cooperative::find($id);
+        $input->name = $req->input('name');
+        $input->manager_name = $manager_name;
+        $input->email = $req->input('email');
+        $input->status = $req->input('status');
+        $input->starting_date = $req->input('starting_date');
+        $input->province = Province::where('provincecode', $req->input('province'))->value('provincename');
+        $input->district = District::where('districtcode', $req->input('district'))->value('namedistrict');
+        $input->sector = Sector::where('sectorcode', $req->input('sector'))->value('namesector');
+        $input->cell = Cell::where('codecell', $req->input('cell'))->value('nameCell');
         $input->update();
         $input->users()->detach($user_id);
         $input->users()->attach($manager_id);
         return redirect('viewcooperatives');
-      }  
+    }
+     
 
       public function DeleteCooperative($id){
         Cooperative::destroy($id);

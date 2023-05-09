@@ -184,12 +184,17 @@
                           <div class="form-group row">
                             <label class="col-sm-3 col-form-label">{{__('msg.manager')}}</label>
                             <div class="col-sm-9">
-                            <select class="form-control" style="height:46px;" name="manager_name" required>
-                                        <option selected>{{$cooperativeinfo->manager_name}}</option>
-                                        @foreach($manager_names as $names)
-                                        <option value="{{ $names->id }}">{{ $names->name}}</option>
-                                        @endforeach
-                            </select>
+                                <input type="hidden" name="current_manager_name" value="{{$cooperativeinfo->manager_name}}">
+                                <select class="form-control" style="height:46px;" name="manager_name" required>
+                                    @if($req->has('manager_name'))
+                                    <option selected>{{$req->input('manager_name')}}</option>
+                                    @else
+                                    <option selected>{{$cooperativeinfo->manager_name}}</option>
+                                    @endif
+                                    @foreach($manager_names as $names)
+                                    <option value="{{ $names->id }}">{{ $names->name}}</option>
+                                    @endforeach
+                                </select>
                             </div>
                           </div>
                         </div>
