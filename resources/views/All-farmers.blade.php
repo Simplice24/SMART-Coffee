@@ -207,7 +207,7 @@
                   
                     <label for="inlineFormInputGroupUsername2" id="end">End Date:</label>
                     <div class="input-group mb-2 mr-sm-2">
-                      <input type="date" class="form-control" id="end-date" name="end_date" style="height:20px;">
+                      <input type="date" class="form-control" id="end_date" name="end-date" style="height:20px;">
                     </div>
                     
                     <button type="submit" id="date-filter" class="btn btn-success mb-2">
@@ -335,8 +335,8 @@ $(document).ready(function() {
     });
 
     $('#date-filter').on('click', function() {
-        var startDate = moment($('#start-date').val(), 'YYYY-MM-DD').format('YYYY-MM-DD HH:mm:ss');
-        var endDate = moment($('#end-date').val(), 'YYYY-MM-DD').format('YYYY-MM-DD HH:mm:ss');
+        var startDate = $('#start_date').val()+' 00:00:00';
+        var endDate = $('#end_date').val()+' 23:59:59';
         
         console.log(startDate);
         console.log(endDate);
