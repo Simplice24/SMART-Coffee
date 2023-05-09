@@ -287,6 +287,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.5/jszip.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.66/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
     <script>
         var minDate, maxDate;
  
@@ -322,8 +323,37 @@ $(document).ready(function() {
     var table = $('#UsersTable').DataTable({
         dom: 'Bfrtip',
         buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
-        ]
+        {
+            extend: 'copy',
+            exportOptions: {
+                columns: [0, 1, 2, 3, 4, 5, 6, 7] // Include columns 1-5
+            }
+        },
+        {
+            extend: 'csv',
+            exportOptions: {
+                columns: [0, 1, 2, 3, 4, 5, 6, 7] // Include columns 1-5
+            }
+        },
+        {
+            extend: 'excel',
+            exportOptions: {
+                columns: [0, 1, 2, 3, 4, 5, 6, 7] // Include columns 1-5
+            }
+        },
+        {
+            extend: 'pdf',
+            exportOptions: {
+                columns: [0, 1, 2, 3, 4, 5, 6, 7] // Include columns 1-5
+            }
+        },
+        {
+            extend: 'print',
+            exportOptions: {
+                columns: [0, 1, 2, 3, 4, 5, 6, 7] // Include columns 1-5
+            }
+        }
+    ]
     });
  
     // Refilter the table
