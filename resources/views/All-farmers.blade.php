@@ -24,24 +24,15 @@
   <link rel="stylesheet" href="Customized/css/style.css">
   <!-- endinject -->
   <link rel="shortcut icon" href="Customized/images/favicon.png" />
-  <!-- Datatable -->
-  <link href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css" rel="stylesheet">
-  <!-- End of datatable -->
-  <!-- Starting of Datatable -->
-  <link href="https://code.jquery.com/jquery-3.5.1.js">
-  <link href="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js">
-  <link href="https://cdn.datatables.net/buttons/2.3.6/js/dataTables.buttons.min.js">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js">
-  <link href="https://cdn.datatables.net/buttons/2.3.6/js/buttons.html5.min.js">
-  <!-- Ending of datatable -->
-  <link href="https://cdn.datatables.net/datetime/1.4.1/js/dataTables.dateTime.min.js">
-  <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.0.1/css/buttons.dataTables.min.css">
-  <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
-  <!-- filtering -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-  <!-- end of filtering -->
+<!-- DataTables CSS -->
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.25/datatables.min.css"/>
+<link rel="stylesheet" href="https://cdn.datatables.net/datetime/1.4.1/css/dataTables.dateTime.min.css">
+<!--  End of DataTable CSS --> 
+<!-- DataTable report Links -->
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.7.1/css/buttons.dataTables.min.css"/>
+<!-- End of DataTable report links -->
 </head>
 <body>
   <div class="container-scroller">
@@ -202,19 +193,16 @@
                   <h4 class="card-title">{{ __('msg.coffee farmers') }}</h4>
                   
                   <div class="form-inline">
-                    <label for="inlineFormInputName2" id="start">Start Date:</label>
-                    <input type="date" class="form-control mb-2 mr-sm-2" id="start_date" name="start-date" style="height:20px;">
-                  
-                    <label for="inlineFormInputGroupUsername2" id="end">End Date:</label>
-                    <div class="input-group mb-2 mr-sm-2">
-                      <input type="date" class="form-control" id="end_date" name="end-date" style="height:20px;">
-                    </div>
-                    
-                    <button type="submit" id="date-filter" class="btn btn-success mb-2">
-                      <span>Filter by Date Range</span>
-                    </button>
-
+                      <div class="form-group mr-2">
+                          <label for="min">Minimum date: </label>
+                          <input type="text" class="form-control" id="min" name="min">
+                      </div>
+                      <div class="form-group mr-2">
+                          <label for="max">Maximum date: </label>
+                          <input type="text" class="form-control" id="max" name="max">
+                      </div>
                   </div>
+                  <br>
 
                   <div class="table-responsive">
                   <table class="table table-striped" id="FarmersTable">
@@ -239,7 +227,7 @@
                             <td>{{$i->number_of_trees}}</td>
                             <td>{{$i->fertilizer}}</td>
                             <td>{{$i->phone}}</td>
-                            <td>{{$i->created_at}}</td>
+                            <td>{{$i->created_at->format('Y-m-d')}}</td>
                             <td>
                               <div class="input-group-prepend">
                                 <button class="btn btn-sm btn-outline-success dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">action</button>
@@ -291,59 +279,61 @@
   <!-- Custom js for this page-->
   <script src="Customized/js/dashboard.js"></script>
   <!-- End custom js for this page-->
-  <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
-  
-  <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.11.3/datatables.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.0.1/js/dataTables.buttons.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.0.1/js/buttons.html5.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.70/pdfmake.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.70/vfs_fonts.js"></script>
-    <!-- Include Moment.js library from CDN -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
-  <script>
+  <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.2/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/datetime/1.4.1/js/dataTables.dateTime.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.7.1/js/dataTables.buttons.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.html5.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.print.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.5/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.66/pdfmake.min.js"></script>
+    <script>
+        var minDate, maxDate;
+ 
+// Custom filtering function which will search data in column four between two values
+$.fn.dataTable.ext.search.push(
+    function( settings, data, dataIndex ) {
+        var min = minDate.val();
+        var max = maxDate.val();
+        var date = new Date( data[6] );
+ 
+        if (
+            ( min === null && max === null ) ||
+            ( min === null && date <= max ) ||
+            ( min <= date   && max === null ) ||
+            ( min <= date   && date <= max )
+        ) {
+            return true;
+        }
+        return false;
+    }
+);
+ 
 $(document).ready(function() {
+    // Create date inputs
+    minDate = new DateTime($('#min'), {
+        format: 'MMMM Do YYYY'
+    });
+    maxDate = new DateTime($('#max'), {
+        format: 'MMMM Do YYYY'
+    });
+ 
+    // DataTables initialisation with Buttons extension
     var table = $('#FarmersTable').DataTable({
         dom: 'Bfrtip',
         buttons: [
-            {
-                extend: 'copyHtml5',
-                exportOptions: {
-                    columns: [ 0,1,2,3,4,5,6 ]
-                }
-            },
-            {
-                extend: 'excelHtml5',
-                exportOptions: {
-                  columns: [ 0,1,2,3,4,5,6 ]
-                }
-            },
-            {
-                extend: 'csvHtml5',
-                exportOptions: {
-                  columns: [ 0,1,2,3,4,5,6 ]
-                }
-            },
-            {
-                extend: 'pdfHtml5',
-                exportOptions: {
-                  columns: [ 0,1,2,3,4,5,6 ]
-                }
-            }
+            'copy', 'csv', 'excel', 'pdf', 'print'
         ]
     });
-
-    $('#date-filter').on('click', function() {
-        var startDate = $('#start_date').val()+' 00:00:00';
-        var endDate = $('#end_date').val()+' 23:59:59';
-        
-        console.log(startDate);
-        console.log(endDate);
-        table.columns(6).search(startDate + '-' + endDate, true, false).draw();
+ 
+    // Refilter the table
+    $('#min, #max').on('change', function () {
+        table.draw();
     });
 });
-</script>
+    </script>
 </body>
 </html>
 

@@ -22838,26 +22838,6 @@ dl li {
   color: #fff; /* sets the color of the logo text */
   margin-left: -40px; /* adds some spacing between the logo image and text */
 }
-#report {
-  width: 60px;
-  margin: 10px;
-}
-#report .btn {
-  display: inline-block;
-  margin-right: 10px; /* add margin between the buttons */
-}
-#date-filter {
-  height: 30px;
-  padding: 0 5px;
-}
-#date-filter span {
-  margin: 0 5px;
-}
-#end, #start{
-  padding: 0 5px;
-}
-.center {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+#min, #max{
+  padding: 5px 5px;
 }

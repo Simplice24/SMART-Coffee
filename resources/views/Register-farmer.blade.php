@@ -204,7 +204,7 @@
                             <select class="form-control" style="height:46px;" name="cooperative_name" required>
                               <option disable selected>{{ __('msg.--Select cooperative--')}}</option>
                                 @foreach($cooperatives as $coopname)
-                                <option value={{$coopname->name}}>{{$coopname->name}}</option>
+                                <option value="{{$coopname->name}}">{{$coopname->name}}</option>
                                 @endforeach
                               </select>
                             </div>
@@ -231,7 +231,7 @@
                               <select class="form-control" style="height:46px;" name="cooperative_id" required>
                               <option disable selected>{{ __('msg.--Select cooperative to get cooperative id--')}}--</option>
                               @foreach($cooperatives as $coopid)
-                                <option value={{ $coopid->id}}>{{ $coopid->name}}</option>
+                                <option value="{{ $coopid->id}}">{{ $coopid->name}}</option>
                               @endforeach  
                               </select>
                               </div>
