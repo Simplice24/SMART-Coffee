@@ -171,7 +171,7 @@
                           <div class="form-group row">
                             <label class="col-sm-3 col-form-label">{{__('msg.full name')}}</label>
                             <div class="col-sm-9">
-                              <input type="text" class="form-control" name="name" value={{$fulldetails->name}} required />
+                              <input type="text" class="form-control" name="name" value="{{$fulldetails->name}}" required />
                             </div>
                           </div>
                         </div>
@@ -179,7 +179,7 @@
                           <div class="form-group row">
                             <label class="col-sm-3 col-form-label">{{__('msg.email')}}</label>
                             <div class="col-sm-9">
-                              <input type="email" class="form-control" name="email" value={{$fulldetails->email}} required/>
+                              <input type="email" class="form-control" name="email" value="{{$fulldetails->email}}" required/>
                             </div>
                           </div>
                         </div>
@@ -189,7 +189,7 @@
                           <div class="form-group row">
                             <label class="col-sm-3 col-form-label">{{__('msg.gender')}}</label>
                             <div class="col-sm-9">
-                              <select class="form-control" style="height:48px;" name="gender" value={{$fulldetails->gender}} required>
+                              <select class="form-control" style="height:48px;" name="gender" value="{{$fulldetails->gender}}" required>
                                 <option>Male</option>
                                 <option>Female</option>
                               </select>
@@ -200,7 +200,7 @@
                           <div class="form-group row">
                             <label class="col-sm-3 col-form-label">{{__('msg.phone')}}</label>
                             <div class="col-sm-9">
-                              <input type="text" class="form-control" name="phone" value={{$fulldetails->phone}} required/>
+                              <input type="text" class="form-control" name="phone" value="{{$fulldetails->phone}}" required/>
                             </div>
                           </div>
                         </div>

@@ -168,7 +168,7 @@
                           <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Role</label>
                             <div class="col-sm-9">
-                              <input type="text" class="form-control" name="name" value={{$permission->name}} required />
+                              <input type="text" class="form-control" name="name" value="{{$permission->name}}" required />
                             </div>
                           </div>
                         </div>

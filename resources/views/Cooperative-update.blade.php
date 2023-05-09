@@ -176,7 +176,7 @@
                           <div class="form-group row">
                             <label class="col-sm-3 col-form-label">{{__('msg.cooperative name')}}</label>
                             <div class="col-sm-9">
-                              <input type="text" class="form-control" name="name" value={{$cooperativeinfo->name}} required />
+                              <input type="text" class="form-control" name="name" value="{{$cooperativeinfo->name}}" required />
                             </div>
                           </div>
                         </div>
@@ -204,7 +204,7 @@
                           <div class="form-group row">
                             <label class="col-sm-3 col-form-label">{{__('msg.email')}}</label>
                             <div class="col-sm-9">
-                              <input type="email" class="form-control" name="email" value={{$cooperativeinfo->email}} required/>
+                              <input type="email" class="form-control" name="email" value="{{$cooperativeinfo->email}}" required/>
                             </div>
                           </div>
                         </div>
@@ -226,7 +226,7 @@
                           <div class="form-group row">
                             <label class="col-sm-3 col-form-label">{{__('msg.starting date')}}</label>
                             <div class="col-sm-9">
-                              <input type="date" class="form-control" name="starting_date" value={{$cooperativeinfo->starting_date}} required/>
+                              <input type="date" class="form-control" name="starting_date" value="{{$cooperativeinfo->starting_date}}" required/>
                             </div>
                           </div>
                         </div>

@@ -170,7 +170,7 @@
                           <div class="form-group row">
                             <label class="col-sm-3 col-form-label">{{__('msg.full name')}}</label>
                             <div class="col-sm-9">
-                              <input type="text" class="form-control" name="name" value={{$farmerinfo->name}} required />
+                              <input type="text" class="form-control" name="name" value="{{$farmerinfo->name}}" required />
                             </div>
                           </div>
                         </div>
@@ -178,7 +178,7 @@
                           <div class="form-group row">
                             <label class="col-sm-3 col-form-label">{{__('msg.ID No')}}</label>
                             <div class="col-sm-9">
-                              <input type="text" class="form-control" name="idn" value={{$farmerinfo->idn}} required/>
+                              <input type="text" class="form-control" name="idn" value="{{$farmerinfo->idn}}" required/>
                             </div>
                           </div>
                         </div>
@@ -188,7 +188,7 @@
                           <div class="form-group row">
                             <label class="col-sm-3 col-form-label">{{__('msg.cooperative name')}}</label>
                             <div class="col-sm-9">
-                            <input type="text" class="form-control" name="cooperative_name" value={{$farmerinfo->cooperative_name}} readonly required/>
+                            <input type="text" class="form-control" name="cooperative_name" value="{{$farmerinfo->cooperative_name}}" readonly required/>
                             </div>
                           </div>
                         </div>
@@ -196,7 +196,7 @@
                           <div class="form-group row">
                             <label class="col-sm-3 col-form-label">{{__('msg.gender')}}</label>
                             <div class="col-sm-9">
-                              <select class="form-control" style="height:46px;" name="gender" value={{$farmerinfo->gender}} required>
+                              <select class="form-control" style="height:46px;" name="gender" value="{{$farmerinfo->gender}}" required>
                                 <option>Male</option>
                                 <option>Female</option>
                               </select>
@@ -209,7 +209,7 @@
                             <div class="form-group row">
                               <label class="col-sm-3 col-form-label">{{__('msg.cooperative ID')}}</label>
                               <div class="col-sm-9">
-                                <input type="number" class="form-control" name="cooperative_id" value={{$farmerinfo->cooperative_id}} readonly required />
+                                <input type="number" class="form-control" name="cooperative_id" value="{{$farmerinfo->cooperative_id}}" readonly required />
                               </div>
                             </div>
                           </div>
@@ -217,7 +217,7 @@
                           <div class="form-group row">
                             <label class="col-sm-3 col-form-label">{{__('msg.number of trees')}}</label>
                             <div class="col-sm-9">
-                              <input type="number" class="form-control" name="number_of_trees" value={{$farmerinfo->number_of_trees}} required />
+                              <input type="number" class="form-control" name="number_of_trees" value="{{$farmerinfo->number_of_trees}}" required />
                             </div>
                           </div>
                         </div>
@@ -227,7 +227,7 @@
                           <div class="form-group row">
                             <label class="col-sm-3 col-form-label">{{__('msg.fertilizer')}}</label>
                             <div class="col-sm-9">
-                              <input type="text" class="form-control" name="fertilizer" value={{$farmerinfo->fertilizer}} required />
+                              <input type="text" class="form-control" name="fertilizer" value="{{$farmerinfo->fertilizer}}" required />
                             </div>
                           </div>
                         </div>
@@ -235,7 +235,7 @@
                           <div class="form-group row">
                             <label class="col-sm-3 col-form-label">{{__('msg.phone')}}</label>
                             <div class="col-sm-9">
-                              <input type="text" class="form-control" name="phone" value={{$farmerinfo->phone}} required />
+                              <input type="text" class="form-control" name="phone" value="{{$farmerinfo->phone}}" required />
                             </div>
                           </div>
                         </div>

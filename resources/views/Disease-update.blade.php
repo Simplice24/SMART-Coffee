@@ -172,7 +172,7 @@
                           <div class="form-group row">
                             <label class="col-sm-3 col-form-label">{{__('msg.Disease name')}}</label>
                             <div class="col-sm-9">
-                              <input type="text" class="form-control" name="disease_name" value={{$diseaseinfo->disease_name}} required />
+                              <input type="text" class="form-control" name="disease_name" value="{{$diseaseinfo->disease_name}}" required />
                             </div>
                           </div>
                         </div>
@@ -196,7 +196,7 @@
                           <div class="form-group row">
                             <label class="col-sm-3 col-form-label">{{ __('msg.Description') }}</label>
                             <div class="col-sm-9">
-                            <textarea class="form-control"  name="description" rows="4" value={{$diseaseinfo->description}}>{{$diseaseinfo->description}}</textarea>
+                            <textarea class="form-control"  name="description" rows="4" value="{{$diseaseinfo->description}}">{{$diseaseinfo->description}}</textarea>
                             </div>
                           </div>
                         </div>
@@ -205,7 +205,7 @@
                             <label class="col-sm-3 col-form-label">{{ __('msg.Image') }}</label>
                             <div class="col-sm-9">
                             <div class="input-group col-xs-12">
-                                  <input type="file" name="image" class="file-upload-browse btn btn-success" value={{$diseaseinfo->image}}>
+                                  <input type="file" name="image" class="file-upload-browse btn btn-success" value="{{$diseaseinfo->image}}">
                               </div>
                             </div>
                           </div>
