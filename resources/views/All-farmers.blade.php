@@ -340,7 +340,7 @@ $(document).ready(function() {
         
         console.log(startDate);
         console.log(endDate);
-        table.columns(6).search(startDate + '|' + endDate, true, false).draw();
+        table.columns(6).search(startDate + '-' + endDate, true, false).draw();
     });
 });
 </script>
