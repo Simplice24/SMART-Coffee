@@ -19,6 +19,7 @@ use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
 use PDF;
 use session;
@@ -741,16 +742,35 @@ $revenueByCategory = DB::table('sales')
         }
       }
 
-        public function profilePicUpdate(Request $req,$id){
-          $input=User::find($id);
-          $destination_path ='public/images/users';
-          $image=$req->file('image');
-          $image_name=$image->getClientOriginalName();
-          $path = $req->file('image')->storeAs($destination_path,$image_name);
-          $input->image=$image_name;
-          $input->save();
-          return redirect('userProfile');
+      public function profilePicUpdate(Request $req, $id)
+{
+    $input = User::find($id);
+    $destination_path = 'public/images/users';
+    $old_image = $input->image;
+    $image = $req->file('image');
+    if ($image) {
+        // Delete old image if it exists
+        if (Storage::disk('local')->exists($old_image)) {
+            Storage::disk('local')->delete($old_image);
         }
+        $image_name = $image->getClientOriginalName();
+        $extension = $image->getClientOriginalExtension();
+        $input->image = $image_name;
+        $path = $req->file('image')->storeAs($destination_path, $image_name);
+    } else {
+        $input->image = $old_image;
+    }
+    $input->update();
+
+    // Delete old image from directory if it was replaced by the new image
+    if ($image && Storage::disk('local')->exists($destination_path . '/' . $old_image)) {
+        Storage::disk('local')->delete($destination_path . '/' . $old_image);
+    }
+
+    return redirect('userProfile');
+}
+
+      
 
         public function userPasswordUpdate(Request $req,$id){
           $input=User::find($id);

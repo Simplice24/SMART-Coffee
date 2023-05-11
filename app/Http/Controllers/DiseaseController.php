@@ -8,6 +8,8 @@ use App\Models\Disease;
 use App\Models\ReportedDisease;
 use Illuminate\Support\Facades\DB;
 use GeoIp2\Database\Reader;
+use Illuminate\Support\Facades\Storage;
+
 
 class DiseaseController extends Controller
 {
@@ -131,7 +133,7 @@ class DiseaseController extends Controller
     }
     
     public function DiseaseUpdate(Request $req, $id){
-        $destination_path = 'images/diseases';
+        $destination_path = 'public/images/diseases';
         $input = Disease::find($id);
         $default_path = $input->image;
         $input->disease_name = $req->input('disease_name');
@@ -139,19 +141,24 @@ class DiseaseController extends Controller
         $input->description = $req->input('description');
         $image = $req->file('image');
         if ($image) {
+            // Delete old image if it exists
+            if (Storage::disk('local')->exists('public/'.$default_path)) {
+                Storage::disk('local')->delete('public/'.$default_path);
+            }
             $image_name = $image->getClientOriginalName();
             $image_extension = $image->getClientOriginalExtension();
-            $image_full_name = $image_name . '.' . $image_extension;
+            $image_full_name = $image_name;
             $path = $req->file('image')->storeAs($destination_path, $image_full_name);
+            $path = str_replace('public/', '', $path); 
+            $input->image = $path;
         } else {
-            $image_full_name = $default_path;
-            $path = null; // Set path to null since no file was uploaded
+            $input->image = $default_path;
         }
-        $input->image = $path ?? $image_full_name;
         $input->update();
     
         return redirect('viewdiseases');
     }
+    
     
 
       public function DeleteDisease($id){
