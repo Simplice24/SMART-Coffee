@@ -97,7 +97,7 @@
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <div class="user-profile">
           <div class="user-image">
-          <img src="{{asset('storage/'.$profileImg->image)}}">
+          <img src="{{asset('/storage/images/users/'.$profileImg->image)}}">
           </div>
           <div class="user-name">
           {{session('user')}}
@@ -158,7 +158,7 @@
               <div class="card">
                 <div class="card-body">
                   <div class="d-flex flex-column align-items-center text-center">
-                    <img src="{{asset('/storage/images/diseases/'.$diseaseinfo->image)}}" alt="Admin"  width="360x" >
+                    <img src="{{asset('../storage/'.$diseaseinfo->image)}}" alt="Admin"  width="360x" >
                   </div>
                 </div>
               </div>
