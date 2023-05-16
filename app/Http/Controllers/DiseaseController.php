@@ -36,10 +36,12 @@ class DiseaseController extends Controller
                 ->groupBy('year', 'diseases.disease_name')
                 ->get();
 
-        $diseases=DB::table('reported_diseases')
-                  ->join('diseases','reported_diseases.disease_id','=','diseases.id')
-                  ->select('reported_diseases.*','diseases.disease_name as name')         
-                  ->get();          
+        $diseases = DB::table('reported_diseases')
+                ->join('diseases', 'reported_diseases.disease_id', '=', 'diseases.id')
+                ->select('reported_diseases.*', 'diseases.disease_name')
+                ->get();
+  
+        
 
                 $districts = [
                     // ['name' => 'Kigali City', 'latitude' => -1.9536 , 'longitude' => 30.0605],

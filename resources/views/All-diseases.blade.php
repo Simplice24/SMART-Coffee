@@ -582,13 +582,13 @@ var yearlyChart = new Chart(yearlyCtx, {
 
     @foreach ($diseases as $disease)
       var marker = L.marker([{{ $disease->latitude }}, {{ $disease->longitude }}], { icon: diseaseIcon }).addTo(map);
-      marker.bindPopup("<b>{{ $disease->name }}</b><br>{{ $disease->disease_category }}");
+      marker.bindPopup("<b>{{ $disease->disease_id }}</b><br>{{ $disease->disease_category }}");
 
       // Add disease information to the popup
       var popupContent = "<h3>All Diseases:</h3>";
       var filteredDiseases = @json($diseases->where('latitude', $disease->latitude)->where('longitude', $disease->longitude));
       filteredDiseases.forEach(function(disease) {
-        popupContent += "<b>" + disease.disease_id + "</b><br>" + disease.disease_category + "<br><br>";
+        popupContent += "<b>" + disease.disease_name + "</b><br>" + disease.disease_category + "<br><br>";
       });
 
       marker.on('click', function() {
