@@ -563,15 +563,40 @@ var yearlyChart = new Chart(yearlyCtx, {
 
     // Add markers for each district
     var pinIcon = L.icon({
-      iconUrl: '/Images/pin-icon.png',
+      iconUrl: '/Images/pin-icon-small.png',
       iconSize: [15, 25],
       iconAnchor: [15, 50],
     });
 
     @foreach ($districts as $district)
-    var marker = L.marker([{{ $district['latitude'] }}, {{ $district['longitude'] }}], { icon: pinIcon }).addTo(map);
-    marker.bindPopup("{{ $district['name'] }}");
+      var marker = L.marker([{{ $district['latitude'] }}, {{ $district['longitude'] }}], { icon: pinIcon }).addTo(map);
+      marker.bindPopup("{{ $district['name'] }}");
     @endforeach
+
+    // Add markers for each disease
+    var diseaseIcon = L.icon({
+      iconUrl: '/Images/pin-icon.png',
+      iconSize: [20, 20],
+      iconAnchor: [10, 10],
+    });
+
+    @foreach ($diseases as $disease)
+      var marker = L.marker([{{ $disease->latitude }}, {{ $disease->longitude }}], { icon: diseaseIcon }).addTo(map);
+      marker.bindPopup("<b>{{ $disease->name }}</b><br>{{ $disease->disease_category }}");
+
+      // Add disease information to the popup
+      var popupContent = "<h3>All Diseases:</h3>";
+      var filteredDiseases = @json($diseases->where('latitude', $disease->latitude)->where('longitude', $disease->longitude));
+      filteredDiseases.forEach(function(disease) {
+        popupContent += "<b>" + disease.disease_id + "</b><br>" + disease.disease_category + "<br><br>";
+      });
+
+      marker.on('click', function() {
+        marker.bindPopup(popupContent).openPopup();
+      });
+    @endforeach
+
+
   });
 </script>
 <script>

@@ -35,7 +35,12 @@ class DiseaseController extends Controller
                 ->whereRaw('YEAR(reported_diseases.created_at) = ?', [$currentYear])
                 ->groupBy('year', 'diseases.disease_name')
                 ->get();
-        
+
+        $diseases=DB::table('reported_diseases')
+                  ->join('diseases','reported_diseases.disease_id','=','diseases.id')
+                  ->select('reported_diseases.*','diseases.disease_name as name')         
+                  ->get();          
+
                 $districts = [
                     // ['name' => 'Kigali City', 'latitude' => -1.9536 , 'longitude' => 30.0605],
                     ['name' => 'Gasabo', 'latitude' => -1.9543 , 'longitude' => 30.1358 ],
@@ -74,6 +79,8 @@ class DiseaseController extends Controller
                     ['name' => 'Rwamagana', 'latitude' => -1.9514, 'longitude' => 30.4384],
                 ];
 
+
+
         $DiseaseReported = DB::table('reported_diseases')
                 ->join('diseases', 'reported_diseases.disease_id', '=', 'diseases.id')
                 ->select(DB::raw("DATE_FORMAT(reported_diseases.created_at, '%Y-%m') as YearMonth, diseases.disease_name, COUNT(*) as count"))
@@ -82,7 +89,7 @@ class DiseaseController extends Controller
 
                        
 
-        return view('All-diseases',['profileImg'=>$profileImg,'disease'=>$disease,'no'=>$no,'districts'=>$districts,'DiseaseReported'=>$DiseaseReported,
+        return view('All-diseases',['diseases'=>$diseases,'profileImg'=>$profileImg,'disease'=>$disease,'no'=>$no,'districts'=>$districts,'DiseaseReported'=>$DiseaseReported,
         'reported_diseases'=>$reported_diseases,'noo'=>$noo,'monthlyCounts'=>$monthlyCounts,'yearlyCounts'=>$yearlyCounts]);
     }
 
