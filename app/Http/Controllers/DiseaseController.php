@@ -38,9 +38,12 @@ class DiseaseController extends Controller
 
         $diseases = DB::table('reported_diseases')
                 ->join('diseases', 'reported_diseases.disease_id', '=', 'diseases.id')
-                ->select('reported_diseases.*', 'diseases.disease_name')
+                ->select('reported_diseases.*', 'diseases.disease_name', 'diseases.id', DB::raw('COUNT(reported_diseases.disease_id) as disease_count'))
+                ->groupBy('reported_diseases.id', 'reported_diseases.cooperative_id', 'reported_diseases.disease_id','reported_diseases.disease_category','reported_diseases.longitude','reported_diseases.latitude', 'diseases.id','diseases.disease_name','reported_diseases.created_at','reported_diseases.updated_at')
                 ->get();
-  
+
+       
+
         $districts = [
                     ['name' => 'Gasabo', 'latitude' => -1.9543, 'longitude' => 30.1358],
                     ['name' => 'Kicukiro', 'latitude' => -1.9906, 'longitude' => 30.1256],

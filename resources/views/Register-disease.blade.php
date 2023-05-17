@@ -191,10 +191,9 @@
                             <div class="col-sm-9">
                             <select class="form-control" style="height:46px;" name="category" required>
                                         <option disable selected>{{ __('msg.--Select disease category--')}}</option>              
-                                        <option>{{ __('msg.Leaf diseases')}}</option>
-                                        <option>{{ __('msg.Root diseases')}}</option>
-                                        <option>{{ __('msg.Bean diseases')}}</option>
-                                        <option>{{ __('msg.Unclassified diseases')}}</option>
+                                        <option>Leaf disease</option>
+                                        <option>Berry disease</option>
+                                        <option>Root disease</option>
                               </select>
                             </div>
                           </div>
