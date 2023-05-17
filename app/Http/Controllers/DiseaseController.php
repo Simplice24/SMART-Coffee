@@ -41,11 +41,8 @@ class DiseaseController extends Controller
                 ->select('reported_diseases.*', 'diseases.disease_name')
                 ->get();
   
-        
-
-                $districts = [
-                    // ['name' => 'Kigali City', 'latitude' => -1.9536 , 'longitude' => 30.0605],
-                    ['name' => 'Gasabo', 'latitude' => -1.9543 , 'longitude' => 30.1358 ],
+        $districts = [
+                    ['name' => 'Gasabo', 'latitude' => -1.9543, 'longitude' => 30.1358],
                     ['name' => 'Kicukiro', 'latitude' => -1.9906, 'longitude' => 30.1256],
                     ['name' => 'Nyarugenge', 'latitude' => -1.9544, 'longitude' => 30.0604],
 
