@@ -44,18 +44,18 @@ class DiseaseController extends Controller
 
 
         $districts = [
-                    ['name' => 'Gasabo', 'latitude' => -1.9543, 'longitude' => 30.1358],
-                    ['name' => 'Kicukiro', 'latitude' => -1.9906, 'longitude' => 30.1256],
-                    ['name' => 'Nyarugenge', 'latitude' => -1.9544, 'longitude' => 30.0604],
+                    ['name' => 'Gasabo', 'latitude' => -1.950000000000000, 'longitude' => 30.058600000000000],
+                    ['name' => 'Kicukiro', 'latitude' => -1.957500000000000, 'longitude' => 30.169400000000000],
+                    ['name' => 'Nyarugenge', 'latitude' =>  -1.946900000000000, 'longitude' => 30.140800000000000],
 
-                    ['name' => 'Nyanza', 'latitude' => -2.3418 , 'longitude' => 29.7381],
-                    ['name' => 'Huye', 'latitude' => -2.5061, 'longitude' => 29.6919],
-                    ['name' => 'Gisagara', 'latitude' => -2.4874, 'longitude' => 29.5266],
-                    ['name' => 'Kamonyi', 'latitude' => -2.0618, 'longitude' =>  29.8649],
-                    ['name' => 'Muhanga', 'latitude' => -2.0061, 'longitude' => 29.7386],
-                    ['name' => 'Ruhango', 'latitude' => -2.1459, 'longitude' => 29.7753],
-                    ['name' => 'Nyamagabe', 'latitude' => -2.4687, 'longitude' => 29.5837],
-                    ['name' => 'Nyaruguru', 'latitude' => -2.5853, 'longitude' => 29.5735],
+                    ['name' => 'Nyanza', 'latitude' => -2.365900000000000, 'longitude' => 29.744400000000000],
+                    ['name' => 'Huye', 'latitude' => -2.598200000000000, 'longitude' => 29.742000000000000],
+                    ['name' => 'Gisagara', 'latitude' => -2.594000000000000, 'longitude' =>  29.831400000000000],
+                    ['name' => 'Kamonyi', 'latitude' => -2.010646729869389, 'longitude' =>  29.909486130568729],
+                    ['name' => 'Muhanga', 'latitude' => -2.077000000000000, 'longitude' => 29.759800000000000],
+                    ['name' => 'Ruhango', 'latitude' =>  -2.242500000000000, 'longitude' => 29.787000000000000],
+                    ['name' => 'Nyamagabe', 'latitude' => -2.554559130186813, 'longitude' => 29.565204365847298],
+                    ['name' => 'Nyaruguru', 'latitude' => -2.698700000000000, 'longitude' => 29.570300000000000],
 
                     ['name' => 'Karongi', 'latitude' => -2.1543, 'longitude' => 29.3688],
                     ['name' => 'Ngororero', 'latitude' => -2.5022, 'longitude' => 29.5645],
