@@ -183,12 +183,11 @@
                   @if (session('error'))
                         <div class="alert alert-danger">{{ session('error') }}</div>
                     @endif
-                    
-                  <div class="row">
-                    <div class="col-sm-12">
-                      <a class="btn btn-danger" href={{"ReportingDisease/".$diseaseinfo->id}}>Report disease</a>
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <a class="btn btn-danger" id="reportButton" onclick="captureGeolocation({{ $diseaseinfo->id }})">Report disease</a>
+                      </div>
                     </div>
-                  </div>
                   <hr>
                   @if (session('success'))
                         <div class="alert alert-success">{{ session('success') }}</div>
@@ -233,7 +232,20 @@
   <!-- Custom js for this page-->
   <script src="/Customized/js/dashboard.js"></script>
   <!-- End custom js for this page-->
+  <script>
+  function captureGeolocation(diseaseId) {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function (position) {
+      var latitude = position.coords.latitude.toFixed(15);
+      var longitude = position.coords.longitude.toFixed(15);
+      var url = "/ReportingDisease/" + diseaseId + "?latitude=" + latitude + "&longitude=" + longitude;
+      window.location.href = url;
+    });
+  } else {
+    alert("Geolocation is not supported by this browser.");
+  }
+}
+</script>
 </body>
-
 </html>
 

@@ -174,38 +174,37 @@ class DiseaseController extends Controller
         return redirect('viewdiseases');
       }
 
-      public function CooperativeDiseaseDetails($id){
+      public function CooperativeDiseaseDetails(Request $request,$id){
         $userId =auth()->user()->id;
         $profileImg=User::find($userId);
         $diseaseinfo=Disease::find($id);
         return view('Manager/Disease-details',['diseaseinfo'=>$diseaseinfo,'profileImg'=>$profileImg]);
       }
 
-      public function ReportingDisease(Request $request,$id){
-//         $reader = new Reader(storage_path('app/GeoLite2-City.mmdb'));
+      public function ReportingDisease(Request $request, $id)
+        {
+            $latitude = $request->input('latitude');
+            $longitude = $request->input('longitude');
+            
+            $Manager_id = auth()->user()->id;
+            $cooperative_id = DB::table('cooperative_user')
+                                ->where('user_id', $Manager_id)
+                                ->value('cooperative_id');
+            
+            $reported_disease = new ReportedDisease();
+            $reported_disease->cooperative_id = $cooperative_id;
+            $reported_disease->disease_id = $id;
+            $reported_disease->disease_category = Disease::where('id', $id)->value('category');
+            // Set the latitude and longitude values in the reported disease
+            $reported_disease->latitude = $latitude;
+            $reported_disease->longitude = $longitude;
 
-// $ip = '172.17.25.222'; // Replace with the client's IP address
-
-// $record = $reader->city($ip);
-
-// $latitude = $record->location->latitude;
-// $longitude = $record->location->longitude;
-
-        
-        $Manager_id=auth()->user()->id;
-        $cooperative_id=DB::table('cooperative_user')
-                        ->where('user_id',$Manager_id)
-                        ->value('cooperative_id');
-        $reported_disease=new ReportedDisease();
-        $reported_disease->cooperative_id=$cooperative_id;
-        $reported_disease->disease_id=$id;
-        $reported_disease->disease_category=Disease::where('id',$id)->value('category');
-        if($reported_disease->save()){
-            return redirect()->back()->with('success', 'Disease reported successfully');
-        }else{
-            return redirect()->back()->with('error','Something went wrong, disease not reported');
+            if ($reported_disease->save()) {
+                return redirect()->back()->with('success', 'Disease reported successfully');
+            } else {
+                return redirect()->back()->with('error', 'Something went wrong, disease not reported');
+            }
         }
-      }
 
       public function deleteReportedDisease($id){
         ReportedDisease::where('disease_id',$id)->delete();
