@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 04, 2023 at 04:16 PM
+-- Generation Time: May 19, 2023 at 12:48 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -2208,7 +2208,7 @@ CREATE TABLE `cooperatives` (
   `district` varchar(255) NOT NULL,
   `sector` varchar(255) NOT NULL,
   `cell` varchar(255) NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
+  `created_at` date DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -2217,8 +2217,8 @@ CREATE TABLE `cooperatives` (
 --
 
 INSERT INTO `cooperatives` (`id`, `name`, `manager_name`, `email`, `status`, `starting_date`, `province`, `district`, `sector`, `cell`, `created_at`, `updated_at`) VALUES
-(1, 'KOAIRWA', 'MUPENZI Espoir', 'koairwa@gmail.com', 'Operating', '2015-04-25', 'Southern Province', 'GISAGARA', 'Muganza', 'Rwamiko', '2023-03-26 02:24:22', '2023-05-03 03:02:05'),
-(2, 'DUKUNDE', 'CYIZA MUGABO Christian', 'dukundekwawa@gmail.com', 'Operating', '2018-02-25', 'Southern Province', 'GISAGARA', 'Muganza', 'Rwamiko', '2023-03-26 02:38:08', '2023-05-03 02:06:22');
+(1, 'KOAIRWA', 'MUPENZI Espoir', 'koairwa@gmail.com', 'Operating', '2015-04-25', 'Southern Province', 'GISAGARA', 'Muganza', 'Rwamiko', '2023-03-25', '2023-05-09 17:00:10'),
+(2, 'DUKUNDE KAWA', 'CYIZA MUGABO Christian', 'dukundekwawa@gmail.com', 'Operating', '2018-02-25', 'Southern Province', 'GISAGARA', 'Muganza', 'Rwamiko', '2023-03-25', '2023-05-09 17:06:09');
 
 -- --------------------------------------------------------
 
@@ -2240,7 +2240,7 @@ CREATE TABLE `cooperative_stocks` (
 --
 
 INSERT INTO `cooperative_stocks` (`id`, `product_category`, `quantity`, `cooperative_id`, `created_at`, `updated_at`) VALUES
-(1, 'Arabica beans', 199990, 1, '2023-04-13 18:14:21', '2023-04-13 20:33:16'),
+(1, 'Arabica beans', 190985, 1, '2023-04-13 18:14:21', '2023-05-10 02:59:46'),
 (2, 'Robusta beans', 2000, 1, '2023-04-14 22:39:37', '2023-04-14 22:39:37');
 
 -- --------------------------------------------------------
@@ -2272,7 +2272,7 @@ CREATE TABLE `diseases` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `disease_name` varchar(255) NOT NULL,
   `category` varchar(255) NOT NULL,
-  `description` varchar(256) NOT NULL,
+  `description` varchar(1000) NOT NULL,
   `image` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -2283,13 +2283,16 @@ CREATE TABLE `diseases` (
 --
 
 INSERT INTO `diseases` (`id`, `disease_name`, `category`, `description`, `image`, `created_at`, `updated_at`) VALUES
-(1, 'Coffee leave rust', 'Leaf diseases', 'The first observable symptoms are small, pale yellow spots on the upper surface of the leaves. As these spots gradually increase in diameter, mass of orange urediniospores (= uredospores) appear on the undersurface.', 'images/diseases/coffee leaf rust.jpg', '2023-03-27 22:39:13', '2023-05-04 17:50:56'),
-(2, 'Brown eye spot disease', 'Leaf diseases', 'Symptoms appear as small, chlorotic spots on leaves that expand to 3/16 to 5/8 inch in diameter. The outer portion of the leaf spot becomes brown, and the center appear grey. Affected leaves may defoliate prematurely.', 'images/diseases/coffee brown eye.jpg', '2023-03-27 22:49:15', '2023-05-04 21:29:35'),
-(3, 'Damping off/ color rot', 'Root diseases', 'The fungus causes pre-emergence and post emergence damping off. In post-mergence damping off, collar region near soil level is infected leading the rotting of tissues and death of seedlings.', 'images/diseases/Dumping.png', '2023-03-27 22:54:14', '2023-05-04 21:30:37'),
-(4, 'Black rot', 'Leaf diseases', 'The most important symptom is dark brown or black decaying leaves, twigs and developing berries from which the name black rot is derived.', 'images/diseases/black-rottest.png', '2023-03-27 22:58:03', '2023-05-04 21:32:17'),
-(7, 'Berry blotch', 'Leaf diseases', 'Necrotic spots on the exposed surface of green berries enlarge and cover the major portion. Fruit skin shrivels and sticks fast to the parchment. The pathogen is seed borne and conidia are spread by wind.', 'images/diseases/berry blotch.jpg', '2023-04-14 16:25:58', '2023-05-04 21:32:48'),
-(8, 'Die back or Anthranose', 'Leaf diseases', 'On infected leaves circular to greyish spots of 2-3 mm in dia. appears. On berries small dark colored sunken spots are formed. Beans become brown. Die-back also occurs.', 'images/diseases/Die back.PNG', '2023-04-14 16:30:04', '2023-05-04 21:33:26'),
-(11, 'Black twig borer', 'Leaf diseases', 'Wilting and yellowing of foliage, often at end of twigs and branches (termed \"flagging\"); o pin sized hole can often be found on the underside of the flagging stems or twigs where the insect has entered the plant;', 'images/diseases/Flagging.jpg', '2023-05-04 22:11:25', '2023-05-04 22:11:25');
+(1, 'Coffee leave rust', 'Leaf disease', 'Small, pale yellow spots on upper leaf surfaces followed by powdery orange-yellow lesions on the undersides of leaves; symptoms commonly develop on lower leaves of the plant first and then spread; infected leaves drop from the plant, and twigs and branches become defoliated.', 'images/diseases/Coffee leaf rust.jpg', '2023-03-27 22:39:13', '2023-05-17 17:05:17'),
+(12, 'Bacterial blight (Pseudomonas syringae)', 'Leaf disease', 'Water-soaked spots on leaves which dry out and become brown and necrotic with yellow halos; necrosis of shoot tips which spreads rapidly down branches; leaves turn black and die off but remain attached to the tree.', 'images/diseases/Bacterial Blight.jpg', '2023-05-17 17:13:08', '2023-05-17 17:14:24'),
+(13, 'Cercospora leaf spot (Brown eye spot, Berry blotch) Cercospora coffeicola.', 'Leaf disease', 'Brown spots on foliage enlarge and develop a gray-white center and a red-brown margin; lesions may also be surrounded by a yellow halo or may have a burned appearance if lesions are very numerous; infected leaves may drop from the plant prematurely; lesions on green berries are brown and sunken and may have a purplish halo; infected red berries may have large black sunken.', 'images/diseases/Cerscopora leaf spot.jpg', '2023-05-17 17:15:14', '2023-05-17 17:15:14'),
+(14, 'Sooty Mold Fungus', 'Leaf disease', 'The fungus Capnodiumspp causes mould disease. Aphids, shield lice, whiteflies, or other sucking insects can infest the coffee plant and cause this fungus to develop. \r\nSymptoms of attack are leaves covered by black soot and powdery. The fungus grows on honeydew secreted by shield lice and other sucking insects. Ants usually keep shield ticks and spread sooty mould.', 'images/diseases/Sooty Mold Fungus.jpg', '2023-05-17 17:19:13', '2023-05-17 17:19:13'),
+(15, 'Black rot', 'Leaf disease', 'The most important symptom is dark brown or black decaying leaves, twigs, and developing berries from which the name black rot is derived. The leaves hang down by means of fungal mycelial strands – mycelial threads can be seen on twigs and petioles. Sclerotia can be seen all over the affected areas. The infection leads to defoliation and berry drop.', 'images/diseases/Black rot.jpg', '2023-05-17 17:20:05', '2023-05-17 17:20:05'),
+(16, 'Black twig borer (Xylosandrus compactus.)', 'Leaf disease', 'Wilting and yellowing of foliage, often at the end of twigs and branches (termed \"flagging\"); o pin-sized hole can often be found on the underside of the flagging stems or twigs where the insect has entered the plant; twigs and stems are hollowed out and can be seen by cutting open the affected tissue; the adult beetle is small and black, approx. 2 mm in length and is rarely seen; eggs and pupae are creamy white in color', 'images/diseases/Black twig borer.jpg', '2023-05-17 17:20:51', '2023-05-17 17:20:51'),
+(17, 'Coffee berry disease (CBD) Colletotrichum kahawae.', 'Berry disease', 'Dark sunken lesions on green berries; berries dropping from the plant; mummified berries', 'images/diseases/Coffee berry disease (CBD) Colletotrichum kahawae.jpeg', '2023-05-17 17:23:56', '2023-05-17 17:23:56'),
+(18, 'Coffee berry borer Hypothenemushampei', 'Berry disease', 'Fruit dropping from plants; small holes may be evident on red cherries; when the insect is feeding, debris is pushed out of the hole and forms a brown or grey deposit on top of the hole; adult beetle can be found by cutting open the berry; adult is a tiny black beetle approx. 1.5-2.5 mm in length; larvae are white grubs with brown heads.', 'images/diseases/Coffee berry borer Hypothenemushampei.jpg', '2023-05-17 17:30:12', '2023-05-17 17:30:12'),
+(19, 'Green scale, black sooty', 'Berry disease', 'Green scale, black sooty mould, and attendant ants on a coffee branch and berries.', 'images/diseases/Green scale, black sooty.jpg', '2023-05-17 17:30:55', '2023-05-17 17:30:55'),
+(20, 'Dieback or Anthronose  (Gikongoro)', 'Berry disease', 'On infected leaves circular to greyish spots of 2-3 mm in dia. appears. On berries, small dark-colored sunken spots are formed. Beans become brown. Die-back also occurs.', 'images/diseases/Dieback or Anthronose.jpg', '2023-05-17 17:32:10', '2023-05-17 17:32:10');
 
 -- --------------------------------------------------------
 
@@ -2378,7 +2381,7 @@ CREATE TABLE `farmers` (
   `sector` varchar(255) NOT NULL,
   `cell` varchar(255) NOT NULL,
   `cooperative_id` bigint(20) UNSIGNED NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
+  `created_at` date DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -2387,11 +2390,12 @@ CREATE TABLE `farmers` (
 --
 
 INSERT INTO `farmers` (`id`, `name`, `idn`, `cooperative_name`, `gender`, `number_of_trees`, `fertilizer`, `phone`, `province`, `district`, `sector`, `cell`, `cooperative_id`, `created_at`, `updated_at`) VALUES
-(1, 'TUYISHIME Aime', 1200080053637498, 'KOAIRWA', 'Male', 500, 'Mixed', '789774833', 'Northern Province', 'GICUMBI', 'Byumba', 'Gacurabwenge', 1, '2023-03-27 16:56:17', '2023-04-17 17:32:19'),
-(2, 'NSENGIYUMVA Eugene', 1200080053637008, 'DUKUNDE KAWA', 'Male', 800, 'Mixed', '789774338', 'Southern Province', 'RUHANGO', 'Byimana', 'Kirengeri', 2, '2023-03-27 18:41:38', '2023-04-14 19:21:11'),
-(3, 'Mary J. Blige', 1200080053637498, 'KOAIRWA', 'Female', 350, 'Mixed', '784567442', 'kigali city', 'NYARUGENGE', 'Kanyinya', 'Nzove', 1, '2023-04-04 03:24:38', '2023-04-16 15:43:21'),
-(4, 'HATEGEKIMANA Merci Arsene', 1200080053637498, 'DUKUNDE KAWA', 'Male', 600, 'Mixed', '789774833', 'Southern Province', 'MUHANGA', 'Nyamabuye', 'Gahogo', 2, '2023-04-04 15:08:10', '2023-04-14 19:21:53'),
-(10, 'ISHIMWE Serge', 1200080053637498, 'KOAIRWA', 'Male', 340, 'Mixed', '+250723438987', 'kigali city', 'KICUKIRO', 'Masaka', 'Cyimo', 1, '2023-04-14 22:23:03', '2023-04-14 22:23:03');
+(1, 'TUYISHIME Aime', 1200080053637498, 'KOAIRWA', 'Male', 500, 'Mixed', '789774833', 'Northern Province', 'GICUMBI', 'Byumba', 'Gacurabwenge', 1, '2023-03-27', '2023-04-17 17:32:19'),
+(2, 'NSENGIYUMVA Eugene', 1200080053637008, 'DUKUNDE KAWA', 'Male', 800, 'Mixed', '789774338', 'Southern Province', 'RUHANGO', 'Byimana', 'Kirengeri', 2, '2023-03-27', '2023-04-14 19:21:11'),
+(3, 'Mary J. Blige', 1200080053637498, 'KOAIRWA', 'Female', 350, 'Mixed', '784567442', 'kigali city', 'NYARUGENGE', 'Kanyinya', 'Nzove', 1, '2023-04-03', '2023-04-16 15:43:21'),
+(4, 'HATEGEKIMANA Merci Arsene', 1200080053637498, 'DUKUNDE KAWA', 'Male', 600, 'Mixed', '789774833', 'Southern Province', 'MUHANGA', 'Nyamabuye', 'Gahogo', 2, '2023-04-04', '2023-04-14 19:21:53'),
+(10, 'ISHIMWE Serge', 1200080053637498, 'KOAIRWA', 'Male', 340, 'Mixed', '+250723438987', 'kigali city', 'KICUKIRO', 'Masaka', 'Cyimo', 1, '2023-04-14', '2023-04-14 22:23:03'),
+(12, 'MUGISHA Fred', 1200080053637498, 'DUKUNDE KAWA', 'Male', 345, 'Manuer', '+250723438222', 'Southern Province', 'GISAGARA', 'Muganza', 'Remera', 2, '2023-05-09', '2023-05-09 21:19:57');
 
 -- --------------------------------------------------------
 
@@ -2607,6 +2611,8 @@ CREATE TABLE `reported_diseases` (
   `cooperative_id` int(11) NOT NULL,
   `disease_id` int(11) NOT NULL,
   `disease_category` varchar(225) NOT NULL,
+  `longitude` varchar(100) NOT NULL,
+  `latitude` varchar(100) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -2615,18 +2621,8 @@ CREATE TABLE `reported_diseases` (
 -- Dumping data for table `reported_diseases`
 --
 
-INSERT INTO `reported_diseases` (`id`, `cooperative_id`, `disease_id`, `disease_category`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, 'Leaf diseases', '2023-04-25 18:00:15', '2023-04-25 18:00:15'),
-(2, 1, 2, 'Leaf diseases', '2023-04-25 18:00:31', '2023-04-25 18:00:31'),
-(4, 2, 3, 'Root diseases', '2023-03-25 10:12:15', '2023-03-25 10:12:15'),
-(5, 2, 3, 'Leaf diseases', '2023-03-25 10:13:41', '2023-03-25 10:13:41'),
-(6, 2, 8, 'Leaf diseases', '2023-03-25 10:14:11', '2023-03-25 10:14:11'),
-(7, 1, 4, 'Leaf diseases', '2023-03-16 10:15:44', '2023-03-16 10:15:44'),
-(8, 1, 7, 'Leaf diseases', '2023-03-10 10:16:19', '2023-03-10 10:16:19'),
-(9, 1, 8, 'Leaf diseases', '2023-03-02 10:16:51', '2023-03-02 10:16:51'),
-(10, 1, 2, 'Leaf diseases', '2023-04-25 18:18:15', '2023-04-25 18:18:15'),
-(11, 1, 1, 'Leaf diseases', '2023-04-25 18:18:26', '2023-04-25 18:18:26'),
-(12, 1, 7, 'Leaf diseases', '2023-04-25 18:18:34', '2023-04-25 18:18:34');
+INSERT INTO `reported_diseases` (`id`, `cooperative_id`, `disease_id`, `disease_category`, `longitude`, `latitude`, `created_at`, `updated_at`) VALUES
+(1, 1, 1, 'Leaf diseases', '30.337790000000002', '-1.2637450000000001', '2023-04-25 18:00:15', '2023-04-25 18:00:15');
 
 -- --------------------------------------------------------
 
@@ -2774,7 +2770,8 @@ CREATE TABLE `sales` (
 --
 
 INSERT INTO `sales` (`id`, `customer`, `product`, `price`, `quantity`, `payment`, `year`, `cooperative_id`, `created_at`, `updated_at`) VALUES
-(1, 'ISHIMWE Urban', 'Arabica beans', 20000, 10, 'MoMo Pay', '2023-04-07', 1, '2023-04-13 20:33:16', '2023-04-13 20:33:45');
+(1, 'ISHIMWE Urban', 'Arabica beans', 20000, 10, 'MoMo Pay', '2023-04-07', 1, '2023-04-13 20:33:16', '2023-04-13 20:33:45'),
+(3, 'MUNANIRA Elissa', 'Arabica beans', 10000, 5, 'Cash', '2023-05-09', 1, '2023-05-10 02:59:46', '2023-05-10 02:59:46');
 
 -- --------------------------------------------------------
 
@@ -3260,7 +3257,7 @@ CREATE TABLE `users` (
   `email_verified_at` timestamp NULL DEFAULT NULL,
   `password` varchar(255) NOT NULL,
   `remember_token` varchar(100) DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
+  `created_at` date DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -3269,11 +3266,11 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `gender`, `role`, `username`, `email`, `phone`, `image`, `province`, `district`, `sector`, `cell`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'NIYONZIMA Simplice', 'Male', 'Super-Admin', 'Simplice', 'nsimplice0@gmail.com', '0723438222', 'DSC_0234.JPG', 'Southern Province', 'MUHANGA', 'Shyogwe', 'Ruli', NULL, '$2y$10$S.ldskjjgLCsbyxnjnVQ9OevnLjM5WHRSCovmSwu0oBD2sXmn2sjm', NULL, '2023-03-22 18:31:19', '2023-04-14 19:16:41'),
-(2, 'NISHIMIRWE Adrien', 'Male', 'Super-Admin', 'Adrien', 'nishadrien@gmail.com', '0723438223', 'userImage.jpg', 'Southern Province', 'GISAGARA', 'Kibirizi', 'Duwani', NULL, '$2y$10$9qeGV0Cpzogz0VbbIu6L5./dqsFYX5rOz8iO/uBqaSw4Yz8ohc3.q', NULL, '2023-03-22 21:48:31', '2023-04-14 19:17:30'),
-(4, 'MUPENZI Espoir', 'Male', 'Manager', 'Espoir', 'muespoire@gmail.com', '0784567442', 'userImage.jpg', 'Southern Province', 'MUHANGA', 'Nyamabuye', 'Gitarama', NULL, '$2y$10$zAyuUllzhXH2CKlVWRbfiORNKAmOiM1/fTv8spT.2/8QYLTlV5uFa', NULL, '2023-03-25 15:45:28', '2023-05-01 00:15:48'),
-(5, 'CYIZA MUGABO Christian', 'Male', 'Manager', 'Cyiza', 'cyizamugabo1@gmail.com', '+250723438097', 'userImage.jpg', 'kigali city', 'GASABO', 'Gisozi', 'Musezero ', NULL, '$2y$10$nxygyz6hu6PiaY/U/vucQeparhZyIgeOgiuPn15Ll2oyDmbciJgRG', NULL, '2023-03-25 15:49:45', '2023-04-14 19:19:02'),
-(6, 'Rui HACHIMURA', 'Male', 'SEDO', 'Hachimura', 'ruihachimura28@gmail.com', '0788594330', 'userImage.jpg', 'Southern Province', 'GISAGARA', 'Muganza', 'Rwamiko', NULL, '$2y$10$VD.mkT.llNsHHKDzDZ/8euRNjmbcRZzTwGBw2W9V5YY0cERu7Ux/a', NULL, '2023-04-18 02:41:04', '2023-04-18 02:41:04');
+(1, 'NIYONZIMA Simplice', 'Male', 'Super-Admin', 'Simplice', 'nsimplice0@gmail.com', '0723438222', 'DSC_0234.JPG', 'Southern Province', 'MUHANGA', 'Shyogwe', 'Ruli', NULL, '$2y$10$S.ldskjjgLCsbyxnjnVQ9OevnLjM5WHRSCovmSwu0oBD2sXmn2sjm', NULL, '2023-03-22', '2023-05-11 17:11:30'),
+(2, 'NISHIMIRWE Adrien', 'Male', 'Super-Admin', 'Adrien', 'nishadrien@gmail.com', '0723438223', 'userImage.jpg', 'Southern Province', 'GISAGARA', 'Kibirizi', 'Duwani', NULL, '$2y$10$9qeGV0Cpzogz0VbbIu6L5./dqsFYX5rOz8iO/uBqaSw4Yz8ohc3.q', NULL, '2023-03-22', '2023-04-14 19:17:30'),
+(4, 'MUPENZI Espoir', 'Male', 'Manager', 'Espoir', 'muespoire@gmail.com', '0784567442', 'userImage.jpg', 'Southern Province', 'MUHANGA', 'Nyamabuye', 'Gitarama', NULL, '$2y$10$zAyuUllzhXH2CKlVWRbfiORNKAmOiM1/fTv8spT.2/8QYLTlV5uFa', NULL, '2023-03-25', '2023-05-01 00:15:48'),
+(5, 'CYIZA MUGABO Christian', 'Male', 'Manager', 'Cyiza', 'cyizamugabo1@gmail.com', '+250723438097', 'userImage.jpg', 'kigali city', 'GASABO', 'Gisozi', 'Musezero ', NULL, '$2y$10$nxygyz6hu6PiaY/U/vucQeparhZyIgeOgiuPn15Ll2oyDmbciJgRG', NULL, '2023-03-25', '2023-04-14 19:19:02'),
+(6, 'Rui HACHIMURA', 'Male', 'SEDO', 'Hachimura', 'ruihachimura28@gmail.com', '0788594330', 'userImage.jpg', 'Southern Province', 'GISAGARA', 'Muganza', 'Rwamiko', NULL, '$2y$10$VD.mkT.llNsHHKDzDZ/8euRNjmbcRZzTwGBw2W9V5YY0cERu7Ux/a', NULL, '2023-04-17', '2023-04-18 02:41:04');
 
 --
 -- Indexes for dumped tables
@@ -3474,7 +3471,7 @@ ALTER TABLE `cooperative_stocks`
 -- AUTO_INCREMENT for table `diseases`
 --
 ALTER TABLE `diseases`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `districts`
@@ -3492,7 +3489,7 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `farmers`
 --
 ALTER TABLE `farmers`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `farmer_diseases`
@@ -3552,7 +3549,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT for table `sales`
 --
 ALTER TABLE `sales`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `sectors`

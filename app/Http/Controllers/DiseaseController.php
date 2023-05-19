@@ -42,7 +42,6 @@ class DiseaseController extends Controller
                 ->groupBy('reported_diseases.id', 'reported_diseases.cooperative_id', 'reported_diseases.disease_id','reported_diseases.disease_category','reported_diseases.longitude','reported_diseases.latitude', 'diseases.id','diseases.disease_name','reported_diseases.created_at','reported_diseases.updated_at')
                 ->get();
 
-       
 
         $districts = [
                     ['name' => 'Gasabo', 'latitude' => -1.9543, 'longitude' => 30.1358],
