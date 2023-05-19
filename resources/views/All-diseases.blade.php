@@ -539,7 +539,7 @@ var yearlyChart = new Chart(yearlyCtx, {
   // Initialize the Leaflet map
   var map = L.map('map', {
     minZoom: 9,
-    maxZoom: 14
+    maxZoom: 20
   }).setView([-1.9403, 29.8739], 9);
 
   // Add a tile layer from OpenStreetMap
@@ -579,24 +579,40 @@ var yearlyChart = new Chart(yearlyCtx, {
       iconSize: [20, 20],
       iconAnchor: [10, 10],
     });
+        // Before the foreach loop, create an empty array to store the combined diseases
+        var combinedDiseases = [];
 
-    @foreach ($diseases as $disease)
-      var marker = L.marker([{{ $disease->latitude }}, {{ $disease->longitude }}], { icon: diseaseIcon }).addTo(map);
-      marker.bindPopup("<b>{{ $disease->disease_name }}</b><br>{{ $disease->disease_category }}");
+        @foreach ($diseases as $disease)
+          var markerPosition = [{{ $disease->latitude }}, {{ $disease->longitude }}];
 
-      // Add disease information to the popup
-      var popupContent = "<h3>All Diseases:</h3>";
-      var filteredDiseases = @json($diseases->where('latitude', $disease->latitude)->where('longitude', $disease->longitude));
-      filteredDiseases.forEach(function(disease) {
-        popupContent += "<b>" + disease.disease_name + "</b><br>" + disease.disease_category + "<br><br>";
-      });
+          // Check if the current disease's position is already combined
+          var existingMarker = combinedDiseases.find(function(d) {
+            return d.position[0] === markerPosition[0] && d.position[1] === markerPosition[1];
+          });
 
-      marker.on('click', function() {
-        marker.bindPopup(popupContent).openPopup();
-      });
-    @endforeach
+          if (existingMarker) {
+            // If a marker already exists for the position, add the disease to the existing marker's popup content
+            existingMarker.popupContent += "<b>{{ $disease->disease_name }}</b><br>{{ $disease->disease_category }}<br><br>";
+          } else {
+            // If no marker exists for the position, create a new marker object and add it to the map
+            var marker = L.marker(markerPosition, { icon: diseaseIcon }).addTo(map);
+            marker.bindPopup("<h3>All Diseases:</h3><b>{{ $disease->disease_name }}</b><br>{{ $disease->disease_category }}<br><br>");
 
+            // Add the new marker and its initial popup content to the combinedDiseases array
+            combinedDiseases.push({
+              position: markerPosition,
+              marker: marker,
+              popupContent: "<h3>All Diseases:</h3><b>{{ $disease->disease_name }}</b><br>{{ $disease->disease_category }}<br><br>"
+            });
+          }
+        @endforeach
 
+        // Loop through the combinedDiseases array and bind click event handlers to each marker
+        combinedDiseases.forEach(function(disease) {
+          disease.marker.on('click', function() {
+            disease.marker.bindPopup(disease.popupContent).openPopup();
+          });
+        });
   });
 </script>
 <script>
