@@ -9,6 +9,7 @@ use App\Models\ReportedDisease;
 use Illuminate\Support\Facades\DB;
 use GeoIp2\Database\Reader;
 use Illuminate\Support\Facades\Storage;
+use App\Services\MachineLearningService;
 
 
 class DiseaseController extends Controller
@@ -206,8 +207,23 @@ class DiseaseController extends Controller
             }
         }
 
-      public function deleteReportedDisease($id){
+      public function deleteReportedDisease($id)
+      {
         ReportedDisease::where('disease_id',$id)->delete();
         return redirect('viewdiseases');
       }
+
+      public function predict(MachineLearningService $mlService)
+      {
+        $data = [
+            'image' => storage_path('app/diseases/disease1.jpeg'),
+        ];
+        
+        $prediction = $mlService->predict($data);
+
+        // Process the prediction or return it as a response
+        // Example: Return the prediction as a JSON response
+        return response()->json(['prediction' => $prediction]);
+      }
+
 }
