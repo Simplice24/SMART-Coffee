@@ -283,6 +283,8 @@ Route::get('Official/Farmer-profile/{id}',[OfficialsController::class,'OfficialF
 
 Route::get("Official/diseaseDetails/{id}",[OfficialsController::class,'DiseaseDetailsPage']);
 
+Route::get("detect",[DiseaseController::class,'detect']);
+
     
 });
 
