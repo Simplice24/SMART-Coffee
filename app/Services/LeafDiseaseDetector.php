@@ -24,7 +24,6 @@ class LeafDiseaseDetector
         $imagePath = storage_path('app/diseases/disease.jpg');
         $imageData = file_get_contents($imagePath);
         
-        // Preprocess the image data, if needed
         
         // Perform inference using the loaded model
         $prediction = $this->model->predict([$imageData]);

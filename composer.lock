@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a85d826bbab37a6fddf15e3b20e0a4d5",
+    "content-hash": "0c9a02119a952a8add447bdaf8c82a2d",
     "packages": [
         {
             "name": "brick/math",
@@ -566,6 +566,50 @@
             "time": "2022-02-20T15:07:15+00:00"
         },
         {
+            "name": "google/protobuf",
+            "version": "v3.23.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/protocolbuffers/protobuf-php.git",
+                "reference": "e611e00ffc99123fcbddc77774f26c813ead9294"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/protocolbuffers/protobuf-php/zipball/e611e00ffc99123fcbddc77774f26c813ead9294",
+                "reference": "e611e00ffc99123fcbddc77774f26c813ead9294",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.0.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": ">=5.0.0"
+            },
+            "suggest": {
+                "ext-bcmath": "Need to support JSON deserialization"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Google\\Protobuf\\": "src/Google/Protobuf",
+                    "GPBMetadata\\Google\\Protobuf\\": "src/GPBMetadata/Google/Protobuf"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "description": "proto library for PHP",
+            "homepage": "https://developers.google.com/protocol-buffers/",
+            "keywords": [
+                "proto"
+            ],
+            "support": {
+                "source": "https://github.com/protocolbuffers/protobuf-php/tree/v3.23.3"
+            },
+            "time": "2023-06-14T16:51:17+00:00"
+        },
+        {
             "name": "graham-campbell/result-type",
             "version": "v1.1.1",
             "source": {
@@ -626,6 +670,50 @@
                 }
             ],
             "time": "2023-02-25T20:23:15+00:00"
+        },
+        {
+            "name": "grpc/grpc",
+            "version": "1.52.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/grpc/grpc-php.git",
+                "reference": "98394cd601a587ca68294e6209bd713856969105"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/grpc/grpc-php/zipball/98394cd601a587ca68294e6209bd713856969105",
+                "reference": "98394cd601a587ca68294e6209bd713856969105",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.0.0"
+            },
+            "require-dev": {
+                "google/auth": "^v1.3.0"
+            },
+            "suggest": {
+                "ext-protobuf": "For better performance, install the protobuf C extension.",
+                "google/protobuf": "To get started using grpc quickly, install the native protobuf library."
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Grpc\\": "src/lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "description": "gRPC library for PHP",
+            "homepage": "https://grpc.io",
+            "keywords": [
+                "rpc"
+            ],
+            "support": {
+                "source": "https://github.com/grpc/grpc-php/tree/v1.52.0"
+            },
+            "time": "2023-02-25T05:20:08+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -1038,6 +1126,48 @@
                 }
             ],
             "time": "2021-10-07T12:57:01+00:00"
+        },
+        {
+            "name": "harranali/tensorflow-serving-php-client",
+            "version": "v1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/harranali/tensorflow-serving-php-client.git",
+                "reference": "650672270b3b367dcc1d1b9ae2a81c582fca86f6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/harranali/tensorflow-serving-php-client/zipball/650672270b3b367dcc1d1b9ae2a81c582fca86f6",
+                "reference": "650672270b3b367dcc1d1b9ae2a81c582fca86f6",
+                "shasum": ""
+            },
+            "require": {
+                "google/protobuf": "^3.5",
+                "grpc/grpc": "^1.10.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Tensorflow\\": "src/PBGenerated/Tensorflow/",
+                    "GPBMetadata\\": "src/PBGenerated/GPBMetadata/",
+                    "Harranali\\Tfserving\\": "src/ClientCode/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Harran Modathir",
+                    "email": "harran.m@gmail.com"
+                }
+            ],
+            "support": {
+                "issues": "https://github.com/harranali/tensorflow-serving-php-client/issues",
+                "source": "https://github.com/harranali/tensorflow-serving-php-client/tree/v1.0.1"
+            },
+            "time": "2018-04-21T13:26:55+00:00"
         },
         {
             "name": "laravel/framework",
