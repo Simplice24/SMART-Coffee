@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\FarmerController;
 use App\Http\Controllers\DiseaseController;
+use App\Http\Controllers\PredictionController;
 use App\Http\Controllers\CooperativeController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SalesController;
@@ -12,6 +13,8 @@ use App\Http\Controllers\DropdownController;
 use App\Http\Controllers\OfficialsController;
 use App\Http\Controllers\ReporterController;
 use App\Http\Controllers\ReportController;
+use Symfony\Component\Process\Process;
+use Symfony\Component\Process\Exception\ProcessFailedException;
 
 
 /*
@@ -139,6 +142,8 @@ Route::group(['middleware'=>["auth"]],function(){
 
 Route::get('viewdiseases',[DiseaseController::class,'SystemDiseases']);
 
+Route::get('realtimediseases',[DiseaseController::class,'RealtimeDiseases']);
+
 Route::get('registerNewDisease',[DiseaseController::class,'DiseaseRegistrationPage']); 
 
 Route::get('CooperativeDiseases',[DiseaseController::class,'CooperativeDiseases']);
@@ -158,6 +163,11 @@ Route::get('CooperativeDiseaseDetails/{id}',[DiseaseController::class,'Cooperati
 Route::get('/ReportingDisease/{id}', [DiseaseController::class, 'ReportingDisease']);
 
 Route::get('deleteReportedDisease/{id}',[DiseaseController::class,'deleteReportedDisease']);
+
+Route::post('/predict', [PredictionController::class, 'predict']);
+
+Route::get('/report', [PredictionController::class, 'report']);
+
 
 });
 
@@ -283,9 +293,7 @@ Route::get('Official/Farmer-profile/{id}',[OfficialsController::class,'OfficialF
 
 Route::get("Official/diseaseDetails/{id}",[OfficialsController::class,'DiseaseDetailsPage']);
 
-Route::get("detect",[DiseaseController::class,'detect']);
 
-    
 });
 
 
@@ -365,6 +373,8 @@ Route::post('DiseasesReportGeneration',[ReportController::class,'DiseasesReportG
 Route::get('DiseasePDFGeneration',[ReportController::class,'DiseasePDFGeneration']);
 
 });
+
+
 
 
 

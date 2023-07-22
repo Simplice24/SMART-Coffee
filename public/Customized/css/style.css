@@ -22841,3 +22841,39 @@ dl li {
 #min, #max{
   padding: 5px 5px;
 }
+
+    /* Styles for the popup card */
+    .popup-card {
+      position: fixed;
+      top: 30%;
+      left: 55%;
+      transform: translate(-50%, -50%);
+      background-color: white;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+      display: none; /* Initially hide the card */
+      z-index: 9999; /* Ensure the card appears on top of other elements */
+    }
+    
+    /* Styles for the buttons */
+    .popup-card-buttons {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+    }
+    
+    .popup-card-buttons button {
+      width: 100px;
+      margin: 0 5px; /* Reduce the space between buttons */
+    }
+
+    #diseaseName, #predictionConfidence {
+      text-align: center;
+    }
+    .form-group {
+        width: 300px;
+        margin-left: auto;
+        margin-right: auto;
+    }

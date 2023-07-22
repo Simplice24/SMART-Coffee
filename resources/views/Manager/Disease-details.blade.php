@@ -46,22 +46,22 @@
             </li> -->
           <li class="nav-item dropdown d-flex">
           <div class="dropdown">
-  <a class="btn dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    {{ __('msg.languages') }}
-  </a>
+          <a class="btn dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            {{ __('msg.languages') }}
+          </a>
 
-  <ul class="dropdown-menu">
-    <a class="dropdown-item preview-item" href="<?=url('locale/en');?>">               
-    {{ __('msg.english') }}
-    </a>
-    <a class="dropdown-item preview-item" href="<?=url('locale/fr');?>">               
-    {{ __('msg.francais') }}
-    </a>
-    <a class="dropdown-item " href="<?=url('locale/kiny');?>">               
-         Ikinyarwanda
-    </a>
-  </ul>
-</div>
+          <ul class="dropdown-menu">
+            <a class="dropdown-item preview-item" href="<?=url('locale/en');?>">               
+            {{ __('msg.english') }}
+            </a>
+            <a class="dropdown-item preview-item" href="<?=url('locale/fr');?>">               
+            {{ __('msg.francais') }}
+            </a>
+            <a class="dropdown-item " href="<?=url('locale/kiny');?>">               
+                Ikinyarwanda
+            </a>
+          </ul>
+        </div>
           </li>
           <li class="nav-item dropdown d-flex mr-4 ">
             <a class="nav-link count-indicator dropdown-toggle d-flex align-items-center justify-content-center" id="notificationDropdown" href="#" data-toggle="dropdown">
@@ -180,8 +180,8 @@
                     </div>
                   </div>
                   <hr>
-                  @if (session('error'))
-                        <div class="alert alert-danger">{{ session('error') }}</div>
+                    @if (session('error'))
+                        <div class="alert alert-danger" id="failMessage">{{ session('error') }}</div>
                     @endif
                     <div class="row">
                       <div class="col-sm-12">
@@ -190,7 +190,7 @@
                     </div>
                   <hr>
                   @if (session('success'))
-                        <div class="alert alert-success">{{ session('success') }}</div>
+                        <div class="alert alert-success" id="successMessage">{{ session('success') }}</div>
                   @endif
                 </div>
               </div>
@@ -245,6 +245,38 @@
     alert("Geolocation is not supported by this browser.");
   }
 }
+</script>
+<script>
+    // Wait for the document to be fully loaded
+    document.addEventListener("DOMContentLoaded", function() {
+        // Get the success message element
+        const successMessage = document.getElementById('successMessage');
+
+        // Check if the element exists and if it has the "alert" class
+        if (successMessage && successMessage.classList.contains('alert')) {
+            // Set a timeout to hide the element after 5000ms (5 seconds)
+            setTimeout(function() {
+                // Hide the element by adding the "d-none" class
+                successMessage.classList.add('d-none');
+            }, 3000);
+        }
+    });
+</script>
+<script>
+    // Wait for the document to be fully loaded
+    document.addEventListener("DOMContentLoaded", function() {
+        // Get the success message element
+        const successMessage = document.getElementById('failMessage');
+
+        // Check if the element exists and if it has the "alert" class
+        if (successMessage && successMessage.classList.contains('alert')) {
+            // Set a timeout to hide the element after 5000ms (5 seconds)
+            setTimeout(function() {
+                // Hide the element by adding the "d-none" class
+                successMessage.classList.add('d-none');
+            }, 3000);
+        }
+    });
 </script>
 </body>
 </html>

@@ -64,8 +64,8 @@ class FarmerController extends Controller
         $input->district=District::where('districtcode',$req->input('district'))->value('namedistrict');
         $input->sector=Sector::where('sectorcode',$req->input('sector'))->value('namesector');
         $input->cell=Cell::where('codecell',$req->input('cell'))->value('nameCell');
-        $input->save();
-        return redirect('viewfarmers');
+        $input->save();return re
+        direct('viewfarmers');
       }
 
       public function ManagerFarmerRegistration(Request $req){

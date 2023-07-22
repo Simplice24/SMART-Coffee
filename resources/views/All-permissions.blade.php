@@ -137,10 +137,25 @@
           @endcan
           @can('create-disease')
           <li class="nav-item">
-            <a class="nav-link" href="<?=url('viewdiseases');?>">
+            <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
               <i class="icon-command menu-icon"></i>
               <span class="menu-title">{{ __('msg.diseases') }}</span>
+              <i class="menu-arrow"></i>
             </a>
+            <div class="collapse" id="ui-basic">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item">
+                    <a class="nav-link text-white hover-white" href="<?=url('viewdiseases');?>">
+                      <span class="menu-title">Normal Report</span>
+                    </a>
+                </li>
+                <li class="nav-item"> 
+                    <a class="nav-link text-white hover-white" href="#">
+                      <span class="menu-title">Realtime Report</span>
+                    </a>
+                </li>
+              </ul>
+            </div>
           </li>
           @endcan
           <li class="nav-item">
