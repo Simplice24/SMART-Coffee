@@ -123,13 +123,13 @@
           <li class="nav-item">
             <a class="nav-link" href="<?=url('StockDetails');?>">
               <i class="mdi mdi-stocking menu-icon"></i>
-              <span class="menu-title">Stock </span>
+              <span class="menu-title">{{ __('msg.Stock') }}</span>
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="<?=url('CooperativeSales');?>">
               <i class="mdi mdi-chart-line menu-icon"></i>
-              <span class="menu-title">Sales tracking</span>
+              <span class="menu-title">{{ __('msg.Sales tracking') }}</span>
             </a>
           </li>
           <li class="nav-item">

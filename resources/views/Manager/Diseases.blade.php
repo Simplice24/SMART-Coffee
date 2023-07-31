@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ app()->getLocale() }}">
 
 <head>
   <!-- Required meta tags --> 
@@ -119,13 +119,13 @@
           <li class="nav-item">
             <a class="nav-link" href="<?=url('StockDetails');?>">
               <i class="mdi mdi-stocking menu-icon"></i>
-              <span class="menu-title">Stock</span>
+              <span class="menu-title">{{ __('msg.Stock') }}</span>
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="<?=url('CooperativeSales');?>">
               <i class="mdi mdi-chart-line menu-icon"></i>
-              <span class="menu-title">Sales tracking</span>
+              <span class="menu-title">{{ __('msg.Sales tracking') }}</span>
             </a>
           </li>
           <li class="nav-item">
@@ -187,10 +187,9 @@
                 </div>
               </div>
             </div>
-
           </div>
              
-           <div class="col-lg-12 grid-margin stretch-card">
+          <div class="col-lg-12 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
                   @if(session('success'))
@@ -239,7 +238,7 @@
               </div>
             </div>
            </div>
-        </div>
+          </div>
         <!-- content-wrapper ends -->
         <!-- partial:partials/_footer.html -->
         <footer class="footer">
@@ -385,6 +384,16 @@
   function showPopupCard() {
     var popupCard = document.getElementById("popupCard");
     popupCard.style.display = "block";
+
+    // Add blur effect to the background
+    popupCard.style.background = "linear-gradient(to right, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.1))";
+
+    // Close the popup card when clicked outside its boundary
+    popupCard.addEventListener("click", function (event) {
+      if (event.target === popupCard) {
+        popupCard.style.display = "none";
+      }
+    });
   }
 
   // Function to handle the browse button click
@@ -431,6 +440,7 @@
   var reportButton = document.getElementById("reportButton");
   reportButton.style.display = "none";
 </script>
+
 <script>
     // Wait for the document to be fully loaded
     document.addEventListener("DOMContentLoaded", function() {

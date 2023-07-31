@@ -54,23 +54,23 @@
                 <button type="button" class="btn btn-info font-weight-bold">+ Create New</button>
             </li> -->
           <li class="nav-item dropdown d-flex">
-          <div class="dropdown">
-  <a class="btn dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    {{ __('msg.languages') }}
-  </a>
+            <div class="dropdown">
+              <a class="btn dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                {{ __('msg.languages') }}
+              </a>
 
-  <ul class="dropdown-menu">
-    <a class="dropdown-item preview-item" href="<?=url('locale/en');?>">               
-    {{ __('msg.english') }}
-    </a>
-    <a class="dropdown-item preview-item" href="<?=url('locale/fr');?>">               
-    {{ __('msg.francais') }}
-    </a>
-    <a class="dropdown-item " href="<?=url('locale/kiny');?>">               
-         Ikinyarwanda
-    </a>
-  </ul>
-</div>
+              <ul class="dropdown-menu">
+                <a class="dropdown-item preview-item" href="<?=url('locale/en');?>">               
+                {{ __('msg.english') }}
+                </a>
+                <a class="dropdown-item preview-item" href="<?=url('locale/fr');?>">               
+                {{ __('msg.francais') }}
+                </a>
+                <a class="dropdown-item " href="<?=url('locale/kiny');?>">               
+                    Ikinyarwanda
+                </a>
+              </ul>
+            </div>
           </li>
           <li class="nav-item dropdown d-flex mr-4 ">
             <a class="nav-link count-indicator dropdown-toggle d-flex align-items-center justify-content-center" id="notificationDropdown" href="#" data-toggle="dropdown">
@@ -124,13 +124,13 @@
           <li class="nav-item">
             <a class="nav-link" href="<?=url('StockDetails');?>">
               <i class="mdi mdi-stocking menu-icon"></i>
-              <span class="menu-title">Stock </span>
+              <span class="menu-title">{{ __('msg.Stock') }}</span>
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="<?=url('CooperativeSales');?>">
               <i class="mdi mdi-chart-line menu-icon"></i>
-              <span class="menu-title">Sales tracking</span>
+              <span class="menu-title">{{ __('msg.Sales tracking') }}</span>
             </a>
           </li>
           <li class="nav-item">
