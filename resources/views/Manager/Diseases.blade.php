@@ -286,7 +286,11 @@
     var reportingConfidence = '{{ $reportingConfidence }}'
     // Function to update the disease name, prediction confidence, image path, and selected model
     function updatePredictionData(predictedClass, confidence, imagePath, selectedModel, reportingConfidence) {
+        if (confidence >= reportingConfidence) {
         document.getElementById('diseaseName').innerText = '{{ __('msg.Disease')}}: ' + predictedClass;
+        } else {
+        document.getElementById('diseaseName').innerText = '{{ __('msg.Disease')}}: ' + 'Unknown';
+        }
         document.getElementById('predictionConfidence').innerText = '{{ __('msg.Confident')}}: ' + confidence.toFixed(5);
         document.getElementById('imagePath').innerText = 'Image Path: ' + imagePath;
         
