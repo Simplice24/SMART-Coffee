@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 19, 2023 at 12:48 PM
+-- Generation Time: Aug 03, 2023 at 08:06 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -2194,6 +2194,29 @@ INSERT INTO `cells` (`id`, `codecell`, `nameCell`, `sectorcode`, `created_at`, `
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `confidence`
+--
+
+CREATE TABLE `confidence` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `confidence` double(8,2) NOT NULL,
+  `status` tinyint(4) NOT NULL DEFAULT 0,
+  `set_by` varchar(225) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `confidence`
+--
+
+INSERT INTO `confidence` (`id`, `confidence`, `status`, `set_by`, `created_at`, `updated_at`) VALUES
+(1, 0.50, 1, 'NIYONZIMA Simplice', '2023-08-03 10:49:56', '2023-08-03 11:48:04'),
+(2, 0.90, 0, 'NIYONZIMA Simplice', '2023-08-03 11:47:09', '2023-08-03 11:48:04');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `cooperatives`
 --
 
@@ -2218,7 +2241,7 @@ CREATE TABLE `cooperatives` (
 
 INSERT INTO `cooperatives` (`id`, `name`, `manager_name`, `email`, `status`, `starting_date`, `province`, `district`, `sector`, `cell`, `created_at`, `updated_at`) VALUES
 (1, 'KOAIRWA', 'MUPENZI Espoir', 'koairwa@gmail.com', 'Operating', '2015-04-25', 'Southern Province', 'GISAGARA', 'Muganza', 'Rwamiko', '2023-03-25', '2023-05-09 17:00:10'),
-(2, 'DUKUNDE KAWA', 'CYIZA MUGABO Christian', 'dukundekwawa@gmail.com', 'Operating', '2018-02-25', 'Southern Province', 'GISAGARA', 'Muganza', 'Rwamiko', '2023-03-25', '2023-05-09 17:06:09');
+(2, 'DUKUNDE KAWA', 'KWIZERA Fabrice', 'dukundekwawa@gmail.com', 'Operating', '2018-02-25', 'Southern Province', 'GISAGARA', 'Muganza', 'Rwamiko', '2023-03-25', '2023-08-03 10:14:36');
 
 -- --------------------------------------------------------
 
@@ -2259,8 +2282,8 @@ CREATE TABLE `cooperative_user` (
 --
 
 INSERT INTO `cooperative_user` (`user_id`, `cooperative_id`) VALUES
-(4, 1),
-(5, 2);
+(8, 1),
+(9, 2);
 
 -- --------------------------------------------------------
 
@@ -2447,7 +2470,9 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (26, '2023_04_06_133258_create_reported_diseases_table', 12),
 (27, '2023_04_06_133709_create_stocks_table', 13),
 (28, '2023_04_10_174927_create_cooperative_stocks_table', 14),
-(29, '2023_04_25_110915_create_reporters_table', 15);
+(29, '2023_04_25_110915_create_reporters_table', 15),
+(30, '2023_07_16_040527_create_reported_by_prediction_table', 16),
+(31, '2023_07_28_182337_create_confidence_table', 17);
 
 -- --------------------------------------------------------
 
@@ -2479,10 +2504,11 @@ CREATE TABLE `model_has_roles` (
 
 INSERT INTO `model_has_roles` (`role_id`, `model_type`, `model_id`) VALUES
 (1, 'App\\Models\\User', 1),
-(1, 'App\\Models\\User', 2),
+(1, 'App\\Models\\User', 7),
 (7, 'App\\Models\\User', 6),
-(8, 'App\\Models\\User', 4),
-(8, 'App\\Models\\User', 5);
+(8, 'App\\Models\\User', 5),
+(8, 'App\\Models\\User', 8),
+(8, 'App\\Models\\User', 9);
 
 -- --------------------------------------------------------
 
@@ -2603,6 +2629,35 @@ INSERT INTO `provinces` (`id`, `provincecode`, `provincename`, `created_at`, `up
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `reported_by_prediction`
+--
+
+CREATE TABLE `reported_by_prediction` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `cooperative_id` bigint(20) UNSIGNED NOT NULL,
+  `predicted_class` varchar(255) NOT NULL,
+  `confidence` decimal(16,15) NOT NULL,
+  `image` varchar(255) NOT NULL,
+  `longitude` varchar(30) NOT NULL,
+  `latitude` varchar(30) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `reported_by_prediction`
+--
+
+INSERT INTO `reported_by_prediction` (`id`, `cooperative_id`, `predicted_class`, `confidence`, `image`, `longitude`, `latitude`, `created_at`, `updated_at`) VALUES
+(4, 1, 'Miner', '0.944550000000000', 'prediction/pxbB11DHCHYfGi1MdFfcK8bKEL8TWQP22IfLFJSC.jpg', '30.064350500000000', '-1.961939800000000', '2023-07-25 06:17:16', '2023-07-25 06:17:16'),
+(5, 1, 'Rust', '0.915380000000000', 'prediction/uB5mPlZmiM1QHNtE8bWDASXRA6DWT5D95qKWSjqJ.jpg', '30.064357000000001', '-1.961929100000000', '2023-07-25 08:09:05', '2023-07-25 08:09:05'),
+(6, 1, 'Miner', '1.000000000000000', 'prediction/9IWx8IChVjPxryMAh9A1s2gtQWyuQqIzLHRlvy2u.jpg', '30.064284000000001', '-1.962017000000000', '2023-07-29 08:22:46', '2023-07-29 08:22:46'),
+(7, 2, 'Rust', '0.821900000000000', 'prediction/IR2zUwdbPseZp1ZYJkDMkw4dcLM9WxbHmvF1E21r.jpg', '30.054957000000002', '-1.952266200000000', '2023-08-01 12:45:21', '2023-08-01 12:45:21'),
+(8, 2, 'Miner', '0.821300000000000', 'prediction/jahxPgADO1w63XVeEORJL9gVkhCg9eNTO7oTL3fH.jpg', '30.054957000000002', '-1.965755700000000', '2023-08-03 11:48:22', '2023-08-03 11:48:22');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `reported_diseases`
 --
 
@@ -2622,7 +2677,17 @@ CREATE TABLE `reported_diseases` (
 --
 
 INSERT INTO `reported_diseases` (`id`, `cooperative_id`, `disease_id`, `disease_category`, `longitude`, `latitude`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, 'Leaf diseases', '30.337790000000002', '-1.2637450000000001', '2023-04-25 18:00:15', '2023-04-25 18:00:15');
+(1, 1, 1, 'Leaf diseases', '30.337790000000002', '-1.2637450000000001', '2023-04-25 18:00:15', '2023-04-25 18:00:15'),
+(13, 1, 12, 'Leaf disease', '30.064367900000001', '-1.961931500000000', '2023-05-19 19:56:39', '2023-05-19 19:56:39'),
+(14, 1, 16, 'Leaf disease', '30.064361300000002', '-1.961949900000000', '2023-05-19 20:02:18', '2023-05-19 20:02:18'),
+(15, 1, 20, 'Berry disease', '30.064328000000000', '-1.961990100000000', '2023-05-19 20:20:13', '2023-05-19 20:20:13'),
+(16, 1, 19, 'Berry disease', '30.064527699999999', '-1.962739700000000', '2023-06-07 07:54:20', '2023-06-07 07:54:20'),
+(17, 1, 16, 'Leaf disease', '30.064325300000000', '-1.961999600000000', '2023-06-07 08:35:52', '2023-06-07 08:35:52'),
+(18, 1, 1, 'Leaf disease', '30.064425799999999', '-1.962947000000000', '2023-06-13 11:59:34', '2023-06-13 11:59:34'),
+(19, 1, 13, 'Leaf disease', '30.054957000000002', '-1.952332800000000', '2023-07-19 12:14:10', '2023-07-19 12:14:10'),
+(20, 1, 12, 'Leaf disease', '30.064287700000001', '-1.962026000000000', '2023-07-22 02:45:42', '2023-07-22 02:45:42'),
+(21, 2, 1, 'Leaf disease', '30.054957000000002', '-1.952266200000000', '2023-08-01 12:31:33', '2023-08-01 12:31:33'),
+(22, 2, 1, 'Leaf disease', '30.054957000000002', '-1.952266200000000', '2023-08-01 12:44:47', '2023-08-01 12:44:47');
 
 -- --------------------------------------------------------
 
@@ -3267,10 +3332,11 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `name`, `gender`, `role`, `username`, `email`, `phone`, `image`, `province`, `district`, `sector`, `cell`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
 (1, 'NIYONZIMA Simplice', 'Male', 'Super-Admin', 'Simplice', 'nsimplice0@gmail.com', '0723438222', 'DSC_0234.JPG', 'Southern Province', 'MUHANGA', 'Shyogwe', 'Ruli', NULL, '$2y$10$S.ldskjjgLCsbyxnjnVQ9OevnLjM5WHRSCovmSwu0oBD2sXmn2sjm', NULL, '2023-03-22', '2023-05-11 17:11:30'),
-(2, 'NISHIMIRWE Adrien', 'Male', 'Super-Admin', 'Adrien', 'nishadrien@gmail.com', '0723438223', 'userImage.jpg', 'Southern Province', 'GISAGARA', 'Kibirizi', 'Duwani', NULL, '$2y$10$9qeGV0Cpzogz0VbbIu6L5./dqsFYX5rOz8iO/uBqaSw4Yz8ohc3.q', NULL, '2023-03-22', '2023-04-14 19:17:30'),
-(4, 'MUPENZI Espoir', 'Male', 'Manager', 'Espoir', 'muespoire@gmail.com', '0784567442', 'userImage.jpg', 'Southern Province', 'MUHANGA', 'Nyamabuye', 'Gitarama', NULL, '$2y$10$zAyuUllzhXH2CKlVWRbfiORNKAmOiM1/fTv8spT.2/8QYLTlV5uFa', NULL, '2023-03-25', '2023-05-01 00:15:48'),
 (5, 'CYIZA MUGABO Christian', 'Male', 'Manager', 'Cyiza', 'cyizamugabo1@gmail.com', '+250723438097', 'userImage.jpg', 'kigali city', 'GASABO', 'Gisozi', 'Musezero ', NULL, '$2y$10$nxygyz6hu6PiaY/U/vucQeparhZyIgeOgiuPn15Ll2oyDmbciJgRG', NULL, '2023-03-25', '2023-04-14 19:19:02'),
-(6, 'Rui HACHIMURA', 'Male', 'SEDO', 'Hachimura', 'ruihachimura28@gmail.com', '0788594330', 'userImage.jpg', 'Southern Province', 'GISAGARA', 'Muganza', 'Rwamiko', NULL, '$2y$10$VD.mkT.llNsHHKDzDZ/8euRNjmbcRZzTwGBw2W9V5YY0cERu7Ux/a', NULL, '2023-04-17', '2023-04-18 02:41:04');
+(6, 'Rui HACHIMURA', 'Male', 'SEDO', 'Hachimura', 'ruihachimura28@gmail.com', '0788594330', 'userImage.jpg', 'Southern Province', 'GISAGARA', 'Muganza', 'Rwamiko', NULL, '$2y$10$VD.mkT.llNsHHKDzDZ/8euRNjmbcRZzTwGBw2W9V5YY0cERu7Ux/a', NULL, '2023-04-17', '2023-04-18 02:41:04'),
+(7, 'INGABIRE Aime Diane', 'Female', 'Super-Admin', 'Aime', 'aimediane@gmail.com', '0786848265', 'userImage.jpg', 'kigali city', 'KICUKIRO', 'Gatenga', 'Nyanza', NULL, '$2y$10$5FaMyaJDaOMhBl7NaGvUy.yjX3AM.DO9sEADfoj3s3r0RF0GQA1k.', NULL, '2023-06-22', '2023-06-23 03:51:52'),
+(8, 'MUPENZI Espoir', 'Male', 'Manager', 'Espoir', 'muespoire@gmail.com', '0782040963', 'userImage.jpg', 'Southern Province', 'MUHANGA', 'Nyamabuye', 'Gitarama', NULL, '$2y$10$69eucSgKwcY5ZynWLOLdm.Q7pCqUcoxMvcjxN/QBPiBNArrWFKvfe', NULL, '2023-08-01', '2023-08-01 12:07:34'),
+(9, 'KWIZERA Fabrice', 'Male', 'Manager', 'Fabrice', 'fabrice.kwizera@gmail.com', '0788400000', 'userImage.jpg', 'kigali city', 'GASABO', 'Remera', 'Rukiri I', NULL, '$2y$10$MoXfsPYT24ESPDBfAY9IaeV7.3F85FC/EH56OZjcAuBoJwsUN.wui', NULL, '2023-08-03', '2023-08-03 09:51:32');
 
 --
 -- Indexes for dumped tables
@@ -3280,6 +3346,12 @@ INSERT INTO `users` (`id`, `name`, `gender`, `role`, `username`, `email`, `phone
 -- Indexes for table `cells`
 --
 ALTER TABLE `cells`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `confidence`
+--
+ALTER TABLE `confidence`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -3392,6 +3464,13 @@ ALTER TABLE `provinces`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `reported_by_prediction`
+--
+ALTER TABLE `reported_by_prediction`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `reported_by_prediction_cooperative_id_foreign` (`cooperative_id`);
+
+--
 -- Indexes for table `reported_diseases`
 --
 ALTER TABLE `reported_diseases`
@@ -3456,6 +3535,12 @@ ALTER TABLE `cells`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2564;
 
 --
+-- AUTO_INCREMENT for table `confidence`
+--
+ALTER TABLE `confidence`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `cooperatives`
 --
 ALTER TABLE `cooperatives`
@@ -3501,7 +3586,7 @@ ALTER TABLE `farmer_diseases`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `permissions`
@@ -3528,10 +3613,16 @@ ALTER TABLE `provinces`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
+-- AUTO_INCREMENT for table `reported_by_prediction`
+--
+ALTER TABLE `reported_by_prediction`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
 -- AUTO_INCREMENT for table `reported_diseases`
 --
 ALTER TABLE `reported_diseases`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `reporters`
@@ -3567,7 +3658,7 @@ ALTER TABLE `stocks`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- Constraints for dumped tables
@@ -3616,6 +3707,12 @@ ALTER TABLE `model_has_roles`
 --
 ALTER TABLE `production`
   ADD CONSTRAINT `production_cooperative_id_foreign` FOREIGN KEY (`cooperative_id`) REFERENCES `cooperatives` (`id`);
+
+--
+-- Constraints for table `reported_by_prediction`
+--
+ALTER TABLE `reported_by_prediction`
+  ADD CONSTRAINT `reported_by_prediction_cooperative_id_foreign` FOREIGN KEY (`cooperative_id`) REFERENCES `cooperatives` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `reporters`
