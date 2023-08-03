@@ -45,23 +45,23 @@
                 <button type="button" class="btn btn-info font-weight-bold">+ Create New</button>
             </li> -->
           <li class="nav-item dropdown d-flex">
-          <div class="dropdown">
-  <a class="btn dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    {{ __('msg.languages') }}
-  </a>
+            <div class="dropdown">
+              <a class="btn dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                {{ __('msg.languages') }}
+              </a>
 
-  <ul class="dropdown-menu">
-    <a class="dropdown-item preview-item" href="<?=url('locale/en');?>">               
-    {{ __('msg.english') }}
-    </a>
-    <a class="dropdown-item preview-item" href="<?=url('locale/fr');?>">               
-    {{ __('msg.francais') }}
-    </a>
-    <a class="dropdown-item " href="<?=url('locale/kiny');?>">               
-         Ikinyarwanda
-    </a>
-  </ul>
-</div>
+              <ul class="dropdown-menu">
+                <a class="dropdown-item preview-item" href="<?=url('locale/en');?>">               
+                {{ __('msg.english') }}
+                </a>
+                <a class="dropdown-item preview-item" href="<?=url('locale/fr');?>">               
+                {{ __('msg.francais') }}
+                </a>
+                <a class="dropdown-item " href="<?=url('locale/kiny');?>">               
+                    Ikinyarwanda
+                </a>
+              </ul>
+            </div>
           </li>
           <li class="nav-item dropdown d-flex mr-4 ">
             <a class="nav-link count-indicator dropdown-toggle d-flex align-items-center justify-content-center" id="notificationDropdown" href="#" data-toggle="dropdown">
@@ -96,34 +96,51 @@
           {{session('user')}}
           </div>
           <div class="user-designation">
-          {{$profileImg->role}}   
+          {{$profileImg->role}}
           </div>
         </div>
         <ul class="nav">
+          @role('Super-Admin')
           <li class="nav-item">
-            <a class="nav-link" href="<?=url('Home') ;?>">
+            <a class="nav-link" href="<?=url('Home');?>">
               <i class="icon-air-play menu-icon"></i>
               <span class="menu-title">{{ __('msg.dashboard') }}</span>
             </a>
           </li>
+          @endrole
+          @if(Auth::user()->can('create-user'))
           <li class="nav-item">
             <a class="nav-link" href="<?=url('viewsystemuser');?>">
               <i class="icon-head menu-icon"></i>
               <span class="menu-title">{{ __('msg.system users') }}</span>
             </a>
           </li>
+          @endif
+          @can('create-cooperative')
            <li class="nav-item">
             <a class="nav-link" href="<?=url('viewcooperatives');?>">
               <i class="icon-disc menu-icon"></i>
               <span class="menu-title">{{ __('msg.cooperatives') }}</span>
             </a>
           </li>
+          @endcan
+          @can('create-farmer')
           <li class="nav-item">
             <a class="nav-link" href="<?=url('viewfarmers');?>">
               <i class="icon-pie-graph menu-icon"></i>
               <span class="menu-title">{{ __('msg.farmers') }}</span>
             </a>
           </li>
+          @endcan
+          @role('Manager')
+          <li class="nav-item">
+            <a class="nav-link" href="<?=url('CooperativeFarmers');?>">
+              <i class="icon-pie-graph menu-icon"></i>
+              <span class="menu-title">Members</span>
+            </a>
+          </li>
+          @endrole
+          @can('create-disease')
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
               <i class="icon-command menu-icon"></i>
@@ -138,19 +155,21 @@
                     </a>
                 </li>
                 <li class="nav-item"> 
-                    <a class="nav-link text-white hover-white" href="#">
+                    <a class="nav-link text-white hover-white" href="<?=url('realtimediseases');?>">
                       <span class="menu-title">Realtime Report</span>
                     </a>
                 </li>
               </ul>
             </div>
           </li>
+          @endcan
           <li class="nav-item">
             <a class="nav-link" href="<?=url('analytics');?>">
               <i class="icon-bar-graph-2 menu-icon"></i>
               <span class="menu-title">Analytics</span>
             </a>
           </li>
+          @can('create-role')
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
               <i class="icon-share menu-icon"></i>
@@ -159,11 +178,12 @@
             </a>
             <div class="collapse" id="auth">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="<?=url('Allroles')?>"> Roles </a></li>
-                <li class="nav-item"> <a class="nav-link" href="<?=url('Allpermissions')?>"> Permissions </a></li>
+                <li class="nav-item"> <a class="nav-link" href="<?=url('Allroles');?>"> Roles </a></li>
+                <li class="nav-item"> <a class="nav-link" href="<?=url('Allpermissions');?>"> Permissions </a></li>
               </ul>
             </div>
           </li>
+          @endcan
         </ul>
       </nav>
       <!-- partial -->

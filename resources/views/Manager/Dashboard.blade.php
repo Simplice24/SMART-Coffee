@@ -161,11 +161,11 @@
                     </h4>
                     <h1 class="mb-5">{{$totalFarmers}}</h1>
                     @if ($increasedPercentage > 0)
-                    <h6 class="card-text"><b>{{$increasedPercentage}}% increase this year</b></h6>
+                    <h6 class="card-text"><b></b></h6>
                     @elseif($increasedPercentage < 0)
-                    <h6 class="card-text"><b>{{abs($increasedPercentage)}}% decrease this year</b></h6>
+                    <h6 class="card-text"><b></b></h6>
                     @else
-                    <h6 class="card-text"><b>No change in cooperative farmers</b></h6>
+                    <h6 class="card-text"><b></b></h6>
                     @endif
                   </div>
                   </a>
@@ -180,11 +180,11 @@
                     </h4>
                     <h1 class="mb-5">{{$total_trees}}</h1>
                     @if($increaseInTrees > 0)
-                    <h6 class="card-text"><b>{{$increaseInTrees}}% increase this year</b></h6> 
+                    <h6 class="card-text"><b></b></h6> 
                     @elseif($increaseInTrees < 0)
-                    <h6 class="card-text"><b>{{abs($increaseInTrees)}}% decrease this year</b></h6> 
+                    <h6 class="card-text"><b></b></h6> 
                     @else
-                    <h6 class="card-text"><b>No change in trees this year</b></h6>
+                    <h6 class="card-text"><b></b></h6>
                     @endif
                   </div>
                 </a>
@@ -198,9 +198,9 @@
                     <h4 class="font-weight-normal mb-3">Monthly Sales <i class="mdi mdi-chart-line mdi-24px float-right"></i>
                     <h1 class="mb-5">{{$currentMonthSalesTotal}}</h1>
                     @if($increaseInSales > 0)
-                    <h6 class="card-text"><b>{{$increaseInSales}}% increase this month</b></h6>
+                    <h6 class="card-text"><b></b></h6>
                     @elseif($increaseInSales < 0)
-                    <h6 class="card-text"><b>{{abs($increaseInSales)}}% decrease this month</b></h6>
+                    <h6 class="card-text"><b></b></h6>
                     @else
                     <h6 class="card-text"><b>No change in sales</b></h6>
                     @endif

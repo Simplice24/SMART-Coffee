@@ -119,7 +119,7 @@
           <li class="nav-item">
             <a class="nav-link" href="<?=url('StockDetails');?>">
               <i class="mdi mdi-stocking menu-icon"></i>
-              <span class="menu-title">Stock </span>
+              <span class="menu-title">Stock</span>
             </a>
           </li>
           <li class="nav-item">
@@ -150,33 +150,33 @@
            <div class="row">
 
            <!-- Popup card -->
-          <div id="popupCard" class="popup-card container">
+          <div id="popupCard" class="popup-card container card shadow">
             <!-- Select dropdown list -->
             <div class="row">
               <div class="col-md-6">
               <form id="predictForm" action="{{ url('/predict') }}" method="post" enctype="multipart/form-data">
                   @csrf
                   <div class="form-group">
-                      <label for="modelSelect">Select Model:</label>
+                      <label for="modelSelect">{{ __('msg.Select model') }}:</label>
                       <select class="form-control custom-select" id="modelSelect" name="selected_model">
-                          <option value="" disabled selected>Select ml model to use</option>
+                          <option value="" disabled selected>{{ __('msg.Select ml model to use') }}</option>
                           <option value="inception_v3">INCEPTION_V3</option>
                           <option value="resnet">RESNET</option>
                           <option value="vgg16">VGG16</option>
                           <option value="xception">XCEPTION</option>
                       </select>
                   </div>
-                  <p id="diseaseName">Disease:</p>
-                  <p id="predictionConfidence">Confident:</p>
+                  <p id="diseaseName">{{ __('msg.Disease') }}:</p>
+                  <p id="predictionConfidence">{{ __('msg.Confident') }}:</p>
                   <p id="imagePath" style="display: none;">Image Path:</p>
 
                   <div class="popup-card-buttons">
                       <input type="file" id="imageInput" style="display: none;" accept="image/*" name="image_file">
-                      <button type="button" class="btn btn-block btn-success" onclick="document.getElementById('imageInput').click()">Browse</button>
-                      <button type="submit" class="btn btn-success" id="predictButton" style="display: none;">Predict</button>
+                      <button type="button" class="btn btn-block btn-success" onclick="document.getElementById('imageInput').click()">{{ __('msg.Browse')}}</button>
+                      <button type="submit" class="btn btn-success" id="predictButton" style="display: none;">{{ __('msg.Predict')}}</button>
                       <button type="button" class="btn btn-danger" id="reportButton" style="display: none;" 
-                      onclick="reportPrediction()" data-predicted-class="" data-confidence="">Report</button>
-                      <div id="loadingIndicator" style="display: none;">Loading...</div>
+                      onclick="reportPrediction()" data-predicted-class="" data-confidence="">{{ __('msg.Report')}}</button>
+                      <div id="loadingIndicator" style="display: none;">{{ __('Loading...')}}</div>
                   </div>
               </form>
 
@@ -198,7 +198,7 @@
                         {{ session('success') }}
                     </div>
                   @endif
-                  <button type="button" class="btn btn-info font-weight-bold mb-3" onclick="showPopupCard()">Browse an image</button>
+                  <button type="button" class="btn btn-info font-weight-bold mb-3" onclick="showPopupCard()">{{ __('msg.Browse an image')}}</button>
                   <h4 class="card-title">{{__('msg.coffee diseases')}}</h4>
                   <div class="table-responsive">
                     <table class="table table-striped" id="Diseases">
@@ -283,16 +283,17 @@
   });
 </script>
 <script>
+    var reportingConfidence = '{{ $reportingConfidence }}'
     // Function to update the disease name, prediction confidence, image path, and selected model
-    function updatePredictionData(predictedClass, confidence, imagePath, selectedModel) {
-        document.getElementById('diseaseName').innerText = 'Disease: ' + predictedClass;
-        document.getElementById('predictionConfidence').innerText = 'Confident: ' + confidence.toFixed(5);
+    function updatePredictionData(predictedClass, confidence, imagePath, selectedModel, reportingConfidence) {
+        document.getElementById('diseaseName').innerText = '{{ __('msg.Disease')}}: ' + predictedClass;
+        document.getElementById('predictionConfidence').innerText = '{{ __('msg.Confident')}}: ' + confidence.toFixed(5);
         document.getElementById('imagePath').innerText = 'Image Path: ' + imagePath;
         
 
         // Show the report button if the predicted disease is not "Healthy"
         var reportButton = document.getElementById('reportButton');
-        if (predictedClass !== 'Healthy') {
+        if (predictedClass !== 'Healthy' && confidence >= reportingConfidence) {
             reportButton.style.display = 'block';
             reportButton.dataset.predictedClass = predictedClass; // Set the data attribute for predicted class
             reportButton.dataset.confidence = confidence.toFixed(5);
@@ -362,7 +363,8 @@
                         response.predicted_class,
                         response.confidence,
                         response.image_path,
-                        response.selected_model
+                        response.selected_model,
+                        response.reportingConfidence
                     ); // Update the prediction data in the form
                 } else {
                     // Handle the error case
@@ -441,8 +443,6 @@
         }
     });
 </script>
-
-
 </body>
 </html>
 

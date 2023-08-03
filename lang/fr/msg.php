@@ -101,6 +101,17 @@ Mot de passe oublié",
 "Log in"=>"Connexion",
 "Managers"=>"
 Gérants",
-"Analytics"=>"Analytique"
+"Analytics"=>"Analytique",
+"Disease" =>"Maladie",
+"Confindence" =>"Confiance",
+"Loading..." =>"Chargement...",
+"Select ml model to use" => "Sélectionnez le modèle ml à utiliser",
+"Select model" =>"Sélectionnez le modèle",
+"Browse an image" => "Parcourir une image",
+"Browse" => "Parcourir",
+"Predict" => "Prédire",
+"Report" => "Déclarez la maladie",
+"Reporting confidence" => "Confiance dans les rapports",
+"Confidence" => "Confiance"
 ]
 ?>

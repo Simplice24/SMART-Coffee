@@ -13,6 +13,7 @@ use App\Models\Sector;
 use App\Models\Cell;
 use App\Models\Sales;
 use App\Models\ReportedDisease;
+use App\Models\ReportedByPrediction;
 use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
 use session;

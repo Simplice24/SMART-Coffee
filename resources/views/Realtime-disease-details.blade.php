@@ -30,11 +30,11 @@
     <!-- partial:partials/_navbar.html -->
     <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
       <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-        <a class="navbar-brand brand-logo" href={{"Official/Home"}}>
+        <a class="navbar-brand brand-logo" href="">
             <img src="/logo.png" alt="My Logo" class="full-height">
             <span class="logo-text">CCMS</span>
         </a>
-        <a class="navbar-brand brand-logo-mini" href={{"Official/Home"}}>CCMS</a>
+        <a class="navbar-brand brand-logo-mini" href="">CCMS</a>
       </div>
       <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
         <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
@@ -73,12 +73,6 @@
               <a class="dropdown-item preview-item" href="">               
                   <i class="icon-head"></i> {{ __('msg.profile') }}
               </a>
-              <!-- <a class="dropdown-item preview-item" href="">               
-                  <i class="icon-head"></i> French
-              </a>
-              <a class="dropdown-item preview-item" href="">               
-                  <i class="icon-head"></i> English
-              </a> -->
               <a class="dropdown-item preview-item" href="<?=url('logout');?>">
                   <i class="icon-inbox"></i> {{ __('msg.logout') }}
               </a>
@@ -103,31 +97,31 @@
           {{session('user')}}
           </div>
           <div class="user-designation">
-          {{$profileImg->role}}
+           {{$profileImg->role}}  
           </div>
         </div>
         <ul class="nav">
           <li class="nav-item">
-            <a class="nav-link" href="<?=url('Official/Home');?>">
+            <a class="nav-link" href="<?=url('Home') ;?>">
               <i class="icon-air-play menu-icon"></i>
               <span class="menu-title">{{ __('msg.dashboard') }}</span>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="<?=url('Official/Managers');?>">
+            <a class="nav-link" href="<?=url('viewsystemuser');?>">
               <i class="icon-head menu-icon"></i>
-              <span class="menu-title">{{ __('msg.Managers') }}</span>
+              <span class="menu-title">{{ __('msg.system users') }}</span>
             </a>
           </li>
            <li class="nav-item">
-            <a class="nav-link" href="<?=url('Official/Cooperatives');?>">
+            <a class="nav-link" href="<?=url('viewcooperatives');?>">
               <i class="icon-disc menu-icon"></i>
               <span class="menu-title">{{ __('msg.cooperatives') }}</span>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="<?=url('Official/Farmers');?>">
-              <i class="icon-head menu-icon"></i>
+            <a class="nav-link" href="<?=url('viewfarmers');?>">
+              <i class="icon-pie-graph menu-icon"></i>
               <span class="menu-title">{{ __('msg.farmers') }}</span>
             </a>
           </li>
@@ -145,127 +139,103 @@
                     </a>
                 </li>
                 <li class="nav-item"> 
-                    <a class="nav-link text-white hover-white" href="<?=url('Official/realtimediseases');?>">
+                    <a class="nav-link text-white hover-white" href="<?=url('realtimediseases');?>">
                       <span class="menu-title">Realtime Report</span>
                     </a>
                 </li>
               </ul>
             </div>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="<?=url('analytics');?>">
+              <i class="icon-bar-graph-2 menu-icon"></i>
+              <span class="menu-title">Analytics</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
+              <i class="icon-share menu-icon"></i>
+              <span class="menu-title">Roles | Permissions</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="auth">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="<?=url('Allroles')?>"> Roles </a></li>
+                <li class="nav-item"> <a class="nav-link" href="<?=url('Allpermissions')?>"> Permissions </a></li>
+              </ul>
+            </div>
+          </li>
         </ul>
       </nav>
       <!-- partial -->
-      <div class="main-panel">      
-        <div class="container rounded bg-white mt-5 mb-5">
-            <div class="row">
-            <div class="col-md-3 border-right">
-            <div class="d-flex flex-column align-items-center text-center p-3 py-5">
-            <img class="rounded-circle mt-5" width="150px" src="{{asset('/storage/images/users/'.$userinfo->image)}}">
-              <span class="font-weight-bold">{{$userinfo->name}}</span>
-              <span class="font-weight-bold">{{$userinfo->email}}</span><br>
-              <span></span>
-              <form class="forms-sample" method="POST" action="{{url('profilePicUpdate/'.$userId)}}" enctype='multipart/form-data'>
-                @csrf
-                @method('PUT')
-              <input type="file" class="form-control" value="{{$userinfo->image}}" name="image" id="exampleInputEmail1" placeholder="Upload image" required>
-              <br>
-              <button class="btn btn-success profile-button" type="submit">Change profile picture</button>
-              </form>
+      <div class="main-panel">
+        <div class="content-wrapper">
+          
+           <div class="row">
+             
+           <div class="container">
+           <div class="main-body">
+          <div class="row gutters-sm">
+            <div class="col-md-4 mb-3">
+              <div class="card">
+                <div class="card-body">
+                  <div class="d-flex flex-column align-items-center text-center">
+                  <img src="{{asset('storage/'.$diseaseinfo->image)}}" alt="Admin"  width="360x" >
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-8">
+              <div class="card mb-3">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">{{ __('msg.Disease name') }}</h6>
+                    </div>
+                    <div class="col-sm-9 text-dark">
+                      {{$diseaseinfo->predicted_class}}
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">{{ __('msg.Confident')}}</h6>
+                    </div>
+                    <div class="col-sm-9 text-dark">
+                    {{number_format($diseaseinfo->confidence,3) }}
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Reported by</h6>
+                    </div>
+                    <div class="col-sm-9 text-dark">
+                    {{$cooperative_name}}
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Reported at</h6>
+                    </div>
+                    <div class="col-sm-9 text-dark">
+                    {{$diseaseinfo->created_at}}
+                    </div>
+                  </div>
+                  <hr>
+                </div>
+              </div>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="col-md-5 border-right">
-            <div class="p-3 py-5">
-            <div class="p-3 py-5">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h4 class="text-right">Profile Settings</h4>
-                </div>
-                <!-- <div class="row mt-3"> -->
-                <form class="forms-sample" method="POST" action="{{url('userProfileUpdate/'.$userId)}}" enctype='multipart/form-data'>
-                @csrf
-                @method('PUT')
-                <div class="form-group">
-                    <div class="input-group">
-                      <div class="input-group-prepend">
-                      <span class="input-group-text">@</span>
-                      </div>
-                      <input type="text" class="form-control" value="{{$userinfo->username}}" name="username" placeholder="Username"  required>
-                    </div>
-                    </div>
-                    <div class="form-group">
-                    <div class="input-group">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="icon-mail"></i></span>
-                      </div>
-                      <input type="email" class="form-control" value="{{$userinfo->email}}" name="email" id="exampleInputEmail1" placeholder="Email" required>
-                    </div>
-                    </div>
-                    <div class="form-group">
-                    <div class="input-group">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="mdi mdi-phone-in-talk"></i></span>
-                      </div>
-                      <input type="text" class="form-control" value="{{$userinfo->phone}}" name="phone" id="exampleInputEmail1" placeholder="Phone" required>
-                    </div>
-                    </div>
-                    <div class="form-group">
-                    <div class="input-group">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="icon-lock"></i></span>
-                      </div>
-                      <input type="password" class="form-control" name="current_password" id="exampleInputPassword1" placeholder="Your password" required>
-                    </div>
-                    </div>
-                </div>
-                <div class="mt-5 text-center">
-                  <button class="btn btn-success profile-button" type="submit">Save Profile</button>
-                </div>
-                </form>
-            </div>
-        </div>
-        <div class="col-md-4 ">
-            <div class="p-3 py-5">
-            <div class="p-3 py-5">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                <h4 class="text-right">Change password</h4>
-                </div>
-                <!-- <div class="row mt-3"> -->
-                <form class="forms-sample" method="POST" action="{{url('userPasswordUpdate/'.$userId)}}" enctype='multipart/form-data'>
-                @csrf
-                @method('PUT')
-                <div class="form-group">
-                    <div class="input-group">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="icon-lock"></i></span>
-                      </div>
-                      <input type="password" class="form-control" name="current_password" id="exampleInputPassword1" placeholder="Current password" required>
-                    </div>
-                    </div>
-                    <div class="form-group">
-                    <div class="input-group">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="icon-lock"></i></span>
-                      </div>
-                      <input type="password" class="form-control" name="new_password" id="exampleInputPassword1" placeholder="New password">
-                    </div>
-                    </div>
-                    <div class="form-group">
-                    <div class="input-group">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="icon-lock"></i></span>
-                      </div>
-                      <input type="password" class="form-control" name="confirm_new_password" id="exampleInputConfirmPassword1" placeholder="Confirm new password">
-                    </div>
-                    </div>
-                </div>
-                <div class="mt-5 text-center">
-                <button class="btn btn-success profile-button" type="submit">Change password</button>
-                </div>
-                </form>
-            </div>
-        </div>
-    </div>
-      </div>
+              
 
+           </div>
+        </div>
+        <!-- content-wrapper ends -->
+        <!-- partial:partials/_footer.html -->
         <footer class="footer">
           <div class="d-sm-flex justify-content-center justify-content-sm-between">
             <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © CCMS 2023</span>

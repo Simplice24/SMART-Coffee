@@ -93,6 +93,17 @@ Icyiciro cy'indwara",
 "Remember me"=>"Unyibuke",
 "Log in"=>"Injira",
 "Managers"=>"Abayobora amakoperative",
-"Analytics"=>"Isesengura"
+"Analytics"=>"Isesengura",
+"Disease" =>"Indwara",
+"Confident" =>"Icyizere",
+"Loading..." =>"Gupakira amakuru...",
+"Select ml model to use" => "Hitamo moderi ukoresha",
+"Select model" =>"Hitamo moderi",
+"Browse an image" => "Reba ishusho",
+"Browse" => "Reba ishusho",
+"Predict" => "Hanura",
+"Report" => "Menyesha indwara",
+"Reporting confidence" => "Icyizere cya raporo",
+"Confiance" => "Icyizere"
 ]
 ?>

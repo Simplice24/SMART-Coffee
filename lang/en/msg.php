@@ -93,7 +93,18 @@
          "Remember me"=>"Remember me",
          "Log in"=>"Log in",
          "Managers"=>"Managers",
-         "Analytics"=>"Analytics"
+         "Analytics"=>"Analytics",
+         "Disease" =>"Disease",
+         "Confident" =>"Confident",
+         "Loading..." =>"Loading...",
+         "Select ml model to use" => "Select ml model to use",
+         "Select model" =>"Select model",
+         "Browse an image" => "Browse an image",
+         "Browse" => "Browse",
+         "Predict" => "Predict",
+         "Report" => "Report",
+         "Reporting confidence" =>"Reporting confidence",
+         "Confidence" => "Confidence"
   ]
  
 ?>

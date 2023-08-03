@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\ReportedByPrediction;
+use App\Models\Confidence;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\DB;
@@ -19,6 +20,9 @@ class PredictionController extends Controller
             'image_file' => 'required|image',
         ]);
 
+        // Get the reporting confidence from the database
+        $reportingConfidence = Confidence::where('status', 1)->value('confidence');
+        
         // Get the selected model and uploaded image
         $selectedModel = $request->input('selected_model');
         $imageFile = $request->file('image_file');
@@ -37,18 +41,18 @@ class PredictionController extends Controller
         // Get the JSON response from the Python script
         $predictionData = $response->json();
 
-        if ($predictionData['confidence'] < 0.50 || $predictionData['predicted_class'] == "Healthy") {
+        if ($predictionData['confidence'] < $reportingConfidence || $predictionData['predicted_class'] == "Healthy") {
             Storage::delete($imagePath);
         }        
-        
+            
         // Return the response
         return response()->json([
             'image_path' => $imagePath,
             'selected_model' => $selectedModel,
             'predicted_class' => $predictionData['predicted_class'],
             'confidence' => $predictionData['confidence'],
+            'reportingConfidence' => $reportingConfidence,
         ]);
-
     }
 
     // In your PredictionController, add a new method to handle the report request
@@ -76,7 +80,6 @@ class PredictionController extends Controller
             ]);
 
             return redirect('CooperativeDiseases')->with('success', 'Prediction reported successfully!');
-    
     }
 
 

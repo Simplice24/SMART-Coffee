@@ -138,7 +138,7 @@
                     </a>
                 </li>
                 <li class="nav-item"> 
-                    <a class="nav-link text-white hover-white" href="#">
+                    <a class="nav-link text-white hover-white" href="<?=url('realtimediseases');?>">
                       <span class="menu-title">Realtime Report</span>
                     </a>
                 </li>
@@ -188,7 +188,7 @@
                           </div>
                         </div>
                     </div>
-                      <button type="submit" class="btn btn-info font-weight-bold">{{__('msg.save changes')}}</button>
+                    <button type="submit" class="btn btn-info font-weight-bold">{{__('msg.save changes')}}</button>
                     <!-- <button class="btn btn-light">Cancel</button> -->
                     </form>
                   </div>

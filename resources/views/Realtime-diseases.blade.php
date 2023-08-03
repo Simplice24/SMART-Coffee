@@ -58,23 +58,22 @@
                 <button type="button" class="btn btn-info font-weight-bold">+ Create New</button>
             </li> -->
           <li class="nav-item dropdown d-flex">
-          <div class="dropdown">
-  <a class="btn dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    {{ __('msg.languages') }}
-  </a>
-
-  <ul class="dropdown-menu">
-    <a class="dropdown-item preview-item" href="<?=url('locale/en');?>">               
-    {{ __('msg.english') }}
-    </a>
-    <a class="dropdown-item preview-item" href="<?=url('locale/fr');?>">               
-    {{ __('msg.francais') }}
-    </a>
-    <a class="dropdown-item " href="<?=url('locale/kiny');?>">               
-         Ikinyarwanda
-    </a>
-  </ul>
-</div>
+            <div class="dropdown">
+              <a class="btn dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                {{ __('msg.languages') }}
+              </a>
+              <ul class="dropdown-menu">
+                <a class="dropdown-item preview-item" href="<?=url('locale/en');?>">               
+                {{ __('msg.english') }}
+                </a>
+                <a class="dropdown-item preview-item" href="<?=url('locale/fr');?>">               
+                {{ __('msg.francais') }}
+                </a>
+                <a class="dropdown-item " href="<?=url('locale/kiny');?>">               
+                    Ikinyarwanda
+                </a>
+              </ul>
+            </div>
           </li>
           <li class="nav-item dropdown d-flex mr-4 ">
             <a class="nav-link count-indicator dropdown-toggle d-flex align-items-center justify-content-center" id="notificationDropdown" href="#" data-toggle="dropdown">
@@ -199,34 +198,45 @@
         <div class="col-md-7">
           <div id="map" style="height: 650px; margin-bottom:20px;"></div>
         </div>
-        <div class="col-md-5">
-        <div class="card">
-  <div class="card-header">
-    <div class="dropdown">
-      <h6 class="float-left mt-2">Reported disease</h6>
-    </div>
-  </div>
-  <div class="card-body">
-    <div>
-      <canvas id="ReportedDiseases"></canvas>
-    </div>
-  </div>
-</div>
+        <div class="col-md-5 mb-4">
+          <div class="card">
+            <div class="card-header">
+              <div class="dropdown">
+                <h6 class="float-left mt-2">Realtime reported disease</h6>
+              </div>
+            </div>
+            <div class="card-body">
+              <div>
+                <canvas id="ReportedDiseases"></canvas>
+              </div>
+            </div>
+            <div class="card-header">
+                <div class="dropdown">
+                  <button class="btn btn-secondary dropdown-toggle float-right" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    This Month
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="#" id="this-month-link">This Month</a>
+                    <a class="dropdown-item" href="#" id="yearly-link">This Year</a>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body">
+                <div id="this-month-content">
+                  <canvas id="MonthlyChart"></canvas>
+                </div>
+                <div id="yearly-content" style="display:none">
+                  <canvas id="YearlyChart"></canvas>
+                </div>
+              </div>
+          </div>
         </div>  
+        
         <!-- End of Leaflet Map -->
         </div>
-          <div class="row">
-            <div class="col-sm-12 mb-4 mb-xl-0">
-            @can('create-disease')
-            <li class="nav-item dropdown d-lg-flex d-none">
-            <a href="<?=url('registerNewDisease');?>"><button type="button" class="btn btn-info font-weight-bold">+ {{__('msg.new disease')}}</button></a>
-            </li>
-            @endcan
-            </div>
-          </div>
           
            <div class="row">
-           <div class="col-lg-6 grid-margin">
+           <div class="col-lg-7 grid-margin">
               <div class="card">
                 <div class="card-body">
                   <h4 class="card-title">{{__('msg.coffee diseases')}}</h4>
@@ -246,31 +256,35 @@
                     <thead>
                       <tr>
                         <th>#</th>
-                        <th>{{__('msg.Disease name')}}</th>
+                        <th>Cooperative</th>
+                        <th>{{__('msg.Disease')}}</th>
                         <th>Confidence</th>
+                        <th>Location</th>
                         <th>created_at</th>
                         <th>Action</th>
                       </tr>
                     </thead>
                     <tbody>
-                      @foreach($disease as $i)
-                      <tr>
-                        <td>{{++$no}}</td>
-                        <td>{{$i->disease_name}}</td>
-                        <td>{{$i->category}}</td>
-                        <td>{{$i->created_at->format('Y-m-d')}}</td>
-                        <td>
-                          <div class="input-group-prepend">
-                            <button class="btn btn-sm btn-outline-success" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">...</button>
-                            <div class="dropdown-menu">
-                              <a class="dropdown-item" href={{"diseaseDetails/".$i->id}}><i class="fa fa-eye" aria-hidden="true"></i>&nbsp; {{__('msg.view')}}</a>
-                              @can('delete-disease')
-                              <a class="dropdown-item" href={{"deletedisease/".$i->id}}><i class="fa fa-trash" aria-hidden="true"></i>&nbsp; {{__('msg.delete')}}</a>
-                              @endcan
+                        @foreach($realtimeDiseases as $i)
+                        <tr>
+                          <td>{{ ++$no }}</td>
+                          <td>{{ $i->name}}</td>
+                          <td>{{ $i->predicted_class }}</td>
+                          <td>{{ number_format($i->confidence, 5) }}</td>
+                          <td>{{ $i->district }} {{ $i->sector }} {{ $i->cell }}</td>
+                          <td>{{ \Carbon\Carbon::parse($i->created_at)->format('Y-m-d') }}</td>
+                          <td>
+                            <div class="input-group-prepend">
+                              <button class="btn btn-sm btn-outline-success" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">...</button>
+                              <div class="dropdown-menu">
+                                <a class="dropdown-item" href="{{ url('realtimediseasedetails/'.$i->id) }}"><i class="fa fa-eye" aria-hidden="true"></i>&nbsp; {{ __('msg.view') }}</a>
+                                @can('delete-disease')
+                                <a class="dropdown-item" href="{{ url('realtimedeletedisease/'.$i->id) }}"><i class="fa fa-trash" aria-hidden="true"></i>&nbsp; {{ __('msg.delete') }}</a>
+                                @endcan
+                              </div>
                             </div>
-                          </div>
-                        </td>
-                      </tr>
+                          </td>
+                        </tr>
                       @endforeach
                     </tbody>
                   </table>
@@ -278,32 +292,94 @@
                 </div>
               </div>
             </div>
-            <div class="col-lg-6 grid-margin">
-              
-  <div class="card">
-  <div class="card-header">
-    <div class="dropdown">
-      <h6 class="float-left mt-2">Reported disease</h6>
-      <button class="btn btn-secondary dropdown-toggle float-right" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        This Month
-      </button>
-      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <a class="dropdown-item" href="#" id="this-month-link">This Month</a>
-        <a class="dropdown-item" href="#" id="yearly-link">This Year</a>
-      </div>
-    </div>
-  </div>
-  <div class="card-body">
-    <div id="this-month-content">
-      <canvas id="MonthlyChart"></canvas>
-    </div>
-    <div id="yearly-content" style="display:none">
-      <canvas id="YearlyChart"></canvas>
-    </div>
-  </div>
-</div>
-
-
+            <div class="col-lg-5 grid-margin">
+            <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">{{__('msg.Reporting confidence')}}</h4>
+                  <button type="button" class="btn btn-info font-weight-bold mb-2" id="confidence-button">+{{__('msg.Confidence')}}</button>
+                  <div class="modal fade" id="confidence-modal" tabindex="-1" role="dialog">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="confidence-modal-title">Reporting Confidence</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <form id="reportForm" action="registerNewConfidence" method="post">
+                          @csrf
+                          <div class="form-group">
+                            <label for="confidence">Confidence</label>
+                            <input type="number" class="form-control" name="confidence" id="confidence" step="0.1" min="0" max="100" />
+                          </div>
+                          </div>
+                          <div class="modal-footer">
+                          <button type="submit" class="btn btn-info font-weight-bold" >Save</button>
+                          </div>
+                          </form>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-inline">
+                      <div class="form-group mr-2">
+                          <label for="min">Minimum date: </label>
+                          <input type="text" class="form-control" id="min" name="min">
+                      </div>
+                      <div class="form-group mr-2">
+                          <label for="max">Maximum date: </label>
+                          <input type="text" class="form-control" id="max" name="max">
+                      </div>
+                  </div>
+                  <br>
+                  <div class="table-responsive">
+                  <table class="table table-striped" id="ConfidenceTable">
+                    <thead>
+                      <tr>
+                        <th>#</th>
+                        <th>Confidence</th>
+                        <th>Status</th>
+                        <th>Set by</th>
+                        <th>created_at</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($reportingConfidence as $i)
+                        <tr>
+                          <td>{{ ++$noo }}</td>
+                          <td>{{ $i->confidence }}</td>
+                          <td>
+                            @if($i->status==1)
+                             <label class="bg-success text-white rounded p-1 d-flex align-items-stretch justify-content-stretch mt-1">Active</label>
+                            @else
+                             <label class="bg-warning text-white rounded p-1 d-flex align-items-stretch justify-content-stretch mt-1">Not active</label>
+                            @endif
+                          </td>
+                          <td>{{ $i->set_by }}</td>
+                          <td>{{ \Carbon\Carbon::parse($i->created_at)->format('Y-m-d') }}</td>
+                          <td>
+                            <div class="input-group-prepend">
+                              <button class="btn btn-sm btn-outline-success" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">...</button>
+                              <div class="dropdown-menu">
+                                @if($i->status==0)
+                                <a class="dropdown-item" href="{{ url('activateConfidence/'.$i->id) }}"><i class="fa fa-check-circle" aria-hidden="true"></i>&nbsp; Activate</a>
+                                @else
+                                <a class="dropdown-item" href="{{ url('deactivateConfidence/'.$i->id) }}"><i class="fa fa-times-circle" aria-hidden="true"></i>&nbsp; Deactivate</a>
+                                @endif
+                                @can('delete-disease')
+                                <a class="dropdown-item" href="{{ url('deleteConfidence/'.$i->id) }}"><i class="fa fa-trash" aria-hidden="true"></i>&nbsp; {{ __('msg.delete') }}</a>
+                                @endcan
+                              </div>
+                            </div>
+                          </td>
+                        </tr>
+                      @endforeach
+                    </tbody>
+                  </table>
+                  </div>
+                </div>
+              </div>
             </div>
            </div>
         </div>
@@ -389,25 +465,99 @@ $(document).ready(function() {
         {
             extend: 'copy',
             exportOptions: {
-                columns: [0, 1, 2, 3] // Include columns 1-5
+                columns: [0, 1, 2, 3, 4, 5] 
             }
         },
         {
             extend: 'csv',
             exportOptions: {
-                columns: [0, 1, 2, 3] // Include columns 1-5
+                columns: [0, 1, 2, 3, 4, 5] 
             }
         },
         {
             extend: 'excel',
             exportOptions: {
-                columns: [0, 1, 2, 3] // Include columns 1-5
+                columns: [0, 1, 2, 3, 4, 5] 
             }
         },
         {
             extend: 'pdf',
             exportOptions: {
-                columns: [0, 1, 2, 3] // Include columns 1-5
+                columns: [0, 1, 2, 3, 4, 5] 
+            }
+        },
+        {
+            extend: 'print',
+            exportOptions: {
+                columns: [0, 1, 2, 3, 4, 5] 
+            }
+        }
+    ]
+    });
+ 
+    // Refilter the table
+    $('#min, #max').on('change', function () {
+        table.draw();
+    });
+});
+</script>
+<script>
+        var minDate, maxDate;
+ 
+// Custom filtering function which will search data in column four between two values
+$.fn.dataTable.ext.search.push(
+    function( settings, data, dataIndex ) {
+        var min = minDate.val();
+        var max = maxDate.val();
+        var date = new Date( data[3] );
+ 
+        if (
+            ( min === null && max === null ) ||
+            ( min === null && date <= max ) ||
+            ( min <= date   && max === null ) ||
+            ( min <= date   && date <= max )
+        ) {
+            return true;
+        }
+        return false;
+    }
+);
+ 
+$(document).ready(function() {
+    // Create date inputs
+    minDate = new DateTime($('#min'), {
+        format: 'MMMM Do YYYY'
+    });
+    maxDate = new DateTime($('#max'), {
+        format: 'MMMM Do YYYY'
+    });
+ 
+    // DataTables initialisation with Buttons extension
+    var table = $('#ConfidenceTable').DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+        {
+            extend: 'copy',
+            exportOptions: {
+                columns: [0, 1, 2, 3, 4] 
+            }
+        },
+        {
+            extend: 'csv',
+            exportOptions: {
+                columns: [0, 1, 2, 3, 4] 
+            }
+        },
+        {
+            extend: 'excel',
+            exportOptions: {
+                columns: [0, 1, 2, 3, 4] 
+            }
+        },
+        {
+            extend: 'pdf',
+            exportOptions: {
+                columns: [0, 1, 2, 3, 4] 
             }
         },
         {
@@ -424,7 +574,7 @@ $(document).ready(function() {
         table.draw();
     });
 });
-    </script>
+</script>
 <script>
   document.getElementById("this-month-link").addEventListener("click", function(event) {
     event.preventDefault(); // Prevent the default link behavior
@@ -554,7 +704,7 @@ var yearlyChart = new Chart(yearlyCtx, {
   // Initialize the Leaflet map
   var map = L.map('map', {
     minZoom: 9,
-    maxZoom: 20
+    maxZoom: 30
   }).setView([-1.9403, 29.8739], 9);
 
   // Add a tile layer from OpenStreetMap
@@ -583,11 +733,6 @@ var yearlyChart = new Chart(yearlyCtx, {
       iconAnchor: [15, 50],
     });
 
-    @foreach ($districts as $district)
-      var marker = L.marker([{{ $district['latitude'] }}, {{ $district['longitude'] }}], { icon: pinIcon }).addTo(map);
-      marker.bindPopup("{{ $district['name'] }}");
-    @endforeach
-
     // Add markers for each disease
     var diseaseIcon = L.icon({
       iconUrl: '/Images/pin-icon.png',
@@ -607,17 +752,17 @@ var yearlyChart = new Chart(yearlyCtx, {
 
           if (existingMarker) {
             // If a marker already exists for the position, add the disease to the existing marker's popup content
-            existingMarker.popupContent += "<b>{{ $disease->disease_name }}</b><br>{{ $disease->disease_category }}<br><br>";
+            existingMarker.popupContent += "<b>{{ $disease->disease_name }}</b><br>{{ $disease->confidence }}<br><br>";
           } else {
             // If no marker exists for the position, create a new marker object and add it to the map
             var marker = L.marker(markerPosition, { icon: diseaseIcon }).addTo(map);
-            marker.bindPopup("<h3>All Diseases:</h3><b>{{ $disease->disease_name }}</b><br>{{ $disease->disease_category }}<br><br>");
+            marker.bindPopup("<h3>Realtime diseases:</h3><b>{{ $disease->disease_name }}</b><br><h5>Confidence:</h5>{{ $disease->confidence }}<br><br>");
 
             // Add the new marker and its initial popup content to the combinedDiseases array
             combinedDiseases.push({
               position: markerPosition,
               marker: marker,
-              popupContent: "<h3>All Diseases:</h3><b>{{ $disease->disease_name }}</b><br>{{ $disease->disease_category }}<br><br>"
+              popupContent: "<h3>Realtime diseases:</h3><b>{{ $disease->disease_name }}</b><br><h5>Confidence:</h5>{{ $disease->confidence }}<br><br>"
             });
           }
         @endforeach
@@ -647,7 +792,7 @@ var YearMonthlyCountsByDisease = {};
 
 DiseaseCounts.forEach(function(item) {
     var YearMonth = item.YearMonth;
-    var diseaseName = item.disease_name;
+    var diseaseName = item.predicted_class;
     var count = item.count;
 
     if (!YearMonthLabels.includes(YearMonth)) {
@@ -704,6 +849,43 @@ var YearMonthlyChart = new Chart(YearMonthlyCtx, {
     }
 });
 </script> 
+<script>
+$(document).ready(function() {
+
+  // When the confidence button is clicked, show the confidence modal
+  $('#confidence-button').click(function() {
+    $('#confidence-modal').modal('show');
+
+    // When the user clicks outside the confidence modal, close it
+    $(document).on('click', function(event) {
+      if (event.target === $('#confidence-modal')[0]) {
+        $('#confidence-modal').modal('hide');
+      }
+    });
+  });
+
+  // When the save button is clicked, save the confidence value
+  $('#save-confidence').click(function() {
+    var confidence = $('#confidence').val();
+
+    // Send the confidence value to the server
+    $.ajax({
+      url: '/registerNewConfidence',
+      data: {
+        confidence: confidence
+      },
+      success: function() {
+        // Success message
+        alert('Confidence saved successfully!');
+      },
+      error: function(error) {
+        // Error message
+        alert(error.responseText);
+      }
+    });
+  });
+});
+</script>
 </body>
 </html>
 

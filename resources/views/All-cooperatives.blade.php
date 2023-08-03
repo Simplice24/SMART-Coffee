@@ -53,23 +53,23 @@
                 <button type="button" class="btn btn-info font-weight-bold">+ Create New</button>
             </li> -->
           <li class="nav-item dropdown d-flex">
-          <div class="dropdown">
-  <a class="btn dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    {{ __('msg.languages') }}
-  </a>
+            <div class="dropdown">
+              <a class="btn dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                {{ __('msg.languages') }}
+              </a>
 
-  <ul class="dropdown-menu">
-    <a class="dropdown-item preview-item" href="<?=url('locale/en');?>">               
-    {{ __('msg.english') }}
-    </a>
-    <a class="dropdown-item preview-item" href="<?=url('locale/fr');?>">               
-    {{ __('msg.francais') }}
-    </a>
-    <a class="dropdown-item " href="<?=url('locale/kiny');?>">               
-         Ikinyarwanda
-    </a>
-  </ul>
-</div>
+              <ul class="dropdown-menu">
+                <a class="dropdown-item preview-item" href="<?=url('locale/en');?>">               
+                {{ __('msg.english') }}
+                </a>
+                <a class="dropdown-item preview-item" href="<?=url('locale/fr');?>">               
+                {{ __('msg.francais') }}
+                </a>
+                <a class="dropdown-item " href="<?=url('locale/kiny');?>">               
+                    Ikinyarwanda
+                </a>
+              </ul>
+            </div>
           </li>
           <li class="nav-item dropdown d-flex mr-4 ">
             <a class="nav-link count-indicator dropdown-toggle d-flex align-items-center justify-content-center" id="notificationDropdown" href="#" data-toggle="dropdown">
@@ -155,7 +155,7 @@
                     </a>
                 </li>
                 <li class="nav-item"> 
-                    <a class="nav-link text-white hover-white" href="#">
+                    <a class="nav-link text-white hover-white" href="<?=url('realtimediseases');?>">
                       <span class="menu-title">Realtime Report</span>
                     </a>
                 </li>
@@ -192,7 +192,7 @@
         <div class="row">
             <div class="col-sm-12 mb-4 mb-xl-0">
               @can('create-cooperative')
-            <li class="nav-item dropdown d-lg-flex d-none">
+              <li class="nav-item dropdown d-lg-flex d-none">
                 <a href="<?=url('registerNewCooperative');?>"><button type="button" class="btn btn-info font-weight-bold" style="margin-right: 20px">+{{__('msg.new cooperative')}}</button></a>
               </li>
               @endcan

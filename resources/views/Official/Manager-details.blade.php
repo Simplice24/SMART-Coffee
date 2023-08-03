@@ -45,23 +45,23 @@
                 <button type="button" class="btn btn-info font-weight-bold">+ Create New</button>
             </li> -->
           <li class="nav-item dropdown d-flex">
-          <div class="dropdown">
-  <a class="btn dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    {{ __('msg.languages') }}
-  </a>
+            <div class="dropdown">
+              <a class="btn dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                {{ __('msg.languages') }}
+              </a>
 
-  <ul class="dropdown-menu">
-    <a class="dropdown-item preview-item" href="<?=url('locale/en');?>">               
-    {{ __('msg.english') }}
-    </a>
-    <a class="dropdown-item preview-item" href="<?=url('locale/fr');?>">               
-    {{ __('msg.francais') }}
-    </a>
-    <a class="dropdown-item " href="<?=url('locale/kiny');?>">               
-         Ikinyarwanda
-    </a>
-  </ul>
-</div>
+              <ul class="dropdown-menu">
+                <a class="dropdown-item preview-item" href="<?=url('locale/en');?>">               
+                {{ __('msg.english') }}
+                </a>
+                <a class="dropdown-item preview-item" href="<?=url('locale/fr');?>">               
+                {{ __('msg.francais') }}
+                </a>
+                <a class="dropdown-item " href="<?=url('locale/kiny');?>">               
+                    Ikinyarwanda
+                </a>
+              </ul>
+            </div>
           </li>
           <li class="nav-item dropdown d-flex mr-4 ">
             <a class="nav-link count-indicator dropdown-toggle d-flex align-items-center justify-content-center" id="notificationDropdown" href="#" data-toggle="dropdown">
@@ -125,17 +125,26 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="<?=url('Official/Diseases');?>">
+            <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
               <i class="icon-command menu-icon"></i>
               <span class="menu-title">{{ __('msg.diseases') }}</span>
+              <i class="menu-arrow"></i>
             </a>
+            <div class="collapse" id="ui-basic">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item">
+                    <a class="nav-link text-white hover-white" href="<?=url('viewdiseases');?>">
+                      <span class="menu-title">Normal Report</span>
+                    </a>
+                </li>
+                <li class="nav-item"> 
+                    <a class="nav-link text-white hover-white" href="<?=url('Official/realtimediseases');?>">
+                      <span class="menu-title">Realtime Report</span>
+                    </a>
+                </li>
+              </ul>
+            </div>
           </li>
-          <!-- <li class="nav-item">
-            <a class="nav-link" href="<?=url('Official/Analytics');?>">
-              <i class="icon-bar-graph-2 menu-icon"></i>
-              <span class="menu-title">{{ __('msg.Analytics')}}</span>
-            </a>
-          </li> -->
         </ul>
       </nav>
       <!-- partial -->

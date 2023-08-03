@@ -149,7 +149,7 @@
                     </a>
                 </li>
                 <li class="nav-item"> 
-                    <a class="nav-link text-white hover-white" href="#">
+                    <a class="nav-link text-white hover-white" href="<?=url('realtimediseases');?>">
                       <span class="menu-title">Realtime Report</span>
                     </a>
                 </li>

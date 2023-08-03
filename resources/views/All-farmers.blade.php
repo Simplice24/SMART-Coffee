@@ -156,7 +156,7 @@
                     </a>
                 </li>
                 <li class="nav-item"> 
-                    <a class="nav-link text-white hover-white" href="#">
+                    <a class="nav-link text-white hover-white" href="<?=url('realtimediseases');?>">
                       <span class="menu-title">Realtime Report</span>
                     </a>
                 </li>
@@ -194,7 +194,7 @@
             <div class="col-sm-12 mb-4 mb-xl-0">
               @can('create-farmer')
             <li class="nav-item dropdown d-lg-flex d-none">
-                <a href="<?=url('registerNewFarmer');?>"><button type="button" class="btn btn-info font-weight-bold">+{{__('msg.new farmer')}}</button></a>
+            <a href="<?=url('registerNewFarmer');?>"><button type="button" class="btn btn-info font-weight-bold">+{{__('msg.new farmer')}}</button></a>
             </li>
             @endcan
             </div>

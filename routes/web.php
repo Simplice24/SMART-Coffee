@@ -152,11 +152,23 @@ Route::post('registerNewDisease',[DiseaseController::class, 'DiseaseRegistration
 
 Route::get("diseaseDetails/{id}",[DiseaseController::class,'DiseaseDetailsPage']);
 
+Route::get("realtimediseasedetails/{id}",[DiseaseController::class,'RealtimeDiseaseDetailsPage']);
+
+Route::post('registerNewConfidence',[DiseaseController::class,'ConfidenceRegistration']);
+
 Route::get("diseaseDetails/updateDisease/{id}",[DiseaseController::class,'DiseaseUpdatePage']);
 
 Route::put("updateDis/{id}",[DiseaseController::class,'DiseaseUpdate']);
 
 Route::get('deletedisease/{id}',[UserController::class,'DeleteDisease']); 
+
+Route::get('realtimedeletedisease/{id}',[DiseaseController::class,'DeleteRealtimeDisease']);
+
+Route::get('activateConfidence/{id}',[DiseaseController::class,'activateConfidence']);
+
+Route::get('deactivateConfidence/{id}',[DiseaseController::class,'deactivateConfidence']);
+
+Route::get('deleteConfidence/{id}',[DiseaseController::class,'deleteConfidence']);
 
 Route::get('CooperativeDiseaseDetails/{id}',[DiseaseController::class,'CooperativeDiseaseDetails']);
 
